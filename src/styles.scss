@@ -1,1 +1,11 @@
 @use "tailwindcss";
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: auto;
+    overflow: visible;
+    touch-action: manipulation;
+    background-color: #1e293b;
+}
