@@ -5,6 +5,9 @@ import { Meta, Title } from '@angular/platform-browser';
   providedIn: 'root',
 })
 export class MetaService {
+  private readonly baseUrl = 'https://adriancabello.dev';
+  private readonly imageUrl = 'https://adriancabello.dev/assets/images/ghibli.jpeg';
+
   constructor(
     private meta: Meta,
     private title: Title
@@ -35,7 +38,7 @@ export class MetaService {
     this.meta.updateTag({ property: 'og:type', content: 'website' });
     this.meta.updateTag({
       property: 'og:url',
-      content: 'https://adriancabello.com/',
+      content: this.baseUrl,
     });
     this.meta.updateTag({
       property: 'og:title',
@@ -48,7 +51,7 @@ export class MetaService {
     });
     this.meta.updateTag({
       property: 'og:image',
-      content: 'assets/images/ghibli.jpeg',
+      content: this.imageUrl,
     });
 
     // Twitter
@@ -58,7 +61,7 @@ export class MetaService {
     });
     this.meta.updateTag({
       property: 'twitter:url',
-      content: 'https://adriancabello.com/',
+      content: this.baseUrl,
     });
     this.meta.updateTag({
       property: 'twitter:title',
@@ -71,7 +74,7 @@ export class MetaService {
     });
     this.meta.updateTag({
       property: 'twitter:image',
-      content: 'assets/images/ghibli.jpeg',
+      content: this.imageUrl,
     });
 
     // Additional Meta Tags
