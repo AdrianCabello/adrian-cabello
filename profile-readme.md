@@ -1,7 +1,7 @@
 # 👋 Hi, I'm Adrian Cabello
 
 <div align="center">
-  <img src="https://adriancabello.dev/assets/images/ghibli.jpeg" alt="Adrian Cabello" width="200" style="border-radius: 50%;" />
+  <img src="https://adriancabello.dev/assets/images/ghibli.png" alt="Adrian Cabello" width="200" style="border-radius: 50%;" />
   
   [![Website](https://img.shields.io/badge/Website-adriancabello.dev-blue?style=flat-square&logo=google-chrome)](https://adriancabello.dev)
   [![LinkedIn](https://img.shields.io/badge/LinkedIn-Adrian_Cabello-blue?style=flat-square&logo=linkedin)](https://linkedin.com/in/adrian-cabello)

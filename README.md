@@ -1,6 +1,6 @@
 # Adrian Cabello - Portfolio
 
-![Portfolio Preview](src/assets/images/ghibli.jpeg)
+![Portfolio Preview](src/assets/images/ghibli.png)
 
 ## 🚀 Overview
 
