@@ -53,28 +53,48 @@ export class MetaService {
       property: 'og:image',
       content: this.imageUrl,
     });
-
-    // Twitter
     this.meta.updateTag({
-      property: 'twitter:card',
-      content: 'summary_large_image',
+      property: 'og:image:width',
+      content: '1200',
     });
     this.meta.updateTag({
-      property: 'twitter:url',
-      content: this.baseUrl,
+      property: 'og:image:height',
+      content: '630',
     });
     this.meta.updateTag({
-      property: 'twitter:title',
+      property: 'og:image:alt',
       content: 'Adrian Cabello - Senior Frontend Developer',
     });
     this.meta.updateTag({
-      property: 'twitter:description',
+      property: 'og:site_name',
+      content: 'Adrian Cabello Portfolio',
+    });
+
+    // Twitter
+    this.meta.updateTag({
+      name: 'twitter:card',
+      content: 'summary_large_image',
+    });
+    this.meta.updateTag({
+      name: 'twitter:url',
+      content: this.baseUrl,
+    });
+    this.meta.updateTag({
+      name: 'twitter:title',
+      content: 'Adrian Cabello - Senior Frontend Developer',
+    });
+    this.meta.updateTag({
+      name: 'twitter:description',
       content:
         'Senior Frontend Developer specializing in Angular with 8+ years of experience. Expert in building scalable web applications with clean architecture and high performance.',
     });
     this.meta.updateTag({
-      property: 'twitter:image',
+      name: 'twitter:image',
       content: this.imageUrl,
+    });
+    this.meta.updateTag({
+      name: 'twitter:image:alt',
+      content: 'Adrian Cabello - Senior Frontend Developer',
     });
 
     // Additional Meta Tags
@@ -83,5 +103,11 @@ export class MetaService {
     this.meta.updateTag({ name: 'language', content: 'English' });
     this.meta.updateTag({ name: 'revisit-after', content: '7 days' });
     this.meta.updateTag({ name: 'generator', content: 'Angular' });
+    
+    // WhatsApp specific
+    this.meta.updateTag({
+      property: 'og:image:secure_url',
+      content: this.imageUrl,
+    });
   }
 }
