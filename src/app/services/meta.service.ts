@@ -6,7 +6,7 @@ import { Meta, Title } from '@angular/platform-browser';
 })
 export class MetaService {
   private readonly baseUrl = 'https://adriancabello.dev';
-  private readonly imageUrl = 'https://i.imgur.com/SEBUvHh.jpg';
+  private readonly imageUrl = 'https://adriancabello.dev/assets/images/ghibli.jpeg';
 
   constructor(
     private meta: Meta,
