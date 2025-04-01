@@ -6,7 +6,7 @@ import { Meta, Title } from '@angular/platform-browser';
 })
 export class MetaService {
   private readonly baseUrl = 'https://adriancabello.dev';
-  private readonly imageUrl = 'https://i.ibb.co/VvC0vpN/test-image.png';
+  private readonly imageUrl = 'https://i.imgur.com/SEBUvHh.jpg';
 
   constructor(
     private meta: Meta,
@@ -52,6 +52,10 @@ export class MetaService {
     this.meta.updateTag({
       property: 'og:image',
       content: this.imageUrl,
+    });
+    this.meta.updateTag({
+      property: 'og:image:type',
+      content: 'image/jpeg',
     });
     this.meta.updateTag({
       property: 'og:image:width',
@@ -108,6 +112,10 @@ export class MetaService {
     this.meta.updateTag({
       property: 'og:image:secure_url',
       content: this.imageUrl,
+    });
+    this.meta.updateTag({
+      property: 'og:image:type',
+      content: 'image/jpeg',
     });
   }
 }
