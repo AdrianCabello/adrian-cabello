@@ -33,7 +33,7 @@
               "src/styles.scss"
             ],
             "scripts": [],
-            "baseHref": "/adrian-cabello/"
+            "baseHref": "/"
           },
           "configurations": {
             "production": {
