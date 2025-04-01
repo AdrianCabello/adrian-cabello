@@ -1,7 +1,5 @@
 # Adrian Cabello - Portfolio
 
-![Portfolio Preview](src/assets/images/ghibli.png)
-
 ## 🚀 Overview
 
 Personal portfolio website built with Angular 19, showcasing my experience as a Senior Frontend Developer and Tech Leader. The site features a modern, responsive design with smooth animations and SEO optimization.
