@@ -1,0 +1,8 @@
+dist
+node_modules
+.angular
+.git
+.github
+package-lock.json
+yarn.lock
+pnpm-lock.yaml 

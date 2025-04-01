@@ -1,54 +1,71 @@
-<div class="w-full px-2 md:px-6 py-2">
-    <div class="mx-auto max-w-7xl bg-gray-800/80 backdrop-blur-sm border border-gray-700 rounded-2xl p-6 shadow-2xl">
-        <!-- Título principal -->
-        <h2 class="text-2xl font-semibold text-white mb-6 flex items-center justify-between">
-            Professional Experience
+<div class="w-full px-2 py-2 md:px-6">
+  <div
+    class="mx-auto max-w-7xl rounded-2xl border border-gray-700 bg-gray-800/80 p-6 shadow-2xl backdrop-blur-sm">
+    <!-- Título principal -->
+    <h2
+      class="mb-6 flex items-center justify-between text-2xl font-semibold text-white">
+      Professional Experience
+    </h2>
+    <div
+      *ngFor="let exp of experiences(); let i = index; trackBy: trackByTitle"
+      class="relative mb-6 cursor-pointer border-l-2 border-blue-500 pl-8 dark:border-blue-400">
+      <div
+        class="absolute -left-[9px] top-2 h-4 w-4 rounded-full bg-blue-500 dark:bg-blue-400"></div>
 
-        </h2>
-        <div *ngFor="let exp of experiences(); let i = index; trackBy: trackByTitle"
-            class="relative pl-8 border-l-2 border-blue-500 dark:border-blue-400 mb-6 cursor-pointer">
-            <div class="absolute -left-[9px] top-2 w-4 h-4 rounded-full bg-blue-500 dark:bg-blue-400"></div>
-
-            <button class="flex justify-between w-full text-left cursor-pointer" (click)="toggle(i)">
-
-                <div>
-                    <div class="flex items-center gap-4 mb-2">
-                        <img *ngIf="exp.logoUrl" [src]="exp.logoUrl" [alt]="exp.company + ' logo'"
-                            class="w-10 h-10 object-contain rounded-md border border-gray-200 dark:border-gray-600 " />
-                        <div>
-                            <h3 class="text-xl font-semibold text-gray-800 dark:text-white">{{ exp.title }}</h3>
-                            <p class="text-gray-600 dark:text-gray-300 hidden md:block">{{ exp.company }} • {{ exp.period
-                                }}</p>
-                        </div>
-                        
-                    </div>
-                    <p class="text-gray-600 dark:text-gray-300 block md:hidden">{{ exp.company }} • {{ exp.period
-                                }}</p>
-                    <p class="text-gray-600 dark:text-gray-400">{{ exp.description }}</p>
-                </div>
-
-            </button>
-
-            <div *ngIf="exp.isOpen" @expandCollapse class="mt-4 space-y-4 ">
-                <!-- Proyectos -->
-                <div *ngIf="exp.projects?.length">
-                    <div *ngFor="let project of exp.projects" class="mt-4">
-                        <h4 class="text-lg font-semibold text-gray-800 dark:text-white">{{ project.name }}</h4>
-                        <p class="text-gray-600 dark:text-gray-400">{{ project.summary }}</p>
-                        <ul class="list-disc pl-6 mt-2 space-y-1 text-gray-600 dark:text-gray-400">
-                            <li *ngFor="let item of project.responsibilities">{{ item }}</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div *ngIf="exp.responsibilities?.length && !exp.projects?.length" class="mt-4">
-                    <h4 class="text-lg font-semibold text-gray-800 dark:text-white mb-2">Key Contributions &
-                        Responsibilities:</h4>
-                    <ul class="list-disc pl-6 space-y-1 text-gray-600 dark:text-gray-400">
-                        <li *ngFor="let item of exp.responsibilities">{{ item }}</li>
-                    </ul>
-                </div>
+      <button
+        class="flex w-full cursor-pointer justify-between text-left"
+        (click)="toggle(i)">
+        <div>
+          <div class="mb-2 flex items-center gap-4">
+            <img
+              *ngIf="exp.logoUrl"
+              [src]="exp.logoUrl"
+              [alt]="exp.company + ' logo'"
+              class="h-10 w-10 rounded-md border border-gray-200 object-contain dark:border-gray-600" />
+            <div>
+              <h3 class="text-xl font-semibold text-gray-800 dark:text-white">
+                {{ exp.title }}
+              </h3>
+              <p class="hidden text-gray-600 md:block dark:text-gray-300">
+                {{ exp.company }} • {{ exp.period }}
+              </p>
             </div>
+          </div>
+          <p class="block text-gray-600 md:hidden dark:text-gray-300">
+            {{ exp.company }} • {{ exp.period }}
+          </p>
+          <p class="text-gray-600 dark:text-gray-400">{{ exp.description }}</p>
         </div>
+      </button>
+
+      <div *ngIf="exp.isOpen" @expandCollapse class="mt-4 space-y-4">
+        <!-- Proyectos -->
+        <div *ngIf="exp.projects?.length">
+          <div *ngFor="let project of exp.projects" class="mt-4">
+            <h4 class="text-lg font-semibold text-gray-800 dark:text-white">
+              {{ project.name }}
+            </h4>
+            <p class="text-gray-600 dark:text-gray-400">
+              {{ project.summary }}
+            </p>
+            <ul
+              class="mt-2 list-disc space-y-1 pl-6 text-gray-600 dark:text-gray-400">
+              <li *ngFor="let item of project.responsibilities">{{ item }}</li>
+            </ul>
+          </div>
+        </div>
+
+        <div
+          *ngIf="exp.responsibilities?.length && !exp.projects?.length"
+          class="mt-4">
+          <h4 class="mb-2 text-lg font-semibold text-gray-800 dark:text-white">
+            Key Contributions & Responsibilities:
+          </h4>
+          <ul class="list-disc space-y-1 pl-6 text-gray-600 dark:text-gray-400">
+            <li *ngFor="let item of exp.responsibilities">{{ item }}</li>
+          </ul>
+        </div>
+      </div>
     </div>
+  </div>
 </div>

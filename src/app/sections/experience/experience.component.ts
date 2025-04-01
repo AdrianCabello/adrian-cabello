@@ -22,9 +22,7 @@ import { animate } from '@angular/animations';
   ],
 })
 export class ExperienceComponent {
-
   readonly experiences = signal([
-
     {
       title: 'Senior Frontend Developer',
       company: 'Scanntech',
@@ -42,45 +40,48 @@ export class ExperienceComponent {
         'Ensured high accessibility and responsiveness, adapting to various devices.',
         'Tech stack: Angular 19, TypeScript, RxJS, Signals API, HTML5, CSS3, SASS.',
       ],
-      projects: []
+      projects: [],
     },
     {
       title: 'Senior Frontend Developer',
       company: 'Halo Media LLC',
-      period: 'Jun 2022 – Apr 2024', 
+      period: 'Jun 2022 – Apr 2024',
       logoUrl: '../../../../assets/logos/halo.jpeg',
       isOpen: false,
       description: `Worked on multiple AI-powered and investment-oriented web platforms for Mercer, including RFP, Mercer Mind, Catalytic Investment Exchange, and the Mercer homepage. Focused on building scalable, testable, and responsive frontend solutions using Angular and RxJS.`,
       projects: [
         {
           name: 'Mercer | RFP',
-          summary: 'Developed an AI-powered platform that allows users to upload files with questions and receive AI-generated responses.',
+          summary:
+            'Developed an AI-powered platform that allows users to upload files with questions and receive AI-generated responses.',
           responsibilities: [
             'Led the front-end team and built the application from scratch.',
             'Developed a file upload system and integrated real-time AI responses.',
             'Ensured 80%+ unit test coverage for stability.',
             'Tech stack: Angular 17, TypeScript, RxJS, HTML5, CSS3, SASS.',
-          ]
+          ],
         },
         {
           name: 'Mercer | Mercer Mind',
-          summary: 'Created an AI chatbot that enables customers to interact with a virtual assistant trained on company data.',
+          summary:
+            'Created an AI chatbot that enables customers to interact with a virtual assistant trained on company data.',
           responsibilities: [
             'Developed a real-time chat interface with AI-driven responses.',
             'Used RxJS for state management and secured authentication.',
             'Maintained 80%+ unit test coverage for reliability.',
             'Tech stack: Angular 16, TypeScript, RxJS, HTML5, CSS3, SASS.',
-          ]
+          ],
         },
         {
           name: 'Mercer | Catalytic Investment Exchange',
-          summary: 'An online platform connecting investors and dealmakers for investment opportunities.',
+          summary:
+            'An online platform connecting investors and dealmakers for investment opportunities.',
           responsibilities: [
             'Designed and built the UI from scratch, optimizing user workflows.',
             'Implemented real-time messaging, notifications, and secure authentication.',
             '80%+ unit test coverage for code stability.',
             'Tech stack: Angular 14, TypeScript, RxJS, HTML5, CSS3, SASS.',
-          ]
+          ],
         },
         {
           name: 'Mercer | Homepage',
@@ -90,9 +91,9 @@ export class ExperienceComponent {
             'Built dynamic content sections and improved SEO.',
             '80%+ unit test coverage for maintainability.',
             'Tech stack: Angular 12, TypeScript, HTML5, CSS3, SASS.',
-          ]
-        }
-      ]
+          ],
+        },
+      ],
     },
     {
       title: 'Senior Frontend Developer',
@@ -111,7 +112,7 @@ export class ExperienceComponent {
         'Maintained 80%+ unit test coverage for new and refactored functionalities using Jasmine.',
         'Resolved bugs and performance issues, enhancing overall platform stability.',
         'Tech stack: Angular 11, Redux, HTML5, CSS3, SASS, RESTful services, and Jasmine.',
-      ]
+      ],
     },
     {
       title: 'Semi-Sr Frontend Developer',
@@ -129,7 +130,7 @@ export class ExperienceComponent {
         'Ensured 80%+ unit test coverage on new and refactored code using Jasmine, improving software reliability.',
         'Collaborated within a cross-functional team of over 100 developers, designers, and product managers, following Agile methodologies.',
         'Worked with a modern tech stack: Angular 9, Redux, Store, HTML5, CSS3, SASS, and RESTful APIs.',
-      ]
+      ],
     },
     {
       title: 'Frontend Developer',
@@ -141,7 +142,8 @@ export class ExperienceComponent {
       projects: [
         {
           name: 'Client: Commodity Finance',
-          summary: 'Built a secure inventory loan processing system that connects lenders and merchants through digital documentation, streamlining the origination, servicing, and distribution of commodity inventory financing.',
+          summary:
+            'Built a secure inventory loan processing system that connects lenders and merchants through digital documentation, streamlining the origination, servicing, and distribution of commodity inventory financing.',
           responsibilities: [
             'Implemented authentication using Redux & LocalStorage.',
             'Developed user registration and account management features.',
@@ -156,11 +158,12 @@ export class ExperienceComponent {
             'Integrated Google Analytics for usage tracking.',
             'Maintained 80%+ unit test coverage on new and refactored code.',
             'Tech stack: Angular 7, Jasmine, HTML5, CSS3, SASS, RESTful services.',
-          ]
+          ],
         },
         {
           name: 'Client: OCP',
-          summary: 'Developed a platform to better understand customers, measure in-store traffic, manage the sales force, and execute personalized promotions—all in one tool.',
+          summary:
+            'Developed a platform to better understand customers, measure in-store traffic, manage the sales force, and execute personalized promotions—all in one tool.',
           responsibilities: [
             'Implemented authentication using LocalStorage.',
             'Developed user registration and authentication features.',
@@ -170,10 +173,10 @@ export class ExperienceComponent {
             'Developed an item listing system with filtering and pagination.',
             'Integrated a role-based access control system.',
             'Tech stack: Angular 4, HTML5, CSS3, SASS, RESTful services.',
-          ]
-        }
-      ]
-    }
+          ],
+        },
+      ],
+    },
   ]);
 
   toggle(index: number) {
@@ -183,5 +186,4 @@ export class ExperienceComponent {
   }
 
   trackByTitle = (_: number, exp: { title: string }) => exp.title;
-
 }

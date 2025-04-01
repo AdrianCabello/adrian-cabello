@@ -1,66 +1,104 @@
 <header
-    class="fixed top-0 left-0 right-0 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md z-20 border-b border-gray-200 dark:border-gray-700 shadow-sm">
-    <div class="max-w-7xl mx-auto px-4 ">
-        <div class="flex justify-between items-center h-16">
-            <!-- Logo -->
-            <div class="flex items-center">
-                <span class="text-xl font-bold text-gray-800 dark:text-white">AC</span>
-                <span class="ml-2 text-gray-600 dark:text-gray-300 ">Adrian Cabello</span>
-            </div>
+  class="fixed left-0 right-0 top-0 z-20 border-b border-gray-200 bg-white/80 shadow-sm backdrop-blur-md dark:border-gray-700 dark:bg-gray-900/80">
+  <div class="mx-auto max-w-7xl px-4">
+    <div class="flex h-16 items-center justify-between">
+      <!-- Logo -->
+      <div class="flex items-center">
+        <span class="text-xl font-bold text-gray-800 dark:text-white">AC</span>
+        <span class="ml-2 text-gray-600 dark:text-gray-300"
+          >Adrian Cabello</span
+        >
+      </div>
 
-            <!-- Mobile menu button -->
-            <button (click)="toggleMenu()"
-                class="md:hidden p-2 rounded-md text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none"
-                aria-label="Toggle menu">
-                <svg *ngIf="!isMobileMenuOpen" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
-                    viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
-                <svg *ngIf="isMobileMenuOpen" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
-                    viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-            </button>
+      <!-- Mobile menu button -->
+      <button
+        (click)="toggleMenu()"
+        class="rounded-md p-2 text-gray-600 hover:bg-gray-100 focus:outline-none md:hidden dark:text-gray-300 dark:hover:bg-gray-800"
+        aria-label="Toggle menu">
+        <svg
+          *ngIf="!isMobileMenuOpen"
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-6 w-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+        <svg
+          *ngIf="isMobileMenuOpen"
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-6 w-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
 
-            <!-- Desktop Navigation -->
-            <nav class="hidden md:flex space-x-8">
-                <a href="#" class="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white">Home</a>
-<!--                 <a href="#projects"
+      <!-- Desktop Navigation -->
+      <nav class="hidden space-x-8 md:flex">
+        <a
+          href="#"
+          class="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
+          >Home</a
+        >
+        <!--                 <a href="#projects"
                     class="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white">Projects</a> -->
-                <a href="#experience"
-                    class="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white">Experience</a>
-                <a href="#education"
-                    class="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white">Education</a>
-          <!--       <a href="#contact"
+        <a
+          href="#experience"
+          class="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
+          >Experience</a
+        >
+        <a
+          href="#education"
+          class="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
+          >Education</a
+        >
+        <!--       <a href="#contact"
                     class="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white">Contact</a> -->
-            </nav>
-        </div>
+      </nav>
     </div>
+  </div>
 
-    <!-- Mobile Navigation -->
-    <div [@menuAnimation]="isMobileMenuOpen ? 'open' : 'closed'"
-        class="md:hidden  border-b border-gray-200 dark:border-gray-700 overflow-hidden">
-        <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            <a href="#" (click)="closeMenu()"
-                class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800">
-                Home
-            </a>
-         <!--    <a href="#projects" (click)="closeMenu()"
+  <!-- Mobile Navigation -->
+  <div
+    [@menuAnimation]="isMobileMenuOpen ? 'open' : 'closed'"
+    class="overflow-hidden border-b border-gray-200 md:hidden dark:border-gray-700">
+    <div class="space-y-1 px-2 pb-3 pt-2 sm:px-3">
+      <a
+        href="#"
+        (click)="closeMenu()"
+        class="block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800">
+        Home
+      </a>
+      <!--    <a href="#projects" (click)="closeMenu()"
                 class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800">
                 Projects
             </a> -->
-            <a href="#experience" (click)="closeMenu()"
-                class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800">
-                Experience
-            </a>
-            <a href="#education" (click)="closeMenu()"
-                class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800">
-                Education
-            </a>
-          <!--   <a href="#contact" (click)="closeMenu()"
+      <a
+        href="#experience"
+        (click)="closeMenu()"
+        class="block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800">
+        Experience
+      </a>
+      <a
+        href="#education"
+        (click)="closeMenu()"
+        class="block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800">
+        Education
+      </a>
+      <!--   <a href="#contact" (click)="closeMenu()"
                 class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800">
                 Contact
             </a> -->
-        </div>
     </div>
+  </div>
 </header>

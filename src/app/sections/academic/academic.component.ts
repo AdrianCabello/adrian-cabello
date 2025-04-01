@@ -12,7 +12,10 @@ import { CommonModule } from '@angular/common';
     trigger('fadeSlideIn', [
       transition(':enter', [
         style({ opacity: 0, transform: 'translateY(20px)' }),
-        animate('0.5s 0.7s ease-out', style({ opacity: 1, transform: 'translateY(0)' })),
+        animate(
+          '0.5s 0.7s ease-out',
+          style({ opacity: 1, transform: 'translateY(0)' })
+        ),
       ]),
     ]),
     trigger('expandCollapse', [
@@ -34,21 +37,24 @@ export class AcademicComponent {
       title: 'University Technician in Computer Applications',
       institution: 'UNICEN - Tandil, Argentina',
       date: '2015 - 2018 (Graduated)',
-      description: 'Development focused program with practical applications in computer science.',
+      description:
+        'Development focused program with practical applications in computer science.',
       color: 'green',
     },
     {
       title: 'Software Engineering',
       institution: 'UNICEN - Tandil, Argentina',
       date: '2012 - 2015',
-      description: 'Foundational studies in software engineering principles and practices.',
+      description:
+        'Foundational studies in software engineering principles and practices.',
       color: 'green',
     },
     {
       title: 'Professional & Personal Computer Technician',
       institution: 'School of Technical Education Nº3 - Necochea, Argentina',
       date: 'Graduated 2011',
-      description: 'Technical education focused on computer systems and maintenance.',
+      description:
+        'Technical education focused on computer systems and maintenance.',
       color: 'green',
     },
   ];
@@ -161,6 +167,6 @@ export class AcademicComponent {
       color: 'green',
       logo: '../../../assets/logos/udemy_logo.jpeg',
       url: 'https://www.udemy.com/certificate/UC-X1AZGGM5', // Si tenés el ID, te lo agrego al final
-    }
+    },
   ];
 }
