@@ -1,7 +1,21 @@
 <div class="w-full px-2 py-4 md:px-6">
   <div class="mx-auto max-w-7xl rounded-2xl border border-gray-700 bg-gray-800/80 p-6 shadow-2xl backdrop-blur-sm">
     <div class="flex flex-col items-center gap-4 md:gap-6 lg:flex-row">
-      <img src="./assets/images/ghibli.png" alt="Adrian Cabello" class="mb-4 max-h-[360px] rounded-full shadow-md" />
+  
+        <!-- Skeleton -->
+        <div *ngIf="isLoading" 
+          class="max-h-[360px] rounded-full bg-gray-700 animate-pulse">
+        </div>
+        <!-- Image -->
+        <img 
+          src="./assets/images/ghibli.png" 
+          alt="Adrian Cabello" 
+          class="mb-4 max-h-[360px] rounded-full shadow-md transition-opacity duration-300"
+          [class.opacity-0]="isLoading"
+          [class.opacity-100]="!isLoading"
+          (load)="onImageLoad()"
+        />
+   
       <div>
         <div class="text-center md:text-left">
           <h1 class="text-3xl font-bold text-white">
