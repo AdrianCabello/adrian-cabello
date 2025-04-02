@@ -6,6 +6,7 @@ import { HeaderComponent } from './shared/components/header/header.component';
 import { ExperienceComponent } from './sections/experience/experience.component';
 import { AcademicComponent } from './sections/academic/academic.component';
 import { FooterComponent } from './sections/footer/footer.component';
+import { ProjectsComponent } from './sections/projects/projects.component';
 @Component({
   selector: 'app-root',
   imports: [
@@ -14,6 +15,7 @@ import { FooterComponent } from './sections/footer/footer.component';
     ExperienceComponent,
     AcademicComponent,
     FooterComponent,
+    ProjectsComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',

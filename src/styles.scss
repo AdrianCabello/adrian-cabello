@@ -12,3 +12,17 @@ body {
   touch-action: manipulation;
   background-color: #1e293b;
 }
+
+/* Prevent text selection and zoom on double tap */
+* {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* Allow text selection in specific elements where needed */
+input, textarea {
+  -webkit-user-select: text;
+  user-select: text;
+}

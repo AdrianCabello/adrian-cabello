@@ -18,6 +18,18 @@
     "target": "ES2022",
     "module": "ES2022"
   },
+  "files": [
+    "src/main.ts",
+    "src/main.server.ts",
+    "src/server.ts"
+  ],
+  "include": [
+    "src/**/*.ts",
+    "src/app/app.config.server.ts",
+    "src/app/app.config.ts",
+    "src/app/app.routes.server.ts",
+    "src/app/app.routes.ts"
+  ],
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
