@@ -3,18 +3,26 @@
 @tailwind components;
 @tailwind utilities;
 
-html {
-  touch-action: manipulation;
-  -webkit-text-size-adjust: none;
+html, body {
+  touch-action: none;
+  -ms-touch-action: none;
+  -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  overscroll-behavior: none;
 }
 
 body {
   margin: 0;
   padding: 0;
   height: auto;
-  overflow: visible;
+  overflow-y: auto;
+  overflow-x: hidden;
   background-color: #1e293b;
-  touch-action: pan-y pinch-zoom;
+  position: fixed;
+  width: 100%;
+  height: 100%;
 }
 
 /* Prevent text selection and zoom on double tap */
@@ -23,7 +31,7 @@ body {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   user-select: none;
-  touch-action: manipulation;
+  touch-action: none;
 }
 
 /* Allow text selection in specific elements where needed */
@@ -31,6 +39,14 @@ input, textarea {
   -webkit-user-select: text;
   user-select: text;
   touch-action: auto;
+}
+
+/* Enable vertical scrolling on the main content */
+app-root {
+  display: block;
+  height: 100%;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* Prevent zoom on text */
