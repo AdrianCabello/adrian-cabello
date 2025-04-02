@@ -3,14 +3,18 @@
 @tailwind components;
 @tailwind utilities;
 
-html,
+html {
+  touch-action: manipulation;
+  -webkit-text-size-adjust: none;
+}
+
 body {
   margin: 0;
   padding: 0;
   height: auto;
   overflow: visible;
-  touch-action: manipulation;
   background-color: #1e293b;
+  touch-action: pan-y pinch-zoom;
 }
 
 /* Prevent text selection and zoom on double tap */
@@ -19,10 +23,18 @@ body {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   user-select: none;
+  touch-action: manipulation;
 }
 
 /* Allow text selection in specific elements where needed */
 input, textarea {
   -webkit-user-select: text;
   user-select: text;
+  touch-action: auto;
+}
+
+/* Prevent zoom on text */
+p, h1, h2, h3, h4, h5, h6, span, a {
+  touch-action: manipulation;
+  -webkit-text-size-adjust: 100%;
 }
