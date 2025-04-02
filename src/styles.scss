@@ -4,8 +4,8 @@
 @tailwind utilities;
 
 html, body {
-  touch-action: none;
-  -ms-touch-action: none;
+  touch-action: pan-y;
+  -ms-touch-action: pan-y;
   -webkit-text-size-adjust: 100%;
   -moz-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
@@ -16,7 +16,7 @@ html, body {
 body {
   margin: 0;
   padding: 0;
-  height: auto;
+  height: 100vh;
   overflow-y: auto;
   overflow-x: hidden;
   background-color: #1e293b;
@@ -31,7 +31,7 @@ body {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   user-select: none;
-  touch-action: none;
+  touch-action: pan-y;
 }
 
 /* Allow text selection in specific elements where needed */
