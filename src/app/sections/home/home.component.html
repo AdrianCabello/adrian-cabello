@@ -43,20 +43,28 @@
             </ul>
           </div>
 
-          <div class="mt-6 flex flex-col gap-4 md:flex-row">
-            <div class="flex gap-4">
-              <a href="../../../assets/cv/adrian-cabello-cv.pdf" download
-                class="inline-flex w-1/2 items-center justify-center rounded-lg bg-blue-600 px-6 py-3 text-sm font-medium text-white transition-colors duration-200 hover:bg-blue-700 md:w-auto">
-                Download CV
-              </a>
-              <a href="https://www.linkedin.com/in/adrian-cabello-b07290b8/" target="_blank"
-                class="inline-flex w-1/2 items-center justify-center rounded-lg bg-blue-600 px-6 py-3 text-sm font-medium text-white transition-colors duration-200 hover:bg-blue-700 md:w-auto">
-                Linkedin
-              </a>
-            </div>
+          <div class="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            <a href="../../../assets/cv/adrian-cabello-cv.pdf" download
+              class="inline-flex w-full items-center justify-center px-4 py-2.5 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors duration-200 shadow-md hover:shadow-lg active:scale-95 transform transition-transform">
+              <i-lucide [name]="Download" class="w-4 h-4 mr-2"></i-lucide>
+              Download CV
+            </a>
             <a href="mailto:c.adriancabello@gmail.com"
-              class="inline-flex w-full items-center justify-center rounded-lg bg-gray-700 px-6 py-3 text-center text-sm font-medium text-white transition-colors duration-200 hover:bg-gray-600 md:w-auto md:justify-start md:text-left">
+              class="inline-flex w-full items-center justify-center px-4 py-2.5 text-sm font-medium text-gray-700 dark:text-white bg-gray-200 dark:bg-gray-700 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-200 shadow-md hover:shadow-lg active:scale-95 transform transition-transform">
+              <i-lucide [name]="Mail" class="w-4 h-4 mr-2"></i-lucide>
               Let's Talk
+            </a>
+            <a href="https://www.linkedin.com/in/adrian-cabello-b07290b8/" target="_blank" rel="noopener noreferrer"
+              class="inline-flex w-full items-center justify-center px-4 py-2.5 text-sm font-medium text-white bg-blue-800 rounded-lg hover:bg-blue-900 transition-colors duration-200 shadow-md hover:shadow-lg active:scale-95 transform transition-transform"
+              aria-label="Visit LinkedIn profile">
+              <i-lucide [name]="Linkedin" class="w-4 h-4 mr-2"></i-lucide>
+              LinkedIn
+            </a>
+            <a href="https://github.com/adriancabello" target="_blank" rel="noopener noreferrer"
+              class="inline-flex w-full items-center justify-center px-4 py-2.5 text-sm font-medium text-white bg-gray-800 dark:bg-gray-900 rounded-lg hover:bg-gray-900 dark:hover:bg-black transition-colors duration-200 shadow-md hover:shadow-lg active:scale-95 transform transition-transform"
+              aria-label="Visit GitHub profile">
+              <i-lucide [name]="Github" class="w-4 h-4 mr-2"></i-lucide>
+              GitHub
             </a>
           </div>
         </div>
