@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
 
+interface GestureEvent extends Event {
+  scale: number;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -11,13 +15,14 @@ export class ZoomPreventionService {
   }
 
   private preventZoom(): void {
-    document.addEventListener('touchmove', (event) => {
-      if (event.scale !== 1) {
+    document.addEventListener('touchmove', (event: TouchEvent) => {
+      if ((event as unknown as GestureEvent).scale !== undefined && 
+          (event as unknown as GestureEvent).scale !== 1) {
         event.preventDefault();
       }
     }, { passive: false });
 
-    document.addEventListener('touchend', (event) => {
+    document.addEventListener('touchend', (event: TouchEvent) => {
       const now = Date.now();
       if (now - this.lastTouchEnd <= 300) {
         event.preventDefault();
@@ -25,15 +30,15 @@ export class ZoomPreventionService {
       this.lastTouchEnd = now;
     }, { passive: false });
 
-    document.addEventListener('gesturestart', (event) => {
+    document.addEventListener('gesturestart', (event: Event) => {
       event.preventDefault();
     }, { passive: false });
 
-    document.addEventListener('gesturechange', (event) => {
+    document.addEventListener('gesturechange', (event: Event) => {
       event.preventDefault();
     }, { passive: false });
 
-    document.addEventListener('gestureend', (event) => {
+    document.addEventListener('gestureend', (event: Event) => {
       event.preventDefault();
     }, { passive: false });
   }
