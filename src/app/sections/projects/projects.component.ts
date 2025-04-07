@@ -1,20 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ProjectsService, type Project } from '../../services/projects.service';
+
 @Component({
   selector: 'app-projects',
-  imports: [CommonModule],
   templateUrl: './projects.component.html',
-  styleUrl: './projects.component.scss'
+  standalone: true,
+  imports: [CommonModule]
 })
 export class ProjectsComponent {
-  projects = [
-    {
-      title: 'Eventloop',
-      description: 'EventLoop is a self-managed platform designed to simplify event organization. It allows users to manage everything from event publishing to ticket sales, offering full control, speed, and continuous support.',
-      tech: ['Angular 19', 'Tailwind', 'Go', 'PostgreSQL'],
-      link: 'https://eventloop.club',
-      image: '../../../assets/images/eventloop.png'
-    },
-
-  ];
+  private projectsService = inject(ProjectsService);
+  protected projects = this.projectsService.getProjects();
 }
