@@ -36,7 +36,7 @@ export class AcademicComponent {
     {
       title: 'University Technician in Computer Applications',
       institution: 'UNICEN - Tandil, Argentina',
-      date: '2015 - 2018 (Graduated)',
+      date: '2015 - 2018',
       description:
         'Development focused program with practical applications in computer science.',
       color: 'green',
