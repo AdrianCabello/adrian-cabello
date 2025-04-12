@@ -22,44 +22,30 @@
                 </div>
 
                 <div class="md:w-1/2">
-                    <h3 class="text-xl font-semibold text-white">{{ project.title }}</h3>
+                    <h3 class="text-2xl font-bold text-white">{{ project.title }}</h3>
+                    <p class="mt-4 text-lg text-gray-300">{{ project.description }}</p>
                     
-                    @if (project.clientName) {
-                    <p class="text-sm text-gray-400 mt-1">Client: {{ project.clientName }}</p>
-                    }
-                    
-                    <p class="mt-2 text-gray-200">{{ project.description }}</p>
-
-                    <div class="mt-4 flex flex-wrap gap-2">
+                    <div class="mt-6 flex flex-wrap gap-3">
                         @for (tech of project.tech; track tech) {
-                            <span class="px-2 py-1 bg-gray-600 text-gray-200 rounded text-xs">
-                                {{ tech }}
-                            </span>
+                        <span class="px-3 py-1.5 text-sm font-medium bg-gray-600 text-gray-200 rounded-full">
+                            {{ tech }}
+                        </span>
                         }
                     </div>
-
-                    <div class="mt-4 flex flex-wrap gap-3">
+                    
+                    <div class="mt-6 flex flex-col gap-3">
                         @if (project.website) {
-                        <a [href]="project.website" target="_blank"
-                            class="inline-flex items-center text-blue-400 hover:underline">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="mr-1 w-4 h-4" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
-                            </svg>
-                            Visit Website
+                        <a [href]="project.website" target="_blank" rel="noopener noreferrer"
+                            class="inline-flex items-center text-base text-blue-400 hover:text-blue-300">
+                            <fa-icon [icon]="faGlobe" class="w-5 h-5 mr-2 flex-shrink-0"></fa-icon>
+                            <span class="leading-5">{{ project.website.replace('https://', '') }}</span>
                         </a>
                         }
-                        
                         @if (project.instagram) {
-                        <a [href]="project.instagram" target="_blank"
-                            class="inline-flex items-center text-pink-400 hover:underline">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="mr-1 w-4 h-4" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M16.5 7.5h.01M12 16.5a4.5 4.5 0 100-9 4.5 4.5 0 000 9zm7.5-9a7.5 7.5 0 11-15 0 7.5 7.5 0 0115 0z" />
-                            </svg>
-                            Instagram
+                        <a [href]="project.instagram" target="_blank" rel="noopener noreferrer"
+                            class="inline-flex items-center text-base text-blue-400 hover:text-blue-300">
+                            <fa-icon [icon]="faInstagram" class="w-5 h-5 mr-2 flex-shrink-0"></fa-icon>
+                            <span class="leading-5">{{ project.instagram.replace('https://', '') }}</span>
                         </a>
                         }
                     </div>

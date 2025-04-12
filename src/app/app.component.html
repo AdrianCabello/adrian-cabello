@@ -1,8 +1,18 @@
-<app-header></app-header>
-<div class="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 pt-16">
-  <app-home id="home" class="scroll-mt-16"></app-home>
-  <app-projects id="projects" class="scroll-mt-16"></app-projects>
-  <app-experience id="experience" class="scroll-mt-16"></app-experience>
-  <app-academic id="education" class="scroll-mt-16"></app-academic>
-  <app-footer></app-footer>
+<div class="fixed inset-0 -z-10 overflow-hidden">
+  <!-- Background pattern with dots -->
+  <div class="absolute inset-0 bg-[radial-gradient(#4ade80_1px,transparent_1px)] bg-[size:40px_40px] opacity-10"></div>
+  
+  <!-- Floating decorative elements -->
+  <div class="absolute top-1/4 left-1/4 w-64 h-64 rounded-full bg-green-400/10 blur-xl animate-float"></div>
+  <div class="absolute top-3/4 right-1/4 w-96 h-96 rounded-full bg-green-400/10 blur-xl animate-float-delayed-1"></div>
+  <div class="absolute top-1/2 left-1/2 w-80 h-80 rounded-full bg-green-400/10 blur-xl animate-float-delayed-2"></div>
 </div>
+
+<app-header></app-header>
+<main class="min-h-screen bg-white/80 backdrop-blur-sm dark:bg-gray-900/80 pt-16">
+  <app-home></app-home>
+  <app-projects></app-projects>
+  <app-experience></app-experience>
+  <app-academic></app-academic>
+</main>
+<app-footer></app-footer>

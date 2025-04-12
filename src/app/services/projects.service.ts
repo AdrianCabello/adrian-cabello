@@ -18,7 +18,7 @@ export class ProjectsService {
   private projectsData: Project[] = [
     {
       title: 'Lautaro Vulcano',
-      description: 'Personal portfolio website for Lautaro Vulcano, a talented developer. The site features a modern design with smooth animations and responsive layout.',
+      description: 'Personal portfolio for Lautaro Vulcano, a graphic designer specialized in visual content for social media, branding, event flyers, and informative websites. The site reflects his focus on clear and effective communication through design.',
       tech: ['Angular', 'TypeScript', 'Tailwind CSS'],
       link: 'https://lautarovulcano.com',
       images: [

@@ -85,7 +85,7 @@ export class ExperienceComponent {
         },
         {
           name: 'Mercer | Homepage',
-          summary: `Developed Mercer’s homepage and landing page, showcasing its services and mission.`,
+          summary: `Developed Mercer's homepage and landing page, showcasing its services and mission.`,
           responsibilities: [
             'Led front-end development, ensuring responsiveness and performance.',
             'Built dynamic content sections and improved SEO.',

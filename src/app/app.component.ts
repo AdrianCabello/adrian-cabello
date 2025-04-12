@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MetaService } from './services/meta.service';
 import { ZoomPreventionService } from './services/zoom-prevention.service';
+import { CommonModule } from '@angular/common';
 
 import { HomeComponent } from './sections/home/home.component';
 import { HeaderComponent } from './shared/components/header/header.component';
@@ -12,16 +13,17 @@ import { ProjectsComponent } from './sections/projects/projects.component';
 @Component({
   selector: 'app-root',
   imports: [
+    CommonModule,
     HomeComponent,
     HeaderComponent,
     ExperienceComponent,
     AcademicComponent,
     FooterComponent,
-    ProjectsComponent,
+    ProjectsComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
-  standalone: true,
+  standalone: true
 })
 export class AppComponent implements OnInit {
   constructor(

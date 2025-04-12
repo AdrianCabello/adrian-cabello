@@ -1,12 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
+@use 'swiper/css';
+@use 'swiper/css/navigation';
+@use 'swiper/css/pagination';
+@use 'swiper/css/effect-fade';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@import 'swiper/css';
-@import 'swiper/css/navigation';
-@import 'swiper/css/pagination';
-@import 'swiper/css/effect-fade';
 
 html, body {
   touch-action: pan-y;
