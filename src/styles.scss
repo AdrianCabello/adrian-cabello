@@ -3,6 +3,11 @@
 @tailwind components;
 @tailwind utilities;
 
+@import 'swiper/css';
+@import 'swiper/css/navigation';
+@import 'swiper/css/pagination';
+@import 'swiper/css/effect-fade';
+
 html, body {
   touch-action: pan-y;
   -webkit-text-size-adjust: 100%;
@@ -46,4 +51,58 @@ app-root {
 /* Prevent zoom on text */
 p, h1, h2, h3, h4, h5, h6, span, a {
   touch-action: manipulation;
+}
+
+.project-swiper {
+  width: 100%;
+  height: 100%;
+  
+  swiper-slide {
+    width: 100%;
+    height: 100%;
+  }
+
+  &::part(button-prev),
+  &::part(button-next) {
+    color: white;
+    background: rgba(0, 0, 0, 0.5);
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    
+    &:hover {
+      background: rgba(0, 0, 0, 0.8);
+    }
+  }
+
+  &::part(button-prev)::after,
+  &::part(button-next)::after {
+    font-size: 18px;
+  }
+}
+
+.swiper-pagination-custom {
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  z-index: 10;
+  
+  .swiper-pagination-bullet {
+    width: 10px;
+    height: 10px;
+    background: white;
+    opacity: 0.5;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    
+    &-active {
+      opacity: 1;
+      background: white;
+      transform: scale(1.2);
+    }
+  }
 }
