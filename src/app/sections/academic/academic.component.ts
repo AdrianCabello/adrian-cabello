@@ -1,11 +1,13 @@
 import { Component, signal } from '@angular/core';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { CommonModule } from '@angular/common';
+import { ButtonModule } from 'primeng/button';
+import { TagModule } from 'primeng/tag';
 
 @Component({
   selector: 'app-academic',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ButtonModule, TagModule],
   templateUrl: './academic.component.html',
 
   animations: [
@@ -39,7 +41,7 @@ export class AcademicComponent {
       date: '2015 - 2018',
       description:
         'Development focused program with practical applications in computer science.',
-      color: 'green',
+      color: 'sky',
     },
     {
       title: 'Software Engineering',
@@ -47,7 +49,7 @@ export class AcademicComponent {
       date: '2012 - 2015',
       description:
         'Foundational studies in software engineering principles and practices.',
-      color: 'green',
+      color: 'sky',
     },
     {
       title: 'Professional & Personal Computer Technician',
@@ -55,7 +57,7 @@ export class AcademicComponent {
       date: 'Graduated 2011',
       description:
         'Technical education focused on computer systems and maintenance.',
-      color: 'green',
+      color: 'sky',
     },
   ];
 
@@ -65,7 +67,7 @@ export class AcademicComponent {
       institution: 'Udemy',
       date: 'Mar 2025',
       badge: 'Ver credencial',
-      color: 'green',
+      color: 'blue',
       logo: '../../../assets/logos/udemy_logo.jpeg',
       url: 'https://www.udemy.com/certificate/UC-95e114aa-2735-413c-ac2f-d1d6ba49689a/',
     },
@@ -74,7 +76,7 @@ export class AcademicComponent {
       institution: 'Pluralsight',
       date: 'May 2023',
       badge: 'Ver credencial',
-      color: 'green',
+      color: 'blue',
       logo: '../../../assets/logos/pluralsight_logo.jpeg',
       url: 'https://app.pluralsight.com/achievements/share/ba68f930-ce1f-4fb2-b25a-0752f52ef830',
     },
@@ -83,7 +85,7 @@ export class AcademicComponent {
       institution: 'HackerRank',
       date: 'May 2022',
       badge: 'Ver credencial',
-      color: 'green',
+      color: 'blue',
       logo: '../../../assets/logos/hackerrank_logo.jpeg',
       url: 'https://www.hackerrank.com/certificates/bb6b48540cb5',
     },
@@ -92,7 +94,7 @@ export class AcademicComponent {
       institution: 'HackerRank',
       date: 'Apr 2022',
       badge: 'Ver credencial',
-      color: 'green',
+      color: 'blue',
       logo: '../../../assets/logos/hackerrank_logo.jpeg',
       url: 'https://www.hackerrank.com/certificates/c031726c8383',
     },
@@ -101,7 +103,7 @@ export class AcademicComponent {
       institution: 'HackerRank',
       date: 'Apr 2022',
       badge: 'Ver credencial',
-      color: 'green',
+      color: 'blue',
       logo: '../../../assets/logos/hackerrank_logo.jpeg',
       url: 'https://www.hackerrank.com/certificates/7b2739f9465f',
     },
@@ -110,7 +112,7 @@ export class AcademicComponent {
       institution: 'HackerRank',
       date: 'Apr 2022',
       badge: 'Ver credencial',
-      color: 'green',
+      color: 'blue',
       logo: '../../../assets/logos/hackerrank_logo.jpeg',
       url: 'https://www.hackerrank.com/certificates/23bd77144f87',
     },
@@ -119,7 +121,7 @@ export class AcademicComponent {
       institution: 'Udemy',
       date: 'Nov 2021',
       badge: 'Ver credencial',
-      color: 'green',
+      color: 'blue',
       logo: '../../../assets/logos/udemy_logo.jpeg',
       url: 'https://www.udemy.com/certificate/UC-2c8b15ff-1815-484f-b9f8-0d8c5d311bbf', // ← Agregá el link real si lo tenés
     },
@@ -128,7 +130,7 @@ export class AcademicComponent {
       institution: 'Udemy',
       date: 'Jan 2020',
       badge: 'Ver credencial',
-      color: 'green',
+      color: 'blue',
       logo: '../../../assets/logos/udemy_logo.jpeg',
       url: 'https://www.udemy.com/certificate/UC-KQF79AVF/',
     },
@@ -137,7 +139,7 @@ export class AcademicComponent {
       institution: 'Udemy',
       date: 'Jun 2018',
       badge: 'Ver credencial',
-      color: 'green',
+      color: 'blue',
       logo: '../../../assets/logos/udemy_logo.jpeg',
       url: 'https://www.udemy.com/certificate/UC-Q19NMEKH/',
     },
@@ -146,7 +148,7 @@ export class AcademicComponent {
       institution: 'Udemy',
       date: 'Apr 2018',
       badge: 'Ver credencial',
-      color: 'green',
+      color: 'blue',
       logo: '../../../assets/logos/udemy_logo.jpeg',
       url: 'https://www.udemy.com/certificate/UC-MLTEPW2P', // ← si tenés el ID de la credencial, avisame y lo agrego
     },
@@ -155,7 +157,7 @@ export class AcademicComponent {
       institution: 'Udemy',
       date: 'Mar 2018',
       badge: 'Ver credencial',
-      color: 'green',
+      color: 'blue',
       logo: '../../../assets/logos/udemy_logo.jpeg',
       url: 'https://www.udemy.com/certificate/UC-VYPPNXH4/',
     },
@@ -164,7 +166,7 @@ export class AcademicComponent {
       institution: 'Udemy',
       date: 'Nov 2017',
       badge: 'Ver credencial',
-      color: 'green',
+      color: 'blue',
       logo: '../../../assets/logos/udemy_logo.jpeg',
       url: 'https://www.udemy.com/certificate/UC-X1AZGGM5', // Si tenés el ID, te lo agrego al final
     },

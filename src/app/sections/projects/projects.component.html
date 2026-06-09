@@ -3,9 +3,9 @@
         <h2 class="text-2xl font-bold text-white mb-6">Featured Projects</h2>
 
         <div class="grid grid-cols-1 gap-6">
-            @for (project of projects; track project.title) {
-            <div
-                class="flex md:flex-row flex-col w-full bg-gray-700/50 p-6 rounded-xl border border-gray-600 shadow-md transform transition-transform duration-300 hover:-translate-y-1">
+            @for (project of projects(); track project.id ?? project.title) {
+            <article class="rounded-xl border border-gray-600 bg-gray-700/50 p-6 shadow-md">
+              <div class="flex md:flex-row flex-col w-full">
 
                 <div class="md:w-1/2 md:mr-6 mb-4 overflow-hidden rounded-lg relative">
                     <swiper-container [config]="swiperConfig" class="project-swiper">
@@ -27,30 +27,27 @@
                     
                     <div class="mt-6 flex flex-wrap gap-3">
                         @for (tech of project.tech; track tech) {
-                        <span class="px-3 py-1.5 text-sm font-medium bg-gray-600 text-gray-200 rounded-full">
-                            {{ tech }}
-                        </span>
+                        <p-tag [value]="tech" severity="secondary"></p-tag>
                         }
                     </div>
                     
                     <div class="mt-6 flex flex-col gap-3">
                         @if (project.website) {
-                        <a [href]="project.website" target="_blank" rel="noopener noreferrer"
-                            class="inline-flex items-center text-base text-blue-400 hover:text-blue-300">
-                            <fa-icon [icon]="faGlobe" class="w-5 h-5 mr-2 flex-shrink-0"></fa-icon>
-                            <span class="leading-5">{{ project.website.replace('https://', '') }}</span>
+                        <a pButton [href]="project.website" target="_blank" rel="noopener noreferrer"
+                            class="p-button-text justify-start px-0" icon="pi pi-globe">
+                            <span>{{ project.website.replace('https://', '') }}</span>
                         </a>
                         }
                         @if (project.instagram) {
-                        <a [href]="project.instagram" target="_blank" rel="noopener noreferrer"
-                            class="inline-flex items-center text-base text-blue-400 hover:text-blue-300">
-                            <fa-icon [icon]="faInstagram" class="w-5 h-5 mr-2 flex-shrink-0"></fa-icon>
-                            <span class="leading-5">{{ project.instagram.replace('https://', '') }}</span>
+                        <a pButton [href]="project.instagram" target="_blank" rel="noopener noreferrer"
+                            class="p-button-text justify-start px-0" icon="pi pi-instagram">
+                            <span>{{ project.instagram.replace('https://', '') }}</span>
                         </a>
                         }
                     </div>
                 </div>
-            </div>
+              </div>
+            </article>
             }
         </div>
     </div>

@@ -1,9 +1,9 @@
 import { Component, inject, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ProjectsService, type Project } from '../../services/projects.service';
+import { ProjectsService } from '../../services/projects.service';
 import { register } from 'swiper/element/bundle';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faInstagram, faChrome } from '@fortawesome/free-brands-svg-icons';
+import { ButtonModule } from 'primeng/button';
+import { TagModule } from 'primeng/tag';
 
 // Register Swiper custom elements
 register();
@@ -12,16 +12,12 @@ register();
   selector: 'app-projects',
   templateUrl: './projects.component.html',
   standalone: true,
-  imports: [CommonModule, FontAwesomeModule],
+  imports: [CommonModule, ButtonModule, TagModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class ProjectsComponent {
   private projectsService = inject(ProjectsService);
   protected projects = this.projectsService.getProjects();
-
-  // Font Awesome icons
-  protected faGlobe = faChrome;
-  protected faInstagram = faInstagram;
 
   protected swiperConfig = {
     slidesPerView: 1,

@@ -1,13 +1,48 @@
-import { ApplicationConfig } from '@angular/core';
+import { ApplicationConfig, importProvidersFrom } from '@angular/core';
+import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
-import { provideServerRendering } from '@angular/platform-server';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { NgParticlesModule } from 'ng-particles';
+import { providePrimeNG } from 'primeng/config';
+import { definePreset } from '@primeuix/themes';
+import Aura from '@primeuix/themes/aura';
+import { authInterceptor } from './services/auth.interceptor';
+
+const BlueAura = definePreset(Aura, {
+  semantic: {
+    primary: {
+      50: '{blue.50}',
+      100: '{blue.100}',
+      200: '{blue.200}',
+      300: '{blue.300}',
+      400: '{blue.400}',
+      500: '{blue.500}',
+      600: '{blue.600}',
+      700: '{blue.700}',
+      800: '{blue.800}',
+      900: '{blue.900}',
+      950: '{blue.950}',
+    },
+  },
+});
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
+    provideHttpClient(withFetch(), withInterceptors([authInterceptor])),
     provideClientHydration(),
-    provideServerRendering()
+    provideAnimations(),
+    providePrimeNG({
+      theme: {
+        preset: BlueAura,
+        options: {
+          darkModeSelector: '.app-dark',
+        },
+      },
+      ripple: true,
+    }),
+    importProvidersFrom(NgParticlesModule)
   ],
 };

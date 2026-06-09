@@ -17,15 +17,13 @@ describe('AppComponent', () => {
   it(`should have the 'adrian-cabello' title`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('adrian-cabello');
+    expect(app.title).toEqual('Adrian Cabello');
   });
 
-  it('should render title', () => {
+  it('should render the router outlet shell', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain(
-      'Hello, adrian-cabello'
-    );
+    expect(compiled.querySelector('router-outlet')).toBeTruthy();
   });
 });

@@ -1,0 +1,70 @@
+<main class="new-task-shell min-h-screen text-blue-50" data-testid="new-task-page">
+  <header class="sticky top-0 z-20 border-b border-white/10 bg-slate-950/85 px-4 py-3 backdrop-blur-xl" data-testid="new-task-header">
+    <div class="mx-auto flex max-w-md items-center justify-between gap-3">
+      <div>
+        <p class="text-xs uppercase tracking-wider text-sky-300/90">Tareas</p>
+        <h1 class="text-xl font-bold leading-tight">Nueva tarea</h1>
+      </div>
+      <a
+        pButton
+        routerLink="/dashboard"
+        icon="pi pi-th-large"
+        severity="secondary"
+        variant="outlined"
+        [rounded]="true"
+        aria-label="Volver al dashboard"
+        data-testid="new-task-dashboard-link"
+      ></a>
+    </div>
+  </header>
+
+  <section class="mx-auto flex min-h-[calc(100vh-65px)] max-w-md flex-col gap-3 px-4 py-4" data-testid="new-task-content">
+    <section class="task-card p-4" data-testid="new-task-form-panel">
+      <div class="mb-4">
+        <h2 class="text-2xl font-black">Carga rápida</h2>
+        <p class="mt-1 text-sm text-slate-400">Una entrada, fecha, área y prioridad.</p>
+      </div>
+
+      <form class="grid gap-3" (ngSubmit)="createTask()" data-testid="new-task-form">
+        <input pInputText [(ngModel)]="title" name="title" class="h-12 w-full" placeholder="Nueva tarea..." data-testid="new-task-title" />
+        <textarea pTextarea [(ngModel)]="description" name="description" rows="3" class="w-full resize-none" placeholder="Contexto breve" data-testid="new-task-description"></textarea>
+
+        <div class="grid gap-2">
+          <p-select [(ngModel)]="priority" name="priority" [options]="priorityOptions" optionLabel="label" optionValue="value" styleClass="h-12 w-full" data-testid="new-task-priority" />
+          <p-select [(ngModel)]="status" name="status" [options]="statusOptions" optionLabel="label" optionValue="value" styleClass="h-12 w-full" data-testid="new-task-status" />
+          <p-select
+            [(ngModel)]="areaId"
+            name="areaId"
+            [options]="bootstrapData()?.areas ?? []"
+            optionLabel="name"
+            optionValue="id"
+            [showClear]="true"
+            styleClass="h-12 w-full"
+            [placeholder]="isLoadingAreas() ? 'Cargando áreas...' : 'Área'"
+            data-testid="new-task-area"
+          />
+          <input pInputText type="date" [(ngModel)]="scheduledDate" name="scheduledDate" class="h-12 w-full" data-testid="new-task-scheduled-date" />
+          <input pInputText type="date" [(ngModel)]="dueDate" name="dueDate" class="h-12 w-full" aria-label="Vencimiento" data-testid="new-task-due-date" />
+          <p-inputNumber [(ngModel)]="minutes" name="minutes" suffix=" min" [min]="1" inputStyleClass="h-12 w-full" styleClass="w-full" data-testid="new-task-minutes" />
+        </div>
+
+        @if (error()) {
+          <p class="rounded-lg border border-red-400/30 bg-red-950/60 px-3 py-2 text-sm text-red-100" data-testid="new-task-error">{{ error() }}</p>
+        }
+
+        @if (message()) {
+          <p class="rounded-lg border border-sky-300/30 bg-blue-900/60 px-3 py-2 text-sm text-sky-100" data-testid="new-task-success">{{ message() }}</p>
+        }
+
+        <button
+          type="submit"
+          class="h-14 rounded-lg bg-sky-400 text-lg font-black text-slate-950 shadow-2xl shadow-black/50 transition active:scale-[0.99] disabled:opacity-50"
+          [disabled]="isSaving()"
+          data-testid="new-task-submit"
+        >
+          {{ isSaving() ? 'Agregando...' : 'Agregar tarea' }}
+        </button>
+      </form>
+    </section>
+  </section>
+</main>

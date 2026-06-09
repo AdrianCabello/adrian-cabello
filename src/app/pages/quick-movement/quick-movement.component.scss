@@ -1,0 +1,42 @@
+:host {
+  display: block;
+}
+
+:host ::ng-deep .p-inputtext,
+:host ::ng-deep .p-inputnumber-input,
+:host ::ng-deep .p-select,
+:host ::ng-deep textarea,
+:host ::ng-deep .p-textarea {
+  background: rgb(0, 0, 0) !important;
+  border-color: rgba(96, 165, 250, 0.28) !important;
+  color: rgb(255, 255, 255) !important;
+  box-shadow: none !important;
+}
+
+:host ::ng-deep .p-inputtext::placeholder,
+:host ::ng-deep textarea::placeholder,
+:host ::ng-deep .p-textarea::placeholder {
+  color: rgb(100, 116, 139) !important;
+}
+
+:host ::ng-deep .p-select-label,
+:host ::ng-deep .p-select-dropdown,
+:host ::ng-deep .p-inputnumber {
+  color: rgb(255, 255, 255) !important;
+}
+
+:host ::ng-deep .p-select-overlay,
+:host ::ng-deep .p-select-list {
+  background: rgb(0, 0, 0) !important;
+  color: rgb(255, 255, 255) !important;
+  border-color: rgba(96, 165, 250, 0.28) !important;
+}
+
+:host ::ng-deep .p-select-option {
+  color: rgb(255, 255, 255) !important;
+}
+
+:host ::ng-deep .p-select-option:hover,
+:host ::ng-deep .p-select-option.p-focus {
+  background: rgba(37, 99, 235, 0.3) !important;
+}

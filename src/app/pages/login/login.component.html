@@ -1,0 +1,71 @@
+<main class="min-h-screen bg-blue-950 px-4 py-10 text-white" data-testid="login-page">
+  <div class="mx-auto flex min-h-[calc(100vh-5rem)] max-w-md flex-col justify-center">
+    <p-button
+      label="Volver al portfolio"
+      icon="pi pi-arrow-left"
+      severity="info"
+      variant="text"
+      styleClass="mb-6 !px-0"
+      routerLink="/"
+      data-testid="login-back-link"
+    />
+
+    <p-card styleClass="!rounded-lg !border !border-blue-300/15 !bg-blue-900/70 !text-white !shadow-2xl" data-testid="login-card">
+      <ng-template pTemplate="header">
+        <div class="flex items-center gap-3 px-6 pt-6">
+          <div class="flex h-11 w-11 items-center justify-center rounded-lg bg-blue-400 text-blue-950">
+            <i class="pi pi-lock text-base"></i>
+          </div>
+          <div>
+            <h1 class="text-2xl font-bold">Dashboard personal</h1>
+            <p class="text-sm text-slate-400">Entrá para administrar carrera, proyectos, tareas y finanzas.</p>
+          </div>
+        </div>
+      </ng-template>
+
+      <form class="space-y-4" (ngSubmit)="submit()" data-testid="login-form">
+        <label class="block">
+          <span class="mb-2 block text-sm font-medium text-slate-300">Email</span>
+          <input
+            pInputText
+            [(ngModel)]="email"
+            name="email"
+            type="email"
+            autocomplete="email"
+            class="h-11 w-full"
+            data-testid="login-email-input"
+          />
+        </label>
+
+        <label class="block">
+          <span class="mb-2 block text-sm font-medium text-slate-300">Contraseña</span>
+          <p-password
+            [(ngModel)]="password"
+            name="password"
+            autocomplete="current-password"
+            [feedback]="false"
+            [toggleMask]="true"
+            inputStyleClass="h-11 w-full"
+            styleClass="w-full"
+            data-testid="login-password-input"
+          />
+        </label>
+
+        @if (error()) {
+          <p-message severity="error" [text]="error()" styleClass="w-full" data-testid="login-error" />
+        }
+
+        <p-button
+          type="submit"
+          label="{{ isLoading() ? 'Entrando...' : 'Entrar' }}"
+          icon="pi pi-sign-in"
+          severity="info"
+          styleClass="h-11 w-full"
+          [loading]="isLoading()"
+          [disabled]="isLoading()"
+          data-testid="login-submit-button"
+        />
+      </form>
+    </p-card>
+  </div>
+</main>

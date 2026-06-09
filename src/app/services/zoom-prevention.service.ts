@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 
 interface GestureEvent extends Event {
   scale: number;
@@ -10,8 +11,10 @@ interface GestureEvent extends Event {
 export class ZoomPreventionService {
   private lastTouchEnd = 0;
 
-  constructor() {
-    this.preventZoom();
+  constructor(@Inject(PLATFORM_ID) private readonly platformId: object) {
+    if (isPlatformBrowser(this.platformId)) {
+      this.preventZoom();
+    }
   }
 
   private preventZoom(): void {

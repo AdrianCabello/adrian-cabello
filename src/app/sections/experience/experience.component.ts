@@ -3,10 +3,11 @@ import { CommonModule } from '@angular/common';
 import { style, transition } from '@angular/animations';
 import { trigger } from '@angular/animations';
 import { animate } from '@angular/animations';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-experience',
-  imports: [CommonModule],
+  imports: [CommonModule, ButtonModule],
   templateUrl: './experience.component.html',
   standalone: true,
   animations: [
@@ -48,7 +49,7 @@ export class ExperienceComponent {
       period: 'Jun 2022 – Apr 2024',
       logoUrl: '../../../../assets/logos/halo.jpeg',
       isOpen: false,
-      description: `Worked on multiple AI-powered and investment-oriented web platforms for Mercer, including RFP, Mercer Mind, Catalytic Investment Exchange, and the Mercer homepage. Focused on building scalable, testable, and responsive frontend solutions using Angular and RxJS.`,
+      description: `Worked on multiple AI-powered and investment-oriented web platforms for Mercer, including RFP, Mercer Mind, Catalytic Investment Exchange, and the Mercer homepage. Focused on building scalable, testable, and responsive frontend solutions using Angular and RxJS, with strong experience in AI workflows, LLM-powered features, automation, MCP-based tooling, and custom agent skills.`,
       projects: [
         {
           name: 'Mercer | RFP',
@@ -57,6 +58,7 @@ export class ExperienceComponent {
           responsibilities: [
             'Led the front-end team and built the application from scratch.',
             'Developed a file upload system and integrated real-time AI responses.',
+            'Designed AI-assisted workflows for document analysis, answer generation, and user review loops.',
             'Ensured 80%+ unit test coverage for stability.',
             'Tech stack: Angular 17, TypeScript, RxJS, HTML5, CSS3, SASS.',
           ],
@@ -68,6 +70,7 @@ export class ExperienceComponent {
           responsibilities: [
             'Developed a real-time chat interface with AI-driven responses.',
             'Used RxJS for state management and secured authentication.',
+            'Worked with AI interaction patterns including prompt flows, contextual responses, and automated knowledge retrieval.',
             'Maintained 80%+ unit test coverage for reliability.',
             'Tech stack: Angular 16, TypeScript, RxJS, HTML5, CSS3, SASS.',
           ],

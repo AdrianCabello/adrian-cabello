@@ -2,24 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { MetaService } from './services/meta.service';
 import { ZoomPreventionService } from './services/zoom-prevention.service';
 import { CommonModule } from '@angular/common';
-
-import { HomeComponent } from './sections/home/home.component';
-import { HeaderComponent } from './shared/components/header/header.component';
-import { ExperienceComponent } from './sections/experience/experience.component';
-import { AcademicComponent } from './sections/academic/academic.component';
-import { FooterComponent } from './sections/footer/footer.component';
-import { ProjectsComponent } from './sections/projects/projects.component';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   imports: [
     CommonModule,
-    HomeComponent,
-    HeaderComponent,
-    ExperienceComponent,
-    AcademicComponent,
-    FooterComponent,
-    ProjectsComponent
+    RouterOutlet
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',

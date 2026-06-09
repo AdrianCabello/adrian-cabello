@@ -1,0 +1,122 @@
+<main class="min-h-screen bg-slate-950 text-blue-50" data-testid="quick-movement-page">
+  <header class="sticky top-0 z-20 border-b border-white/10 bg-slate-950/95 px-4 py-3 backdrop-blur" data-testid="quick-movement-header">
+    <div class="mx-auto flex max-w-md items-center justify-between gap-3">
+      <div>
+        <p class="text-xs uppercase tracking-wider text-sky-300">Finanzas</p>
+        <h1 class="text-xl font-bold leading-tight">Movimiento rápido</h1>
+      </div>
+      <a
+        pButton
+        routerLink="/dashboard"
+        icon="pi pi-th-large"
+        severity="secondary"
+        variant="outlined"
+        [rounded]="true"
+        aria-label="Volver al dashboard"
+        data-testid="quick-movement-dashboard-link"
+      ></a>
+    </div>
+  </header>
+
+  <section class="mx-auto flex min-h-[calc(100vh-65px)] max-w-md flex-col gap-4 px-4 py-4" data-testid="quick-movement-content">
+    @if (isLoading()) {
+      <div class="grid flex-1 place-items-center rounded-lg border border-white/10 bg-slate-950/90 p-6 text-sm text-slate-300" data-testid="quick-movement-loading">
+        Cargando...
+      </div>
+    } @else {
+      <section class="rounded-lg border border-blue-300/15 bg-slate-950/90 p-4 shadow-2xl shadow-black/30" data-testid="quick-movement-form-panel">
+        <div class="mb-4 grid grid-cols-2 gap-2" data-testid="quick-movement-type-toggle">
+          @for (type of typeOptions; track type.value) {
+            <button
+              type="button"
+              class="h-12 rounded-lg border text-base font-black"
+              [ngClass]="transactionType === type.value ? 'border-sky-300 bg-blue-600 text-white' : 'border-white/10 bg-black text-slate-300'"
+              (click)="setType(type.value)"
+              [attr.data-testid]="'quick-movement-type-' + type.value"
+            >
+              {{ type.label }}
+            </button>
+          }
+        </div>
+
+        <label class="mb-2 block text-sm text-slate-400" for="quickMovementAmount">Monto</label>
+        <p-inputNumber
+          inputId="quickMovementAmount"
+          [(ngModel)]="amount"
+          mode="currency"
+          currency="ARS"
+          locale="es-AR"
+          [min]="1"
+          inputStyleClass="h-16 w-full !bg-black !text-right !text-4xl !font-black !text-white"
+          styleClass="mb-4 w-full"
+          placeholder="0"
+          data-testid="quick-movement-amount"
+        />
+
+        <label class="mb-2 block text-sm text-slate-400" for="quickMovementCategory">Categoría</label>
+        <p-select
+          inputId="quickMovementCategory"
+          [(ngModel)]="categoryId"
+          [options]="filteredCategories()"
+          optionLabel="name"
+          optionValue="id"
+          [filter]="true"
+          [showClear]="true"
+          styleClass="mb-4 h-12 w-full"
+          placeholder="Sin categoría"
+          data-testid="quick-movement-category"
+        />
+
+        <label class="mb-2 block text-sm text-slate-400" for="quickMovementDescription">Descripción</label>
+        <textarea
+          id="quickMovementDescription"
+          pTextarea
+          [(ngModel)]="description"
+          rows="3"
+          class="mb-4 w-full resize-none rounded-lg border border-blue-300/20 bg-black px-3 py-3 text-white outline-none"
+          placeholder="Ej: pago cliente, devolución, compra..."
+          data-testid="quick-movement-description"
+        ></textarea>
+
+        @if (error()) {
+          <p class="mb-3 rounded-lg border border-red-400/30 bg-red-950/60 px-3 py-2 text-sm text-red-100" data-testid="quick-movement-error">{{ error() }}</p>
+        }
+
+        @if (message()) {
+          <p class="mb-3 rounded-lg border border-sky-300/30 bg-blue-900/60 px-3 py-2 text-sm text-sky-100" data-testid="quick-movement-success">{{ message() }}</p>
+        }
+
+        <button
+          type="button"
+          class="h-14 w-full rounded-lg bg-sky-400 text-lg font-black text-blue-950 shadow-2xl shadow-black/40 disabled:opacity-50"
+          [disabled]="isSaving()"
+          (click)="saveMovement()"
+          data-testid="quick-movement-save"
+        >
+          {{ isSaving() ? 'Guardando...' : 'Guardar movimiento' }}
+        </button>
+      </section>
+
+      <section class="pb-4" data-testid="quick-movement-recent-panel">
+        <h2 class="mb-2 text-sm font-bold text-slate-300">Últimos movimientos</h2>
+        <div class="space-y-2">
+          @for (movement of recentTransactions(); track movement.id) {
+            <article class="flex items-center justify-between gap-3 rounded-lg border border-white/10 bg-slate-950/90 px-3 py-3" data-testid="quick-movement-recent-row">
+              <div class="min-w-0">
+                <p class="truncate font-semibold text-white">{{ movement.description || movement.category?.name || movement.type }}</p>
+                <p class="text-xs text-slate-500">{{ movement.date | date:'shortDate' }}</p>
+              </div>
+              <strong class="shrink-0" [class.text-red-200]="movement.type === 'EXPENSE'" [class.text-sky-200]="movement.type === 'INCOME'">
+                {{ movement.type === 'EXPENSE' ? '-' : '+' }}{{ formatMoney(movement.amount) }}
+              </strong>
+            </article>
+          } @empty {
+            <p class="rounded-lg border border-white/10 bg-slate-950/90 px-3 py-4 text-sm text-slate-400" data-testid="quick-movement-empty-recent">
+              Todavía no hay movimientos.
+            </p>
+          }
+        </div>
+      </section>
+    }
+  </section>
+</main>

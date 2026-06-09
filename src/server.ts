@@ -1,18 +1,15 @@
 import {
-  AngularNodeAppEngine,
   createNodeRequestHandler,
   isMainModule,
-  writeResponseToNodeResponse,
 } from '@angular/ssr/node';
 import express from 'express';
-import { dirname, resolve } from 'node:path';
+import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const serverDistFolder = dirname(fileURLToPath(import.meta.url));
 const browserDistFolder = resolve(serverDistFolder, '../browser');
 
 const app = express();
-const angularApp = new AngularNodeAppEngine();
 
 /**
  * Example Express Rest API endpoints can be defined here.
@@ -38,15 +35,12 @@ app.use(
 );
 
 /**
- * Handle all other requests by rendering the Angular application.
+ * Handle all other requests by returning the browser app.
+ * This keeps deep links such as /login and /dashboard working without relying on
+ * the Angular SSR app-engine manifest at runtime.
  */
-app.use('/**', (req, res, next) => {
-  angularApp
-    .handle(req)
-    .then(response =>
-      response ? writeResponseToNodeResponse(response, res) : next()
-    )
-    .catch(next);
+app.use('/**', (_req, res) => {
+  res.sendFile(join(browserDistFolder, 'index.csr.html'));
 });
 
 /**
@@ -64,3 +58,5 @@ if (isMainModule(import.meta.url)) {
  * The request handler used by the Angular CLI (dev-server and during build).
  */
 export const reqHandler = createNodeRequestHandler(app);
+
+export default app;

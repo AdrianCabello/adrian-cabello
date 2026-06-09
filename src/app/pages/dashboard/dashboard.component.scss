@@ -1,0 +1,78 @@
+:host {
+  display: block;
+}
+
+:host ::ng-deep .p-card {
+  background: rgba(2, 6, 23, 0.92) !important;
+  border-color: rgba(96, 165, 250, 0.18) !important;
+  color: rgb(239, 246, 255) !important;
+  box-shadow: 0 18px 55px rgba(0, 0, 0, 0.22);
+}
+
+:host ::ng-deep .p-card .p-card-body,
+:host ::ng-deep .p-card .p-card-content,
+:host ::ng-deep .p-card .p-card-header {
+  color: inherit;
+}
+
+:host ::ng-deep .p-card h2,
+:host ::ng-deep .p-card h3,
+:host ::ng-deep .p-card strong {
+  color: rgb(239, 246, 255);
+}
+
+:host ::ng-deep .p-inputtext,
+:host ::ng-deep .p-inputnumber-input,
+:host ::ng-deep .p-select,
+:host ::ng-deep textarea,
+:host ::ng-deep .p-textarea {
+  background: rgb(2, 6, 23) !important;
+  border-color: rgba(96, 165, 250, 0.28) !important;
+  color: rgb(239, 246, 255) !important;
+  box-shadow: none;
+}
+
+:host ::ng-deep .p-inputtext::placeholder,
+:host ::ng-deep textarea::placeholder,
+:host ::ng-deep .p-textarea::placeholder {
+  color: rgb(125, 143, 171);
+}
+
+:host ::ng-deep .p-inputtext:enabled:focus,
+:host ::ng-deep .p-inputnumber-input:enabled:focus,
+:host ::ng-deep textarea:enabled:focus,
+:host ::ng-deep .p-textarea:enabled:focus {
+  border-color: rgba(125, 211, 252, 0.72) !important;
+  box-shadow: 0 0 0 1px rgba(125, 211, 252, 0.18) !important;
+}
+
+:host ::ng-deep .p-select-label,
+:host ::ng-deep .p-select-dropdown,
+:host ::ng-deep .p-inputnumber {
+  color: rgb(239, 246, 255) !important;
+}
+
+:host ::ng-deep .p-select-overlay,
+:host ::ng-deep .p-select-list {
+  background: rgb(2, 6, 23) !important;
+  color: rgb(239, 246, 255) !important;
+  border-color: rgba(96, 165, 250, 0.24) !important;
+}
+
+:host ::ng-deep .p-select-option {
+  color: rgb(239, 246, 255) !important;
+}
+
+:host ::ng-deep .p-select-option:hover,
+:host ::ng-deep .p-select-option.p-focus {
+  background: rgba(37, 99, 235, 0.26) !important;
+}
+
+:host ::ng-deep .p-button.p-button-outlined {
+  border-color: rgba(125, 211, 252, 0.42);
+  color: rgb(186, 230, 253);
+}
+
+:host ::ng-deep .p-tag {
+  border-radius: 6px;
+}
