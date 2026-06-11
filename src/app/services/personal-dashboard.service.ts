@@ -6,6 +6,16 @@ import { getApiBaseUrl } from './api-url';
 export type TaskStatus = 'TODO' | 'IN_PROGRESS' | 'DONE' | 'ARCHIVED';
 export type TaskPriority = 'URGENT' | 'HIGH' | 'NORMAL' | 'LOW';
 export type TransactionType = 'INCOME' | 'EXPENSE';
+export type MoneyCurrency = 'ARS' | 'USD';
+
+export interface DollarQuote {
+  compra: number;
+  venta: number;
+  casa: string;
+  nombre: string;
+  moneda: string;
+  fechaActualizacion: string;
+}
 
 export interface LifeArea {
   id: string;
@@ -64,6 +74,16 @@ export interface FinanceTransaction {
   merchant?: string | null;
   category?: FinanceCategory | null;
   account?: FinanceAccount | null;
+}
+
+export interface FinanceTransactionPayload {
+  type: TransactionType;
+  amount: number;
+  currency?: string;
+  description?: string;
+  date?: string;
+  categoryId?: string;
+  accountId?: string;
 }
 
 export interface DashboardProject {
@@ -172,6 +192,18 @@ export class PersonalDashboardService {
     accountId?: string;
   }): Observable<FinanceTransaction> {
     return this.http.post<FinanceTransaction>(`${this.apiBaseUrl}/personal/finance/transactions`, payload);
+  }
+
+  blueDollarQuote(): Observable<DollarQuote> {
+    return this.http.get<DollarQuote>('https://dolarapi.com/v1/dolares/blue');
+  }
+
+  updateTransaction(id: string, payload: Partial<FinanceTransactionPayload>): Observable<FinanceTransaction> {
+    return this.http.patch<FinanceTransaction>(`${this.apiBaseUrl}/personal/finance/transactions/${id}`, payload);
+  }
+
+  deleteTransaction(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.apiBaseUrl}/personal/finance/transactions/${id}`);
   }
 
   createAccount(payload: {

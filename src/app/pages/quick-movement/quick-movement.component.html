@@ -1,6 +1,6 @@
 <main class="min-h-screen bg-slate-950 text-blue-50" data-testid="quick-movement-page">
   <header class="sticky top-0 z-20 border-b border-white/10 bg-slate-950/95 px-4 py-3 backdrop-blur" data-testid="quick-movement-header">
-    <div class="mx-auto flex max-w-md items-center justify-between gap-3">
+    <div class="mx-auto flex max-w-5xl items-center justify-between gap-3">
       <div>
         <p class="text-xs uppercase tracking-wider text-sky-300">Finanzas</p>
         <h1 class="text-xl font-bold leading-tight">Movimiento rápido</h1>
@@ -18,40 +18,92 @@
     </div>
   </header>
 
-  <section class="mx-auto flex min-h-[calc(100vh-65px)] max-w-md flex-col gap-4 px-4 py-4" data-testid="quick-movement-content">
+  <section class="mx-auto grid min-h-[calc(100vh-65px)] max-w-5xl gap-4 px-4 py-4 lg:grid-cols-[minmax(0,1.05fr)_minmax(320px,0.95fr)] lg:items-start lg:py-6" data-testid="quick-movement-content">
     @if (isLoading()) {
-      <div class="grid flex-1 place-items-center rounded-lg border border-white/10 bg-slate-950/90 p-6 text-sm text-slate-300" data-testid="quick-movement-loading">
+      <div class="grid min-h-[50vh] place-items-center rounded-lg border border-white/10 bg-slate-950/90 p-6 text-sm text-slate-300 lg:col-span-2" data-testid="quick-movement-loading">
         Cargando...
       </div>
     } @else {
-      <section class="rounded-lg border border-blue-300/15 bg-slate-950/90 p-4 shadow-2xl shadow-black/30" data-testid="quick-movement-form-panel">
-        <div class="mb-4 grid grid-cols-2 gap-2" data-testid="quick-movement-type-toggle">
-          @for (type of typeOptions; track type.value) {
+      <section class="rounded-lg border border-blue-300/15 bg-slate-950/90 p-4 shadow-2xl shadow-black/30 sm:p-5" data-testid="quick-movement-form-panel">
+        <div class="mb-5 grid gap-3 sm:grid-cols-[1fr_180px]">
+          <div>
+            <p class="text-sm font-semibold text-sky-100">{{ transactionType === 'INCOME' ? 'Cargar ingreso' : 'Cargar gasto' }}</p>
+            <p class="mt-1 text-sm text-slate-400">El balance queda guardado en pesos.</p>
+          </div>
+          <div class="grid grid-cols-2 gap-2" data-testid="quick-movement-type-toggle">
+            @for (type of typeOptions; track type.value) {
+              <button
+                type="button"
+                class="h-11 rounded-lg border text-sm font-black"
+                [ngClass]="transactionType === type.value ? 'border-sky-300 bg-blue-600 text-white' : 'border-white/10 bg-black text-slate-300 hover:border-blue-300/40'"
+                (click)="setType(type.value)"
+                [attr.data-testid]="'quick-movement-type-' + type.value"
+              >
+                {{ type.label }}
+              </button>
+            }
+          </div>
+        </div>
+
+        <div class="mb-3 grid grid-cols-2 gap-2" data-testid="quick-movement-currency-toggle">
+          @for (currency of currencyOptions; track currency.value) {
             <button
               type="button"
-              class="h-12 rounded-lg border text-base font-black"
-              [ngClass]="transactionType === type.value ? 'border-sky-300 bg-blue-600 text-white' : 'border-white/10 bg-black text-slate-300'"
-              (click)="setType(type.value)"
-              [attr.data-testid]="'quick-movement-type-' + type.value"
+              class="h-11 rounded-lg border text-sm font-black"
+              [ngClass]="amountCurrency === currency.value ? 'border-emerald-300 bg-emerald-500 text-emerald-950' : 'border-white/10 bg-black text-slate-300 hover:border-emerald-300/40'"
+              (click)="setCurrency(currency.value)"
+              [attr.data-testid]="'quick-movement-currency-' + currency.value"
             >
-              {{ type.label }}
+              {{ currency.label }}
             </button>
           }
         </div>
 
-        <label class="mb-2 block text-sm text-slate-400" for="quickMovementAmount">Monto</label>
+        <label class="mb-2 block text-sm text-slate-400" for="quickMovementAmount">Monto {{ amountCurrency }}</label>
         <p-inputNumber
           inputId="quickMovementAmount"
           [(ngModel)]="amount"
           mode="currency"
-          currency="ARS"
+          [currency]="amountCurrency"
           locale="es-AR"
           [min]="1"
-          inputStyleClass="h-16 w-full !bg-black !text-right !text-4xl !font-black !text-white"
-          styleClass="mb-4 w-full"
+          inputStyleClass="h-16 w-full !bg-black !text-right !text-3xl sm:!text-4xl !font-black !text-white"
+          styleClass="w-full"
           placeholder="0"
           data-testid="quick-movement-amount"
         />
+
+        <div class="my-4 rounded-lg border border-emerald-300/20 bg-emerald-950/20 px-3 py-3" data-testid="quick-movement-conversion-panel">
+          @if (amountCurrency === 'USD') {
+            <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <p class="text-xs uppercase text-emerald-200">Conversión a pesos</p>
+                @if (dollarQuote(); as quote) {
+                  <p class="mt-1 text-sm text-slate-300">
+                    Dólar blue venta: <strong class="text-white">{{ formatMoney(quote.venta) }}</strong>
+                    <span class="text-slate-500"> · {{ formatQuoteDate(quote.fechaActualizacion) }}</span>
+                  </p>
+                } @else {
+                  <p class="mt-1 text-sm text-slate-400">{{ isDollarLoading() ? 'Actualizando cotización...' : 'Cotización no disponible.' }}</p>
+                }
+              </div>
+              <strong class="text-2xl text-emerald-100" data-testid="quick-movement-amount-ars-preview">{{ formatMoney(amountInPesos()) }}</strong>
+            </div>
+            @if (dollarError()) {
+              <div class="mt-3 flex items-center justify-between gap-3 rounded-md border border-amber-300/25 bg-amber-950/30 px-3 py-2 text-sm text-amber-100" data-testid="quick-movement-dollar-error">
+                <span>{{ dollarError() }}</span>
+                <button type="button" class="shrink-0 font-bold text-amber-50" (click)="refreshDollarQuote()" data-testid="quick-movement-dollar-refresh">Reintentar</button>
+              </div>
+            }
+          } @else {
+            <div class="flex items-center justify-between gap-3">
+              <span class="text-sm text-slate-400">Se guarda directo en el balance total.</span>
+              @if (dollarQuote(); as quote) {
+                <span class="text-xs text-slate-500">Blue venta {{ formatMoney(quote.venta) }}</span>
+              }
+            </div>
+          }
+        </div>
 
         <label class="mb-2 block text-sm text-slate-400" for="quickMovementCategory">Categoría</label>
         <p-select
@@ -97,8 +149,14 @@
         </button>
       </section>
 
-      <section class="pb-4" data-testid="quick-movement-recent-panel">
-        <h2 class="mb-2 text-sm font-bold text-slate-300">Últimos movimientos</h2>
+      <section class="rounded-lg border border-white/10 bg-slate-950/80 p-4 pb-4 sm:p-5" data-testid="quick-movement-recent-panel">
+        <div class="mb-3 flex items-end justify-between gap-3">
+          <div>
+            <p class="text-xs uppercase text-slate-500">Actividad</p>
+            <h2 class="text-base font-bold text-slate-200">Últimos movimientos</h2>
+          </div>
+          <a routerLink="/dashboard" class="text-sm font-semibold text-sky-200 hover:text-white" data-testid="quick-movement-recent-dashboard-link">Ver balance</a>
+        </div>
         <div class="space-y-2">
           @for (movement of recentTransactions(); track movement.id) {
             <article class="flex items-center justify-between gap-3 rounded-lg border border-white/10 bg-slate-950/90 px-3 py-3" data-testid="quick-movement-recent-row">

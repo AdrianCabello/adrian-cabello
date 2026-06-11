@@ -9,8 +9,10 @@ import { InputTextModule } from 'primeng/inputtext';
 import { SelectModule } from 'primeng/select';
 import { TextareaModule } from 'primeng/textarea';
 import {
+  DollarQuote,
   FinanceCategory,
   FinanceTransaction,
+  MoneyCurrency,
   PersonalDashboardService,
   TransactionType,
 } from '../../services/personal-dashboard.service';
@@ -27,11 +29,15 @@ export class QuickMovementComponent implements OnInit {
   protected readonly isSaving = signal(false);
   protected readonly error = signal('');
   protected readonly message = signal('');
+  protected readonly dollarError = signal('');
+  protected readonly isDollarLoading = signal(false);
+  protected readonly dollarQuote = signal<DollarQuote | null>(null);
   protected readonly categories = signal<FinanceCategory[]>([]);
   protected readonly transactions = signal<FinanceTransaction[]>([]);
 
   protected transactionType: TransactionType = 'EXPENSE';
   protected amount: number | null = null;
+  protected amountCurrency: MoneyCurrency = 'ARS';
   protected description = '';
   protected categoryId = '';
 
@@ -39,9 +45,20 @@ export class QuickMovementComponent implements OnInit {
     { label: 'Gasto', value: 'EXPENSE' },
     { label: 'Ingreso', value: 'INCOME' },
   ];
+  protected readonly currencyOptions: { label: string; value: MoneyCurrency }[] = [
+    { label: 'Pesos', value: 'ARS' },
+    { label: 'Dólares', value: 'USD' },
+  ];
 
   protected readonly filteredCategories = computed(() => this.categories().filter((category) => category.type === this.transactionType));
   protected readonly recentTransactions = computed(() => this.transactions().slice(0, 8));
+  protected readonly amountInPesos = computed(() => {
+    if (!this.amount || this.amount <= 0) return 0;
+    if (this.amountCurrency === 'ARS') return this.amount;
+
+    const quote = this.dollarQuote();
+    return quote ? this.amount * quote.venta : 0;
+  });
 
   constructor(
     private readonly dashboardService: PersonalDashboardService,
@@ -53,6 +70,7 @@ export class QuickMovementComponent implements OnInit {
       this.transactionType = 'INCOME';
     }
     this.loadFinance();
+    this.loadDollarQuote();
   }
 
   protected setType(type: TransactionType): void {
@@ -62,9 +80,25 @@ export class QuickMovementComponent implements OnInit {
     this.error.set('');
   }
 
+  protected setCurrency(currency: MoneyCurrency): void {
+    this.amountCurrency = currency;
+    this.message.set('');
+    this.error.set('');
+  }
+
+  protected refreshDollarQuote(): void {
+    this.loadDollarQuote();
+  }
+
   protected saveMovement(): void {
     if (!this.amount || this.amount <= 0) {
       this.error.set('Poné un monto para guardar el movimiento.');
+      return;
+    }
+
+    const amountToSave = this.amountInPesos();
+    if (this.amountCurrency === 'USD' && amountToSave <= 0) {
+      this.error.set('No pude convertir el monto en dólares. Actualizá la cotización o cargalo en pesos.');
       return;
     }
 
@@ -75,8 +109,9 @@ export class QuickMovementComponent implements OnInit {
     this.dashboardService
       .createTransaction({
         type: this.transactionType,
-        amount: this.amount,
-        description: this.description.trim() || undefined,
+        amount: Math.round(amountToSave),
+        currency: 'ARS',
+        description: this.buildDescription(),
         categoryId: this.categoryId || undefined,
         date: new Date().toISOString(),
       })
@@ -85,6 +120,7 @@ export class QuickMovementComponent implements OnInit {
           this.transactions.set([transaction, ...this.transactions()]);
           this.amount = null;
           this.description = '';
+          this.amountCurrency = 'ARS';
           this.message.set('Movimiento guardado.');
           this.isSaving.set(false);
         },
@@ -95,12 +131,21 @@ export class QuickMovementComponent implements OnInit {
       });
   }
 
-  protected formatMoney(value: string | number): string {
+  protected formatMoney(value: string | number, currency: string = 'ARS'): string {
     return new Intl.NumberFormat('es-AR', {
       style: 'currency',
-      currency: 'ARS',
+      currency,
       maximumFractionDigits: 0,
     }).format(Number(value));
+  }
+
+  protected formatQuoteDate(value: string): string {
+    return new Intl.DateTimeFormat('es-AR', {
+      day: '2-digit',
+      month: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+    }).format(new Date(value));
   }
 
   private loadFinance(): void {
@@ -117,4 +162,38 @@ export class QuickMovementComponent implements OnInit {
       },
     });
   }
+
+  private loadDollarQuote(): void {
+    this.isDollarLoading.set(true);
+    this.dollarError.set('');
+
+    this.dashboardService.blueDollarQuote().subscribe({
+      next: (quote) => {
+        this.dollarQuote.set(quote);
+        this.isDollarLoading.set(false);
+      },
+      error: () => {
+        this.dollarError.set('No pude actualizar el dólar blue.');
+        this.isDollarLoading.set(false);
+      },
+    });
+  }
+
+  private buildDescription(): string | undefined {
+    const description = this.description.trim();
+    if (this.amountCurrency === 'ARS') return description || undefined;
+
+    const quote = this.dollarQuote();
+    const conversionNote = quote
+      ? `${formatOriginalAmount(this.amount)} USD x dólar blue venta ${this.formatMoney(quote.venta)}`
+      : `${formatOriginalAmount(this.amount)} USD`;
+
+    return description ? `${description} (${conversionNote})` : conversionNote;
+  }
+}
+
+function formatOriginalAmount(value: number | null): string {
+  return new Intl.NumberFormat('es-AR', {
+    maximumFractionDigits: 2,
+  }).format(Number(value ?? 0));
 }
