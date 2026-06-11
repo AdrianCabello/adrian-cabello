@@ -15,6 +15,7 @@ import { AuthService } from '../../services/auth.service';
 import {
   BootstrapData,
   DashboardProject,
+  DashboardSummary,
   FinanceAccount,
   FinanceCategory,
   FinanceTransaction,
@@ -55,7 +56,7 @@ export class DashboardComponent implements OnInit {
   protected readonly isQuickActionsOpen = signal(false);
   protected readonly searchTerm = signal('');
   protected readonly bootstrapData = signal<BootstrapData | null>(null);
-  protected readonly summary = signal<any | null>(null);
+  protected readonly summary = signal<DashboardSummary | null>(null);
   protected readonly tasks = signal<PersonalTask[]>([]);
   protected readonly notes = signal<PersonalNote[]>([]);
   protected readonly accounts = signal<FinanceAccount[]>([]);
@@ -143,6 +144,43 @@ export class DashboardComponent implements OnInit {
   protected readonly inboxNotes = computed(() => this.filteredNotes().filter((note) => note.type === 'BRAIN_DUMP'));
   protected readonly visibleTransactions = computed(() => this.transactions().slice(0, 12));
   protected readonly filteredCategories = computed(() => this.categories().filter((category) => category.type === this.transactionType));
+  protected readonly monthIncome = computed(() => this.summary()?.finance?.monthIncome ?? this.currentMonthTotal('INCOME'));
+  protected readonly monthExpenses = computed(() => this.summary()?.finance?.monthExpenses ?? this.currentMonthTotal('EXPENSE'));
+  protected readonly monthBalance = computed(() => this.summary()?.finance?.monthBalance ?? this.monthIncome() - this.monthExpenses());
+  protected readonly todayMinutes = computed(() =>
+    this.todayTasks().reduce((total, task) => total + Number(task.estimatedMinutes ?? 30), 0),
+  );
+  protected readonly nextFocusTask = computed(() => {
+    const priorityWeight: Record<TaskPriority, number> = { URGENT: 0, HIGH: 1, NORMAL: 2, LOW: 3 };
+    return [...this.overdueTasks(), ...this.todayTasks(), ...this.openTasks()]
+      .filter((task, index, list) => list.findIndex((item) => item.id === task.id) === index)
+      .sort((a, b) => priorityWeight[a.priority] - priorityWeight[b.priority])[0];
+  });
+  protected readonly attentionItems = computed(() =>
+    [
+      this.overdueTasks().length
+        ? {
+            icon: 'pi pi-exclamation-triangle',
+            label: `${this.overdueTasks().length} tarea${this.overdueTasks().length === 1 ? '' : 's'} vencida${this.overdueTasks().length === 1 ? '' : 's'}`,
+            tone: 'text-amber-200',
+          }
+        : null,
+      this.monthBalance() < 0
+        ? {
+            icon: 'pi pi-chart-line',
+            label: 'El mes viene negativo',
+            tone: 'text-red-200',
+          }
+        : null,
+      this.importantNotes().length
+        ? {
+            icon: 'pi pi-thumbtack',
+            label: `${this.importantNotes().length} nota${this.importantNotes().length === 1 ? '' : 's'} fijada${this.importantNotes().length === 1 ? '' : 's'}`,
+            tone: 'text-sky-200',
+          }
+        : null,
+    ].filter((item): item is { icon: string; label: string; tone: string } => Boolean(item)),
+  );
   protected readonly categoryBudgets = computed(() =>
     this.categories()
       .filter((category) => category.type === 'EXPENSE' && Number(category.monthlyBudget ?? 0) > 0)
@@ -159,7 +197,7 @@ export class DashboardComponent implements OnInit {
       const amount = Number(transaction.amount);
       return transaction.type === 'INCOME' ? total + amount : total - amount;
     }, 0);
-    const initialBalance = this.accounts().reduce((total, account: any) => total + Number(account.initialBalance ?? 0), 0);
+    const initialBalance = this.accounts().reduce((total, account) => total + Number(account.initialBalance ?? 0), 0);
     return initialBalance + movementBalance;
   });
   protected readonly activeProjects = computed(() => (this.summary()?.projects ?? []) as DashboardProject[]);
@@ -413,6 +451,12 @@ export class DashboardComponent implements OnInit {
     this.dashboardService.summary().subscribe((summary) => {
       this.summary.set(summary);
     });
+  }
+
+  private currentMonthTotal(type: TransactionType): number {
+    return this.transactions()
+      .filter((transaction) => transaction.type === type && this.isCurrentMonth(transaction.date))
+      .reduce((total, transaction) => total + Number(transaction.amount), 0);
   }
 
   private getTaskDateKey(task: PersonalTask): string {

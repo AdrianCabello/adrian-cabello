@@ -62,6 +62,7 @@ export interface FinanceAccount {
   name: string;
   type: string;
   currency: string;
+  initialBalance?: string | number | null;
 }
 
 export interface FinanceTransaction {
@@ -182,15 +183,7 @@ export class PersonalDashboardService {
     );
   }
 
-  createTransaction(payload: {
-    type: TransactionType;
-    amount: number;
-    currency?: string;
-    description?: string;
-    date?: string;
-    categoryId?: string;
-    accountId?: string;
-  }): Observable<FinanceTransaction> {
+  createTransaction(payload: FinanceTransactionPayload): Observable<FinanceTransaction> {
     return this.http.post<FinanceTransaction>(`${this.apiBaseUrl}/personal/finance/transactions`, payload);
   }
 

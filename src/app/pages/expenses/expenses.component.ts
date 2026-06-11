@@ -32,6 +32,7 @@ type ExpensePreset = {
 export class ExpensesComponent implements OnInit {
   protected readonly isLoading = signal(true);
   protected readonly isSaving = signal(false);
+  protected readonly deletingExpenseId = signal<string | null>(null);
   protected readonly message = signal('');
   protected readonly error = signal('');
   protected readonly mode = signal<ExpenseMode>('daily');
@@ -43,6 +44,7 @@ export class ExpensesComponent implements OnInit {
   protected currency: ExpenseCurrency = 'ARS';
   protected selectedCategoryName = 'Comida';
   protected note = '';
+  protected editingExpenseId: string | null = null;
 
   protected readonly presets: ExpensePreset[] = [
     { name: 'Comida', mode: 'daily', icon: 'pi pi-shopping-bag', hint: 'super, kiosco, delivery' },
@@ -116,32 +118,82 @@ export class ExpensesComponent implements OnInit {
 
     this.ensureCategory(this.selectedCategoryName)
       .then((category) => {
-        this.dashboardService
-          .createTransaction({
-            type: 'EXPENSE',
-            amount: parsedAmount,
-            currency: this.currency,
-            description: this.buildDescription(),
-            categoryId: category.id,
-            accountId: this.accounts()[0]?.id,
-            date: new Date().toISOString(),
-          })
-          .subscribe({
-            next: (transaction) => {
+        const payload = {
+          type: 'EXPENSE' as const,
+          amount: parsedAmount,
+          currency: this.currency,
+          description: this.buildDescription(),
+          categoryId: category.id,
+          accountId: this.accounts()[0]?.id,
+        };
+
+        const request$ = this.editingExpenseId
+          ? this.dashboardService.updateTransaction(this.editingExpenseId, payload)
+          : this.dashboardService.createTransaction({ ...payload, date: new Date().toISOString() });
+
+        request$.subscribe({
+          next: (transaction) => {
+            const wasEditing = Boolean(this.editingExpenseId);
+            if (this.editingExpenseId) {
+              this.transactions.update((transactions) =>
+                transactions.map((existingTransaction) => (existingTransaction.id === transaction.id ? transaction : existingTransaction)),
+              );
+            } else {
               this.transactions.set([transaction, ...this.transactions()]);
-              this.amount = '';
-              this.note = '';
-              this.currency = 'ARS';
-              this.message.set('Gasto guardado.');
-              this.isSaving.set(false);
-            },
-            error: () => {
-              this.error.set('No pude guardar el gasto.');
-              this.isSaving.set(false);
-            },
-          });
+            }
+
+            this.resetForm();
+            this.message.set(wasEditing ? 'Gasto actualizado.' : 'Gasto guardado.');
+            this.editingExpenseId = null;
+            this.isSaving.set(false);
+          },
+          error: () => {
+            this.error.set(this.editingExpenseId ? 'No pude actualizar el gasto.' : 'No pude guardar el gasto.');
+            this.isSaving.set(false);
+          },
+        });
       })
       .catch(() => undefined);
+  }
+
+  protected editExpense(expense: FinanceTransaction): void {
+    this.editingExpenseId = expense.id;
+    this.amount = this.formatEditableAmount(expense.amount);
+    this.currency = expense.currency === 'USD' ? 'USD' : 'ARS';
+    this.selectedCategoryName = expense.category?.name || this.extractCategoryName(expense.description) || 'Comida';
+    this.mode.set(this.findPresetMode(this.selectedCategoryName));
+    this.note = this.extractNote(expense.description);
+    this.message.set('');
+    this.error.set('');
+  }
+
+  protected cancelEdit(): void {
+    this.editingExpenseId = null;
+    this.resetForm();
+    this.message.set('');
+    this.error.set('');
+  }
+
+  protected deleteExpense(expense: FinanceTransaction): void {
+    const label = expense.description || expense.category?.name || 'este gasto';
+    if (!window.confirm(`¿Borrar ${label}?`)) return;
+
+    this.deletingExpenseId.set(expense.id);
+    this.error.set('');
+    this.message.set('');
+
+    this.dashboardService.deleteTransaction(expense.id).subscribe({
+      next: () => {
+        this.transactions.update((transactions) => transactions.filter((transaction) => transaction.id !== expense.id));
+        if (this.editingExpenseId === expense.id) this.cancelEdit();
+        this.message.set('Gasto borrado.');
+        this.deletingExpenseId.set(null);
+      },
+      error: () => {
+        this.error.set('No pude borrar el gasto.');
+        this.deletingExpenseId.set(null);
+      },
+    });
   }
 
   protected formatMoney(value: string | number, currency: string = 'ARS'): string {
@@ -191,7 +243,32 @@ export class ExpensesComponent implements OnInit {
     return suffix ? `${this.selectedCategoryName} - ${suffix}` : this.selectedCategoryName;
   }
 
+  private resetForm(): void {
+    this.amount = '';
+    this.note = '';
+    this.currency = 'ARS';
+  }
+
   private parseAmount(value: string): number {
     return Number(value.replace(/\./g, '').replace(',', '.'));
+  }
+
+  private formatEditableAmount(value: string | number): string {
+    const numericValue = Number(value);
+    if (!Number.isFinite(numericValue)) return '';
+    return numericValue.toString().replace('.', ',');
+  }
+
+  private extractCategoryName(description?: string | null): string {
+    return description?.split(' - ')[0]?.trim() || '';
+  }
+
+  private extractNote(description?: string | null): string {
+    const parts = description?.split(' - ') ?? [];
+    return parts.length > 1 ? parts.slice(1).join(' - ').trim() : '';
+  }
+
+  private findPresetMode(categoryName: string): ExpenseMode {
+    return this.presets.find((preset) => preset.name === categoryName)?.mode ?? 'daily';
   }
 }
