@@ -27,7 +27,7 @@ export class AuthService {
   private readonly userSignal = signal<AuthUser | null>(this.readStoredUser());
 
   readonly user = this.userSignal.asReadonly();
-  readonly isAuthenticated = computed(() => Boolean(this.getToken() && this.userSignal()));
+  readonly isAuthenticated = computed(() => Boolean(this.getToken()));
 
   constructor(
     private readonly http: HttpClient,
@@ -55,15 +55,32 @@ export class AuthService {
     if (typeof window === 'undefined') {
       return null;
     }
-    return window.localStorage.getItem(TOKEN_KEY);
+
+    const token = window.localStorage.getItem(TOKEN_KEY);
+    if (!token || token === 'undefined' || token === 'null') {
+      window.localStorage.removeItem(TOKEN_KEY);
+      return null;
+    }
+
+    return token;
   }
 
   private setSession(response: LoginResponse): void {
-    if (typeof window !== 'undefined') {
-      window.localStorage.setItem(TOKEN_KEY, response.access_token);
-      window.localStorage.setItem(USER_KEY, JSON.stringify(response.user));
+    const token = response.access_token;
+    if (!token) {
+      this.clearSession();
+      throw new Error('Login response did not include an access token.');
     }
-    this.userSignal.set(response.user);
+
+    if (typeof window !== 'undefined') {
+      window.localStorage.setItem(TOKEN_KEY, token);
+      if (response.user) {
+        window.localStorage.setItem(USER_KEY, JSON.stringify(response.user));
+      } else {
+        window.localStorage.removeItem(USER_KEY);
+      }
+    }
+    this.userSignal.set(response.user ?? null);
   }
 
   private readStoredUser(): AuthUser | null {
@@ -77,10 +94,24 @@ export class AuthService {
     }
 
     try {
-      return JSON.parse(raw) as AuthUser;
+      const user = JSON.parse(raw) as AuthUser;
+      if (!user || typeof user !== 'object') {
+        window.localStorage.removeItem(USER_KEY);
+        return null;
+      }
+
+      return user;
     } catch {
       window.localStorage.removeItem(USER_KEY);
       return null;
     }
+  }
+
+  private clearSession(): void {
+    if (typeof window !== 'undefined') {
+      window.localStorage.removeItem(TOKEN_KEY);
+      window.localStorage.removeItem(USER_KEY);
+    }
+    this.userSignal.set(null);
   }
 }

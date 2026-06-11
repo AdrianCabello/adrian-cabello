@@ -8,7 +8,8 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   }
 
   const token = window.localStorage.getItem(TOKEN_KEY);
-  if (!token) {
+  if (!token || token === 'undefined' || token === 'null') {
+    window.localStorage.removeItem(TOKEN_KEY);
     return next(req);
   }
 
