@@ -40,6 +40,10 @@ jobs:
           cp dist/adrian-cabello/browser/index.csr.html dist/adrian-cabello/browser/index.html
           cp dist/adrian-cabello/browser/index.html dist/adrian-cabello/browser/404.html
           cp CNAME dist/adrian-cabello/browser/CNAME
+          for route in login admin dashboard gastos tareas/nueva movimiento-rapido; do
+            mkdir -p "dist/adrian-cabello/browser/$route"
+            cp dist/adrian-cabello/browser/index.html "dist/adrian-cabello/browser/$route/index.html"
+          done
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
