@@ -25,13 +25,21 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
 
       - name: Install dependencies
         run: npm ci
 
       - name: Build
-        run: npm run build
+        run: npm run build -- --configuration production
+
+      - name: Prepare GitHub Pages artifact
+        run: |
+          cp dist/adrian-cabello/browser/index.csr.html dist/adrian-cabello/browser/index.html
+          cp dist/adrian-cabello/browser/index.html dist/adrian-cabello/browser/404.html
+          cp CNAME dist/adrian-cabello/browser/CNAME
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
@@ -50,4 +58,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4 
+        uses: actions/deploy-pages@v4
