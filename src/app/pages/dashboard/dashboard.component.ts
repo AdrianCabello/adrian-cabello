@@ -112,6 +112,7 @@ export class DashboardComponent implements OnInit {
   protected newNoteType: NoteType = 'BRAIN_DUMP';
   protected newNoteAreaId = '';
   protected pinNewNote = true;
+  protected editingNoteId: string | null = null;
   protected transactionType: TransactionType = 'EXPENSE';
   protected transactionAmount: number | null = null;
   protected transactionDescription = '';
@@ -147,40 +148,6 @@ export class DashboardComponent implements OnInit {
   protected readonly monthIncome = computed(() => this.summary()?.finance?.monthIncome ?? this.currentMonthTotal('INCOME'));
   protected readonly monthExpenses = computed(() => this.summary()?.finance?.monthExpenses ?? this.currentMonthTotal('EXPENSE'));
   protected readonly monthBalance = computed(() => this.summary()?.finance?.monthBalance ?? this.monthIncome() - this.monthExpenses());
-  protected readonly todayMinutes = computed(() =>
-    this.todayTasks().reduce((total, task) => total + Number(task.estimatedMinutes ?? 30), 0),
-  );
-  protected readonly nextFocusTask = computed(() => {
-    const priorityWeight: Record<TaskPriority, number> = { URGENT: 0, HIGH: 1, NORMAL: 2, LOW: 3 };
-    return [...this.overdueTasks(), ...this.todayTasks(), ...this.openTasks()]
-      .filter((task, index, list) => list.findIndex((item) => item.id === task.id) === index)
-      .sort((a, b) => priorityWeight[a.priority] - priorityWeight[b.priority])[0];
-  });
-  protected readonly attentionItems = computed(() =>
-    [
-      this.overdueTasks().length
-        ? {
-            icon: 'pi pi-exclamation-triangle',
-            label: `${this.overdueTasks().length} tarea${this.overdueTasks().length === 1 ? '' : 's'} vencida${this.overdueTasks().length === 1 ? '' : 's'}`,
-            tone: 'text-amber-200',
-          }
-        : null,
-      this.monthBalance() < 0
-        ? {
-            icon: 'pi pi-chart-line',
-            label: 'El mes viene negativo',
-            tone: 'text-red-200',
-          }
-        : null,
-      this.importantNotes().length
-        ? {
-            icon: 'pi pi-thumbtack',
-            label: `${this.importantNotes().length} nota${this.importantNotes().length === 1 ? '' : 's'} fijada${this.importantNotes().length === 1 ? '' : 's'}`,
-            tone: 'text-sky-200',
-          }
-        : null,
-    ].filter((item): item is { icon: string; label: string; tone: string } => Boolean(item)),
-  );
   protected readonly categoryBudgets = computed(() =>
     this.categories()
       .filter((category) => category.type === 'EXPENSE' && Number(category.monthlyBudget ?? 0) > 0)
@@ -306,27 +273,60 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  protected createNote(): void {
+  protected saveNote(): void {
     const content = this.newNoteContent.trim();
     if (!content) return;
 
-    this.dashboardService
-      .createNote({
-        title: this.newNoteTitle.trim() || undefined,
-        content,
-        type: this.newNoteType,
-        pinned: this.pinNewNote,
-        areaId: this.newNoteAreaId || undefined,
-      })
-      .subscribe({
-        next: (note) => {
+    const payload = {
+      title: this.newNoteTitle.trim() || undefined,
+      content,
+      type: this.newNoteType,
+      pinned: this.pinNewNote,
+      areaId: this.newNoteAreaId || undefined,
+    };
+    const wasEditing = Boolean(this.editingNoteId);
+    const request$ = this.editingNoteId ? this.dashboardService.updateNote(this.editingNoteId, payload) : this.dashboardService.createNote(payload);
+
+    request$.subscribe({
+      next: (note) => {
+        if (wasEditing) {
+          this.notes.set(this.notes().map((item) => (item.id === note.id ? note : item)));
+        } else {
           this.notes.set([note, ...this.notes()]);
-          this.newNoteTitle = '';
-          this.newNoteContent = '';
-          this.refreshSummary();
-        },
-        error: () => this.error.set('No pude guardar la nota.'),
-      });
+        }
+
+        this.resetNoteForm();
+        this.refreshSummary();
+      },
+      error: () => this.error.set(wasEditing ? 'No pude actualizar la nota.' : 'No pude guardar la nota.'),
+    });
+  }
+
+  protected editNote(note: PersonalNote): void {
+    this.editingNoteId = note.id;
+    this.newNoteTitle = note.title ?? '';
+    this.newNoteContent = note.content;
+    this.newNoteType = note.type;
+    this.newNoteAreaId = note.area?.id ?? '';
+    this.pinNewNote = note.pinned;
+  }
+
+  protected cancelNoteEdit(): void {
+    this.resetNoteForm();
+  }
+
+  protected deleteNote(note: PersonalNote): void {
+    const label = note.title || note.content;
+    if (!window.confirm(`¿Borrar "${label}"?`)) return;
+
+    this.dashboardService.deleteNote(note.id).subscribe({
+      next: () => {
+        this.notes.set(this.notes().filter((item) => item.id !== note.id));
+        if (this.editingNoteId === note.id) this.resetNoteForm();
+        this.refreshSummary();
+      },
+      error: () => this.error.set('No pude borrar la nota.'),
+    });
   }
 
   protected createTransaction(): void {
@@ -427,6 +427,14 @@ export class DashboardComponent implements OnInit {
       },
       error: () => this.error.set('No pude actualizar la tarea.'),
     });
+  }
+
+  private resetNoteForm(): void {
+    this.editingNoteId = null;
+    this.newNoteTitle = '';
+    this.newNoteContent = '';
+    this.newNoteType = 'BRAIN_DUMP';
+    this.pinNewNote = true;
   }
 
   private filteredTasks(): PersonalTask[] {

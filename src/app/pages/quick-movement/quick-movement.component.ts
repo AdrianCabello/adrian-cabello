@@ -27,6 +27,8 @@ import {
 export class QuickMovementComponent implements OnInit {
   protected readonly isLoading = signal(true);
   protected readonly isSaving = signal(false);
+  protected readonly isCreatingCategory = signal(false);
+  protected readonly deletingMovementId = signal<string | null>(null);
   protected readonly error = signal('');
   protected readonly message = signal('');
   protected readonly dollarError = signal('');
@@ -40,6 +42,8 @@ export class QuickMovementComponent implements OnInit {
   protected amountCurrency: MoneyCurrency = 'ARS';
   protected description = '';
   protected categoryId = '';
+  protected newCategoryName = '';
+  protected editingMovementId: string | null = null;
 
   protected readonly typeOptions: { label: string; value: TransactionType }[] = [
     { label: 'Gasto', value: 'EXPENSE' },
@@ -106,27 +110,118 @@ export class QuickMovementComponent implements OnInit {
     this.error.set('');
     this.message.set('');
 
+    const payload = {
+      type: this.transactionType,
+      amount: Math.round(amountToSave),
+      currency: 'ARS',
+      description: this.buildDescription(),
+      categoryId: this.categoryId || undefined,
+    };
+    const wasEditing = Boolean(this.editingMovementId);
+    const request$ = this.editingMovementId
+      ? this.dashboardService.updateTransaction(this.editingMovementId, payload)
+      : this.dashboardService.createTransaction({ ...payload, date: new Date().toISOString() });
+
+    request$.subscribe({
+      next: (transaction) => {
+        if (wasEditing) {
+          this.transactions.update((transactions) =>
+            transactions.map((existingTransaction) => (existingTransaction.id === transaction.id ? transaction : existingTransaction)),
+          );
+        } else {
+          this.transactions.set([transaction, ...this.transactions()]);
+        }
+
+        this.resetForm();
+        this.message.set(wasEditing ? 'Movimiento actualizado.' : 'Movimiento guardado.');
+        this.isSaving.set(false);
+      },
+      error: () => {
+        this.error.set(wasEditing ? 'No pude actualizar el movimiento.' : 'No pude guardar el movimiento.');
+        this.isSaving.set(false);
+      },
+    });
+  }
+
+  protected editMovement(movement: FinanceTransaction): void {
+    this.editingMovementId = movement.id;
+    this.transactionType = movement.type;
+    this.amount = Number(movement.amount);
+    this.amountCurrency = 'ARS';
+    this.description = movement.description ?? '';
+    this.categoryId = movement.category?.id ?? '';
+    this.message.set('');
+    this.error.set('');
+
+    if (typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }
+
+  protected cancelEdit(): void {
+    this.resetForm();
+    this.message.set('');
+    this.error.set('');
+  }
+
+  protected deleteMovement(movement: FinanceTransaction): void {
+    const label = movement.description || movement.category?.name || 'este movimiento';
+    if (!window.confirm(`¿Borrar ${label}?`)) return;
+
+    this.deletingMovementId.set(movement.id);
+    this.error.set('');
+    this.message.set('');
+
+    this.dashboardService.deleteTransaction(movement.id).subscribe({
+      next: () => {
+        this.transactions.update((transactions) => transactions.filter((transaction) => transaction.id !== movement.id));
+        if (this.editingMovementId === movement.id) this.cancelEdit();
+        this.message.set('Movimiento borrado.');
+        this.deletingMovementId.set(null);
+      },
+      error: () => {
+        this.error.set('No pude borrar el movimiento.');
+        this.deletingMovementId.set(null);
+      },
+    });
+  }
+
+  protected createCustomCategory(): void {
+    const name = this.newCategoryName.trim();
+    if (!name) {
+      this.error.set('Escribí un nombre para la categoría.');
+      return;
+    }
+
+    const existingCategory = this.filteredCategories().find((category) => category.name.toLowerCase() === name.toLowerCase());
+    if (existingCategory) {
+      this.categoryId = existingCategory.id;
+      this.newCategoryName = '';
+      this.message.set('La categoría ya existía y quedó seleccionada.');
+      this.error.set('');
+      return;
+    }
+
+    this.isCreatingCategory.set(true);
+    this.error.set('');
+    this.message.set('');
+
     this.dashboardService
-      .createTransaction({
+      .createCategory({
+        name,
         type: this.transactionType,
-        amount: Math.round(amountToSave),
-        currency: 'ARS',
-        description: this.buildDescription(),
-        categoryId: this.categoryId || undefined,
-        date: new Date().toISOString(),
       })
       .subscribe({
-        next: (transaction) => {
-          this.transactions.set([transaction, ...this.transactions()]);
-          this.amount = null;
-          this.description = '';
-          this.amountCurrency = 'ARS';
-          this.message.set('Movimiento guardado.');
-          this.isSaving.set(false);
+        next: (category) => {
+          this.categories.set([...this.categories(), category].sort((a, b) => a.name.localeCompare(b.name, 'es')));
+          this.categoryId = category.id;
+          this.newCategoryName = '';
+          this.message.set('Categoría creada y seleccionada.');
+          this.isCreatingCategory.set(false);
         },
         error: () => {
-          this.error.set('No pude guardar el movimiento.');
-          this.isSaving.set(false);
+          this.error.set('No pude crear la categoría.');
+          this.isCreatingCategory.set(false);
         },
       });
   }
@@ -189,6 +284,13 @@ export class QuickMovementComponent implements OnInit {
       : `${formatOriginalAmount(this.amount)} USD`;
 
     return description ? `${description} (${conversionNote})` : conversionNote;
+  }
+
+  private resetForm(): void {
+    this.editingMovementId = null;
+    this.amount = null;
+    this.description = '';
+    this.amountCurrency = 'ARS';
   }
 }
 

@@ -177,6 +177,10 @@ export class PersonalDashboardService {
     return this.http.patch<PersonalNote>(`${this.apiBaseUrl}/personal/notes/${id}`, payload);
   }
 
+  deleteNote(id: string): Observable<PersonalNote> {
+    return this.http.delete<PersonalNote>(`${this.apiBaseUrl}/personal/notes/${id}`);
+  }
+
   finance(): Observable<{ accounts: FinanceAccount[]; categories: FinanceCategory[]; transactions: FinanceTransaction[] }> {
     return this.http.get<{ accounts: FinanceAccount[]; categories: FinanceCategory[]; transactions: FinanceTransaction[] }>(
       `${this.apiBaseUrl}/personal/finance`,

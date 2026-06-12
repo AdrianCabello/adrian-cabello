@@ -27,7 +27,9 @@
       <section class="rounded-lg border border-blue-300/15 bg-slate-950/90 p-4 shadow-2xl shadow-black/30 sm:p-5" data-testid="quick-movement-form-panel">
         <div class="mb-5 grid gap-3 sm:grid-cols-[1fr_180px]">
           <div>
-            <p class="text-sm font-semibold text-sky-100">{{ transactionType === 'INCOME' ? 'Cargar ingreso' : 'Cargar gasto' }}</p>
+            <p class="text-sm font-semibold text-sky-100">
+              {{ editingMovementId ? 'Editando movimiento' : transactionType === 'INCOME' ? 'Cargar ingreso' : 'Cargar gasto' }}
+            </p>
             <p class="mt-1 text-sm text-slate-400">El balance queda guardado en pesos.</p>
           </div>
           <div class="grid grid-cols-2 gap-2" data-testid="quick-movement-type-toggle">
@@ -119,6 +121,30 @@
           data-testid="quick-movement-category"
         />
 
+        <div class="mb-4 rounded-lg border border-sky-300/15 bg-slate-900/50 p-3" data-testid="quick-movement-custom-category-panel">
+          <label class="mb-2 block text-sm text-slate-300" for="quickMovementNewCategory">Crear categoría para {{ transactionType === 'INCOME' ? 'ingresos' : 'gastos' }}</label>
+          <div class="grid gap-2 sm:grid-cols-[1fr_150px]">
+            <input
+              id="quickMovementNewCategory"
+              pInputText
+              [(ngModel)]="newCategoryName"
+              class="h-11 w-full rounded-lg border border-blue-300/20 bg-black px-3 text-white outline-none"
+              placeholder="Ej: Freelance, Comida..."
+              data-testid="quick-movement-new-category-name"
+              (keydown.enter)="createCustomCategory()"
+            />
+            <button
+              type="button"
+              class="h-11 rounded-lg border border-sky-300/30 bg-sky-500/15 px-4 text-sm font-black text-sky-100 hover:bg-sky-500/25 disabled:opacity-50"
+              [disabled]="isCreatingCategory()"
+              (click)="createCustomCategory()"
+              data-testid="quick-movement-create-category"
+            >
+              {{ isCreatingCategory() ? 'Creando...' : 'Crear' }}
+            </button>
+          </div>
+        </div>
+
         <label class="mb-2 block text-sm text-slate-400" for="quickMovementDescription">Descripción</label>
         <textarea
           id="quickMovementDescription"
@@ -138,15 +164,27 @@
           <p class="mb-3 rounded-lg border border-sky-300/30 bg-blue-900/60 px-3 py-2 text-sm text-sky-100" data-testid="quick-movement-success">{{ message() }}</p>
         }
 
-        <button
-          type="button"
-          class="h-14 w-full rounded-lg bg-sky-400 text-lg font-black text-blue-950 shadow-2xl shadow-black/40 disabled:opacity-50"
-          [disabled]="isSaving()"
-          (click)="saveMovement()"
-          data-testid="quick-movement-save"
-        >
-          {{ isSaving() ? 'Guardando...' : 'Guardar movimiento' }}
-        </button>
+        <div class="grid gap-2" [ngClass]="editingMovementId ? 'sm:grid-cols-[1fr_160px]' : ''">
+          <button
+            type="button"
+            class="h-14 w-full rounded-lg bg-sky-400 text-lg font-black text-blue-950 shadow-2xl shadow-black/40 disabled:opacity-50"
+            [disabled]="isSaving()"
+            (click)="saveMovement()"
+            data-testid="quick-movement-save"
+          >
+            {{ isSaving() ? 'Guardando...' : editingMovementId ? 'Actualizar movimiento' : 'Guardar movimiento' }}
+          </button>
+          @if (editingMovementId) {
+            <button
+              type="button"
+              class="h-14 rounded-lg border border-white/10 bg-black px-4 text-sm font-black text-slate-200 hover:border-sky-300/40"
+              (click)="cancelEdit()"
+              data-testid="quick-movement-cancel-edit"
+            >
+              Cancelar
+            </button>
+          }
+        </div>
       </section>
 
       <section class="rounded-lg border border-white/10 bg-slate-950/80 p-4 pb-4 sm:p-5" data-testid="quick-movement-recent-panel">
@@ -154,19 +192,46 @@
           <div>
             <p class="text-xs uppercase text-slate-500">Actividad</p>
             <h2 class="text-base font-bold text-slate-200">Últimos movimientos</h2>
+            <p class="hidden text-sm text-slate-500 sm:block">Editá o borrá registros cargados.</p>
           </div>
           <a routerLink="/dashboard" class="text-sm font-semibold text-sky-200 hover:text-white" data-testid="quick-movement-recent-dashboard-link">Ver balance</a>
         </div>
         <div class="space-y-2">
           @for (movement of recentTransactions(); track movement.id) {
-            <article class="flex items-center justify-between gap-3 rounded-lg border border-white/10 bg-slate-950/90 px-3 py-3" data-testid="quick-movement-recent-row">
+            <article
+              class="flex items-center justify-between gap-3 rounded-lg border px-3 py-3"
+              [ngClass]="editingMovementId === movement.id ? 'border-sky-300/60 bg-sky-950/40' : 'border-white/10 bg-slate-950/90'"
+              data-testid="quick-movement-recent-row"
+            >
               <div class="min-w-0">
                 <p class="truncate font-semibold text-white">{{ movement.description || movement.category?.name || movement.type }}</p>
                 <p class="text-xs text-slate-500">{{ movement.date | date:'shortDate' }}</p>
               </div>
-              <strong class="shrink-0" [class.text-red-200]="movement.type === 'EXPENSE'" [class.text-sky-200]="movement.type === 'INCOME'">
-                {{ movement.type === 'EXPENSE' ? '-' : '+' }}{{ formatMoney(movement.amount) }}
-              </strong>
+              <div class="flex shrink-0 items-center gap-2">
+                <strong [class.text-red-200]="movement.type === 'EXPENSE'" [class.text-sky-200]="movement.type === 'INCOME'">
+                  {{ movement.type === 'EXPENSE' ? '-' : '+' }}{{ formatMoney(movement.amount) }}
+                </strong>
+                <button
+                  type="button"
+                  class="grid h-9 w-9 place-items-center rounded-md border border-white/10 bg-slate-900 text-slate-200 transition hover:border-sky-300/50 hover:text-sky-100"
+                  aria-label="Editar movimiento"
+                  [disabled]="deletingMovementId() === movement.id"
+                  (click)="editMovement(movement)"
+                  data-testid="quick-movement-edit-row"
+                >
+                  <i class="pi pi-pencil text-sm"></i>
+                </button>
+                <button
+                  type="button"
+                  class="grid h-9 w-9 place-items-center rounded-md border border-white/10 bg-slate-900 text-slate-200 transition hover:border-red-300/50 hover:text-red-100 disabled:opacity-50"
+                  aria-label="Borrar movimiento"
+                  [disabled]="deletingMovementId() === movement.id"
+                  (click)="deleteMovement(movement)"
+                  data-testid="quick-movement-delete-row"
+                >
+                  <i class="pi pi-trash text-sm"></i>
+                </button>
+              </div>
             </article>
           } @empty {
             <p class="rounded-lg border border-white/10 bg-slate-950/90 px-3 py-4 text-sm text-slate-400" data-testid="quick-movement-empty-recent">

@@ -11,20 +11,10 @@
             <h1 class="truncate text-lg font-bold leading-tight sm:text-xl">Dashboard personal</h1>
           </div>
         </div>
-
-        <button
-          type="button"
-          class="grid h-10 w-10 shrink-0 place-items-center rounded-lg border border-white/10 bg-black text-blue-100 lg:hidden"
-          (click)="toggleQuickActions()"
-          aria-label="Abrir acciones rápidas"
-          data-testid="dashboard-quick-actions-toggle"
-        >
-          <i class="pi pi-ellipsis-v"></i>
-        </button>
       </div>
 
       @if (isQuickActionsOpen()) {
-        <div class="absolute right-0 top-12 z-40 w-64 rounded-lg border border-blue-300/20 bg-slate-950 p-2 shadow-2xl shadow-black/50 lg:hidden" data-testid="dashboard-quick-actions-menu">
+        <div class="absolute right-0 top-[calc(100%+0.5rem)] z-40 w-64 rounded-lg border border-blue-300/20 bg-slate-950 p-2 shadow-2xl shadow-black/50" data-testid="dashboard-quick-actions-menu">
           <p class="px-2 pb-2 pt-1 text-xs font-bold uppercase tracking-wider text-slate-500">Acciones rápidas</p>
           <a routerLink="/gastos" class="flex h-11 items-center gap-3 rounded-md px-3 text-sm font-semibold text-blue-50 hover:bg-blue-600" data-testid="dashboard-menu-expenses">
             <i class="pi pi-wallet text-sky-300"></i>
@@ -41,6 +31,10 @@
           <a routerLink="/movimiento-rapido" class="flex h-11 items-center gap-3 rounded-md px-3 text-sm font-semibold text-blue-50 hover:bg-blue-600" data-testid="dashboard-menu-quick-movement">
             <i class="pi pi-plus-circle text-sky-300"></i>
             Movimiento rápido
+          </a>
+          <a routerLink="/" class="flex h-11 items-center gap-3 rounded-md px-3 text-sm font-semibold text-blue-50 hover:bg-blue-600" data-testid="dashboard-menu-public">
+            <i class="pi pi-home text-sky-300"></i>
+            Portfolio
           </a>
           <button type="button" class="flex h-11 w-full items-center gap-3 rounded-md px-3 text-left text-sm font-semibold text-blue-50 hover:bg-blue-600" (click)="setView('today')" data-testid="dashboard-menu-today">
             <i class="pi pi-sun text-sky-300"></i>
@@ -61,7 +55,7 @@
         </div>
       }
 
-      <div class="grid gap-2 lg:min-w-[620px] lg:grid-cols-[minmax(220px,340px)_auto]">
+      <div class="grid gap-2 sm:grid-cols-[minmax(0,340px)_auto] lg:min-w-[420px]">
         <input
           pInputText
           #dashboardSearch
@@ -70,15 +64,15 @@
           (input)="updateSearch(dashboardSearch.value)"
           data-testid="dashboard-search-input"
         />
-        <div class="hidden flex-wrap items-center gap-2 lg:flex">
-          <p-button label="Nueva tarea" icon="pi pi-plus" severity="secondary" variant="outlined" routerLink="/tareas/nueva" data-testid="dashboard-new-task-link" />
-          <p-button label="Ingreso" icon="pi pi-arrow-down-left" severity="secondary" variant="outlined" routerLink="/movimiento-rapido" [queryParams]="{ tipo: 'ingreso' }" data-testid="dashboard-income-link" />
-          <p-button label="Movimiento rápido" icon="pi pi-plus-circle" severity="info" routerLink="/movimiento-rapido" data-testid="dashboard-quick-movement-link" />
-          <p-button label="Gastos" icon="pi pi-wallet" severity="info" routerLink="/gastos" data-testid="dashboard-expenses-link" />
-          <p-button label="Portfolio" icon="pi pi-home" severity="secondary" variant="outlined" routerLink="/" data-testid="dashboard-public-link" />
-          <p-button icon="pi pi-refresh" severity="info" variant="outlined" [rounded]="true" (onClick)="loadDashboard()" ariaLabel="Actualizar" data-testid="dashboard-refresh-button" />
-          <p-button icon="pi pi-sign-out" severity="secondary" [rounded]="true" (onClick)="logout()" ariaLabel="Salir" data-testid="dashboard-logout-button" />
-        </div>
+        <button
+          type="button"
+          class="grid h-10 w-10 shrink-0 place-items-center justify-self-end rounded-lg border border-white/10 bg-black text-blue-100 hover:border-sky-300/50 hover:text-sky-100"
+          (click)="toggleQuickActions()"
+          aria-label="Abrir acciones rápidas"
+          data-testid="dashboard-quick-actions-toggle"
+        >
+          <i class="pi pi-ellipsis-v"></i>
+        </button>
       </div>
     </div>
   </header>
@@ -117,74 +111,16 @@
           <i class="pi pi-wallet"></i>
           <span class="truncate">Cargar gasto</span>
         </a>
+        <a
+          routerLink="/movimiento-rapido"
+          [queryParams]="{ tipo: 'ingreso' }"
+          class="flex h-14 min-w-0 items-center justify-center gap-1 rounded-lg border border-white/10 bg-slate-950/90 px-2 text-xs font-semibold text-blue-100 transition hover:border-sky-400/60 hover:text-sky-200 sm:h-10 sm:shrink-0 sm:flex-row sm:gap-2 sm:px-3 sm:text-sm"
+          data-testid="dashboard-view-load-income"
+        >
+          <i class="pi pi-arrow-down-left"></i>
+          <span class="truncate">Cargar ingreso</span>
+        </a>
       </nav>
-
-      <section class="mb-5 grid gap-3 lg:grid-cols-[1.2fr_0.8fr]" data-testid="dashboard-command-center">
-        <div class="rounded-lg border border-sky-300/20 bg-slate-900/80 p-4 shadow-2xl shadow-black/20">
-          <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-            <div class="min-w-0">
-              <p class="text-xs font-bold uppercase tracking-wider text-sky-300">Foco recomendado</p>
-              @if (nextFocusTask(); as focusTask) {
-                <h2 class="mt-1 break-words text-xl font-bold text-blue-50">{{ focusTask.title }}</h2>
-                <p class="mt-1 text-sm text-slate-400">
-                  {{ priorityLabel(focusTask.priority) }} · {{ dateLabel(focusTask.scheduledDate || focusTask.dueDate) }} · {{ focusTask.estimatedMinutes ?? 30 }} min
-                </p>
-              } @else {
-                <h2 class="mt-1 text-xl font-bold text-blue-50">No hay tareas abiertas</h2>
-                <p class="mt-1 text-sm text-slate-400">Buen momento para capturar el próximo pendiente o revisar carrera.</p>
-              }
-            </div>
-            <div class="grid shrink-0 grid-cols-2 gap-2 sm:flex">
-              <a
-                pButton
-                routerLink="/tareas/nueva"
-                label="Nueva tarea"
-                icon="pi pi-plus"
-                severity="info"
-                styleClass="h-11 w-full sm:w-auto"
-                data-testid="dashboard-load-new-task-button"
-              ></a>
-              <a
-                pButton
-                routerLink="/movimiento-rapido"
-                label="Movimiento"
-                icon="pi pi-plus-circle"
-                severity="secondary"
-                variant="outlined"
-                styleClass="h-11 w-full sm:w-auto"
-                data-testid="dashboard-load-movement-button"
-              ></a>
-            </div>
-          </div>
-        </div>
-
-        <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
-          <div class="rounded-lg border border-white/10 bg-slate-950/90 p-4" data-testid="dashboard-today-summary">
-            <div class="flex items-center justify-between gap-3">
-              <div>
-                <p class="text-xs font-bold uppercase tracking-wider text-slate-500">Hoy</p>
-                <strong class="text-2xl text-blue-50">{{ todayTasks().length }}</strong>
-              </div>
-              <p class="rounded-md bg-sky-400/10 px-2 py-1 text-xs font-semibold text-sky-200">{{ todayMinutes() }} min</p>
-            </div>
-            <p class="mt-2 text-sm text-slate-400">Tareas agendadas y carga estimada.</p>
-          </div>
-
-          <div class="rounded-lg border border-white/10 bg-slate-950/90 p-4" data-testid="dashboard-attention-summary">
-            <p class="text-xs font-bold uppercase tracking-wider text-slate-500">Atención</p>
-            <div class="mt-2 space-y-2">
-              @for (item of attentionItems(); track item.label) {
-                <p class="flex items-center gap-2 text-sm" [ngClass]="item.tone">
-                  <i [class]="item.icon"></i>
-                  <span>{{ item.label }}</span>
-                </p>
-              } @empty {
-                <p class="text-sm text-slate-400">Sin alertas fuertes por ahora.</p>
-              }
-            </div>
-          </div>
-        </div>
-      </section>
 
       <div class="mb-5 grid grid-cols-2 gap-2 md:grid-cols-4" data-testid="dashboard-metrics">
         <p-card styleClass="!h-full !rounded-lg !border !border-white/10 !bg-slate-950/90 !text-blue-50 [&_.p-card-body]:!p-3" data-testid="dashboard-metric-tasks">
@@ -294,14 +230,29 @@
                   <p class="text-sm text-slate-400">Notas, decisiones e ideas pendientes.</p>
                 </div>
               </ng-template>
-              <form class="mb-4 grid gap-2" (ngSubmit)="createNote()" data-testid="dashboard-note-form">
+              <form class="mb-4 grid gap-2" (ngSubmit)="saveNote()" data-testid="dashboard-note-form">
+                @if (editingNoteId) {
+                  <p class="rounded-md border border-sky-300/25 bg-sky-950/40 px-3 py-2 text-sm text-sky-100" data-testid="dashboard-note-editing">
+                    Editando nota
+                  </p>
+                }
                 <input pInputText [(ngModel)]="newNoteTitle" name="newNoteTitle" class="h-10 w-full" placeholder="Título opcional" data-testid="dashboard-note-title" />
                 <textarea pTextarea [(ngModel)]="newNoteContent" name="newNoteContent" rows="4" class="w-full resize-none" placeholder="Idea, pendiente, preocupación, decisión..." data-testid="dashboard-note-input"></textarea>
                 <div class="grid gap-2 sm:grid-cols-[1fr_1fr_auto]">
                   <p-select [(ngModel)]="newNoteType" name="newNoteType" [options]="noteTypeOptions" optionLabel="label" optionValue="value" styleClass="h-10 w-full" data-testid="dashboard-note-type" />
                   <p-select [(ngModel)]="newNoteAreaId" name="newNoteAreaId" [options]="bootstrapData()?.areas ?? []" optionLabel="name" optionValue="id" [showClear]="true" styleClass="h-10 w-full" placeholder="Área" data-testid="dashboard-note-area" />
-                  <p-button type="submit" label="Guardar" icon="pi pi-plus" severity="secondary" styleClass="h-10 w-full" data-testid="dashboard-note-submit" />
+                  <p-button type="submit" [label]="editingNoteId ? 'Actualizar' : 'Guardar'" [icon]="editingNoteId ? 'pi pi-check' : 'pi pi-plus'" severity="secondary" styleClass="h-10 w-full" data-testid="dashboard-note-submit" />
                 </div>
+                @if (editingNoteId) {
+                  <button
+                    type="button"
+                    class="h-10 rounded-lg border border-white/10 bg-black px-3 text-sm font-semibold text-slate-300 hover:border-sky-300/40"
+                    (click)="cancelNoteEdit()"
+                    data-testid="dashboard-note-cancel-edit"
+                  >
+                    Cancelar edición
+                  </button>
+                }
               </form>
               <div class="space-y-2">
                 @for (note of importantNotes().slice(0, 4); track note.id) {
@@ -504,15 +455,39 @@
 </ng-template>
 
 <ng-template #noteRow let-note="note">
-  <article class="rounded-md border border-white/10 bg-slate-950 px-3 py-3" data-testid="dashboard-note-row">
+  <article
+    class="rounded-md border px-3 py-3"
+    [ngClass]="editingNoteId === note.id ? 'border-sky-300/60 bg-sky-950/40' : 'border-white/10 bg-slate-950'"
+    data-testid="dashboard-note-row"
+  >
     <div class="mb-2 flex items-start justify-between gap-3">
-      <div>
+      <div class="min-w-0">
         @if (note.title) {
           <h3 class="font-semibold">{{ note.title }}</h3>
         }
-        <p class="text-sm text-slate-200">{{ note.content }}</p>
+        <p class="break-words text-sm text-slate-200">{{ note.content }}</p>
       </div>
-      <p-tag [value]="note.type" severity="secondary" />
+      <div class="flex shrink-0 items-center gap-2">
+        <p-tag [value]="note.type" severity="secondary" />
+        <button
+          type="button"
+          class="grid h-8 w-8 place-items-center rounded-md border border-white/10 bg-slate-900 text-slate-200 transition hover:border-sky-300/50 hover:text-sky-100"
+          aria-label="Editar nota"
+          (click)="editNote(note)"
+          data-testid="dashboard-note-edit"
+        >
+          <i class="pi pi-pencil text-sm"></i>
+        </button>
+        <button
+          type="button"
+          class="grid h-8 w-8 place-items-center rounded-md border border-white/10 bg-slate-900 text-slate-200 transition hover:border-red-300/50 hover:text-red-100"
+          aria-label="Borrar nota"
+          (click)="deleteNote(note)"
+          data-testid="dashboard-note-delete"
+        >
+          <i class="pi pi-trash text-sm"></i>
+        </button>
+      </div>
     </div>
     <div class="flex items-center justify-between gap-2 text-xs text-slate-500">
       <span>{{ note.area?.name || 'Sin área' }} · {{ note.createdAt | date:'short' }}</span>
