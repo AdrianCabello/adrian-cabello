@@ -20,6 +20,7 @@ type ExpensePreset = {
   mode: ExpenseMode;
   icon: string;
   hint: string;
+  custom?: boolean;
 };
 
 @Component({
@@ -32,6 +33,7 @@ type ExpensePreset = {
 export class ExpensesComponent implements OnInit {
   protected readonly isLoading = signal(true);
   protected readonly isSaving = signal(false);
+  protected readonly isCreatingSection = signal(false);
   protected readonly deletingExpenseId = signal<string | null>(null);
   protected readonly message = signal('');
   protected readonly error = signal('');
@@ -45,6 +47,8 @@ export class ExpensesComponent implements OnInit {
   protected selectedCategoryName = 'Comida';
   protected note = '';
   protected isPaid = true;
+  protected newSectionName = '';
+  protected newSectionHint = '';
   protected editingExpenseId: string | null = null;
 
   protected readonly presets: ExpensePreset[] = [
@@ -57,7 +61,21 @@ export class ExpensesComponent implements OnInit {
     { name: 'Tarjeta Mercado Pago', mode: 'monthly', icon: 'pi pi-wallet', hint: 'resumen mensual' },
   ];
 
-  protected readonly visiblePresets = computed(() => this.presets.filter((preset) => preset.mode === this.mode()));
+  protected readonly visiblePresets = computed(() => this.expenseSections().filter((section) => section.mode === this.mode()));
+  protected readonly expenseSections = computed(() => {
+    const presetNames = new Set(this.presets.map((preset) => preset.name.toLowerCase()));
+    const customSections = this.categories()
+      .filter((category) => category.type === 'EXPENSE' && !presetNames.has(category.name.toLowerCase()))
+      .map((category) => ({
+        name: category.name,
+        mode: this.toExpenseMode(category.expenseMode),
+        icon: category.icon || 'pi pi-tag',
+        hint: category.hint || (this.toExpenseMode(category.expenseMode) === 'monthly' ? 'gasto mensual' : 'gasto diario'),
+        custom: true,
+      }));
+
+    return [...this.presets, ...customSections].sort((a, b) => Number(a.custom ?? false) - Number(b.custom ?? false));
+  });
   protected readonly recentExpenses = computed(() =>
     this.transactions()
       .filter((transaction) => transaction.type === 'EXPENSE')
@@ -79,6 +97,52 @@ export class ExpensesComponent implements OnInit {
 
   protected selectCategory(categoryName: string): void {
     this.selectedCategoryName = categoryName;
+  }
+
+  protected createCustomSection(): void {
+    const name = this.newSectionName.trim();
+    if (!name) {
+      this.error.set('Escribí un nombre para la sección.');
+      return;
+    }
+
+    const existing = this.expenseSections().find((section) => section.name.toLowerCase() === name.toLowerCase());
+    if (existing) {
+      this.selectedCategoryName = existing.name;
+      this.mode.set(existing.mode);
+      this.newSectionName = '';
+      this.newSectionHint = '';
+      this.message.set('La sección ya existía y quedó seleccionada.');
+      this.error.set('');
+      return;
+    }
+
+    this.isCreatingSection.set(true);
+    this.error.set('');
+    this.message.set('');
+
+    this.dashboardService
+      .createCategory({
+        name,
+        type: 'EXPENSE',
+        expenseMode: this.mode(),
+        hint: this.newSectionHint.trim() || undefined,
+        icon: this.mode() === 'monthly' ? 'pi pi-calendar' : 'pi pi-tag',
+      })
+      .subscribe({
+        next: (category) => {
+          this.categories.set([...this.categories(), category].sort((a, b) => a.name.localeCompare(b.name, 'es')));
+          this.selectedCategoryName = category.name;
+          this.newSectionName = '';
+          this.newSectionHint = '';
+          this.message.set('Sección creada y seleccionada.');
+          this.isCreatingSection.set(false);
+        },
+        error: () => {
+          this.error.set('No pude crear la sección.');
+          this.isCreatingSection.set(false);
+        },
+      });
   }
 
   protected setCurrency(currency: ExpenseCurrency): void {
@@ -247,7 +311,7 @@ export class ExpensesComponent implements OnInit {
     if (existing) return Promise.resolve(existing);
 
     return new Promise((resolve, reject) => {
-      this.dashboardService.createCategory({ name, type: 'EXPENSE' }).subscribe({
+      this.dashboardService.createCategory({ name, type: 'EXPENSE', expenseMode: this.mode() }).subscribe({
         next: (category) => {
           this.categories.set([...this.categories(), category]);
           resolve(category);
@@ -293,6 +357,10 @@ export class ExpensesComponent implements OnInit {
   }
 
   private findPresetMode(categoryName: string): ExpenseMode {
-    return this.presets.find((preset) => preset.name === categoryName)?.mode ?? 'daily';
+    return this.expenseSections().find((section) => section.name === categoryName)?.mode ?? 'daily';
+  }
+
+  private toExpenseMode(value?: string | null): ExpenseMode {
+    return value === 'monthly' ? 'monthly' : 'daily';
   }
 }

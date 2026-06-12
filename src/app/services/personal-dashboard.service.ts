@@ -54,6 +54,9 @@ export interface FinanceCategory {
   name: string;
   type: TransactionType;
   color?: string | null;
+  icon?: string | null;
+  hint?: string | null;
+  expenseMode?: string | null;
   monthlyBudget?: string | number | null;
 }
 
@@ -219,6 +222,9 @@ export class PersonalDashboardService {
     type: TransactionType;
     monthlyBudget?: number;
     color?: string;
+    icon?: string;
+    hint?: string;
+    expenseMode?: string;
   }): Observable<FinanceCategory> {
     return this.http.post<FinanceCategory>(`${this.apiBaseUrl}/personal/finance/categories`, payload);
   }
