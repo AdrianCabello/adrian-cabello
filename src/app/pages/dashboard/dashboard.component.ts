@@ -153,7 +153,13 @@ export class DashboardComponent implements OnInit {
       .filter((category) => category.type === 'EXPENSE' && Number(category.monthlyBudget ?? 0) > 0)
       .map((category) => {
         const spent = this.transactions()
-          .filter((transaction) => transaction.type === 'EXPENSE' && transaction.category?.id === category.id && this.isCurrentMonth(transaction.date))
+          .filter(
+            (transaction) =>
+              transaction.type === 'EXPENSE' &&
+              this.isTransactionPaid(transaction) &&
+              transaction.category?.id === category.id &&
+              this.isCurrentMonth(transaction.date),
+          )
           .reduce((total, transaction) => total + Number(transaction.amount), 0);
         const budget = Number(category.monthlyBudget ?? 0);
         return { ...category, spent, budget, usage: Math.min(100, Math.round((spent / budget) * 100)) };
@@ -162,6 +168,7 @@ export class DashboardComponent implements OnInit {
   protected readonly financeBalance = computed(() => {
     const movementBalance = this.transactions().reduce((total, transaction) => {
       const amount = Number(transaction.amount);
+      if (transaction.type === 'EXPENSE' && !this.isTransactionPaid(transaction)) return total;
       return transaction.type === 'INCOME' ? total + amount : total - amount;
     }, 0);
     const initialBalance = this.accounts().reduce((total, account) => total + Number(account.initialBalance ?? 0), 0);
@@ -409,6 +416,10 @@ export class DashboardComponent implements OnInit {
     return 'Por hacer';
   }
 
+  protected isTransactionPaid(transaction: FinanceTransaction): boolean {
+    return transaction.type !== 'EXPENSE' || transaction.isPaid !== false;
+  }
+
   protected dateLabel(value?: string | null): string {
     const date = value ? new Date(value) : null;
     if (!date || Number.isNaN(date.getTime())) return 'Sin fecha';
@@ -463,7 +474,7 @@ export class DashboardComponent implements OnInit {
 
   private currentMonthTotal(type: TransactionType): number {
     return this.transactions()
-      .filter((transaction) => transaction.type === type && this.isCurrentMonth(transaction.date))
+      .filter((transaction) => transaction.type === type && this.isTransactionPaid(transaction) && this.isCurrentMonth(transaction.date))
       .reduce((total, transaction) => total + Number(transaction.amount), 0);
   }
 

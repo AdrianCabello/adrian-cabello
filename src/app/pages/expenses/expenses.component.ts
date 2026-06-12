@@ -44,6 +44,7 @@ export class ExpensesComponent implements OnInit {
   protected currency: ExpenseCurrency = 'ARS';
   protected selectedCategoryName = 'Comida';
   protected note = '';
+  protected isPaid = true;
   protected editingExpenseId: string | null = null;
 
   protected readonly presets: ExpensePreset[] = [
@@ -122,6 +123,7 @@ export class ExpensesComponent implements OnInit {
           type: 'EXPENSE' as const,
           amount: parsedAmount,
           currency: this.currency,
+          isPaid: this.isPaid,
           description: this.buildDescription(),
           categoryId: category.id,
           accountId: this.accounts()[0]?.id,
@@ -160,6 +162,7 @@ export class ExpensesComponent implements OnInit {
     this.editingExpenseId = expense.id;
     this.amount = this.formatEditableAmount(expense.amount);
     this.currency = expense.currency === 'USD' ? 'USD' : 'ARS';
+    this.isPaid = this.isExpensePaid(expense);
     this.selectedCategoryName = expense.category?.name || this.extractCategoryName(expense.description) || 'Comida';
     this.mode.set(this.findPresetMode(this.selectedCategoryName));
     this.note = this.extractNote(expense.description);
@@ -194,6 +197,26 @@ export class ExpensesComponent implements OnInit {
         this.deletingExpenseId.set(null);
       },
     });
+  }
+
+  protected togglePaidStatus(expense: FinanceTransaction): void {
+    const isPaid = !this.isExpensePaid(expense);
+    this.dashboardService.updateTransaction(expense.id, { isPaid }).subscribe({
+      next: (updatedExpense) => {
+        this.transactions.update((transactions) =>
+          transactions.map((existingTransaction) => (existingTransaction.id === updatedExpense.id ? updatedExpense : existingTransaction)),
+        );
+        this.message.set(isPaid ? 'Gasto marcado como pagado.' : 'Gasto marcado como pendiente.');
+        this.error.set('');
+      },
+      error: () => {
+        this.error.set('No pude cambiar el estado del gasto.');
+      },
+    });
+  }
+
+  protected isExpensePaid(expense: FinanceTransaction): boolean {
+    return expense.isPaid !== false;
   }
 
   protected formatMoney(value: string | number, currency: string = 'ARS'): string {
@@ -247,6 +270,7 @@ export class ExpensesComponent implements OnInit {
     this.amount = '';
     this.note = '';
     this.currency = 'ARS';
+    this.isPaid = true;
   }
 
   private parseAmount(value: string): number {

@@ -133,6 +133,19 @@
       </section>
 
       <section class="expense-card p-3" data-testid="expenses-note-panel">
+        <label class="mb-3 flex items-center justify-between gap-3 rounded-lg border border-white/10 bg-black/60 px-3 py-3" data-testid="expenses-paid-toggle">
+          <span class="min-w-0">
+            <span class="block text-sm font-bold text-white">Pagado</span>
+            <span class="block text-xs text-slate-400">Apagalo si todavía lo tenés pendiente.</span>
+          </span>
+          <input
+            type="checkbox"
+            [(ngModel)]="isPaid"
+            class="h-5 w-5 shrink-0 accent-sky-400"
+            aria-label="Marcar gasto como pagado"
+            data-testid="expenses-paid-checkbox"
+          />
+        </label>
         <textarea
           pTextarea
           [(ngModel)]="note"
@@ -180,15 +193,34 @@
           @for (expense of recentExpenses(); track expense.id) {
             <article class="flex items-center justify-between gap-3 rounded-lg border border-white/10 bg-black/45 px-3 py-3 shadow-sm lg:rounded-none lg:border-x-0 lg:border-t-0 lg:bg-black/30 lg:px-4 lg:shadow-none" data-testid="expenses-recent-row">
               <div class="min-w-0">
-                <p class="truncate font-semibold text-white">{{ expense.description || expense.category?.name || 'Gasto' }}</p>
+                <div class="flex min-w-0 items-center gap-2">
+                  <p class="min-w-0 truncate font-semibold text-white">{{ expense.description || expense.category?.name || 'Gasto' }}</p>
+                  <span
+                    class="shrink-0 rounded-full border px-2 py-0.5 text-[10px] font-black uppercase"
+                    [ngClass]="isExpensePaid(expense) ? 'border-emerald-300/25 bg-emerald-500/10 text-emerald-200' : 'border-amber-300/30 bg-amber-500/10 text-amber-100'"
+                    data-testid="expenses-paid-badge"
+                  >
+                    {{ isExpensePaid(expense) ? 'Pagado' : 'Pendiente' }}
+                  </span>
+                </div>
                 <p class="text-xs text-slate-500">{{ expense.date | date:'shortDate' }}<span class="hidden lg:inline"> · {{ expense.category?.name || 'Sin categoría' }}</span></p>
               </div>
               <div class="flex shrink-0 items-center gap-3">
                 <strong class="text-red-200">-{{ formatMoney(expense.amount, expense.currency) }}</strong>
-                <div class="hidden items-center gap-1 lg:flex">
+                <div class="flex items-center gap-1">
                   <button
                     type="button"
-                    class="grid h-9 w-9 place-items-center rounded-md border border-white/10 bg-slate-900 text-slate-200 transition hover:border-sky-300/50 hover:text-sky-100"
+                    class="grid h-9 w-9 place-items-center rounded-md border bg-slate-900 text-slate-200 transition hover:border-emerald-300/50 hover:text-emerald-100"
+                    [ngClass]="isExpensePaid(expense) ? 'border-emerald-300/25' : 'border-amber-300/30'"
+                    [attr.aria-label]="isExpensePaid(expense) ? 'Marcar gasto como pendiente' : 'Marcar gasto como pagado'"
+                    (click)="togglePaidStatus(expense)"
+                    data-testid="expenses-toggle-paid-row"
+                  >
+                    <i class="text-sm" [ngClass]="isExpensePaid(expense) ? 'pi pi-check-circle' : 'pi pi-clock'"></i>
+                  </button>
+                  <button
+                    type="button"
+                    class="hidden h-9 w-9 place-items-center rounded-md border border-white/10 bg-slate-900 text-slate-200 transition hover:border-sky-300/50 hover:text-sky-100 lg:grid"
                     aria-label="Editar gasto"
                     (click)="editExpense(expense)"
                     data-testid="expenses-edit-row"
@@ -197,7 +229,7 @@
                   </button>
                   <button
                     type="button"
-                    class="grid h-9 w-9 place-items-center rounded-md border border-white/10 bg-slate-900 text-slate-200 transition hover:border-red-300/50 hover:text-red-100 disabled:opacity-50"
+                    class="hidden h-9 w-9 place-items-center rounded-md border border-white/10 bg-slate-900 text-slate-200 transition hover:border-red-300/50 hover:text-red-100 disabled:opacity-50 lg:grid"
                     aria-label="Borrar gasto"
                     [disabled]="deletingExpenseId() === expense.id"
                     (click)="deleteExpense(expense)"

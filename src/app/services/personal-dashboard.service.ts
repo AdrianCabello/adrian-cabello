@@ -71,6 +71,7 @@ export interface FinanceTransaction {
   amount: string | number;
   currency: string;
   date: string;
+  isPaid?: boolean;
   description?: string | null;
   merchant?: string | null;
   category?: FinanceCategory | null;
@@ -81,6 +82,7 @@ export interface FinanceTransactionPayload {
   type: TransactionType;
   amount: number;
   currency?: string;
+  isPaid?: boolean;
   description?: string;
   date?: string;
   categoryId?: string;
