@@ -56,13 +56,6 @@ export class QuickMovementComponent implements OnInit {
 
   protected readonly filteredCategories = computed(() => this.categories().filter((category) => category.type === this.transactionType));
   protected readonly recentTransactions = computed(() => this.transactions().slice(0, 8));
-  protected readonly amountInPesos = computed(() => {
-    if (!this.amount || this.amount <= 0) return 0;
-    if (this.amountCurrency === 'ARS') return this.amount;
-
-    const quote = this.dollarQuote();
-    return quote ? this.amount * quote.venta : 0;
-  });
 
   constructor(
     private readonly dashboardService: PersonalDashboardService,
@@ -100,21 +93,15 @@ export class QuickMovementComponent implements OnInit {
       return;
     }
 
-    const amountToSave = this.amountInPesos();
-    if (this.amountCurrency === 'USD' && amountToSave <= 0) {
-      this.error.set('No pude convertir el monto en dólares. Actualizá la cotización o cargalo en pesos.');
-      return;
-    }
-
     this.isSaving.set(true);
     this.error.set('');
     this.message.set('');
 
     const payload = {
       type: this.transactionType,
-      amount: Math.round(amountToSave),
-      currency: 'ARS',
-      description: this.buildDescription(),
+      amount: this.amount,
+      currency: this.amountCurrency,
+      description: this.description.trim() || undefined,
       categoryId: this.categoryId || undefined,
     };
     const wasEditing = Boolean(this.editingMovementId);
@@ -147,7 +134,7 @@ export class QuickMovementComponent implements OnInit {
     this.editingMovementId = movement.id;
     this.transactionType = movement.type;
     this.amount = Number(movement.amount);
-    this.amountCurrency = 'ARS';
+    this.amountCurrency = movement.currency === 'USD' ? 'USD' : 'ARS';
     this.description = movement.description ?? '';
     this.categoryId = movement.category?.id ?? '';
     this.message.set('');
@@ -274,28 +261,10 @@ export class QuickMovementComponent implements OnInit {
     });
   }
 
-  private buildDescription(): string | undefined {
-    const description = this.description.trim();
-    if (this.amountCurrency === 'ARS') return description || undefined;
-
-    const quote = this.dollarQuote();
-    const conversionNote = quote
-      ? `${formatOriginalAmount(this.amount)} USD x dólar blue venta ${this.formatMoney(quote.venta)}`
-      : `${formatOriginalAmount(this.amount)} USD`;
-
-    return description ? `${description} (${conversionNote})` : conversionNote;
-  }
-
   private resetForm(): void {
     this.editingMovementId = null;
     this.amount = null;
     this.description = '';
     this.amountCurrency = 'ARS';
   }
-}
-
-function formatOriginalAmount(value: number | null): string {
-  return new Intl.NumberFormat('es-AR', {
-    maximumFractionDigits: 2,
-  }).format(Number(value ?? 0));
 }

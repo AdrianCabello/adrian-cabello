@@ -30,7 +30,7 @@
             <p class="text-sm font-semibold text-sky-100">
               {{ editingMovementId ? 'Editando movimiento' : transactionType === 'INCOME' ? 'Cargar ingreso' : 'Cargar gasto' }}
             </p>
-            <p class="mt-1 text-sm text-slate-400">El balance queda guardado en pesos.</p>
+            <p class="mt-1 text-sm text-slate-400">El movimiento se guarda en la moneda elegida.</p>
           </div>
           <div class="grid grid-cols-2 gap-2" data-testid="quick-movement-type-toggle">
             @for (type of typeOptions; track type.value) {
@@ -79,17 +79,17 @@
           @if (amountCurrency === 'USD') {
             <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
               <div>
-                <p class="text-xs uppercase text-emerald-200">Conversión a pesos</p>
+                <p class="text-xs uppercase text-emerald-200">Se guarda en dólares</p>
                 @if (dollarQuote(); as quote) {
                   <p class="mt-1 text-sm text-slate-300">
-                    Dólar blue venta: <strong class="text-white">{{ formatMoney(quote.venta) }}</strong>
+                    Cotización disponible: <strong class="text-white">{{ formatMoney(quote.venta) }}</strong>
                     <span class="text-slate-500"> · {{ formatQuoteDate(quote.fechaActualizacion) }}</span>
                   </p>
                 } @else {
                   <p class="mt-1 text-sm text-slate-400">{{ isDollarLoading() ? 'Actualizando cotización...' : 'Cotización no disponible.' }}</p>
                 }
               </div>
-              <strong class="text-2xl text-emerald-100" data-testid="quick-movement-amount-ars-preview">{{ formatMoney(amountInPesos()) }}</strong>
+              <strong class="text-2xl text-emerald-100" data-testid="quick-movement-amount-preview">{{ formatMoney(amount || 0, 'USD') }}</strong>
             </div>
             @if (dollarError()) {
               <div class="mt-3 flex items-center justify-between gap-3 rounded-md border border-amber-300/25 bg-amber-950/30 px-3 py-2 text-sm text-amber-100" data-testid="quick-movement-dollar-error">
@@ -99,7 +99,7 @@
             }
           } @else {
             <div class="flex items-center justify-between gap-3">
-              <span class="text-sm text-slate-400">Se guarda directo en el balance total.</span>
+              <span class="text-sm text-slate-400">Se guarda directo en pesos.</span>
               @if (dollarQuote(); as quote) {
                 <span class="text-xs text-slate-500">Blue venta {{ formatMoney(quote.venta) }}</span>
               }
