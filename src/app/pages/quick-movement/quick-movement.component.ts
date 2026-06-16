@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, computed, signal } from '@angular/core';
+import { Component, OnInit, computed, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { RouterLink } from '@angular/router';
@@ -8,6 +8,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { SelectModule } from 'primeng/select';
 import { TextareaModule } from 'primeng/textarea';
+import { FinanceSettingsService } from '../../services/finance-settings.service';
 import {
   DollarQuote,
   FinanceCategory,
@@ -25,6 +26,8 @@ import {
   styleUrl: './quick-movement.component.scss',
 })
 export class QuickMovementComponent implements OnInit {
+  private readonly financeSettings = inject(FinanceSettingsService);
+
   protected readonly isLoading = signal(true);
   protected readonly isSaving = signal(false);
   protected readonly isCreatingCategory = signal(false);
@@ -56,6 +59,8 @@ export class QuickMovementComponent implements OnInit {
 
   protected readonly filteredCategories = computed(() => this.categories().filter((category) => category.type === this.transactionType));
   protected readonly recentTransactions = computed(() => this.transactions().slice(0, 8));
+  protected readonly dollarSettings = this.financeSettings.dollarRate;
+  protected readonly configuredDollarRate = computed(() => this.dollarSettings().dollarRate);
 
   constructor(
     private readonly dashboardService: PersonalDashboardService,
@@ -111,6 +116,7 @@ export class QuickMovementComponent implements OnInit {
 
     request$.subscribe({
       next: (transaction) => {
+        this.financeSettings.saveTransactionDollarRate(transaction.id, transaction.currency);
         if (wasEditing) {
           this.transactions.update((transactions) =>
             transactions.map((existingTransaction) => (existingTransaction.id === transaction.id ? transaction : existingTransaction)),
@@ -161,6 +167,7 @@ export class QuickMovementComponent implements OnInit {
 
     this.dashboardService.deleteTransaction(movement.id).subscribe({
       next: () => {
+        this.financeSettings.deleteTransactionDollarRate(movement.id);
         this.transactions.update((transactions) => transactions.filter((transaction) => transaction.id !== movement.id));
         if (this.editingMovementId === movement.id) this.cancelEdit();
         this.message.set('Movimiento borrado.');
@@ -217,8 +224,16 @@ export class QuickMovementComponent implements OnInit {
     return new Intl.NumberFormat('es-AR', {
       style: 'currency',
       currency,
-      maximumFractionDigits: 0,
+      maximumFractionDigits: currency === 'ARS' ? 0 : 2,
     }).format(Number(value));
+  }
+
+  protected amountInArs(): number {
+    return this.financeSettings.convertToArs(this.amount || 0, this.amountCurrency);
+  }
+
+  protected movementAmountInArs(movement: FinanceTransaction): number {
+    return this.financeSettings.convertTransactionToArs(movement);
   }
 
   protected formatQuoteDate(value: string): string {

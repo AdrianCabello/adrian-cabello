@@ -80,18 +80,23 @@
             <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
               <div>
                 <p class="text-xs uppercase text-emerald-200">Se guarda en dólares</p>
-                @if (dollarQuote(); as quote) {
+                @if (configuredDollarRate()) {
                   <p class="mt-1 text-sm text-slate-300">
-                    Cotización disponible: <strong class="text-white">{{ formatMoney(quote.venta) }}</strong>
-                    <span class="text-slate-500"> · {{ formatQuoteDate(quote.fechaActualizacion) }}</span>
+                    Cotización configurada: <strong class="text-white">{{ formatMoney(configuredDollarRate()) }}</strong>
                   </p>
                 } @else {
-                  <p class="mt-1 text-sm text-slate-400">{{ isDollarLoading() ? 'Actualizando cotización...' : 'Cotización no disponible.' }}</p>
+                  <p class="mt-1 text-sm text-amber-100">Configurá el dólar desde el dashboard para convertir a pesos.</p>
+                }
+                @if (dollarQuote(); as quote) {
+                  <p class="mt-1 text-xs text-slate-500">Referencia blue: {{ formatMoney(quote.venta) }} · {{ formatQuoteDate(quote.fechaActualizacion) }}</p>
                 }
               </div>
-              <strong class="text-2xl text-emerald-100" data-testid="quick-movement-amount-preview">{{ formatMoney(amount || 0, 'USD') }}</strong>
+              <div class="text-right">
+                <strong class="block text-2xl text-emerald-100" data-testid="quick-movement-amount-preview">{{ formatMoney(amount || 0, 'USD') }}</strong>
+                <span class="text-sm text-slate-300" data-testid="quick-movement-amount-ars-preview">{{ formatMoney(amountInArs()) }}</span>
+              </div>
             </div>
-            @if (dollarError()) {
+            @if (dollarError() && !configuredDollarRate()) {
               <div class="mt-3 flex items-center justify-between gap-3 rounded-md border border-amber-300/25 bg-amber-950/30 px-3 py-2 text-sm text-amber-100" data-testid="quick-movement-dollar-error">
                 <span>{{ dollarError() }}</span>
                 <button type="button" class="shrink-0 font-bold text-amber-50" (click)="refreshDollarQuote()" data-testid="quick-movement-dollar-refresh">Reintentar</button>
@@ -100,8 +105,8 @@
           } @else {
             <div class="flex items-center justify-between gap-3">
               <span class="text-sm text-slate-400">Se guarda directo en pesos.</span>
-              @if (dollarQuote(); as quote) {
-                <span class="text-xs text-slate-500">Blue venta {{ formatMoney(quote.venta) }}</span>
+              @if (configuredDollarRate()) {
+                <span class="text-xs text-slate-500">USD configurado {{ formatMoney(configuredDollarRate()) }}</span>
               }
             </div>
           }
@@ -209,7 +214,10 @@
               </div>
               <div class="flex shrink-0 items-center gap-2">
                 <strong [class.text-red-200]="movement.type === 'EXPENSE'" [class.text-sky-200]="movement.type === 'INCOME'">
-                  {{ movement.type === 'EXPENSE' ? '-' : '+' }}{{ formatMoney(movement.amount) }}
+                  {{ movement.type === 'EXPENSE' ? '-' : '+' }}{{ formatMoney(movement.amount, movement.currency || 'ARS') }}
+                  @if (movement.currency === 'USD') {
+                    <span class="block text-right text-xs font-normal text-slate-500">{{ formatMoney(movementAmountInArs(movement)) }}</span>
+                  }
                 </strong>
                 <button
                   type="button"

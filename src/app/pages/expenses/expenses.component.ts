@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, computed, signal } from '@angular/core';
+import { Component, OnInit, computed, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { TextareaModule } from 'primeng/textarea';
+import { FinanceSettingsService } from '../../services/finance-settings.service';
 import {
   FinanceAccount,
   FinanceCategory,
@@ -31,6 +32,8 @@ type ExpensePreset = {
   styleUrl: './expenses.component.scss',
 })
 export class ExpensesComponent implements OnInit {
+  private readonly financeSettings = inject(FinanceSettingsService);
+
   protected readonly isLoading = signal(true);
   protected readonly isSaving = signal(false);
   protected readonly isCreatingSection = signal(false);
@@ -199,6 +202,7 @@ export class ExpensesComponent implements OnInit {
 
         request$.subscribe({
           next: (transaction) => {
+            this.financeSettings.saveTransactionDollarRate(transaction.id, transaction.currency);
             const wasEditing = Boolean(this.editingExpenseId);
             if (this.editingExpenseId) {
               this.transactions.update((transactions) =>
@@ -251,6 +255,7 @@ export class ExpensesComponent implements OnInit {
 
     this.dashboardService.deleteTransaction(expense.id).subscribe({
       next: () => {
+        this.financeSettings.deleteTransactionDollarRate(expense.id);
         this.transactions.update((transactions) => transactions.filter((transaction) => transaction.id !== expense.id));
         if (this.editingExpenseId === expense.id) this.cancelEdit();
         this.message.set('Gasto borrado.');
@@ -287,8 +292,12 @@ export class ExpensesComponent implements OnInit {
     return new Intl.NumberFormat('es-AR', {
       style: 'currency',
       currency,
-      maximumFractionDigits: 0,
+      maximumFractionDigits: currency === 'ARS' ? 0 : 2,
     }).format(Number(value));
+  }
+
+  protected expenseAmountInArs(expense: FinanceTransaction): number {
+    return this.financeSettings.convertTransactionToArs(expense);
   }
 
   private loadFinance(): void {

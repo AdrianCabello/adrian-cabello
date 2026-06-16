@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, computed, signal } from '@angular/core';
+import { Component, OnInit, computed, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
@@ -12,6 +12,7 @@ import { TagModule } from 'primeng/tag';
 import { TextareaModule } from 'primeng/textarea';
 import { forkJoin } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
+import { FinanceSettingsService } from '../../services/finance-settings.service';
 import {
   BootstrapData,
   DashboardProject,
@@ -28,7 +29,7 @@ import {
   TransactionType,
 } from '../../services/personal-dashboard.service';
 
-type DashboardView = 'overview' | 'today' | 'week' | 'career' | 'finance';
+type DashboardView = 'overview' | 'today' | 'week' | 'career' | 'finance' | 'settings';
 
 @Component({
   selector: 'app-dashboard',
@@ -50,6 +51,8 @@ type DashboardView = 'overview' | 'today' | 'week' | 'career' | 'finance';
   styleUrl: './dashboard.component.scss',
 })
 export class DashboardComponent implements OnInit {
+  private readonly financeSettings = inject(FinanceSettingsService);
+
   protected readonly isLoading = signal(true);
   protected readonly error = signal('');
   protected readonly activeView = signal<DashboardView>('overview');
@@ -71,6 +74,7 @@ export class DashboardComponent implements OnInit {
     { label: 'Semana', value: 'week', icon: 'pi pi-calendar' },
     { label: 'Carrera', value: 'career', icon: 'pi pi-briefcase' },
     { label: 'Finanzas', value: 'finance', icon: 'pi pi-wallet' },
+    { label: 'Configuración', value: 'settings', icon: 'pi pi-cog' },
   ];
   protected readonly priorityOptions = [
     { label: 'Urgente', value: 'URGENT' },
@@ -124,6 +128,9 @@ export class DashboardComponent implements OnInit {
   protected newCategoryName = '';
   protected newCategoryType: TransactionType = 'EXPENSE';
   protected newCategoryBudget: number | null = null;
+  protected dollarRateInput: number | null = null;
+  protected readonly settingsMessage = signal('');
+  protected readonly settingsError = signal('');
 
   protected readonly openTasks = computed(() => this.filteredTasks().filter((task) => task.status !== 'DONE'));
   protected readonly todayTasks = computed(() =>
@@ -145,9 +152,17 @@ export class DashboardComponent implements OnInit {
   protected readonly inboxNotes = computed(() => this.filteredNotes().filter((note) => note.type === 'BRAIN_DUMP'));
   protected readonly visibleTransactions = computed(() => this.transactions().slice(0, 12));
   protected readonly filteredCategories = computed(() => this.categories().filter((category) => category.type === this.transactionType));
-  protected readonly monthIncome = computed(() => this.summary()?.finance?.monthIncome ?? this.currentMonthTotal('INCOME'));
-  protected readonly monthExpenses = computed(() => this.summary()?.finance?.monthExpenses ?? this.currentMonthTotal('EXPENSE'));
-  protected readonly monthBalance = computed(() => this.summary()?.finance?.monthBalance ?? this.monthIncome() - this.monthExpenses());
+  protected readonly dollarSettings = this.financeSettings.dollarRate;
+  protected readonly currentDollarRate = computed(() => this.dollarSettings().dollarRate);
+  protected readonly monthIncome = computed(() => this.currentMonthTotal('INCOME'));
+  protected readonly monthExpenses = computed(() => this.currentMonthTotal('EXPENSE'));
+  protected readonly monthBalance = computed(() => this.monthIncome() - this.monthExpenses());
+  protected readonly monthlyIncomeUsd = computed(() => this.currentMonthCurrencyTotal('INCOME', 'USD'));
+  protected readonly monthlyExpensesUsd = computed(() => this.currentMonthCurrencyTotal('EXPENSE', 'USD'));
+  protected readonly monthlyIncomeUsdArs = computed(() => this.currentMonthCurrencyTotalInArs('INCOME', 'USD'));
+  protected readonly monthlyExpensesUsdArs = computed(() => this.currentMonthCurrencyTotalInArs('EXPENSE', 'USD'));
+  protected readonly monthlyIncomeArsOriginal = computed(() => this.currentMonthCurrencyTotal('INCOME', 'ARS'));
+  protected readonly monthlyExpensesArsOriginal = computed(() => this.currentMonthCurrencyTotal('EXPENSE', 'ARS'));
   protected readonly categoryBudgets = computed(() =>
     this.categories()
       .filter((category) => category.type === 'EXPENSE' && Number(category.monthlyBudget ?? 0) > 0)
@@ -160,18 +175,18 @@ export class DashboardComponent implements OnInit {
               transaction.category?.id === category.id &&
               this.isCurrentMonth(transaction.date),
           )
-          .reduce((total, transaction) => total + Number(transaction.amount), 0);
+          .reduce((total, transaction) => total + this.financeSettings.convertTransactionToArs(transaction), 0);
         const budget = Number(category.monthlyBudget ?? 0);
         return { ...category, spent, budget, usage: Math.min(100, Math.round((spent / budget) * 100)) };
       }),
   );
   protected readonly financeBalance = computed(() => {
     const movementBalance = this.transactions().reduce((total, transaction) => {
-      const amount = Number(transaction.amount);
+      const amount = this.financeSettings.convertTransactionToArs(transaction);
       if (transaction.type === 'EXPENSE' && !this.isTransactionPaid(transaction)) return total;
       return transaction.type === 'INCOME' ? total + amount : total - amount;
     }, 0);
-    const initialBalance = this.accounts().reduce((total, account) => total + Number(account.initialBalance ?? 0), 0);
+    const initialBalance = this.accounts().reduce((total, account) => total + this.toArs(account.initialBalance ?? 0, account.currency), 0);
     return initialBalance + movementBalance;
   });
   protected readonly activeProjects = computed(() => (this.summary()?.projects ?? []) as DashboardProject[]);
@@ -185,6 +200,7 @@ export class DashboardComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.dollarRateInput = this.currentDollarRate() || null;
     this.loadDashboard();
   }
 
@@ -399,6 +415,32 @@ export class DashboardComponent implements OnInit {
       });
   }
 
+  protected saveDollarRate(): void {
+    const rate = Number(this.dollarRateInput);
+    if (!Number.isFinite(rate) || rate <= 0) {
+      this.settingsError.set('Cargá una cotización mayor a cero.');
+      this.settingsMessage.set('');
+      return;
+    }
+
+    this.financeSettings.saveDollarRate(rate);
+    this.dollarRateInput = this.currentDollarRate();
+    this.settingsError.set('');
+    this.settingsMessage.set('Cotización actualizada.');
+  }
+
+  protected formatMoney(value: string | number, currency: string = 'ARS'): string {
+    return new Intl.NumberFormat('es-AR', {
+      style: 'currency',
+      currency,
+      maximumFractionDigits: currency === 'ARS' ? 0 : 2,
+    }).format(Number(value));
+  }
+
+  protected transactionAmountInArs(transaction: FinanceTransaction): number {
+    return this.financeSettings.convertTransactionToArs(transaction);
+  }
+
   protected setTransactionType(type: TransactionType): void {
     this.transactionType = type;
     const category = this.categories().find((item) => item.type === type);
@@ -475,7 +517,35 @@ export class DashboardComponent implements OnInit {
   private currentMonthTotal(type: TransactionType): number {
     return this.transactions()
       .filter((transaction) => transaction.type === type && this.isTransactionPaid(transaction) && this.isCurrentMonth(transaction.date))
+      .reduce((total, transaction) => total + this.financeSettings.convertTransactionToArs(transaction), 0);
+  }
+
+  private currentMonthCurrencyTotal(type: TransactionType, currency: string): number {
+    return this.transactions()
+      .filter(
+        (transaction) =>
+          transaction.type === type &&
+          this.isTransactionPaid(transaction) &&
+          this.isCurrentMonth(transaction.date) &&
+          (transaction.currency || 'ARS') === currency,
+      )
       .reduce((total, transaction) => total + Number(transaction.amount), 0);
+  }
+
+  private currentMonthCurrencyTotalInArs(type: TransactionType, currency: string): number {
+    return this.transactions()
+      .filter(
+        (transaction) =>
+          transaction.type === type &&
+          this.isTransactionPaid(transaction) &&
+          this.isCurrentMonth(transaction.date) &&
+          (transaction.currency || 'ARS') === currency,
+      )
+      .reduce((total, transaction) => total + this.financeSettings.convertTransactionToArs(transaction), 0);
+  }
+
+  private toArs(amount: string | number, currency?: string | null): number {
+    return this.financeSettings.convertToArs(amount, currency);
   }
 
   private getTaskDateKey(task: PersonalTask): string {

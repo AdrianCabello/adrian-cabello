@@ -44,6 +44,10 @@
             <i class="pi pi-wallet text-sky-300"></i>
             Finanzas
           </button>
+          <button type="button" class="flex h-11 w-full items-center gap-3 rounded-md px-3 text-left text-sm font-semibold text-blue-50 hover:bg-blue-600" (click)="setView('settings')" data-testid="dashboard-menu-settings">
+            <i class="pi pi-cog text-sky-300"></i>
+            Configuración
+          </button>
           <button type="button" class="flex h-11 w-full items-center gap-3 rounded-md px-3 text-left text-sm font-semibold text-blue-50 hover:bg-blue-600" (click)="refreshFromMenu()" data-testid="dashboard-menu-refresh">
             <i class="pi pi-refresh text-sky-300"></i>
             Actualizar
@@ -126,7 +130,6 @@
         <p-card styleClass="!h-full !rounded-lg !border !border-white/10 !bg-slate-950/90 !text-blue-50 [&_.p-card-body]:!p-3" data-testid="dashboard-metric-tasks">
           <div class="mb-1 flex items-center justify-between text-xs text-slate-400">
             <span>Tareas abiertas</span>
-            <i class="pi pi-list-check text-sky-300"></i>
           </div>
           <strong class="text-2xl sm:text-3xl">{{ openTasks().length }}</strong>
           <p class="mt-1 text-[11px] text-slate-500">{{ overdueTasks().length }} vencidas · {{ todayTasks().length }} hoy</p>
@@ -135,30 +138,28 @@
         <p-card styleClass="!h-full !rounded-lg !border !border-white/10 !bg-slate-950/90 !text-blue-50 [&_.p-card-body]:!p-3" data-testid="dashboard-metric-balance">
           <div class="mb-1 flex items-center justify-between text-xs text-slate-400">
             <span>Balance</span>
-            <i class="pi pi-wallet text-sky-300"></i>
           </div>
           <strong class="text-2xl sm:text-3xl">{{ financeBalance() | currency:'ARS':'symbol-narrow':'1.0-0' }}</strong>
-          <p class="mt-1 text-[11px] text-slate-500">{{ accounts().length }} cuentas</p>
+          <p class="mt-1 text-[11px] text-slate-500">USD a {{ currentDollarRate() | currency:'ARS':'symbol-narrow':'1.0-0' }}</p>
         </p-card>
 
         <p-card styleClass="!h-full !rounded-lg !border !border-white/10 !bg-slate-950/90 !text-blue-50 [&_.p-card-body]:!p-3" data-testid="dashboard-metric-expenses">
-          <div class="mb-1 flex items-center justify-between text-xs text-slate-400">
-            <span>Gastos mes</span>
-            <i class="pi pi-credit-card text-cyan-200"></i>
-          </div>
-          <strong class="text-2xl sm:text-3xl">{{ monthExpenses() | currency:'ARS':'symbol-narrow':'1.0-0' }}</strong>
-          <p class="mt-1 text-[11px] text-slate-500">{{ monthIncome() | currency:'ARS':'symbol-narrow':'1.0-0' }} ingresados</p>
+          <a routerLink="/gastos" fragment="historial" class="block rounded-md focus:outline-none focus:ring-2 focus:ring-sky-300" data-testid="dashboard-metric-expenses-link">
+            <div class="mb-1 flex items-center justify-between text-xs text-slate-400">
+              <span>Gastos mes</span>
+            </div>
+            <strong class="text-2xl sm:text-3xl">{{ monthExpenses() | currency:'ARS':'symbol-narrow':'1.0-0' }}</strong>
+            <p class="mt-1 text-[11px] text-slate-500">{{ monthlyExpensesUsd() | currency:'USD':'symbol':'1.0-2' }} USD incluidos</p>
+          </a>
         </p-card>
 
         <p-card styleClass="!h-full !rounded-lg !border !border-white/10 !bg-slate-950/90 !text-blue-50 [&_.p-card-body]:!p-3" data-testid="dashboard-metric-projects">
           <div class="mb-1 flex items-center justify-between text-xs text-slate-400">
             <span>Resultado mes</span>
-            <i class="pi pi-chart-line text-sky-200"></i>
           </div>
           <strong class="text-2xl sm:text-3xl" [class.text-red-200]="monthBalance() < 0" [class.text-sky-100]="monthBalance() >= 0">
             {{ monthBalance() | currency:'ARS':'symbol-narrow':'1.0-0' }}
           </strong>
-          <p class="mt-1 text-[11px] text-slate-500">{{ activeProjects().length }} proyectos en portfolio</p>
         </p-card>
       </div>
 
@@ -181,9 +182,34 @@
                   <p class="text-xs text-slate-500">Ingresos mes</p>
                   <strong class="text-lg text-sky-200">{{ monthIncome() | currency:'ARS':'symbol-narrow':'1.0-0' }}</strong>
                 </div>
-                <div class="rounded-md border border-white/10 bg-slate-950 px-3 py-3">
+                <a
+                  routerLink="/gastos"
+                  fragment="historial"
+                  class="rounded-md border border-white/10 bg-slate-950 px-3 py-3 transition hover:border-sky-300/50 focus:outline-none focus:ring-2 focus:ring-sky-300"
+                  data-testid="dashboard-overview-expenses-link"
+                >
                   <p class="text-xs text-slate-500">Gastos mes</p>
                   <strong class="text-lg text-red-200">{{ monthExpenses() | currency:'ARS':'symbol-narrow':'1.0-0' }}</strong>
+                </a>
+              </div>
+              <div class="mt-3 grid gap-2 text-sm sm:grid-cols-2" data-testid="dashboard-finance-breakdown">
+                <div class="rounded-md border border-sky-300/15 bg-slate-950 px-3 py-3">
+                  <p class="text-xs uppercase tracking-wide text-slate-500">Ingresos USD</p>
+                  <strong class="mt-1 block text-sky-100">{{ monthlyIncomeUsd() | currency:'USD':'symbol':'1.0-2' }}</strong>
+                  <span class="text-xs text-slate-400">Convertidos: {{ monthlyIncomeUsdArs() | currency:'ARS':'symbol-narrow':'1.0-0' }}</span>
+                </div>
+                <div class="rounded-md border border-red-300/15 bg-slate-950 px-3 py-3">
+                  <p class="text-xs uppercase tracking-wide text-slate-500">Gastos USD</p>
+                  <strong class="mt-1 block text-red-100">{{ monthlyExpensesUsd() | currency:'USD':'symbol':'1.0-2' }}</strong>
+                  <span class="text-xs text-slate-400">Convertidos: {{ monthlyExpensesUsdArs() | currency:'ARS':'symbol-narrow':'1.0-0' }}</span>
+                </div>
+                <div class="rounded-md border border-white/10 bg-slate-950 px-3 py-3">
+                  <p class="text-xs uppercase tracking-wide text-slate-500">Ingresos ARS directos</p>
+                  <strong class="mt-1 block text-sky-100">{{ monthlyIncomeArsOriginal() | currency:'ARS':'symbol-narrow':'1.0-0' }}</strong>
+                </div>
+                <div class="rounded-md border border-white/10 bg-slate-950 px-3 py-3">
+                  <p class="text-xs uppercase tracking-wide text-slate-500">Gastos ARS directos</p>
+                  <strong class="mt-1 block text-red-100">{{ monthlyExpensesArsOriginal() | currency:'ARS':'symbol-narrow':'1.0-0' }}</strong>
                 </div>
               </div>
               <div class="mt-4 grid gap-2 sm:grid-cols-2">
@@ -202,7 +228,7 @@
               </div>
             </p-card>
 
-            <p-card styleClass="!rounded-lg !border !border-white/10 !bg-slate-950/90 !text-blue-50" data-testid="dashboard-today-panel">
+            <p-card styleClass="!mt-5 !rounded-lg !border !border-white/10 !bg-slate-950/90 !text-blue-50" data-testid="dashboard-today-panel">
               <ng-template pTemplate="header">
                 <div class="flex items-center justify-between px-5 pt-5">
                   <div>
@@ -425,6 +451,67 @@
           </div>
         </section>
       }
+
+      @if (activeView() === 'settings') {
+        <section class="grid gap-4 lg:grid-cols-[0.8fr_1.2fr]" data-testid="dashboard-settings-view">
+          <p-card styleClass="!rounded-lg !border !border-white/10 !bg-slate-950/90 !text-blue-50" data-testid="dashboard-dollar-settings-panel">
+            <ng-template pTemplate="header">
+              <div class="px-5 pt-5">
+                <h2 class="text-lg font-bold">Configuración</h2>
+                <p class="text-sm text-slate-400">Cotización global para convertir sueldos y gastos en dólares a pesos.</p>
+              </div>
+            </ng-template>
+            <form class="grid gap-3" (ngSubmit)="saveDollarRate()" data-testid="dashboard-dollar-rate-form">
+              <label class="text-sm text-slate-300" for="dashboardDollarRate">Dólar usado por la app</label>
+              <p-inputNumber
+                inputId="dashboardDollarRate"
+                [(ngModel)]="dollarRateInput"
+                name="dollarRateInput"
+                mode="currency"
+                currency="ARS"
+                locale="es-AR"
+                [min]="1"
+                inputStyleClass="h-12 w-full"
+                styleClass="w-full"
+                data-testid="dashboard-dollar-rate-input"
+              />
+              @if (settingsError()) {
+                <p class="rounded-md border border-red-400/30 bg-red-950/60 px-3 py-2 text-sm text-red-100" data-testid="dashboard-settings-error">{{ settingsError() }}</p>
+              }
+              @if (settingsMessage()) {
+                <p class="rounded-md border border-sky-300/30 bg-blue-900/60 px-3 py-2 text-sm text-sky-100" data-testid="dashboard-settings-success">{{ settingsMessage() }}</p>
+              }
+              <button type="submit" class="h-11 rounded-lg bg-sky-400 px-4 text-sm font-black text-blue-950" data-testid="dashboard-dollar-rate-save">
+                Guardar cotización
+              </button>
+            </form>
+          </p-card>
+
+          <p-card styleClass="!rounded-lg !border !border-white/10 !bg-slate-950/90 !text-blue-50" data-testid="dashboard-dollar-history-panel">
+            <ng-template pTemplate="header">
+              <div class="px-5 pt-5">
+                <h2 class="text-lg font-bold">Historial de cotización</h2>
+                <p class="text-sm text-slate-400">Últimos cambios guardados en este dispositivo.</p>
+              </div>
+            </ng-template>
+            <div class="space-y-2">
+              @for (item of dollarSettings().dollarRateHistory; track item.id) {
+                <article class="flex items-center justify-between gap-3 rounded-md border border-white/10 bg-slate-950 px-3 py-3" data-testid="dashboard-dollar-history-row">
+                  <div>
+                    <p class="text-sm font-semibold text-slate-200">{{ item.rate | currency:'ARS':'symbol-narrow':'1.0-0' }}</p>
+                    <p class="text-xs text-slate-500">{{ item.createdAt | date:'short' }}</p>
+                  </div>
+                  @if (item.rate === currentDollarRate()) {
+                    <span class="rounded-md border border-sky-300/20 bg-sky-500/10 px-2 py-1 text-xs font-bold text-sky-100">Actual</span>
+                  }
+                </article>
+              } @empty {
+                <p class="rounded-md border border-white/10 bg-slate-950 px-3 py-4 text-sm text-slate-400" data-testid="dashboard-dollar-history-empty">Todavía no guardaste cotizaciones.</p>
+              }
+            </div>
+          </p-card>
+        </section>
+      }
     }
   </section>
 </main>
@@ -507,7 +594,10 @@
           <p class="text-xs text-slate-500">{{ transaction.account?.name || 'Sin cuenta' }} · {{ transaction.date | date:'shortDate' }}</p>
         </div>
         <strong class="shrink-0" [class.text-red-300]="transaction.type === 'EXPENSE'" [class.text-sky-300]="transaction.type === 'INCOME'">
-          {{ transaction.type === 'EXPENSE' ? '-' : '+' }}{{ transaction.amount | currency:'ARS':'symbol-narrow':'1.0-0' }}
+          {{ transaction.type === 'EXPENSE' ? '-' : '+' }}{{ formatMoney(transaction.amount, transaction.currency || 'ARS') }}
+          @if (transaction.currency === 'USD') {
+            <span class="ml-2 text-xs font-normal text-slate-500">({{ transactionAmountInArs(transaction) | currency:'ARS':'symbol-narrow':'1.0-0' }})</span>
+          }
         </strong>
       </article>
     } @empty {
