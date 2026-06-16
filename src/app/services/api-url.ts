@@ -1,8 +1,9 @@
 export const ADRIAN_CLIENT_ID = '002a5177-2d27-4c0b-936d-dbb2d317663a';
+const PRODUCTION_API_BASE_URL = 'https://api.rakium.dev/api';
 
 export function getApiBaseUrl(): string {
   if (typeof window === 'undefined') {
-    return 'https://rakium-be-production.up.railway.app/api';
+    return PRODUCTION_API_BASE_URL;
   }
 
   const override = window.localStorage.getItem('adrian-api-base-url');
@@ -14,5 +15,5 @@ export function getApiBaseUrl(): string {
     return 'http://localhost:3000/api';
   }
 
-  return 'https://rakium-be-production.up.railway.app/api';
+  return PRODUCTION_API_BASE_URL;
 }
