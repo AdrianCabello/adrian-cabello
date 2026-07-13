@@ -17,6 +17,8 @@ export interface Project {
   role?: string;
   outcomes?: string[];
   featured?: boolean;
+  imageLabels?: string[];
+  platformNote?: string;
 }
 
 interface BackendGalleryItem {
@@ -55,22 +57,66 @@ export class ProjectsService {
       title: 'EventLoop',
       role: 'Founder & Tech Lead',
       description:
-        'A founder-led event operations platform that connects ticketing, point of sale, inventory, product catalogs and multi-location workflows in one product.',
+        'The operating system behind event discovery, ticketing, producer operations, artist profiles, point of sale, inventory and branded public websites.',
       outcomes: [
-        'Own product strategy, UX, architecture and production releases.',
-        'Built end-to-end workflows across Angular, Go and PostgreSQL.',
+        'Own product strategy, UX, architecture, backend systems and production releases.',
+        'Built one platform serving attendees, producers, venues and artists.',
+        'Launched productized custom-domain websites powered and managed from EventLoop.',
       ],
       tech: ['Angular 20', 'Go', 'Node.js', 'PostgreSQL'],
       link: 'https://eventloop.ar',
       images: [
-        '../../../assets/images/eventloop-home.webp',
-        '../../../assets/images/eventloop-event-detail.webp',
-        '../../../assets/images/eventloop-producers.webp',
+        '../../../assets/images/eventloop-discovery.webp',
+        '../../../assets/images/eventloop-event.webp',
+        '../../../assets/images/eventloop-producer-markama.webp',
+        '../../../assets/images/eventloop-artist-adricted.webp',
+      ],
+      imageLabels: [
+        'Event discovery',
+        'Event page & ticketing',
+        'Producer website · markama.ar',
+        'Artist website · adricted.com',
       ],
       clientName: 'EventLoop',
       website: 'https://eventloop.ar',
       instagram: 'https://instagram.com/eventloop.ar',
       featured: true,
+    },
+    {
+      title: 'Adricted',
+      role: 'Artist website · Powered by EventLoop',
+      description:
+        'A branded artist website generated from EventLoop and published on adricted.com through the platform’s custom-domain offering.',
+      outcomes: [
+        'Brings events, music, galleries, biography and verified channels into one profile.',
+        'Uses EventLoop as the content platform while the artist owns the public domain.',
+      ],
+      tech: ['EventLoop', 'Custom domains', 'Angular', 'Media platform'],
+      link: 'https://adricted.com',
+      images: ['../../../assets/images/eventloop-artist-adricted.webp'],
+      imageLabels: ['Live artist profile on adricted.com'],
+      clientName: 'Adricted',
+      website: 'https://adricted.com',
+      instagram: 'https://instagram.com/adricted__',
+      platformNote: 'Custom domain · Content managed inside EventLoop',
+    },
+    {
+      title: 'Markama',
+      role: 'Producer website · Powered by EventLoop',
+      description:
+        'A producer website served by EventLoop at markama.ar, turning the organization profile into a branded destination with its own domain.',
+      outcomes: [
+        'Publishes events, artists, venues, history and contact information from one workspace.',
+        'Demonstrates the productized custom-domain offering available to EventLoop producers.',
+      ],
+      tech: ['EventLoop', 'Custom domains', 'Angular', 'Producer tools'],
+      link: 'https://markama.ar',
+      images: ['../../../assets/images/eventloop-producer-markama.webp'],
+      imageLabels: ['Live producer profile on markama.ar'],
+      clientName: 'Markama',
+      website: 'https://markama.ar',
+      instagram: 'https://www.instagram.com/markamaquinta/',
+      platformNote: 'Custom domain · Content managed inside EventLoop',
     },
     {
       title: 'Lautaro Vulcano',
@@ -152,6 +198,8 @@ export class ProjectsService {
         website: backendProject.website ?? fallback.website,
         instagram: backendProject.instagram ?? fallback.instagram,
         featured: fallback.featured,
+        imageLabels: fallback.imageLabels,
+        platformNote: fallback.platformNote,
       };
     });
 
