@@ -1,0 +1,342 @@
+<main
+  class="min-h-screen bg-slate-950 text-slate-100"
+  data-testid="portfolio-admin-page">
+  <header class="border-b border-white/10 bg-slate-950/95">
+    <div
+      class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-4 sm:px-6">
+      <div>
+        <p
+          class="text-xs font-semibold uppercase tracking-[0.18em] text-cyan-300">
+          Rakium API
+        </p>
+        <h1 class="mt-1 text-2xl font-bold">Proyectos del portfolio</h1>
+      </div>
+      <a
+        routerLink="/dashboard"
+        class="rounded-full border border-white/15 px-4 py-2 text-sm font-semibold text-slate-200 transition hover:border-cyan-300/50 hover:text-white"
+        data-testid="portfolio-admin-back-link">
+        Volver al dashboard
+      </a>
+    </div>
+  </header>
+
+  <div
+    class="mx-auto grid max-w-7xl gap-6 px-4 py-6 sm:px-6 lg:grid-cols-[0.8fr_1.2fr]">
+    <section
+      class="rounded-2xl border border-white/10 bg-slate-900/70 p-5"
+      data-testid="portfolio-project-form-section">
+      <div class="mb-5">
+        <p class="text-sm text-cyan-300">
+          {{ editingProjectId() ? 'Editando proyecto' : 'Nuevo proyecto' }}
+        </p>
+        <h2 class="mt-1 text-xl font-bold">Contenido público</h2>
+        <p class="mt-2 text-sm leading-6 text-slate-400">
+          Los proyectos publicados aparecen automáticamente en el portfolio.
+        </p>
+      </div>
+
+      <form
+        class="grid gap-4"
+        (ngSubmit)="saveProject()"
+        data-testid="portfolio-project-form">
+        <label class="grid gap-1.5 text-sm font-semibold">
+          Nombre
+          <input
+            [(ngModel)]="form.name"
+            name="name"
+            required
+            class="h-11 rounded-lg border border-white/10 bg-slate-950 px-3 font-normal outline-none focus:border-cyan-300"
+            data-testid="portfolio-project-name" />
+        </label>
+
+        <label class="grid gap-1.5 text-sm font-semibold">
+          Descripción breve
+          <textarea
+            [(ngModel)]="form.description"
+            name="description"
+            rows="4"
+            class="rounded-lg border border-white/10 bg-slate-950 px-3 py-2 font-normal outline-none focus:border-cyan-300"
+            data-testid="portfolio-project-description"></textarea>
+        </label>
+
+        <label class="grid gap-1.5 text-sm font-semibold">
+          Descripción extendida
+          <textarea
+            [(ngModel)]="form.longDescription"
+            name="longDescription"
+            rows="3"
+            class="rounded-lg border border-white/10 bg-slate-950 px-3 py-2 font-normal outline-none focus:border-cyan-300"
+            data-testid="portfolio-project-long-description"></textarea>
+        </label>
+
+        <div class="grid gap-4 sm:grid-cols-2">
+          <label class="grid gap-1.5 text-sm font-semibold">
+            Estado
+            <select
+              [(ngModel)]="form.status"
+              name="status"
+              class="h-11 rounded-lg border border-white/10 bg-slate-950 px-3 font-normal outline-none focus:border-cyan-300"
+              data-testid="portfolio-project-status">
+              <option value="DRAFT">Borrador</option>
+              <option value="PENDING">Pendiente</option>
+              <option value="PUBLISHED">Publicado</option>
+            </select>
+          </label>
+
+          <label class="grid gap-1.5 text-sm font-semibold">
+            Orden
+            <input
+              [(ngModel)]="form.order"
+              name="order"
+              type="number"
+              min="0"
+              class="h-11 rounded-lg border border-white/10 bg-slate-950 px-3 font-normal outline-none focus:border-cyan-300"
+              data-testid="portfolio-project-order" />
+          </label>
+        </div>
+
+        <label class="grid gap-1.5 text-sm font-semibold">
+          Tecnologías, separadas por coma
+          <input
+            [(ngModel)]="form.technologies"
+            name="technologies"
+            placeholder="Angular, Go, Node.js, PostgreSQL"
+            class="h-11 rounded-lg border border-white/10 bg-slate-950 px-3 font-normal outline-none focus:border-cyan-300"
+            data-testid="portfolio-project-technologies" />
+        </label>
+
+        <label class="grid gap-1.5 text-sm font-semibold">
+          URL del producto
+          <input
+            [(ngModel)]="form.url"
+            name="url"
+            type="url"
+            class="h-11 rounded-lg border border-white/10 bg-slate-950 px-3 font-normal outline-none focus:border-cyan-300"
+            data-testid="portfolio-project-url" />
+        </label>
+
+        <div class="grid gap-4 sm:grid-cols-2">
+          <label class="grid gap-1.5 text-sm font-semibold">
+            Demo
+            <input
+              [(ngModel)]="form.demoUrl"
+              name="demoUrl"
+              type="url"
+              class="h-11 rounded-lg border border-white/10 bg-slate-950 px-3 font-normal outline-none focus:border-cyan-300"
+              data-testid="portfolio-project-demo-url" />
+          </label>
+
+          <label class="grid gap-1.5 text-sm font-semibold">
+            GitHub
+            <input
+              [(ngModel)]="form.githubUrl"
+              name="githubUrl"
+              type="url"
+              class="h-11 rounded-lg border border-white/10 bg-slate-950 px-3 font-normal outline-none focus:border-cyan-300"
+              data-testid="portfolio-project-github-url" />
+          </label>
+        </div>
+
+        <div class="flex flex-wrap gap-3 pt-2">
+          <button
+            type="submit"
+            [disabled]="isSaving() || !form.name.trim()"
+            class="min-h-11 rounded-full bg-cyan-300 px-5 font-bold text-slate-950 transition hover:bg-cyan-200 disabled:cursor-not-allowed disabled:opacity-50"
+            data-testid="portfolio-project-submit">
+            {{
+              isSaving()
+                ? 'Guardando…'
+                : editingProjectId()
+                  ? 'Actualizar proyecto'
+                  : 'Crear proyecto'
+            }}
+          </button>
+          @if (editingProjectId()) {
+            <button
+              type="button"
+              class="min-h-11 rounded-full border border-white/15 px-5 font-semibold text-slate-200"
+              (click)="cancelEdit()"
+              data-testid="portfolio-project-cancel">
+              Cancelar
+            </button>
+          }
+        </div>
+      </form>
+    </section>
+
+    <section data-testid="portfolio-project-list-section">
+      <div class="mb-4 flex items-end justify-between gap-4">
+        <div>
+          <p class="text-sm text-cyan-300">Administración</p>
+          <h2 class="mt-1 text-2xl font-bold">Proyectos cargados</h2>
+        </div>
+        <button
+          type="button"
+          class="rounded-full border border-white/15 px-4 py-2 text-sm font-semibold"
+          (click)="loadProjects()"
+          data-testid="portfolio-project-refresh">
+          Actualizar
+        </button>
+      </div>
+
+      @if (message()) {
+        <p
+          class="mb-4 rounded-xl border border-emerald-300/25 bg-emerald-950/40 px-4 py-3 text-sm text-emerald-100"
+          data-testid="portfolio-project-message">
+          {{ message() }}
+        </p>
+      }
+      @if (error()) {
+        <p
+          class="mb-4 rounded-xl border border-red-300/25 bg-red-950/40 px-4 py-3 text-sm text-red-100"
+          data-testid="portfolio-project-error">
+          {{ error() }}
+        </p>
+      }
+
+      @if (isLoading()) {
+        <div class="grid gap-4" data-testid="portfolio-project-loading">
+          <div class="h-48 animate-pulse rounded-2xl bg-white/5"></div>
+          <div class="h-48 animate-pulse rounded-2xl bg-white/5"></div>
+        </div>
+      } @else {
+        <div class="grid gap-4">
+          @for (project of projects(); track project.id) {
+            <article
+              class="rounded-2xl border border-white/10 bg-slate-900/70 p-4"
+              data-testid="portfolio-project-row">
+              <div class="flex flex-col gap-4 sm:flex-row">
+                <div
+                  class="aspect-video w-full overflow-hidden rounded-xl bg-slate-950 sm:w-48 sm:shrink-0">
+                  <img
+                    [src]="
+                      project.coverImage?.url ||
+                      project.gallery?.[0]?.url ||
+                      './assets/images/project-placeholder.webp'
+                    "
+                    [alt]="project.name"
+                    width="480"
+                    height="270"
+                    loading="lazy"
+                    class="h-full w-full object-cover" />
+                </div>
+                <div class="min-w-0 flex-1">
+                  <div class="flex flex-wrap items-start justify-between gap-3">
+                    <div>
+                      <p
+                        class="text-xs font-semibold uppercase tracking-wider text-cyan-300">
+                        {{ project.status }} · Orden {{ project.order }}
+                      </p>
+                      <h3 class="mt-1 text-xl font-bold">{{ project.name }}</h3>
+                    </div>
+                    <div class="flex gap-2">
+                      <button
+                        type="button"
+                        class="rounded-full border border-white/15 px-3 py-1.5 text-sm font-semibold hover:border-cyan-300/50"
+                        (click)="editProject(project)"
+                        data-testid="portfolio-project-edit">
+                        Editar
+                      </button>
+                      <button
+                        type="button"
+                        class="rounded-full border border-red-300/25 px-3 py-1.5 text-sm font-semibold text-red-100"
+                        (click)="requestDelete(project.id)"
+                        data-testid="portfolio-project-delete">
+                        Eliminar
+                      </button>
+                    </div>
+                  </div>
+                  <p class="mt-3 text-sm leading-6 text-slate-400">
+                    {{ project.description || 'Sin descripción.' }}
+                  </p>
+
+                  <div class="mt-4 flex flex-wrap items-center gap-3">
+                    <label
+                      class="cursor-pointer rounded-full bg-white/10 px-4 py-2 text-sm font-semibold hover:bg-white/15">
+                      Subir captura
+                      <input
+                        type="file"
+                        accept="image/jpeg,image/png,image/webp"
+                        class="sr-only"
+                        (change)="uploadImage(project, $event)"
+                        data-testid="portfolio-project-image-upload" />
+                    </label>
+                    @if (project.url || project.demoUrl) {
+                      <a
+                        [href]="project.demoUrl || project.url || '#'"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="text-sm font-semibold text-cyan-300 hover:text-cyan-200"
+                        data-testid="portfolio-project-open">
+                        Abrir producto
+                      </a>
+                    }
+                  </div>
+                </div>
+              </div>
+
+              @if (project.gallery?.length) {
+                <div
+                  class="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4"
+                  data-testid="portfolio-project-gallery">
+                  @for (image of project.gallery; track image.id) {
+                    <div
+                      class="group relative aspect-video overflow-hidden rounded-lg border border-white/10">
+                      <img
+                        [src]="image.url"
+                        [alt]="project.name"
+                        width="320"
+                        height="180"
+                        loading="lazy"
+                        class="h-full w-full object-cover" />
+                      <button
+                        type="button"
+                        class="absolute right-2 top-2 rounded-full bg-slate-950/90 px-2 py-1 text-xs font-bold text-red-100 opacity-100 sm:opacity-0 sm:group-hover:opacity-100"
+                        (click)="deleteImage(project.id, image.id)"
+                        aria-label="Eliminar captura"
+                        data-testid="portfolio-project-image-delete">
+                        Eliminar
+                      </button>
+                    </div>
+                  }
+                </div>
+              }
+
+              @if (pendingDeleteId() === project.id) {
+                <div
+                  class="mt-4 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-red-300/25 bg-red-950/30 p-3"
+                  data-testid="portfolio-project-delete-confirmation">
+                  <p class="text-sm text-red-100">
+                    ¿Eliminar {{ project.name }} definitivamente?
+                  </p>
+                  <div class="flex gap-2">
+                    <button
+                      type="button"
+                      class="rounded-full border border-white/15 px-3 py-1.5 text-sm"
+                      (click)="cancelDelete()"
+                      data-testid="portfolio-project-delete-cancel">
+                      Cancelar
+                    </button>
+                    <button
+                      type="button"
+                      class="rounded-full bg-red-300 px-3 py-1.5 text-sm font-bold text-red-950"
+                      (click)="confirmDelete(project.id)"
+                      data-testid="portfolio-project-delete-confirm">
+                      Eliminar
+                    </button>
+                  </div>
+                </div>
+              }
+            </article>
+          } @empty {
+            <p
+              class="rounded-2xl border border-white/10 bg-slate-900/70 px-5 py-8 text-center text-slate-400"
+              data-testid="portfolio-project-empty">
+              Todavía no hay proyectos en Rakium.
+            </p>
+          }
+        </div>
+      }
+    </section>
+  </div>
+</main>

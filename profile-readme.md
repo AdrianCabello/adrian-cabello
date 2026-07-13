@@ -1,7 +1,7 @@
 # 👋 Hi, I'm Adrian Cabello
 
 <div align="center">
-  <img src="https://adriancabello.dev/assets/images/ghibli.png" alt="Adrian Cabello" width="200" style="border-radius: 50%;" />
+  <img src="https://adriancabello.dev/assets/images/adrian-profile.webp" alt="Adrian Cabello" width="200" style="border-radius: 50%;" />
   
   [![Website](https://img.shields.io/badge/Website-adriancabello.dev-blue?style=flat-square&logo=google-chrome)](https://adriancabello.dev)
   [![LinkedIn](https://img.shields.io/badge/LinkedIn-Adrian_Cabello-blue?style=flat-square&logo=linkedin)](https://linkedin.com/in/adrian-cabello)
@@ -9,11 +9,11 @@
 
 ## 👨‍💻 About Me
 
-Senior Angular Engineer and Tech Lead with 9+ years of experience building enterprise platforms, AI-enabled products, and founder-led operational software.
+Full-Stack Product Engineer and Tech Lead with 9+ years of experience building Angular frontends, Go and Node.js backends, AI-enabled products, and founder-led operational software.
 
 ### 🚀 What I Do
 
-- 💼 Currently working as a Senior Frontend Developer
+- 💼 Full-Stack Product Engineer with deep Angular expertise
 - 🌟 Specializing in Angular development
 - 🎯 Focused on clean code and best practices
 - 📚 Continuous learner and tech enthusiast

@@ -1,80 +1,131 @@
-<main class="min-h-screen bg-slate-950 text-blue-50" data-testid="dashboard-page">
-  <header class="sticky top-0 z-30 border-b border-white/10 bg-slate-950/95 px-4 py-3 backdrop-blur" data-testid="dashboard-header">
-    <div class="relative mx-auto flex max-w-7xl flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+<main
+  class="min-h-screen bg-slate-950 text-blue-50"
+  data-testid="dashboard-page">
+  <header
+    class="sticky top-0 z-30 border-b border-white/10 bg-slate-950/95 px-4 py-3 backdrop-blur"
+    data-testid="dashboard-header">
+    <div
+      class="relative mx-auto flex max-w-7xl flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
       <div class="flex items-center justify-between gap-3">
         <div class="flex min-w-0 items-center gap-3">
-          <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-blue-500 text-white sm:h-11 sm:w-11">
+          <div
+            class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-blue-500 text-white sm:h-11 sm:w-11">
             <i class="pi pi-th-large text-base"></i>
           </div>
           <div class="min-w-0">
-            <p class="text-[11px] uppercase tracking-wider text-sky-300 sm:text-xs">Adrian OS</p>
-            <h1 class="truncate text-lg font-bold leading-tight sm:text-xl">Dashboard personal</h1>
+            <p
+              class="text-[11px] uppercase tracking-wider text-sky-300 sm:text-xs">
+              Adrian OS
+            </p>
+            <h1 class="truncate text-lg font-bold leading-tight sm:text-xl">
+              Dashboard personal
+            </h1>
           </div>
         </div>
       </div>
 
       @if (isQuickActionsOpen()) {
-        <div class="absolute right-0 top-[calc(100%+0.5rem)] z-40 w-64 rounded-lg border border-blue-300/20 bg-slate-950 p-2 shadow-2xl shadow-black/50" data-testid="dashboard-quick-actions-menu">
-          <p class="px-2 pb-2 pt-1 text-xs font-bold uppercase tracking-wider text-slate-500">Acciones rápidas</p>
-          <a routerLink="/gastos" class="flex h-11 items-center gap-3 rounded-md px-3 text-sm font-semibold text-blue-50 hover:bg-blue-600" data-testid="dashboard-menu-expenses">
+        <div
+          class="absolute right-0 top-[calc(100%+0.5rem)] z-40 w-64 rounded-lg border border-blue-300/20 bg-slate-950 p-2 shadow-2xl shadow-black/50"
+          data-testid="dashboard-quick-actions-menu">
+          <p
+            class="px-2 pb-2 pt-1 text-xs font-bold uppercase tracking-wider text-slate-500">
+            Acciones rápidas
+          </p>
+          <a
+            routerLink="/gastos"
+            class="flex h-11 items-center gap-3 rounded-md px-3 text-sm font-semibold text-blue-50 hover:bg-blue-600"
+            data-testid="dashboard-menu-expenses">
             <i class="pi pi-wallet text-sky-300"></i>
             Cargar gasto
           </a>
-          <a routerLink="/movimiento-rapido" [queryParams]="{ tipo: 'ingreso' }" class="flex h-11 items-center gap-3 rounded-md px-3 text-sm font-semibold text-blue-50 hover:bg-blue-600" data-testid="dashboard-menu-income">
+          <a
+            routerLink="/movimiento-rapido"
+            [queryParams]="{ tipo: 'ingreso' }"
+            class="flex h-11 items-center gap-3 rounded-md px-3 text-sm font-semibold text-blue-50 hover:bg-blue-600"
+            data-testid="dashboard-menu-income">
             <i class="pi pi-arrow-down-left text-sky-300"></i>
             Ingreso
           </a>
-          <a routerLink="/tareas/nueva" class="flex h-11 items-center gap-3 rounded-md px-3 text-sm font-semibold text-blue-50 hover:bg-blue-600" data-testid="dashboard-menu-new-task">
+          <a
+            routerLink="/tareas/nueva"
+            class="flex h-11 items-center gap-3 rounded-md px-3 text-sm font-semibold text-blue-50 hover:bg-blue-600"
+            data-testid="dashboard-menu-new-task">
             <i class="pi pi-plus text-sky-300"></i>
             Nueva tarea
           </a>
-          <a routerLink="/movimiento-rapido" class="flex h-11 items-center gap-3 rounded-md px-3 text-sm font-semibold text-blue-50 hover:bg-blue-600" data-testid="dashboard-menu-quick-movement">
+          <a
+            routerLink="/movimiento-rapido"
+            class="flex h-11 items-center gap-3 rounded-md px-3 text-sm font-semibold text-blue-50 hover:bg-blue-600"
+            data-testid="dashboard-menu-quick-movement">
             <i class="pi pi-plus-circle text-sky-300"></i>
             Movimiento rápido
           </a>
-          <a routerLink="/" class="flex h-11 items-center gap-3 rounded-md px-3 text-sm font-semibold text-blue-50 hover:bg-blue-600" data-testid="dashboard-menu-public">
+          <a
+            routerLink="/"
+            class="flex h-11 items-center gap-3 rounded-md px-3 text-sm font-semibold text-blue-50 hover:bg-blue-600"
+            data-testid="dashboard-menu-public">
             <i class="pi pi-home text-sky-300"></i>
             Portfolio
           </a>
-          <button type="button" class="flex h-11 w-full items-center gap-3 rounded-md px-3 text-left text-sm font-semibold text-blue-50 hover:bg-blue-600" (click)="setView('today')" data-testid="dashboard-menu-today">
+          <button
+            type="button"
+            class="flex h-11 w-full items-center gap-3 rounded-md px-3 text-left text-sm font-semibold text-blue-50 hover:bg-blue-600"
+            (click)="setView('today')"
+            data-testid="dashboard-menu-today">
             <i class="pi pi-sun text-sky-300"></i>
             Ver hoy
           </button>
-          <button type="button" class="flex h-11 w-full items-center gap-3 rounded-md px-3 text-left text-sm font-semibold text-blue-50 hover:bg-blue-600" (click)="setView('finance')" data-testid="dashboard-menu-finance">
+          <button
+            type="button"
+            class="flex h-11 w-full items-center gap-3 rounded-md px-3 text-left text-sm font-semibold text-blue-50 hover:bg-blue-600"
+            (click)="setView('finance')"
+            data-testid="dashboard-menu-finance">
             <i class="pi pi-wallet text-sky-300"></i>
             Finanzas
           </button>
-          <button type="button" class="flex h-11 w-full items-center gap-3 rounded-md px-3 text-left text-sm font-semibold text-blue-50 hover:bg-blue-600" (click)="setView('settings')" data-testid="dashboard-menu-settings">
+          <button
+            type="button"
+            class="flex h-11 w-full items-center gap-3 rounded-md px-3 text-left text-sm font-semibold text-blue-50 hover:bg-blue-600"
+            (click)="setView('settings')"
+            data-testid="dashboard-menu-settings">
             <i class="pi pi-cog text-sky-300"></i>
             Configuración
           </button>
-          <button type="button" class="flex h-11 w-full items-center gap-3 rounded-md px-3 text-left text-sm font-semibold text-blue-50 hover:bg-blue-600" (click)="refreshFromMenu()" data-testid="dashboard-menu-refresh">
+          <button
+            type="button"
+            class="flex h-11 w-full items-center gap-3 rounded-md px-3 text-left text-sm font-semibold text-blue-50 hover:bg-blue-600"
+            (click)="refreshFromMenu()"
+            data-testid="dashboard-menu-refresh">
             <i class="pi pi-refresh text-sky-300"></i>
             Actualizar
           </button>
-          <button type="button" class="mt-2 flex h-10 w-full items-center gap-3 rounded-md border-t border-white/10 px-3 pt-2 text-left text-sm text-slate-400" (click)="logout()" data-testid="dashboard-menu-logout">
+          <button
+            type="button"
+            class="mt-2 flex h-10 w-full items-center gap-3 rounded-md border-t border-white/10 px-3 pt-2 text-left text-sm text-slate-400"
+            (click)="logout()"
+            data-testid="dashboard-menu-logout">
             <i class="pi pi-sign-out"></i>
             Salir
           </button>
         </div>
       }
 
-      <div class="grid gap-2 sm:grid-cols-[minmax(0,340px)_auto] lg:min-w-[420px]">
+      <div
+        class="grid gap-2 sm:grid-cols-[minmax(0,340px)_auto] lg:min-w-[420px]">
         <input
           pInputText
           #dashboardSearch
           class="h-10 w-full bg-black"
           placeholder="Buscar tareas, notas, áreas..."
           (input)="updateSearch(dashboardSearch.value)"
-          data-testid="dashboard-search-input"
-        />
+          data-testid="dashboard-search-input" />
         <button
           type="button"
           class="grid h-10 w-10 shrink-0 place-items-center justify-self-end rounded-lg border border-white/10 bg-black text-blue-100 hover:border-sky-300/50 hover:text-sky-100"
           (click)="toggleQuickActions()"
           aria-label="Abrir acciones rápidas"
-          data-testid="dashboard-quick-actions-toggle"
-        >
+          data-testid="dashboard-quick-actions-toggle">
           <i class="pi pi-ellipsis-v"></i>
         </button>
       </div>
@@ -83,7 +134,11 @@
 
   <section class="mx-auto max-w-7xl px-4 py-5" data-testid="dashboard-content">
     @if (error()) {
-      <p-message severity="error" [text]="error()" styleClass="mb-5 w-full" data-testid="dashboard-error" />
+      <p-message
+        severity="error"
+        [text]="error()"
+        styleClass="mb-5 w-full"
+        data-testid="dashboard-error" />
     }
 
     @if (isLoading()) {
@@ -94,15 +149,21 @@
         <div class="h-28 animate-pulse rounded-lg bg-white/10"></div>
       </div>
     } @else {
-      <nav class="mb-5 grid grid-cols-3 gap-2 sm:flex sm:overflow-x-auto sm:pb-1" aria-label="Vistas del dashboard" data-testid="dashboard-view-nav">
+      <nav
+        class="mb-5 grid grid-cols-3 gap-2 sm:flex sm:overflow-x-auto sm:pb-1"
+        aria-label="Vistas del dashboard"
+        data-testid="dashboard-view-nav">
         @for (view of viewOptions; track view.value) {
           <button
             type="button"
             class="flex h-14 min-w-0 items-center justify-center gap-1 rounded-lg border px-2 text-xs font-semibold transition sm:h-10 sm:shrink-0 sm:flex-row sm:gap-2 sm:px-3 sm:text-sm"
-            [ngClass]="activeView() === view.value ? 'border-blue-300 bg-blue-500 text-white' : 'border-white/10 bg-slate-950/90 text-blue-100'"
+            [ngClass]="
+              activeView() === view.value
+                ? 'border-blue-300 bg-blue-500 text-white'
+                : 'border-white/10 bg-slate-950/90 text-blue-100'
+            "
             (click)="setView(view.value)"
-            [attr.data-testid]="'dashboard-view-' + view.value"
-          >
+            [attr.data-testid]="'dashboard-view-' + view.value">
             <i [class]="view.icon"></i>
             <span class="truncate">{{ view.label }}</span>
           </button>
@@ -110,8 +171,7 @@
         <a
           routerLink="/gastos"
           class="flex h-14 min-w-0 items-center justify-center gap-1 rounded-lg border border-white/10 bg-slate-950/90 px-2 text-xs font-semibold text-blue-100 transition hover:border-sky-400/60 hover:text-sky-200 sm:h-10 sm:shrink-0 sm:flex-row sm:gap-2 sm:px-3 sm:text-sm"
-          data-testid="dashboard-view-load-expense"
-        >
+          data-testid="dashboard-view-load-expense">
           <i class="pi pi-wallet"></i>
           <span class="truncate">Cargar gasto</span>
         </a>
@@ -119,101 +179,195 @@
           routerLink="/movimiento-rapido"
           [queryParams]="{ tipo: 'ingreso' }"
           class="flex h-14 min-w-0 items-center justify-center gap-1 rounded-lg border border-white/10 bg-slate-950/90 px-2 text-xs font-semibold text-blue-100 transition hover:border-sky-400/60 hover:text-sky-200 sm:h-10 sm:shrink-0 sm:flex-row sm:gap-2 sm:px-3 sm:text-sm"
-          data-testid="dashboard-view-load-income"
-        >
+          data-testid="dashboard-view-load-income">
           <i class="pi pi-arrow-down-left"></i>
           <span class="truncate">Cargar ingreso</span>
         </a>
       </nav>
 
-      <div class="mb-5 grid grid-cols-2 gap-2 md:grid-cols-4" data-testid="dashboard-metrics">
-        <p-card styleClass="!h-full !rounded-lg !border !border-white/10 !bg-slate-950/90 !text-blue-50 [&_.p-card-body]:!p-3" data-testid="dashboard-metric-tasks">
-          <div class="mb-1 flex items-center justify-between text-xs text-slate-400">
+      <div
+        class="mb-5 grid grid-cols-2 gap-2 md:grid-cols-4"
+        data-testid="dashboard-metrics">
+        <p-card
+          styleClass="!h-full !rounded-lg !border !border-white/10 !bg-slate-950/90 !text-blue-50 [&_.p-card-body]:!p-3"
+          data-testid="dashboard-metric-tasks">
+          <div
+            class="mb-1 flex items-center justify-between text-xs text-slate-400">
             <span>Tareas abiertas</span>
           </div>
           <strong class="text-2xl sm:text-3xl">{{ openTasks().length }}</strong>
-          <p class="mt-1 text-[11px] text-slate-500">{{ overdueTasks().length }} vencidas · {{ todayTasks().length }} hoy</p>
+          <p class="mt-1 text-[11px] text-slate-500">
+            {{ overdueTasks().length }} vencidas · {{ todayTasks().length }} hoy
+          </p>
         </p-card>
 
-        <p-card styleClass="!h-full !rounded-lg !border !border-white/10 !bg-slate-950/90 !text-blue-50 [&_.p-card-body]:!p-3" data-testid="dashboard-metric-balance">
-          <div class="mb-1 flex items-center justify-between text-xs text-slate-400">
+        <p-card
+          styleClass="!h-full !rounded-lg !border !border-white/10 !bg-slate-950/90 !text-blue-50 [&_.p-card-body]:!p-3"
+          data-testid="dashboard-metric-balance">
+          <div
+            class="mb-1 flex items-center justify-between text-xs text-slate-400">
             <span>Balance</span>
           </div>
-          <strong class="text-2xl sm:text-3xl">{{ financeBalance() | currency:'ARS':'symbol-narrow':'1.0-0' }}</strong>
-          <p class="mt-1 text-[11px] text-slate-500">USD a {{ currentDollarRate() | currency:'ARS':'symbol-narrow':'1.0-0' }}</p>
+          <strong class="text-2xl sm:text-3xl">{{
+            financeBalance() | currency: 'ARS' : 'symbol-narrow' : '1.0-0'
+          }}</strong>
+          <p class="mt-1 text-[11px] text-slate-500">
+            USD a
+            {{
+              currentDollarRate() | currency: 'ARS' : 'symbol-narrow' : '1.0-0'
+            }}
+          </p>
         </p-card>
 
-        <p-card styleClass="!h-full !rounded-lg !border !border-white/10 !bg-slate-950/90 !text-blue-50 [&_.p-card-body]:!p-3" data-testid="dashboard-metric-expenses">
-          <a routerLink="/gastos" fragment="historial" class="block rounded-md focus:outline-none focus:ring-2 focus:ring-sky-300" data-testid="dashboard-metric-expenses-link">
-            <div class="mb-1 flex items-center justify-between text-xs text-slate-400">
+        <p-card
+          styleClass="!h-full !rounded-lg !border !border-white/10 !bg-slate-950/90 !text-blue-50 [&_.p-card-body]:!p-3"
+          data-testid="dashboard-metric-expenses">
+          <a
+            routerLink="/gastos"
+            fragment="historial"
+            class="block rounded-md focus:outline-none focus:ring-2 focus:ring-sky-300"
+            data-testid="dashboard-metric-expenses-link">
+            <div
+              class="mb-1 flex items-center justify-between text-xs text-slate-400">
               <span>Gastos mes</span>
             </div>
-            <strong class="text-2xl sm:text-3xl">{{ monthExpenses() | currency:'ARS':'symbol-narrow':'1.0-0' }}</strong>
-            <p class="mt-1 text-[11px] text-slate-500">{{ monthlyExpensesUsd() | currency:'USD':'symbol':'1.0-2' }} USD incluidos</p>
+            <strong class="text-2xl sm:text-3xl">{{
+              monthExpenses() | currency: 'ARS' : 'symbol-narrow' : '1.0-0'
+            }}</strong>
+            <p class="mt-1 text-[11px] text-slate-500">
+              {{
+                monthlyExpensesUsd() | currency: 'USD' : 'symbol' : '1.0-2'
+              }}
+              USD incluidos
+            </p>
           </a>
         </p-card>
 
-        <p-card styleClass="!h-full !rounded-lg !border !border-white/10 !bg-slate-950/90 !text-blue-50 [&_.p-card-body]:!p-3" data-testid="dashboard-metric-projects">
-          <div class="mb-1 flex items-center justify-between text-xs text-slate-400">
+        <p-card
+          styleClass="!h-full !rounded-lg !border !border-white/10 !bg-slate-950/90 !text-blue-50 [&_.p-card-body]:!p-3"
+          data-testid="dashboard-metric-projects">
+          <div
+            class="mb-1 flex items-center justify-between text-xs text-slate-400">
             <span>Resultado mes</span>
           </div>
-          <strong class="text-2xl sm:text-3xl" [class.text-red-200]="monthBalance() < 0" [class.text-sky-100]="monthBalance() >= 0">
-            {{ monthBalance() | currency:'ARS':'symbol-narrow':'1.0-0' }}
+          <strong
+            class="text-2xl sm:text-3xl"
+            [class.text-red-200]="monthBalance() < 0"
+            [class.text-sky-100]="monthBalance() >= 0">
+            {{ monthBalance() | currency: 'ARS' : 'symbol-narrow' : '1.0-0' }}
           </strong>
         </p-card>
       </div>
 
       @if (activeView() === 'overview') {
-        <div class="grid gap-4 lg:grid-cols-[1.15fr_0.85fr]" data-testid="dashboard-overview-view">
+        <div
+          class="grid gap-4 lg:grid-cols-[1.15fr_0.85fr]"
+          data-testid="dashboard-overview-view">
           <section class="space-y-4">
-            <p-card styleClass="!rounded-lg !border !border-white/10 !bg-slate-950/90 !text-blue-50" data-testid="dashboard-command-panel">
+            <p-card
+              styleClass="!rounded-lg !border !border-white/10 !bg-slate-950/90 !text-blue-50"
+              data-testid="dashboard-command-panel">
               <ng-template pTemplate="header">
                 <div class="px-5 pt-5">
                   <h2 class="text-lg font-bold">Pulso financiero</h2>
-                  <p class="text-sm text-slate-400">Balance, resultado del mes y accesos de carga.</p>
+                  <p class="text-sm text-slate-400">
+                    Balance, resultado del mes y accesos de carga.
+                  </p>
                 </div>
               </ng-template>
               <div class="grid gap-3 sm:grid-cols-3">
-                <div class="rounded-md border border-white/10 bg-slate-950 px-3 py-3">
+                <div
+                  class="rounded-md border border-white/10 bg-slate-950 px-3 py-3">
                   <p class="text-xs text-slate-500">Balance total</p>
-                  <strong class="text-lg">{{ financeBalance() | currency:'ARS':'symbol-narrow':'1.0-0' }}</strong>
+                  <strong class="text-lg">{{
+                    financeBalance()
+                      | currency: 'ARS' : 'symbol-narrow' : '1.0-0'
+                  }}</strong>
                 </div>
-                <div class="rounded-md border border-white/10 bg-slate-950 px-3 py-3">
+                <div
+                  class="rounded-md border border-white/10 bg-slate-950 px-3 py-3">
                   <p class="text-xs text-slate-500">Ingresos mes</p>
-                  <strong class="text-lg text-sky-200">{{ monthIncome() | currency:'ARS':'symbol-narrow':'1.0-0' }}</strong>
+                  <strong class="text-lg text-sky-200">{{
+                    monthIncome() | currency: 'ARS' : 'symbol-narrow' : '1.0-0'
+                  }}</strong>
                 </div>
                 <a
                   routerLink="/gastos"
                   fragment="historial"
                   class="rounded-md border border-white/10 bg-slate-950 px-3 py-3 transition hover:border-sky-300/50 focus:outline-none focus:ring-2 focus:ring-sky-300"
-                  data-testid="dashboard-overview-expenses-link"
-                >
+                  data-testid="dashboard-overview-expenses-link">
                   <p class="text-xs text-slate-500">Gastos mes</p>
-                  <strong class="text-lg text-red-200">{{ monthExpenses() | currency:'ARS':'symbol-narrow':'1.0-0' }}</strong>
+                  <strong class="text-lg text-red-200">{{
+                    monthExpenses()
+                      | currency: 'ARS' : 'symbol-narrow' : '1.0-0'
+                  }}</strong>
                 </a>
               </div>
-              <div class="mt-3 grid gap-2 text-sm sm:grid-cols-2" data-testid="dashboard-finance-breakdown">
-                <div class="rounded-md border border-sky-300/15 bg-slate-950 px-3 py-3">
-                  <p class="text-xs uppercase tracking-wide text-slate-500">Ingresos USD</p>
-                  <strong class="mt-1 block text-sky-100">{{ monthlyIncomeUsd() | currency:'USD':'symbol':'1.0-2' }}</strong>
-                  <span class="text-xs text-slate-400">Convertidos: {{ monthlyIncomeUsdArs() | currency:'ARS':'symbol-narrow':'1.0-0' }}</span>
+              <div
+                class="mt-3 grid gap-2 text-sm sm:grid-cols-2"
+                data-testid="dashboard-finance-breakdown">
+                <div
+                  class="rounded-md border border-sky-300/15 bg-slate-950 px-3 py-3">
+                  <p class="text-xs uppercase tracking-wide text-slate-500">
+                    Ingresos USD
+                  </p>
+                  <strong class="mt-1 block text-sky-100">{{
+                    monthlyIncomeUsd() | currency: 'USD' : 'symbol' : '1.0-2'
+                  }}</strong>
+                  <span class="text-xs text-slate-400"
+                    >Convertidos:
+                    {{
+                      monthlyIncomeUsdArs()
+                        | currency: 'ARS' : 'symbol-narrow' : '1.0-0'
+                    }}</span
+                  >
                 </div>
-                <div class="rounded-md border border-red-300/15 bg-slate-950 px-3 py-3">
-                  <p class="text-xs uppercase tracking-wide text-slate-500">Gastos USD</p>
-                  <strong class="mt-1 block text-red-100">{{ monthlyExpensesUsd() | currency:'USD':'symbol':'1.0-2' }}</strong>
-                  <span class="text-xs text-slate-400">Convertidos: {{ monthlyExpensesUsdArs() | currency:'ARS':'symbol-narrow':'1.0-0' }}</span>
+                <div
+                  class="rounded-md border border-red-300/15 bg-slate-950 px-3 py-3">
+                  <p class="text-xs uppercase tracking-wide text-slate-500">
+                    Gastos USD
+                  </p>
+                  <strong class="mt-1 block text-red-100">{{
+                    monthlyExpensesUsd() | currency: 'USD' : 'symbol' : '1.0-2'
+                  }}</strong>
+                  <span class="text-xs text-slate-400"
+                    >Convertidos:
+                    {{
+                      monthlyExpensesUsdArs()
+                        | currency: 'ARS' : 'symbol-narrow' : '1.0-0'
+                    }}</span
+                  >
                 </div>
-                <div class="rounded-md border border-white/10 bg-slate-950 px-3 py-3">
-                  <p class="text-xs uppercase tracking-wide text-slate-500">Ingresos ARS directos</p>
-                  <strong class="mt-1 block text-sky-100">{{ monthlyIncomeArsOriginal() | currency:'ARS':'symbol-narrow':'1.0-0' }}</strong>
+                <div
+                  class="rounded-md border border-white/10 bg-slate-950 px-3 py-3">
+                  <p class="text-xs uppercase tracking-wide text-slate-500">
+                    Ingresos ARS directos
+                  </p>
+                  <strong class="mt-1 block text-sky-100">{{
+                    monthlyIncomeArsOriginal()
+                      | currency: 'ARS' : 'symbol-narrow' : '1.0-0'
+                  }}</strong>
                 </div>
-                <div class="rounded-md border border-white/10 bg-slate-950 px-3 py-3">
-                  <p class="text-xs uppercase tracking-wide text-slate-500">Gastos ARS directos</p>
-                  <strong class="mt-1 block text-red-100">{{ monthlyExpensesArsOriginal() | currency:'ARS':'symbol-narrow':'1.0-0' }}</strong>
+                <div
+                  class="rounded-md border border-white/10 bg-slate-950 px-3 py-3">
+                  <p class="text-xs uppercase tracking-wide text-slate-500">
+                    Gastos ARS directos
+                  </p>
+                  <strong class="mt-1 block text-red-100">{{
+                    monthlyExpensesArsOriginal()
+                      | currency: 'ARS' : 'symbol-narrow' : '1.0-0'
+                  }}</strong>
                 </div>
               </div>
               <div class="mt-4 grid gap-2 sm:grid-cols-2">
-                <a pButton routerLink="/gastos" label="Cargar gasto" icon="pi pi-wallet" severity="info" styleClass="h-11 w-full" data-testid="dashboard-open-expenses"></a>
+                <a
+                  pButton
+                  routerLink="/gastos"
+                  label="Cargar gasto"
+                  icon="pi pi-wallet"
+                  severity="info"
+                  styleClass="h-11 w-full"
+                  data-testid="dashboard-open-expenses"></a>
                 <a
                   pButton
                   routerLink="/movimiento-rapido"
@@ -223,77 +377,155 @@
                   severity="secondary"
                   variant="outlined"
                   styleClass="h-11 w-full"
-                  data-testid="dashboard-open-income"
-                ></a>
+                  data-testid="dashboard-open-income"></a>
               </div>
             </p-card>
 
-            <p-card styleClass="!mt-5 !rounded-lg !border !border-white/10 !bg-slate-950/90 !text-blue-50" data-testid="dashboard-today-panel">
+            <p-card
+              styleClass="!mt-5 !rounded-lg !border !border-white/10 !bg-slate-950/90 !text-blue-50"
+              data-testid="dashboard-today-panel">
               <ng-template pTemplate="header">
                 <div class="flex items-center justify-between px-5 pt-5">
                   <div>
                     <h2 class="text-lg font-bold">Hoy</h2>
-                    <p class="text-sm text-slate-400">Lo que necesita atención inmediata.</p>
+                    <p class="text-sm text-slate-400">
+                      Lo que necesita atención inmediata.
+                    </p>
                   </div>
-                  <p-button label="Ver hoy" icon="pi pi-arrow-right" severity="secondary" variant="outlined" (onClick)="setView('today')" data-testid="dashboard-open-today" />
+                  <p-button
+                    label="Ver hoy"
+                    icon="pi pi-arrow-right"
+                    severity="secondary"
+                    variant="outlined"
+                    (onClick)="setView('today')"
+                    data-testid="dashboard-open-today" />
                 </div>
               </ng-template>
               <div class="space-y-2">
                 @for (task of todayTasks().slice(0, 5); track task.id) {
-                  <ng-container *ngTemplateOutlet="taskRow; context: { task: task }"></ng-container>
+                  <ng-container
+                    *ngTemplateOutlet="
+                      taskRow;
+                      context: { task: task }
+                    "></ng-container>
                 } @empty {
-                  <p class="rounded-md border border-white/10 bg-slate-950 px-3 py-4 text-sm text-sky-300" data-testid="dashboard-empty-today">No hay tareas agendadas para hoy.</p>
+                  <p
+                    class="rounded-md border border-white/10 bg-slate-950 px-3 py-4 text-sm text-sky-300"
+                    data-testid="dashboard-empty-today">
+                    No hay tareas agendadas para hoy.
+                  </p>
                 }
               </div>
             </p-card>
           </section>
 
           <section class="space-y-4">
-            <p-card styleClass="!rounded-lg !border !border-white/10 !bg-slate-950/90 !text-blue-50" data-testid="dashboard-inbox-panel">
+            <p-card
+              styleClass="!rounded-lg !border !border-white/10 !bg-slate-950/90 !text-blue-50"
+              data-testid="dashboard-inbox-panel">
               <ng-template pTemplate="header">
                 <div class="px-5 pt-5">
-                  <h2 class="text-lg font-bold"><i class="pi pi-file-edit mr-2 text-sky-300"></i>Notas rápidas</h2>
-                  <p class="text-sm text-slate-400">Notas, decisiones e ideas pendientes.</p>
+                  <h2 class="text-lg font-bold">
+                    <i class="pi pi-file-edit mr-2 text-sky-300"></i>Notas
+                    rápidas
+                  </h2>
+                  <p class="text-sm text-slate-400">
+                    Notas, decisiones e ideas pendientes.
+                  </p>
                 </div>
               </ng-template>
-              <form class="mb-4 grid gap-2" (ngSubmit)="saveNote()" data-testid="dashboard-note-form">
+              <form
+                class="mb-4 grid gap-2"
+                (ngSubmit)="saveNote()"
+                data-testid="dashboard-note-form">
                 @if (editingNoteId) {
-                  <p class="rounded-md border border-sky-300/25 bg-sky-950/40 px-3 py-2 text-sm text-sky-100" data-testid="dashboard-note-editing">
+                  <p
+                    class="rounded-md border border-sky-300/25 bg-sky-950/40 px-3 py-2 text-sm text-sky-100"
+                    data-testid="dashboard-note-editing">
                     Editando nota
                   </p>
                 }
-                <input pInputText [(ngModel)]="newNoteTitle" name="newNoteTitle" class="h-10 w-full" placeholder="Título opcional" data-testid="dashboard-note-title" />
-                <textarea pTextarea [(ngModel)]="newNoteContent" name="newNoteContent" rows="4" class="w-full resize-none" placeholder="Idea, pendiente, preocupación, decisión..." data-testid="dashboard-note-input"></textarea>
+                <input
+                  pInputText
+                  [(ngModel)]="newNoteTitle"
+                  name="newNoteTitle"
+                  class="h-10 w-full"
+                  placeholder="Título opcional"
+                  data-testid="dashboard-note-title" />
+                <textarea
+                  pTextarea
+                  [(ngModel)]="newNoteContent"
+                  name="newNoteContent"
+                  rows="4"
+                  class="w-full resize-none"
+                  placeholder="Idea, pendiente, preocupación, decisión..."
+                  data-testid="dashboard-note-input"></textarea>
                 <div class="grid gap-2 sm:grid-cols-[1fr_1fr_auto]">
-                  <p-select [(ngModel)]="newNoteType" name="newNoteType" [options]="noteTypeOptions" optionLabel="label" optionValue="value" styleClass="h-10 w-full" data-testid="dashboard-note-type" />
-                  <p-select [(ngModel)]="newNoteAreaId" name="newNoteAreaId" [options]="bootstrapData()?.areas ?? []" optionLabel="name" optionValue="id" [showClear]="true" styleClass="h-10 w-full" placeholder="Área" data-testid="dashboard-note-area" />
-                  <p-button type="submit" [label]="editingNoteId ? 'Actualizar' : 'Guardar'" [icon]="editingNoteId ? 'pi pi-check' : 'pi pi-plus'" severity="secondary" styleClass="h-10 w-full" data-testid="dashboard-note-submit" />
+                  <p-select
+                    [(ngModel)]="newNoteType"
+                    name="newNoteType"
+                    [options]="noteTypeOptions"
+                    optionLabel="label"
+                    optionValue="value"
+                    styleClass="h-10 w-full"
+                    data-testid="dashboard-note-type" />
+                  <p-select
+                    [(ngModel)]="newNoteAreaId"
+                    name="newNoteAreaId"
+                    [options]="bootstrapData()?.areas ?? []"
+                    optionLabel="name"
+                    optionValue="id"
+                    [showClear]="true"
+                    styleClass="h-10 w-full"
+                    placeholder="Área"
+                    data-testid="dashboard-note-area" />
+                  <p-button
+                    type="submit"
+                    [label]="editingNoteId ? 'Actualizar' : 'Guardar'"
+                    [icon]="editingNoteId ? 'pi pi-check' : 'pi pi-plus'"
+                    severity="secondary"
+                    styleClass="h-10 w-full"
+                    data-testid="dashboard-note-submit" />
                 </div>
                 @if (editingNoteId) {
                   <button
                     type="button"
                     class="h-10 rounded-lg border border-white/10 bg-black px-3 text-sm font-semibold text-slate-300 hover:border-sky-300/40"
                     (click)="cancelNoteEdit()"
-                    data-testid="dashboard-note-cancel-edit"
-                  >
+                    data-testid="dashboard-note-cancel-edit">
                     Cancelar edición
                   </button>
                 }
               </form>
               <div class="space-y-2">
                 @for (note of importantNotes().slice(0, 4); track note.id) {
-                  <ng-container *ngTemplateOutlet="noteRow; context: { note: note }"></ng-container>
+                  <ng-container
+                    *ngTemplateOutlet="
+                      noteRow;
+                      context: { note: note }
+                    "></ng-container>
                 } @empty {
-                  <p class="rounded-md border border-white/10 bg-slate-950 px-3 py-4 text-sm text-sky-300" data-testid="dashboard-empty-notes">Todavía no cargaste notas.</p>
+                  <p
+                    class="rounded-md border border-white/10 bg-slate-950 px-3 py-4 text-sm text-sky-300"
+                    data-testid="dashboard-empty-notes">
+                    Todavía no cargaste notas.
+                  </p>
                 }
               </div>
             </p-card>
 
-            <p-card styleClass="!rounded-lg !border !border-white/10 !bg-slate-950/90 !text-blue-50" data-testid="dashboard-finance-quick-panel">
+            <p-card
+              styleClass="!rounded-lg !border !border-white/10 !bg-slate-950/90 !text-blue-50"
+              data-testid="dashboard-finance-quick-panel">
               <ng-template pTemplate="header">
                 <div class="px-5 pt-5">
-                  <h2 class="text-lg font-bold"><i class="pi pi-history mr-2 text-sky-300"></i>Últimos movimientos</h2>
-                  <p class="text-sm text-slate-400">Actividad financiera reciente.</p>
+                  <h2 class="text-lg font-bold">
+                    <i class="pi pi-history mr-2 text-sky-300"></i>Últimos
+                    movimientos
+                  </h2>
+                  <p class="text-sm text-slate-400">
+                    Actividad financiera reciente.
+                  </p>
                 </div>
               </ng-template>
               <ng-container *ngTemplateOutlet="transactionsList"></ng-container>
@@ -303,24 +535,50 @@
       }
 
       @if (activeView() === 'today') {
-        <section class="grid gap-4 lg:grid-cols-[1fr_0.8fr]" data-testid="dashboard-today-view">
-          <p-card styleClass="!rounded-lg !border !border-white/10 !bg-slate-950/90 !text-blue-50">
-            <ng-template pTemplate="header"><div class="px-5 pt-5"><h2 class="text-lg font-bold">Plan de hoy</h2></div></ng-template>
+        <section
+          class="grid gap-4 lg:grid-cols-[1fr_0.8fr]"
+          data-testid="dashboard-today-view">
+          <p-card
+            styleClass="!rounded-lg !border !border-white/10 !bg-slate-950/90 !text-blue-50">
+            <ng-template pTemplate="header"
+              ><div class="px-5 pt-5">
+                <h2 class="text-lg font-bold">Plan de hoy</h2>
+              </div></ng-template
+            >
             <div class="space-y-2">
               @for (task of todayTasks(); track task.id) {
-                <ng-container *ngTemplateOutlet="taskRow; context: { task: task }"></ng-container>
+                <ng-container
+                  *ngTemplateOutlet="
+                    taskRow;
+                    context: { task: task }
+                  "></ng-container>
               } @empty {
-                <p class="rounded-md border border-white/10 bg-slate-950 px-3 py-4 text-sm text-slate-400">Sin tareas para hoy.</p>
+                <p
+                  class="rounded-md border border-white/10 bg-slate-950 px-3 py-4 text-sm text-slate-400">
+                  Sin tareas para hoy.
+                </p>
               }
             </div>
           </p-card>
-          <p-card styleClass="!rounded-lg !border !border-white/10 !bg-slate-950/90 !text-blue-50">
-            <ng-template pTemplate="header"><div class="px-5 pt-5"><h2 class="text-lg font-bold">Vencidas</h2></div></ng-template>
+          <p-card
+            styleClass="!rounded-lg !border !border-white/10 !bg-slate-950/90 !text-blue-50">
+            <ng-template pTemplate="header"
+              ><div class="px-5 pt-5">
+                <h2 class="text-lg font-bold">Vencidas</h2>
+              </div></ng-template
+            >
             <div class="space-y-2">
               @for (task of overdueTasks(); track task.id) {
-                <ng-container *ngTemplateOutlet="taskRow; context: { task: task }"></ng-container>
+                <ng-container
+                  *ngTemplateOutlet="
+                    taskRow;
+                    context: { task: task }
+                  "></ng-container>
               } @empty {
-                <p class="rounded-md border border-white/10 bg-slate-950 px-3 py-4 text-sm text-slate-400">Nada vencido.</p>
+                <p
+                  class="rounded-md border border-white/10 bg-slate-950 px-3 py-4 text-sm text-slate-400">
+                  Nada vencido.
+                </p>
               }
             </div>
           </p-card>
@@ -328,22 +586,48 @@
       }
 
       @if (activeView() === 'week') {
-        <section class="grid gap-4 lg:grid-cols-[1fr_0.8fr]" data-testid="dashboard-week-view">
-          <p-card styleClass="!rounded-lg !border !border-white/10 !bg-slate-950/90 !text-blue-50">
-            <ng-template pTemplate="header"><div class="px-5 pt-5"><h2 class="text-lg font-bold">Semana</h2><p class="text-sm text-slate-400">Desde hoy hasta los próximos 7 días.</p></div></ng-template>
+        <section
+          class="grid gap-4 lg:grid-cols-[1fr_0.8fr]"
+          data-testid="dashboard-week-view">
+          <p-card
+            styleClass="!rounded-lg !border !border-white/10 !bg-slate-950/90 !text-blue-50">
+            <ng-template pTemplate="header"
+              ><div class="px-5 pt-5">
+                <h2 class="text-lg font-bold">Semana</h2>
+                <p class="text-sm text-slate-400">
+                  Desde hoy hasta los próximos 7 días.
+                </p>
+              </div></ng-template
+            >
             <div class="space-y-2">
               @for (task of weekTasks(); track task.id) {
-                <ng-container *ngTemplateOutlet="taskRow; context: { task: task }"></ng-container>
+                <ng-container
+                  *ngTemplateOutlet="
+                    taskRow;
+                    context: { task: task }
+                  "></ng-container>
               } @empty {
-                <p class="rounded-md border border-white/10 bg-slate-950 px-3 py-4 text-sm text-slate-400">No hay tareas fechadas para la semana.</p>
+                <p
+                  class="rounded-md border border-white/10 bg-slate-950 px-3 py-4 text-sm text-slate-400">
+                  No hay tareas fechadas para la semana.
+                </p>
               }
             </div>
           </p-card>
-          <p-card styleClass="!rounded-lg !border !border-white/10 !bg-slate-950/90 !text-blue-50">
-            <ng-template pTemplate="header"><div class="px-5 pt-5"><h2 class="text-lg font-bold">Prioridad simple</h2></div></ng-template>
+          <p-card
+            styleClass="!rounded-lg !border !border-white/10 !bg-slate-950/90 !text-blue-50">
+            <ng-template pTemplate="header"
+              ><div class="px-5 pt-5">
+                <h2 class="text-lg font-bold">Prioridad simple</h2>
+              </div></ng-template
+            >
             <div class="space-y-2">
               @for (task of openTasks().slice(0, 10); track task.id) {
-                <ng-container *ngTemplateOutlet="taskRow; context: { task: task }"></ng-container>
+                <ng-container
+                  *ngTemplateOutlet="
+                    taskRow;
+                    context: { task: task }
+                  "></ng-container>
               }
             </div>
           </p-card>
@@ -351,39 +635,91 @@
       }
 
       @if (activeView() === 'career') {
-        <section class="grid gap-4 lg:grid-cols-[0.85fr_1.15fr]" data-testid="dashboard-career-view">
-          <p-card styleClass="!rounded-lg !border !border-white/10 !bg-slate-950/90 !text-blue-50">
-            <ng-template pTemplate="header"><div class="px-5 pt-5"><h2 class="text-lg font-bold">Carrera y foco técnico</h2></div></ng-template>
+        <section
+          class="grid gap-4 lg:grid-cols-[0.85fr_1.15fr]"
+          data-testid="dashboard-career-view">
+          <p-card
+            styleClass="!rounded-lg !border !border-white/10 !bg-slate-950/90 !text-blue-50">
+            <ng-template pTemplate="header"
+              ><div class="px-5 pt-5">
+                <h2 class="text-lg font-bold">Carrera y foco técnico</h2>
+              </div></ng-template
+            >
             <div class="grid gap-3">
               <div class="rounded-md border border-white/10 bg-slate-950 p-3">
-                <p class="text-sm text-slate-400">Objetivos/proyectos abiertos</p>
+                <p class="text-sm text-slate-400">
+                  Objetivos/proyectos abiertos
+                </p>
                 <strong class="text-2xl">{{ careerFocus().length }}</strong>
               </div>
               @for (task of careerFocus().slice(0, 6); track task.id) {
-                <ng-container *ngTemplateOutlet="taskRow; context: { task: task }"></ng-container>
+                <ng-container
+                  *ngTemplateOutlet="
+                    taskRow;
+                    context: { task: task }
+                  "></ng-container>
               } @empty {
-                <p class="rounded-md border border-white/10 bg-slate-950 px-3 py-4 text-sm text-slate-400">No hay foco de carrera cargado.</p>
+                <p
+                  class="rounded-md border border-white/10 bg-slate-950 px-3 py-4 text-sm text-slate-400">
+                  No hay foco de carrera cargado.
+                </p>
               }
             </div>
           </p-card>
-          <p-card styleClass="!rounded-lg !border !border-white/10 !bg-slate-950/90 !text-blue-50" data-testid="dashboard-projects-panel">
-            <ng-template pTemplate="header"><div class="px-5 pt-5"><h2 class="text-lg font-bold">Proyectos del portfolio</h2></div></ng-template>
+          <p-card
+            styleClass="!rounded-lg !border !border-white/10 !bg-slate-950/90 !text-blue-50"
+            data-testid="dashboard-projects-panel">
+            <ng-template pTemplate="header">
+              <div class="flex items-center justify-between gap-3 px-5 pt-5">
+                <h2 class="text-lg font-bold">Proyectos del portfolio</h2>
+                <a
+                  routerLink="/dashboard/proyectos"
+                  class="rounded-full border border-sky-300/25 px-3 py-1.5 text-sm font-semibold text-sky-200 transition hover:border-sky-300/60"
+                  data-testid="dashboard-manage-projects">
+                  Gestionar
+                </a>
+              </div>
+            </ng-template>
             <div class="grid gap-3 md:grid-cols-2">
               @for (project of activeProjects(); track project.id) {
-                <article class="rounded-md border border-white/10 bg-slate-950 p-3" data-testid="dashboard-project-row">
-                  <div class="mb-3 aspect-video overflow-hidden rounded-md bg-white/5">
-                    <img [src]="project.coverImage?.url || project.gallery?.[0]?.url || './assets/images/ghibli.png'" [alt]="project.name" class="h-full w-full object-cover" />
+                <article
+                  class="rounded-md border border-white/10 bg-slate-950 p-3"
+                  data-testid="dashboard-project-row">
+                  <div
+                    class="mb-3 aspect-video overflow-hidden rounded-md bg-white/5">
+                    <img
+                      [src]="
+                        project.coverImage?.url ||
+                        project.gallery?.[0]?.url ||
+                        './assets/images/project-placeholder.webp'
+                      "
+                      [alt]="project.name"
+                      class="h-full w-full object-cover" />
                   </div>
                   <div class="flex items-start justify-between gap-3">
                     <div>
                       <h3 class="font-semibold">{{ project.name }}</h3>
-                      <p class="mt-1 line-clamp-2 text-sm text-slate-400">{{ project.description }}</p>
+                      <p class="mt-1 line-clamp-2 text-sm text-slate-400">
+                        {{ project.description }}
+                      </p>
                       @if (project.technologies?.length) {
-                        <p class="mt-2 text-xs text-slate-500">{{ project.technologies?.slice(0, 4)?.join(' · ') }}</p>
+                        <p class="mt-2 text-xs text-slate-500">
+                          {{ project.technologies?.slice(0, 4)?.join(' · ') }}
+                        </p>
                       }
                     </div>
                     @if (project.demoUrl || project.url) {
-                      <a pButton icon="pi pi-external-link" severity="secondary" variant="outlined" [rounded]="true" [href]="project.demoUrl || project.url || '#'" target="_blank" rel="noopener noreferrer" aria-label="Abrir proyecto" data-testid="dashboard-project-open"></a>
+                      <a
+                        pButton
+                        icon="pi pi-external-link"
+                        severity="secondary"
+                        variant="outlined"
+                        [rounded]="true"
+                        [href]="project.demoUrl || project.url || '#'"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Abrir proyecto"
+                        data-testid="dashboard-project-open"></a>
                     }
                   </div>
                 </article>
@@ -394,58 +730,164 @@
       }
 
       @if (activeView() === 'finance') {
-        <section class="grid gap-4 lg:grid-cols-[0.8fr_1.2fr]" data-testid="dashboard-finance-view">
+        <section
+          class="grid gap-4 lg:grid-cols-[0.8fr_1.2fr]"
+          data-testid="dashboard-finance-view">
           <div class="space-y-4">
-            <p-card styleClass="!rounded-lg !border !border-white/10 !bg-slate-950/90 !text-blue-50" data-testid="dashboard-finance-panel">
+            <p-card
+              styleClass="!rounded-lg !border !border-white/10 !bg-slate-950/90 !text-blue-50"
+              data-testid="dashboard-finance-panel">
               <ng-template pTemplate="header">
                 <div class="px-5 pt-5">
                   <h2 class="text-lg font-bold">Finanzas rápidas</h2>
-                  <p class="text-sm text-slate-400">El alta de movimientos vive aparte para no llenar este tablero.</p>
+                  <p class="text-sm text-slate-400">
+                    El alta de movimientos vive aparte para no llenar este
+                    tablero.
+                  </p>
                 </div>
               </ng-template>
-              <a pButton routerLink="/movimiento-rapido" label="Cargar movimiento" icon="pi pi-plus-circle" severity="info" styleClass="h-11 w-full" data-testid="dashboard-finance-open-quick-movement"></a>
+              <a
+                pButton
+                routerLink="/movimiento-rapido"
+                label="Cargar movimiento"
+                icon="pi pi-plus-circle"
+                severity="info"
+                styleClass="h-11 w-full"
+                data-testid="dashboard-finance-open-quick-movement"></a>
             </p-card>
-            <p-card styleClass="!rounded-lg !border !border-white/10 !bg-slate-950/90 !text-blue-50">
-              <ng-template pTemplate="header"><div class="px-5 pt-5"><h2 class="text-lg font-bold">Cuentas y categorías</h2></div></ng-template>
-              <form class="mb-4 grid gap-2" (ngSubmit)="createAccount()" data-testid="dashboard-account-form">
-                <input pInputText [(ngModel)]="newAccountName" name="newAccountName" class="h-10 w-full" placeholder="Nueva cuenta" data-testid="dashboard-account-name" />
+            <p-card
+              styleClass="!rounded-lg !border !border-white/10 !bg-slate-950/90 !text-blue-50">
+              <ng-template pTemplate="header"
+                ><div class="px-5 pt-5">
+                  <h2 class="text-lg font-bold">Cuentas y categorías</h2>
+                </div></ng-template
+              >
+              <form
+                class="mb-4 grid gap-2"
+                (ngSubmit)="createAccount()"
+                data-testid="dashboard-account-form">
+                <input
+                  pInputText
+                  [(ngModel)]="newAccountName"
+                  name="newAccountName"
+                  class="h-10 w-full"
+                  placeholder="Nueva cuenta"
+                  data-testid="dashboard-account-name" />
                 <div class="grid gap-2 sm:grid-cols-[1fr_140px_auto]">
-                  <p-select [(ngModel)]="newAccountType" name="newAccountType" [options]="accountTypeOptions" optionLabel="label" optionValue="value" styleClass="h-10 w-full" data-testid="dashboard-account-type" />
-                  <p-inputNumber [(ngModel)]="newAccountInitialBalance" name="newAccountInitialBalance" mode="currency" currency="ARS" locale="es-AR" inputStyleClass="h-10 w-full" styleClass="w-full" data-testid="dashboard-account-balance" />
-                  <p-button type="submit" icon="pi pi-plus" severity="secondary" [rounded]="true" ariaLabel="Crear cuenta" data-testid="dashboard-account-submit" />
+                  <p-select
+                    [(ngModel)]="newAccountType"
+                    name="newAccountType"
+                    [options]="accountTypeOptions"
+                    optionLabel="label"
+                    optionValue="value"
+                    styleClass="h-10 w-full"
+                    data-testid="dashboard-account-type" />
+                  <p-inputNumber
+                    [(ngModel)]="newAccountInitialBalance"
+                    name="newAccountInitialBalance"
+                    mode="currency"
+                    currency="ARS"
+                    locale="es-AR"
+                    inputStyleClass="h-10 w-full"
+                    styleClass="w-full"
+                    data-testid="dashboard-account-balance" />
+                  <p-button
+                    type="submit"
+                    icon="pi pi-plus"
+                    severity="secondary"
+                    [rounded]="true"
+                    ariaLabel="Crear cuenta"
+                    data-testid="dashboard-account-submit" />
                 </div>
               </form>
-              <form class="grid gap-2" (ngSubmit)="createCategory()" data-testid="dashboard-category-form">
-                <input pInputText [(ngModel)]="newCategoryName" name="newCategoryName" class="h-10 w-full" placeholder="Nueva categoría" data-testid="dashboard-category-name" />
+              <form
+                class="grid gap-2"
+                (ngSubmit)="createCategory()"
+                data-testid="dashboard-category-form">
+                <input
+                  pInputText
+                  [(ngModel)]="newCategoryName"
+                  name="newCategoryName"
+                  class="h-10 w-full"
+                  placeholder="Nueva categoría"
+                  data-testid="dashboard-category-name" />
                 <div class="grid gap-2 sm:grid-cols-[1fr_150px_auto]">
-                  <p-select [(ngModel)]="newCategoryType" name="newCategoryType" [options]="transactionTypeOptions" optionLabel="label" optionValue="value" styleClass="h-10 w-full" data-testid="dashboard-category-type" />
-                  <p-inputNumber [(ngModel)]="newCategoryBudget" name="newCategoryBudget" mode="currency" currency="ARS" locale="es-AR" inputStyleClass="h-10 w-full" styleClass="w-full" placeholder="Budget" data-testid="dashboard-category-budget" />
-                  <p-button type="submit" icon="pi pi-plus" severity="secondary" [rounded]="true" ariaLabel="Crear categoría" data-testid="dashboard-category-submit" />
+                  <p-select
+                    [(ngModel)]="newCategoryType"
+                    name="newCategoryType"
+                    [options]="transactionTypeOptions"
+                    optionLabel="label"
+                    optionValue="value"
+                    styleClass="h-10 w-full"
+                    data-testid="dashboard-category-type" />
+                  <p-inputNumber
+                    [(ngModel)]="newCategoryBudget"
+                    name="newCategoryBudget"
+                    mode="currency"
+                    currency="ARS"
+                    locale="es-AR"
+                    inputStyleClass="h-10 w-full"
+                    styleClass="w-full"
+                    placeholder="Budget"
+                    data-testid="dashboard-category-budget" />
+                  <p-button
+                    type="submit"
+                    icon="pi pi-plus"
+                    severity="secondary"
+                    [rounded]="true"
+                    ariaLabel="Crear categoría"
+                    data-testid="dashboard-category-submit" />
                 </div>
               </form>
             </p-card>
           </div>
           <div class="space-y-4">
-            <p-card styleClass="!rounded-lg !border !border-white/10 !bg-slate-950/90 !text-blue-50">
-              <ng-template pTemplate="header"><div class="px-5 pt-5"><h2 class="text-lg font-bold">Presupuestos</h2></div></ng-template>
+            <p-card
+              styleClass="!rounded-lg !border !border-white/10 !bg-slate-950/90 !text-blue-50">
+              <ng-template pTemplate="header"
+                ><div class="px-5 pt-5">
+                  <h2 class="text-lg font-bold">Presupuestos</h2>
+                </div></ng-template
+              >
               <div class="space-y-3">
                 @for (category of categoryBudgets(); track category.id) {
-                  <article class="rounded-md border border-white/10 bg-slate-950 p-3">
+                  <article
+                    class="rounded-md border border-white/10 bg-slate-950 p-3">
                     <div class="mb-2 flex items-center justify-between text-sm">
                       <span>{{ category.name }}</span>
-                      <span class="text-slate-400">{{ category.spent | currency:'ARS':'symbol-narrow':'1.0-0' }} / {{ category.budget | currency:'ARS':'symbol-narrow':'1.0-0' }}</span>
+                      <span class="text-slate-400"
+                        >{{
+                          category.spent
+                            | currency: 'ARS' : 'symbol-narrow' : '1.0-0'
+                        }}
+                        /
+                        {{
+                          category.budget
+                            | currency: 'ARS' : 'symbol-narrow' : '1.0-0'
+                        }}</span
+                      >
                     </div>
                     <div class="h-2 overflow-hidden rounded-full bg-white/10">
-                      <div class="h-full rounded-full bg-cyan-300" [style.width.%]="category.usage"></div>
+                      <div
+                        class="h-full rounded-full bg-cyan-300"
+                        [style.width.%]="category.usage"></div>
                     </div>
                   </article>
                 } @empty {
-                  <p class="rounded-md border border-white/10 bg-slate-950 px-3 py-4 text-sm text-slate-400">No hay presupuestos mensuales cargados.</p>
+                  <p
+                    class="rounded-md border border-white/10 bg-slate-950 px-3 py-4 text-sm text-slate-400">
+                    No hay presupuestos mensuales cargados.
+                  </p>
                 }
               </div>
             </p-card>
-            <p-card styleClass="!rounded-lg !border !border-white/10 !bg-slate-950/90 !text-blue-50">
-              <ng-template pTemplate="header"><div class="px-5 pt-5"><h2 class="text-lg font-bold">Movimientos</h2></div></ng-template>
+            <p-card
+              styleClass="!rounded-lg !border !border-white/10 !bg-slate-950/90 !text-blue-50">
+              <ng-template pTemplate="header"
+                ><div class="px-5 pt-5">
+                  <h2 class="text-lg font-bold">Movimientos</h2>
+                </div></ng-template
+              >
               <ng-container *ngTemplateOutlet="transactionsList"></ng-container>
             </p-card>
           </div>
@@ -453,16 +895,28 @@
       }
 
       @if (activeView() === 'settings') {
-        <section class="grid gap-4 lg:grid-cols-[0.8fr_1.2fr]" data-testid="dashboard-settings-view">
-          <p-card styleClass="!rounded-lg !border !border-white/10 !bg-slate-950/90 !text-blue-50" data-testid="dashboard-dollar-settings-panel">
+        <section
+          class="grid gap-4 lg:grid-cols-[0.8fr_1.2fr]"
+          data-testid="dashboard-settings-view">
+          <p-card
+            styleClass="!rounded-lg !border !border-white/10 !bg-slate-950/90 !text-blue-50"
+            data-testid="dashboard-dollar-settings-panel">
             <ng-template pTemplate="header">
               <div class="px-5 pt-5">
                 <h2 class="text-lg font-bold">Configuración</h2>
-                <p class="text-sm text-slate-400">Cotización global para convertir sueldos y gastos en dólares a pesos.</p>
+                <p class="text-sm text-slate-400">
+                  Cotización global para convertir sueldos y gastos en dólares a
+                  pesos.
+                </p>
               </div>
             </ng-template>
-            <form class="grid gap-3" (ngSubmit)="saveDollarRate()" data-testid="dashboard-dollar-rate-form">
-              <label class="text-sm text-slate-300" for="dashboardDollarRate">Dólar usado por la app</label>
+            <form
+              class="grid gap-3"
+              (ngSubmit)="saveDollarRate()"
+              data-testid="dashboard-dollar-rate-form">
+              <label class="text-sm text-slate-300" for="dashboardDollarRate"
+                >Dólar usado por la app</label
+              >
               <p-inputNumber
                 inputId="dashboardDollarRate"
                 [(ngModel)]="dollarRateInput"
@@ -473,40 +927,69 @@
                 [min]="1"
                 inputStyleClass="h-12 w-full"
                 styleClass="w-full"
-                data-testid="dashboard-dollar-rate-input"
-              />
+                data-testid="dashboard-dollar-rate-input" />
               @if (settingsError()) {
-                <p class="rounded-md border border-red-400/30 bg-red-950/60 px-3 py-2 text-sm text-red-100" data-testid="dashboard-settings-error">{{ settingsError() }}</p>
+                <p
+                  class="rounded-md border border-red-400/30 bg-red-950/60 px-3 py-2 text-sm text-red-100"
+                  data-testid="dashboard-settings-error">
+                  {{ settingsError() }}
+                </p>
               }
               @if (settingsMessage()) {
-                <p class="rounded-md border border-sky-300/30 bg-blue-900/60 px-3 py-2 text-sm text-sky-100" data-testid="dashboard-settings-success">{{ settingsMessage() }}</p>
+                <p
+                  class="rounded-md border border-sky-300/30 bg-blue-900/60 px-3 py-2 text-sm text-sky-100"
+                  data-testid="dashboard-settings-success">
+                  {{ settingsMessage() }}
+                </p>
               }
-              <button type="submit" class="h-11 rounded-lg bg-sky-400 px-4 text-sm font-black text-blue-950" data-testid="dashboard-dollar-rate-save">
+              <button
+                type="submit"
+                class="h-11 rounded-lg bg-sky-400 px-4 text-sm font-black text-blue-950"
+                data-testid="dashboard-dollar-rate-save">
                 Guardar cotización
               </button>
             </form>
           </p-card>
 
-          <p-card styleClass="!rounded-lg !border !border-white/10 !bg-slate-950/90 !text-blue-50" data-testid="dashboard-dollar-history-panel">
+          <p-card
+            styleClass="!rounded-lg !border !border-white/10 !bg-slate-950/90 !text-blue-50"
+            data-testid="dashboard-dollar-history-panel">
             <ng-template pTemplate="header">
               <div class="px-5 pt-5">
                 <h2 class="text-lg font-bold">Historial de cotización</h2>
-                <p class="text-sm text-slate-400">Últimos cambios guardados en este dispositivo.</p>
+                <p class="text-sm text-slate-400">
+                  Últimos cambios guardados en este dispositivo.
+                </p>
               </div>
             </ng-template>
             <div class="space-y-2">
               @for (item of dollarSettings().dollarRateHistory; track item.id) {
-                <article class="flex items-center justify-between gap-3 rounded-md border border-white/10 bg-slate-950 px-3 py-3" data-testid="dashboard-dollar-history-row">
+                <article
+                  class="flex items-center justify-between gap-3 rounded-md border border-white/10 bg-slate-950 px-3 py-3"
+                  data-testid="dashboard-dollar-history-row">
                   <div>
-                    <p class="text-sm font-semibold text-slate-200">{{ item.rate | currency:'ARS':'symbol-narrow':'1.0-0' }}</p>
-                    <p class="text-xs text-slate-500">{{ item.createdAt | date:'short' }}</p>
+                    <p class="text-sm font-semibold text-slate-200">
+                      {{
+                        item.rate | currency: 'ARS' : 'symbol-narrow' : '1.0-0'
+                      }}
+                    </p>
+                    <p class="text-xs text-slate-500">
+                      {{ item.createdAt | date: 'short' }}
+                    </p>
                   </div>
                   @if (item.rate === currentDollarRate()) {
-                    <span class="rounded-md border border-sky-300/20 bg-sky-500/10 px-2 py-1 text-xs font-bold text-sky-100">Actual</span>
+                    <span
+                      class="rounded-md border border-sky-300/20 bg-sky-500/10 px-2 py-1 text-xs font-bold text-sky-100"
+                      >Actual</span
+                    >
                   }
                 </article>
               } @empty {
-                <p class="rounded-md border border-white/10 bg-slate-950 px-3 py-4 text-sm text-slate-400" data-testid="dashboard-dollar-history-empty">Todavía no guardaste cotizaciones.</p>
+                <p
+                  class="rounded-md border border-white/10 bg-slate-950 px-3 py-4 text-sm text-slate-400"
+                  data-testid="dashboard-dollar-history-empty">
+                  Todavía no guardaste cotizaciones.
+                </p>
               }
             </div>
           </p-card>
@@ -517,7 +1000,9 @@
 </main>
 
 <ng-template #taskRow let-task="task">
-  <article class="flex items-start justify-between gap-3 rounded-md border border-white/10 bg-slate-950 px-3 py-3" data-testid="dashboard-task-row">
+  <article
+    class="flex items-start justify-between gap-3 rounded-md border border-white/10 bg-slate-950 px-3 py-3"
+    data-testid="dashboard-task-row">
     <div class="min-w-0">
       <div class="flex flex-wrap items-center gap-2">
         <h3 class="break-words font-semibold">{{ task.title }}</h3>
@@ -528,15 +1013,34 @@
         }
       </div>
       @if (task.description) {
-        <p class="mt-1 break-words text-sm text-slate-400">{{ task.description }}</p>
+        <p class="mt-1 break-words text-sm text-slate-400">
+          {{ task.description }}
+        </p>
       }
-      <p class="mt-2 text-xs text-slate-500">{{ dateLabel(task.scheduledDate || task.dueDate) }} · {{ task.estimatedMinutes ?? 30 }} min</p>
+      <p class="mt-2 text-xs text-slate-500">
+        {{ dateLabel(task.scheduledDate || task.dueDate) }} ·
+        {{ task.estimatedMinutes ?? 30 }} min
+      </p>
     </div>
     <div class="flex shrink-0 gap-2">
       @if (task.status === 'TODO') {
-        <p-button icon="pi pi-play" severity="secondary" variant="outlined" [rounded]="true" (onClick)="startTask(task)" ariaLabel="Iniciar tarea" data-testid="dashboard-task-start" />
+        <p-button
+          icon="pi pi-play"
+          severity="secondary"
+          variant="outlined"
+          [rounded]="true"
+          (onClick)="startTask(task)"
+          ariaLabel="Iniciar tarea"
+          data-testid="dashboard-task-start" />
       }
-      <p-button icon="pi pi-check" severity="info" variant="outlined" [rounded]="true" (onClick)="completeTask(task)" ariaLabel="Completar tarea" data-testid="dashboard-task-complete" />
+      <p-button
+        icon="pi pi-check"
+        severity="info"
+        variant="outlined"
+        [rounded]="true"
+        (onClick)="completeTask(task)"
+        ariaLabel="Completar tarea"
+        data-testid="dashboard-task-complete" />
     </div>
   </article>
 </ng-template>
@@ -544,9 +1048,12 @@
 <ng-template #noteRow let-note="note">
   <article
     class="rounded-md border px-3 py-3"
-    [ngClass]="editingNoteId === note.id ? 'border-sky-300/60 bg-sky-950/40' : 'border-white/10 bg-slate-950'"
-    data-testid="dashboard-note-row"
-  >
+    [ngClass]="
+      editingNoteId === note.id
+        ? 'border-sky-300/60 bg-sky-950/40'
+        : 'border-white/10 bg-slate-950'
+    "
+    data-testid="dashboard-note-row">
     <div class="mb-2 flex items-start justify-between gap-3">
       <div class="min-w-0">
         @if (note.title) {
@@ -561,8 +1068,7 @@
           class="grid h-8 w-8 place-items-center rounded-md border border-white/10 bg-slate-900 text-slate-200 transition hover:border-sky-300/50 hover:text-sky-100"
           aria-label="Editar nota"
           (click)="editNote(note)"
-          data-testid="dashboard-note-edit"
-        >
+          data-testid="dashboard-note-edit">
           <i class="pi pi-pencil text-sm"></i>
         </button>
         <button
@@ -570,16 +1076,24 @@
           class="grid h-8 w-8 place-items-center rounded-md border border-white/10 bg-slate-900 text-slate-200 transition hover:border-red-300/50 hover:text-red-100"
           aria-label="Borrar nota"
           (click)="deleteNote(note)"
-          data-testid="dashboard-note-delete"
-        >
+          data-testid="dashboard-note-delete">
           <i class="pi pi-trash text-sm"></i>
         </button>
       </div>
     </div>
     <div class="flex items-center justify-between gap-2 text-xs text-slate-500">
-      <span>{{ note.area?.name || 'Sin área' }} · {{ note.createdAt | date:'short' }}</span>
+      <span
+        >{{ note.area?.name || 'Sin área' }} ·
+        {{ note.createdAt | date: 'short' }}</span
+      >
       @if (note.pinned) {
-        <button type="button" class="text-sky-300 hover:text-blue-100" (click)="archiveNote(note)" data-testid="dashboard-note-unpin">Quitar pin</button>
+        <button
+          type="button"
+          class="text-sky-300 hover:text-blue-100"
+          (click)="archiveNote(note)"
+          data-testid="dashboard-note-unpin">
+          Quitar pin
+        </button>
       }
     </div>
   </article>
@@ -588,20 +1102,43 @@
 <ng-template #transactionsList>
   <div class="space-y-2">
     @for (transaction of visibleTransactions(); track transaction.id) {
-      <article class="flex items-center justify-between gap-3 rounded-md border border-white/10 bg-slate-950 px-3 py-2 text-sm" data-testid="dashboard-transaction-row">
+      <article
+        class="flex items-center justify-between gap-3 rounded-md border border-white/10 bg-slate-950 px-3 py-2 text-sm"
+        data-testid="dashboard-transaction-row">
         <div class="min-w-0">
-          <p class="truncate font-medium">{{ transaction.description || transaction.category?.name || transaction.type }}</p>
-          <p class="text-xs text-slate-500">{{ transaction.account?.name || 'Sin cuenta' }} · {{ transaction.date | date:'shortDate' }}</p>
+          <p class="truncate font-medium">
+            {{
+              transaction.description ||
+                transaction.category?.name ||
+                transaction.type
+            }}
+          </p>
+          <p class="text-xs text-slate-500">
+            {{ transaction.account?.name || 'Sin cuenta' }} ·
+            {{ transaction.date | date: 'shortDate' }}
+          </p>
         </div>
-        <strong class="shrink-0" [class.text-red-300]="transaction.type === 'EXPENSE'" [class.text-sky-300]="transaction.type === 'INCOME'">
-          {{ transaction.type === 'EXPENSE' ? '-' : '+' }}{{ formatMoney(transaction.amount, transaction.currency || 'ARS') }}
+        <strong
+          class="shrink-0"
+          [class.text-red-300]="transaction.type === 'EXPENSE'"
+          [class.text-sky-300]="transaction.type === 'INCOME'">
+          {{ transaction.type === 'EXPENSE' ? '-' : '+'
+          }}{{ formatMoney(transaction.amount, transaction.currency || 'ARS') }}
           @if (transaction.currency === 'USD') {
-            <span class="ml-2 text-xs font-normal text-slate-500">({{ transactionAmountInArs(transaction) | currency:'ARS':'symbol-narrow':'1.0-0' }})</span>
+            <span class="ml-2 text-xs font-normal text-slate-500"
+              >({{
+                transactionAmountInArs(transaction)
+                  | currency: 'ARS' : 'symbol-narrow' : '1.0-0'
+              }})</span
+            >
           }
         </strong>
       </article>
     } @empty {
-      <p class="rounded-md border border-white/10 bg-slate-950 px-3 py-4 text-sm text-slate-400">Todavía no hay movimientos.</p>
+      <p
+        class="rounded-md border border-white/10 bg-slate-950 px-3 py-4 text-sm text-slate-400">
+        Todavía no hay movimientos.
+      </p>
     }
   </div>
 </ng-template>

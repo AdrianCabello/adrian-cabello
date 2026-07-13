@@ -7,16 +7,30 @@ import { Meta, Title } from '@angular/platform-browser';
 export class MetaService {
   private readonly baseUrl = 'https://adriancabello.dev';
   private readonly imageUrl =
-    'https://adriancabello.dev/assets/images/ghibli.png';
-  private readonly pageTitle =
-    'Adrian Cabello | Senior Angular Engineer & Tech Lead';
+    'https://adriancabello.dev/assets/images/portfolio-social-card.jpg';
+  private readonly pageTitle = 'Adrian Cabello | Full-Stack Product Engineer';
   private readonly pageDescription =
-    'Senior Angular Engineer and Tech Lead with 9+ years building enterprise platforms, AI-enabled products and founder-led operational software.';
+    'Full-stack product engineer and Tech Lead with 9+ years building Angular frontends, Go and Node.js backends, AI workflows and scalable digital products.';
 
   constructor(
     private meta: Meta,
     private title: Title
   ) {}
+
+  updateForUrl(url: string): void {
+    const path = url.split(/[?#]/)[0];
+    if (path === '' || path === '/') {
+      this.updateMetaTags();
+      return;
+    }
+
+    this.title.setTitle('Private workspace | Adrian Cabello');
+    this.meta.updateTag({ name: 'robots', content: 'noindex, nofollow' });
+    this.meta.updateTag({
+      name: 'description',
+      content: 'Private workspace for Adrian Cabello.',
+    });
+  }
 
   updateMetaTags() {
     // Title
@@ -34,7 +48,7 @@ export class MetaService {
     this.meta.updateTag({
       name: 'keywords',
       content:
-        'Frontend Developer, Angular, TypeScript, JavaScript, AI Automation, LLM, MCP, Agent Skills, Jira Automation, Tech Leader, Web Development',
+        'Full-Stack Product Engineer, Angular, TypeScript, Go, Node.js, PostgreSQL, AI Engineering, LLM, MCP, Tech Lead, Web Development',
     });
     this.meta.updateTag({ name: 'author', content: 'Adrian Cabello' });
 
@@ -58,15 +72,15 @@ export class MetaService {
     });
     this.meta.updateTag({
       property: 'og:image:type',
-      content: 'image/png',
+      content: 'image/jpeg',
     });
     this.meta.updateTag({
       property: 'og:image:width',
-      content: '1024',
+      content: '1200',
     });
     this.meta.updateTag({
       property: 'og:image:height',
-      content: '1024',
+      content: '630',
     });
     this.meta.updateTag({
       property: 'og:image:alt',
@@ -105,9 +119,11 @@ export class MetaService {
 
     // Additional Meta Tags
     this.meta.updateTag({ name: 'theme-color', content: '#050b16' });
-    this.meta.updateTag({ name: 'robots', content: 'index, follow' });
+    this.meta.updateTag({
+      name: 'robots',
+      content: 'index, follow, max-image-preview:large',
+    });
     this.meta.updateTag({ name: 'language', content: 'English' });
-    this.meta.updateTag({ name: 'revisit-after', content: '7 days' });
     this.meta.updateTag({ name: 'generator', content: 'Angular' });
 
     // WhatsApp specific
@@ -117,7 +133,7 @@ export class MetaService {
     });
     this.meta.updateTag({
       property: 'og:image:type',
-      content: 'image/png',
+      content: 'image/jpeg',
     });
   }
 }

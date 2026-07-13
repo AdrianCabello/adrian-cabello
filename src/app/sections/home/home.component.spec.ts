@@ -28,10 +28,18 @@ describe('HomeComponent', () => {
     expect(
       element.querySelector('[data-testid="home-ai-experience-summary"]')
         ?.textContent
-    ).toContain('two years building practical AI-enabled workflows');
+    ).toContain('AI-assisted engineering workflows');
     expect(
       element.querySelector('[data-testid="home-role-summary"]')?.textContent
     ).toContain('9+ years of experience');
+  });
+
+  it('should position Adrian as a full-stack product engineer', () => {
+    const element: HTMLElement = fixture.nativeElement;
+
+    expect(element.textContent).toContain('Full-Stack Product Engineer');
+    expect(element.textContent).toContain('Go + Node');
+    expect(element.textContent).toContain('interface to infrastructure');
   });
 
   it('should not claim an unsupported Angular version', () => {

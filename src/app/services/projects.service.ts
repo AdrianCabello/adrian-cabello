@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, signal } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Inject, Injectable, PLATFORM_ID, signal } from '@angular/core';
 import { catchError, map, of } from 'rxjs';
 import { ADRIAN_CLIENT_ID, getApiBaseUrl } from './api-url';
 
@@ -56,19 +57,19 @@ export class ProjectsService {
       description:
         'A founder-led event operations platform that connects ticketing, point of sale, inventory, product catalogs and multi-location workflows in one product.',
       outcomes: [
-        'Own product strategy, UX, frontend architecture and releases.',
-        'Built operational workflows across Angular, Go and PostgreSQL.',
+        'Own product strategy, UX, architecture and production releases.',
+        'Built end-to-end workflows across Angular, Go and PostgreSQL.',
       ],
-      tech: ['Angular 20', 'TypeScript', 'Go', 'PostgreSQL'],
-      link: 'https://eventloop.club',
+      tech: ['Angular 20', 'Go', 'Node.js', 'PostgreSQL'],
+      link: 'https://eventloop.ar',
       images: [
-        '../../../assets/images/eventloop.png',
-        '../../../assets/images/eventloop-2.png',
-        '../../../assets/images/eventloop-3.png',
+        '../../../assets/images/eventloop-home.webp',
+        '../../../assets/images/eventloop-event-detail.webp',
+        '../../../assets/images/eventloop-producers.webp',
       ],
       clientName: 'EventLoop',
-      website: 'https://eventloop.club',
-      instagram: 'https://instagram.com/eventloop',
+      website: 'https://eventloop.ar',
+      instagram: 'https://instagram.com/eventloop.ar',
       featured: true,
     },
     {
@@ -83,9 +84,9 @@ export class ProjectsService {
       tech: ['Angular', 'TypeScript', 'Tailwind CSS'],
       link: 'https://lautarovulcano.com',
       images: [
-        '../../../assets/images/lautarovulcano.png',
-        '../../../assets/images/lautarovulcano-2.png',
-        '../../../assets/images/lautarovulcano-3.png',
+        '../../../assets/images/lautarovulcano.webp',
+        '../../../assets/images/lautarovulcano-2.webp',
+        '../../../assets/images/lautarovulcano-3.webp',
       ],
       clientName: 'Lautaro Vulcano',
       website: 'https://lautarovulcano.com',
@@ -96,8 +97,13 @@ export class ProjectsService {
   // Exponemos los datos como un signal
   projects = signal<Project[]>(this.fallbackProjects);
 
-  constructor(private readonly http: HttpClient) {
-    this.loadPublicProjects();
+  constructor(
+    private readonly http: HttpClient,
+    @Inject(PLATFORM_ID) private readonly platformId: object
+  ) {
+    if (isPlatformBrowser(this.platformId)) {
+      this.loadPublicProjects();
+    }
   }
 
   getProjects() {
@@ -133,13 +139,19 @@ export class ProjectsService {
       }
 
       return {
-        ...backendProject,
         ...fallback,
+        ...backendProject,
         id: backendProject.id,
         images: backendProject.images.length
           ? backendProject.images
           : fallback.images,
+        role: backendProject.role ?? fallback.role,
+        outcomes: backendProject.outcomes?.length
+          ? backendProject.outcomes
+          : fallback.outcomes,
         website: backendProject.website ?? fallback.website,
+        instagram: backendProject.instagram ?? fallback.instagram,
+        featured: fallback.featured,
       };
     });
 
@@ -166,7 +178,9 @@ export class ProjectsService {
       description: project.description ?? project.longDescription ?? '',
       tech: Array.isArray(project.technologies) ? project.technologies : [],
       link: project.demoUrl ?? project.url ?? project.githubUrl ?? '#',
-      images: images.length ? images : ['../../../assets/images/ghibli.png'],
+      images: images.length
+        ? images
+        : ['../../../assets/images/project-placeholder.webp'],
       clientName: project.client?.name ?? undefined,
       website: project.demoUrl ?? project.url ?? undefined,
     };

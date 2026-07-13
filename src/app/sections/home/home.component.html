@@ -10,20 +10,19 @@
         aria-hidden="true"></div>
       <div
         class="group relative overflow-hidden rounded-[2rem] border border-white/10 bg-slate-900/70 p-3 shadow-2xl shadow-black/30">
-        @if (isLoading) {
-          <div
-            class="aspect-square animate-pulse rounded-[1.45rem] bg-slate-800"
-            aria-hidden="true"></div>
-        }
         <img
-          src="./assets/images/adrian-profile.png"
-          alt="Adrian Cabello, Senior Angular Engineer and Tech Lead"
-          class="aspect-square w-full rounded-[1.45rem] object-cover object-top grayscale-[12%] transition duration-700 group-hover:scale-[1.025] group-hover:grayscale-0"
-          [class.absolute]="isLoading"
-          [class.inset-3]="isLoading"
-          [class.opacity-0]="isLoading"
-          [class.opacity-100]="!isLoading"
-          (load)="onImageLoad()" />
+          src="./assets/images/adrian-profile.webp"
+          srcset="
+            ./assets/images/adrian-profile-400.webp 400w,
+            ./assets/images/adrian-profile.webp     800w
+          "
+          sizes="(max-width: 1023px) 354px, 384px"
+          alt="Adrian Cabello, Full-Stack Product Engineer and Tech Lead"
+          width="800"
+          height="800"
+          fetchpriority="high"
+          decoding="async"
+          class="aspect-square w-full rounded-[1.45rem] bg-slate-800 object-cover object-top grayscale-[12%] transition duration-700 group-hover:scale-[1.025] group-hover:grayscale-0" />
         <div
           class="absolute inset-x-6 bottom-6 rounded-2xl border border-white/10 bg-[#07101f]/80 p-4 backdrop-blur-xl">
           <div
@@ -42,29 +41,29 @@
     <div class="text-center lg:text-left">
       <p
         class="font-mono text-xs font-semibold uppercase tracking-[0.24em] text-cyan-300 sm:text-sm">
-        Senior Angular Engineer · Tech Lead
+        Full-Stack Product Engineer · Tech Lead
       </p>
       <h1
         class="mt-5 text-balance text-4xl font-bold leading-[1.08] tracking-[-0.04em] text-white sm:text-5xl lg:text-7xl">
-        I turn complex products into
+        I build complex products
         <span class="portfolio-gradient-text"
-          >clear, scalable experiences.</span
+          >from interface to infrastructure.</span
         >
       </h1>
       <p
         class="mx-auto mt-6 max-w-3xl text-pretty text-lg leading-8 text-slate-300 lg:mx-0"
         data-testid="home-role-summary">
-        I'm Adrian Cabello, a frontend engineer with
+        I'm Adrian Cabello, a product engineer with
         <strong class="font-semibold text-white">9+ years of experience</strong>
-        leading Angular architecture, product delivery and high-quality UI
-        systems for enterprise and founder-led products.
+        building scalable applications, leading Angular architecture and
+        shipping end-to-end products with Go, Node.js and PostgreSQL.
       </p>
       <p
         class="mx-auto mt-4 max-w-3xl text-pretty leading-7 text-slate-400 lg:mx-0"
         data-testid="home-ai-experience-summary">
-        I combine hands-on Angular expertise with product thinking, team
-        leadership and two years building practical AI-enabled workflows with
-        LLMs, MCP and automation.
+        I combine deep frontend expertise with backend development, product
+        thinking and AI-assisted engineering workflows using LLMs, MCP and
+        automation.
       </p>
 
       <div
@@ -104,12 +103,12 @@
           <dd>2—20</dd>
         </div>
         <div class="portfolio-stat-card">
-          <dt>Product</dt>
-          <dd>Founder</dd>
+          <dt>Backend</dt>
+          <dd>Go + Node</dd>
         </div>
         <div class="portfolio-stat-card">
-          <dt>Focus</dt>
-          <dd>AI + UI</dd>
+          <dt>Delivery</dt>
+          <dd>AI + MCP</dd>
         </div>
       </dl>
 

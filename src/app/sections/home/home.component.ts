@@ -6,10 +6,4 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [],
 })
-export class HomeComponent {
-  isLoading = true;
-
-  onImageLoad(): void {
-    this.isLoading = false;
-  }
-}
+export class HomeComponent {}
