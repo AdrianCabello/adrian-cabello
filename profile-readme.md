@@ -9,7 +9,7 @@
 
 ## 👨‍💻 About Me
 
-Senior Frontend Developer and Tech Leader with 8+ years of experience, specializing in Angular and modern web technologies. I'm passionate about building scalable applications with clean architecture and high test coverage.
+Senior Angular Engineer and Tech Lead with 9+ years of experience building enterprise platforms, AI-enabled products, and founder-led operational software.
 
 ### 🚀 What I Do
 
@@ -23,11 +23,11 @@ Senior Frontend Developer and Tech Leader with 8+ years of experience, specializ
 
 ```javascript
 const skills = {
-    frontend: ['Angular', 'TypeScript', 'JavaScript', 'HTML5', 'CSS3', 'SCSS'],
-    testing: ['Jasmine', 'Karma', 'Jest', 'Cypress'],
-    tools: ['Git', 'VS Code', 'Docker', 'Jira'],
-    architecture: ['Clean Architecture', 'SOLID', 'Design Patterns'],
-    methodologies: ['Agile', 'Scrum', 'TDD']
+  frontend: ['Angular', 'TypeScript', 'JavaScript', 'HTML5', 'CSS3', 'SCSS'],
+  testing: ['Jasmine', 'Karma', 'Jest', 'Cypress'],
+  tools: ['Git', 'VS Code', 'Docker', 'Jira'],
+  architecture: ['Clean Architecture', 'SOLID', 'Design Patterns'],
+  methodologies: ['Agile', 'Scrum', 'TDD'],
 };
 ```
 
@@ -44,6 +44,7 @@ const skills = {
 ## 🌟 Featured Projects
 
 ### [Portfolio Website](https://github.com/AdrianCabello/adrian-cabello)
+
 - Personal portfolio built with Angular 19
 - Features modern UI/UX design
 - Implements SEO best practices
@@ -70,4 +71,4 @@ const skills = {
 
 ![Profile views](https://komarev.com/ghpvc/?username=AdrianCabello&color=blue)
 
-</div> 
+</div>

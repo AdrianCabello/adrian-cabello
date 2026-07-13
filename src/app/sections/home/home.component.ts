@@ -1,17 +1,15 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   standalone: true,
-  imports: [CommonModule, ButtonModule]
+  imports: [],
 })
 export class HomeComponent {
   isLoading = true;
 
-  onImageLoad() {
+  onImageLoad(): void {
     this.isLoading = false;
   }
 }

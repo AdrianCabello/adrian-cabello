@@ -1,26 +1,82 @@
 <header
-  class="fixed left-0 right-0 top-0 z-20 border-b border-gray-200 bg-white/80 shadow-sm backdrop-blur-md dark:border-gray-700 dark:bg-gray-900/80">
-  <div class="mx-auto max-w-7xl px-4">
-    <div class="flex h-16 items-center justify-between">
-      <!-- Logo -->
-      <div class="flex items-center">
-        <span class="text-xl font-bold text-gray-800 dark:text-white">AC</span>
-        <span class="ml-2 text-gray-600 dark:text-gray-300">Adrian Cabello</span>
-      </div>
+  class="fixed left-0 right-0 top-0 z-40 border-b border-white/10 bg-[#07101f]/80 backdrop-blur-xl"
+  data-testid="public-header">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6">
+    <div class="flex h-20 items-center justify-between">
+      <a
+        href="#home"
+        class="group flex items-center gap-3 rounded-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan-300"
+        data-testid="header-brand-link"
+        (click)="closeMenu()">
+        <span
+          class="grid h-10 w-10 place-items-center rounded-xl border border-cyan-300/30 bg-cyan-300/10 font-mono text-sm font-bold text-cyan-200 transition-transform duration-300 group-hover:-rotate-3 group-hover:scale-105">
+          AC
+        </span>
+        <span>
+          <span class="block text-sm font-semibold tracking-wide text-white"
+            >Adrian Cabello</span
+          >
+          <span class="block text-xs text-slate-400"
+            >Angular Engineer · Tech Lead</span
+          >
+        </span>
+      </a>
 
-      <!-- Desktop Navigation -->
-      <nav class="hidden space-x-8 md:flex">
-        <a href="#home" class="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white">Home</a>
-        <a href="#projects"
-          class="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white">Projects</a>
-        <a href="#experience"
-          class="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white">Experience</a>
-        <a href="#education"
-          class="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white">Education</a>
-        <!--       <a href="#contact"
-                    class="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white">Contact</a> -->
+      <nav
+        class="hidden items-center gap-7 md:flex"
+        aria-label="Primary navigation">
+        <a href="#projects" class="portfolio-nav-link">Work</a>
+        <a href="#experience" class="portfolio-nav-link">Experience</a>
+        <a href="#education" class="portfolio-nav-link">Background</a>
+        <a
+          href="mailto:c.adriancabello@gmail.com"
+          class="rounded-full border border-cyan-300/40 bg-cyan-300/10 px-4 py-2 text-sm font-semibold text-cyan-100 transition duration-300 hover:-translate-y-0.5 hover:border-cyan-200 hover:bg-cyan-300/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan-300"
+          data-testid="header-contact-link">
+          Let's talk
+        </a>
       </nav>
-    </div>
-  </div>
 
+      <button
+        type="button"
+        class="grid h-11 w-11 place-items-center rounded-xl border border-white/10 bg-white/5 text-white transition hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan-300 md:hidden"
+        aria-label="Toggle navigation"
+        [attr.aria-expanded]="menuOpen()"
+        aria-controls="mobile-navigation"
+        data-testid="header-menu-button"
+        (click)="toggleMenu()">
+        <i
+          class="pi text-lg"
+          [class.pi-bars]="!menuOpen()"
+          [class.pi-times]="menuOpen()"
+          aria-hidden="true"></i>
+      </button>
+    </div>
+
+    @if (menuOpen()) {
+      <nav
+        id="mobile-navigation"
+        class="portfolio-mobile-menu grid gap-2 border-t border-white/10 py-4 md:hidden"
+        aria-label="Mobile navigation"
+        data-testid="header-mobile-navigation">
+        <a href="#projects" class="portfolio-mobile-link" (click)="closeMenu()"
+          >Work</a
+        >
+        <a
+          href="#experience"
+          class="portfolio-mobile-link"
+          (click)="closeMenu()"
+          >Experience</a
+        >
+        <a href="#education" class="portfolio-mobile-link" (click)="closeMenu()"
+          >Background</a
+        >
+        <a
+          href="mailto:c.adriancabello@gmail.com"
+          class="portfolio-mobile-link"
+          (click)="closeMenu()"
+          >Let's talk</a
+        >
+      </nav>
+    }
+  </div>
 </header>

@@ -2,8 +2,6 @@ import { Component, inject, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProjectsService } from '../../services/projects.service';
 import { register } from 'swiper/element/bundle';
-import { ButtonModule } from 'primeng/button';
-import { TagModule } from 'primeng/tag';
 
 // Register Swiper custom elements
 register();
@@ -12,8 +10,8 @@ register();
   selector: 'app-projects',
   templateUrl: './projects.component.html',
   standalone: true,
-  imports: [CommonModule, ButtonModule, TagModule],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  imports: [CommonModule],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class ProjectsComponent {
   private projectsService = inject(ProjectsService);
@@ -26,14 +24,10 @@ export class ProjectsComponent {
     pagination: {
       clickable: true,
       type: 'bullets',
-      el: '.swiper-pagination-custom',
-      renderBullet: function (index: number, className: string) {
-        return '<span class="' + className + '"></span>';
-      },
     },
     effect: 'fade',
     fadeEffect: {
-      crossFade: true
+      crossFade: true,
     },
     breakpoints: {
       640: {

@@ -6,6 +6,7 @@ import { FooterComponent } from '../../sections/footer/footer.component';
 import { HomeComponent } from '../../sections/home/home.component';
 import { ProjectsComponent } from '../../sections/projects/projects.component';
 import { HeaderComponent } from '../../shared/components/header/header.component';
+import { RevealDirective } from '../../shared/directives/reveal.directive';
 
 @Component({
   selector: 'app-public-site',
@@ -18,6 +19,7 @@ import { HeaderComponent } from '../../shared/components/header/header.component
     ExperienceComponent,
     AcademicComponent,
     FooterComponent,
+    RevealDirective,
   ],
   templateUrl: './public-site.component.html',
 })

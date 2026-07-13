@@ -9,7 +9,8 @@
 @tailwind components;
 @tailwind utilities;
 
-html, body {
+html,
+body {
   touch-action: pan-y;
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
@@ -17,29 +18,27 @@ html, body {
   height: 100%;
   margin: 0;
   padding: 0;
+  scroll-behavior: smooth;
 }
 
 body {
-  background-color: #1e293b;
+  background-color: #050b16;
+  color: #e2e8f0;
+  font-family:
+    'Manrope',
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    sans-serif;
   overflow-x: hidden;
   min-height: 100%;
   width: 100%;
 }
 
-/* Prevent text selection and zoom on double tap */
 * {
   -webkit-tap-highlight-color: transparent;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  user-select: none;
-  touch-action: manipulation;
-}
-
-/* Allow text selection in specific elements where needed */
-input, textarea {
-  -webkit-user-select: text;
-  user-select: text;
-  touch-action: auto;
 }
 
 /* Enable vertical scrolling on the main content */
@@ -49,15 +48,337 @@ app-root {
   -webkit-overflow-scrolling: touch;
 }
 
-/* Prevent zoom on text */
-p, h1, h2, h3, h4, h5, h6, span, a {
-  touch-action: manipulation;
+.portfolio-bg {
+  background:
+    radial-gradient(
+      circle at 18% 8%,
+      rgba(34, 211, 238, 0.11),
+      transparent 34%
+    ),
+    radial-gradient(
+      circle at 82% 36%,
+      rgba(59, 130, 246, 0.1),
+      transparent 32%
+    ),
+    linear-gradient(145deg, #050b16 0%, #07101f 48%, #081426 100%);
+}
+
+.portfolio-grid {
+  background-image:
+    linear-gradient(rgba(148, 163, 184, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148, 163, 184, 0.035) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: linear-gradient(to bottom, black, transparent 82%);
+}
+
+.portfolio-orb {
+  position: absolute;
+  width: 36rem;
+  height: 36rem;
+  border-radius: 9999px;
+  filter: blur(110px);
+  opacity: 0.12;
+  animation: portfolio-drift 18s ease-in-out infinite alternate;
+}
+
+.portfolio-orb-primary {
+  left: -14rem;
+  top: 10rem;
+  background: #22d3ee;
+}
+
+.portfolio-orb-secondary {
+  right: -16rem;
+  top: 48%;
+  background: #3b82f6;
+  animation-delay: -7s;
+}
+
+.portfolio-gradient-text {
+  background: linear-gradient(110deg, #ffffff 8%, #a5f3fc 52%, #60a5fa 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.portfolio-nav-link,
+.portfolio-social-link {
+  position: relative;
+  color: #94a3b8;
+  transition: color 220ms ease;
+}
+
+.portfolio-nav-link {
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.portfolio-nav-link::after,
+.portfolio-social-link::after {
+  position: absolute;
+  right: 0;
+  bottom: -0.3rem;
+  left: 0;
+  height: 1px;
+  content: '';
+  background: #67e8f9;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 220ms ease;
+}
+
+.portfolio-nav-link:hover,
+.portfolio-social-link:hover {
+  color: #f8fafc;
+}
+
+.portfolio-nav-link:hover::after,
+.portfolio-social-link:hover::after,
+.portfolio-nav-link:focus-visible::after,
+.portfolio-social-link:focus-visible::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.portfolio-nav-link:focus-visible,
+.portfolio-social-link:focus-visible {
+  border-radius: 0.25rem;
+  outline: 2px solid #67e8f9;
+  outline-offset: 0.35rem;
+}
+
+.portfolio-mobile-menu {
+  animation: portfolio-menu-in 220ms ease-out both;
+}
+
+.portfolio-mobile-link {
+  min-height: 2.75rem;
+  padding: 0.7rem 0.8rem;
+  border-radius: 0.75rem;
+  color: #cbd5e1;
+  font-weight: 600;
+  transition:
+    background-color 200ms ease,
+    color 200ms ease;
+}
+
+.portfolio-mobile-link:hover,
+.portfolio-mobile-link:focus-visible {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.06);
+  outline: none;
+}
+
+.portfolio-primary-button,
+.portfolio-secondary-button,
+.portfolio-text-button {
+  display: inline-flex;
+  min-height: 3rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  border-radius: 9999px;
+  padding: 0.75rem 1.25rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  transition:
+    transform 220ms ease,
+    background-color 220ms ease,
+    border-color 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.portfolio-primary-button {
+  color: #042f3e;
+  background: #67e8f9;
+  box-shadow: 0 12px 35px rgba(34, 211, 238, 0.15);
+}
+
+.portfolio-secondary-button {
+  color: #e2e8f0;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.045);
+}
+
+.portfolio-text-button {
+  color: #cbd5e1;
+}
+
+.portfolio-primary-button:hover,
+.portfolio-secondary-button:hover,
+.portfolio-text-button:hover {
+  transform: translateY(-2px);
+}
+
+.portfolio-primary-button:hover {
+  background: #a5f3fc;
+  box-shadow: 0 16px 42px rgba(34, 211, 238, 0.22);
+}
+
+.portfolio-secondary-button:hover {
+  border-color: rgba(103, 232, 249, 0.3);
+  background: rgba(255, 255, 255, 0.075);
+}
+
+.portfolio-primary-button:focus-visible,
+.portfolio-secondary-button:focus-visible,
+.portfolio-text-button:focus-visible,
+.portfolio-inline-link:focus-visible {
+  outline: 2px solid #67e8f9;
+  outline-offset: 0.25rem;
+}
+
+.portfolio-stat-card {
+  padding: 1rem;
+  text-align: left;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 1rem;
+  background: rgba(15, 23, 42, 0.52);
+  backdrop-filter: blur(14px);
+  transition:
+    transform 260ms ease,
+    border-color 260ms ease;
+}
+
+.portfolio-stat-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(103, 232, 249, 0.22);
+}
+
+.portfolio-stat-card dt {
+  color: #64748b;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.portfolio-stat-card dd {
+  margin-top: 0.35rem;
+  color: #f8fafc;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.portfolio-section-label {
+  color: #67e8f9;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.portfolio-section-title {
+  margin-top: 0.75rem;
+  color: #fff;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1.1;
+}
+
+.portfolio-section-copy {
+  max-width: 46rem;
+  margin-top: 1.25rem;
+  color: #94a3b8;
+  font-size: 1.05rem;
+  line-height: 1.8;
+}
+
+.portfolio-inline-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  color: #a5f3fc;
+  font-size: 0.9rem;
+  font-weight: 700;
+  transition:
+    gap 220ms ease,
+    color 220ms ease;
+}
+
+.portfolio-inline-link:hover {
+  gap: 0.75rem;
+  color: #cffafe;
+}
+
+.reveal-section {
+  display: block;
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 700ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-delay-1 {
+  transition-delay: 80ms;
+}
+.reveal-delay-2 {
+  transition-delay: 130ms;
+}
+.reveal-delay-3 {
+  transition-delay: 180ms;
+}
+
+@keyframes portfolio-drift {
+  from {
+    transform: translate3d(0, -2%, 0) scale(0.96);
+  }
+  to {
+    transform: translate3d(6%, 8%, 0) scale(1.08);
+  }
+}
+
+@keyframes portfolio-menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 640px) {
+  .portfolio-orb {
+    width: 24rem;
+    height: 24rem;
+    filter: blur(90px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .reveal-section {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 .project-swiper {
   width: 100%;
   height: 100%;
-  
+
   swiper-slide {
     width: 100%;
     height: 100%;
@@ -70,7 +391,7 @@ p, h1, h2, h3, h4, h5, h6, span, a {
     width: 35px;
     height: 35px;
     border-radius: 50%;
-    
+
     &:hover {
       background: rgba(0, 0, 0, 0.8);
     }
@@ -91,7 +412,7 @@ p, h1, h2, h3, h4, h5, h6, span, a {
   justify-content: center;
   gap: 8px;
   z-index: 10;
-  
+
   .swiper-pagination-bullet {
     width: 10px;
     height: 10px;
@@ -99,7 +420,7 @@ p, h1, h2, h3, h4, h5, h6, span, a {
     opacity: 0.5;
     border-radius: 50%;
     transition: all 0.3s ease;
-    
+
     &-active {
       opacity: 1;
       background: white;

@@ -1,71 +1,130 @@
-<div class="w-full px-2 py-2 md:px-6">
-  <div
-    class="mx-auto max-w-7xl rounded-2xl border border-gray-700 bg-gray-800/80 p-6 shadow-2xl backdrop-blur-sm">
-    <!-- Título principal -->
-    <h2
-      class="mb-6 flex items-center justify-between text-2xl font-semibold text-white">
-      Professional Experience
-    </h2>
-    <div
-      *ngFor="let exp of experiences(); let i = index; trackBy: trackByTitle"
-      class="relative mb-6 cursor-pointer border-l-2 border-blue-500 pl-8 dark:border-blue-400">
-      <div
-        class="absolute -left-[9px] top-2 h-4 w-4 rounded-full bg-blue-500 dark:bg-blue-400"></div>
+<section
+  id="experience"
+  class="scroll-mt-24 px-4 py-12 sm:px-6 lg:py-20"
+  data-testid="experience-section">
+  <div class="mx-auto max-w-7xl">
+    <div class="mb-10 max-w-3xl">
+      <p class="portfolio-section-label">Experience</p>
+      <h2 class="portfolio-section-title">
+        From enterprise platforms to founder-led product ownership.
+      </h2>
+      <p class="portfolio-section-copy">
+        The common thread is ownership: making architecture clearer, delivery
+        safer and complex workflows easier to use.
+      </p>
+    </div>
 
-      <button pButton
-        class="p-button-text flex w-full cursor-pointer justify-between text-left"
-        (click)="toggle(i)">
-        <div>
-          <div class="mb-2 flex items-center gap-4">
-            <img
-              *ngIf="exp.logoUrl"
-              [src]="exp.logoUrl"
-              [alt]="exp.company + ' logo'"
-              class="h-10 w-10 rounded-md border border-gray-200 object-contain dark:border-gray-600" />
-            <div>
-              <h3 class="text-xl font-semibold text-gray-800 dark:text-white">
-                {{ exp.title }}
-              </h3>
-              <p class="hidden text-gray-600 md:block dark:text-gray-300">
-                {{ exp.company }} • {{ exp.period }}
-              </p>
+    <div class="relative border-l border-white/10 pl-5 sm:pl-8">
+      @for (
+        exp of experiences();
+        track exp.title + exp.company;
+        let i = $index
+      ) {
+        <article
+          class="group relative pb-8 last:pb-0"
+          data-testid="experience-item">
+          <span
+            class="absolute -left-[1.62rem] top-8 h-3 w-3 rounded-full border-2 border-[#07101f] bg-cyan-300 shadow-[0_0_0_5px_rgba(103,232,249,0.08)] sm:-left-[2.28rem]"
+            aria-hidden="true"></span>
+          <div
+            class="rounded-[1.5rem] border border-white/10 bg-slate-900/55 p-5 backdrop-blur-xl transition duration-300 group-hover:border-white/20 sm:p-6">
+            <div
+              class="flex flex-col gap-5 md:flex-row md:items-start md:justify-between">
+              <div class="min-w-0">
+                <div class="flex items-center gap-3">
+                  @if (exp.logoUrl) {
+                    <img
+                      [src]="exp.logoUrl"
+                      [alt]="exp.company + ' logo'"
+                      class="h-11 w-11 rounded-xl border border-white/10 bg-white object-contain" />
+                  }
+                  <div>
+                    <h3 class="text-xl font-semibold text-white sm:text-2xl">
+                      {{ exp.title }}
+                    </h3>
+                    <p class="mt-1 text-sm font-medium text-cyan-200">
+                      {{ exp.company }}
+                    </p>
+                  </div>
+                </div>
+                <p class="mt-4 max-w-4xl leading-7 text-slate-400">
+                  {{ exp.description }}
+                </p>
+              </div>
+
+              <div
+                class="flex shrink-0 items-center justify-between gap-4 md:flex-col md:items-end">
+                <span
+                  class="rounded-full border border-white/10 bg-white/5 px-3 py-1 font-mono text-xs text-slate-300"
+                  >{{ exp.period }}</span
+                >
+                <button
+                  type="button"
+                  class="flex min-h-11 items-center gap-2 rounded-full px-3 py-2 text-sm font-semibold text-slate-300 transition hover:bg-white/5 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan-300"
+                  [attr.aria-expanded]="exp.isOpen"
+                  [attr.aria-controls]="'experience-details-' + i"
+                  [attr.data-testid]="'experience-toggle-' + i"
+                  (click)="toggle(i)">
+                  {{ exp.isOpen ? 'Hide details' : 'View details' }}
+                  <i
+                    class="pi pi-chevron-down text-xs transition-transform duration-300"
+                    [class.rotate-180]="exp.isOpen"
+                    aria-hidden="true"></i>
+                </button>
+              </div>
             </div>
-          </div>
-          <p class="block text-gray-600 md:hidden dark:text-gray-300">
-            {{ exp.company }} • {{ exp.period }}
-          </p>
-          <p class="text-gray-600 dark:text-gray-400">{{ exp.description }}</p>
-        </div>
-      </button>
 
-      <div *ngIf="exp.isOpen" @expandCollapse class="mt-4 space-y-4">
-        <!-- Proyectos -->
-        <div *ngIf="exp.projects?.length">
-          <div *ngFor="let project of exp.projects" class="mt-4">
-            <h4 class="text-lg font-semibold text-gray-800 dark:text-white">
-              {{ project.name }}
-            </h4>
-            <p class="text-gray-600 dark:text-gray-400">
-              {{ project.summary }}
-            </p>
-            <ul
-              class="mt-2 list-disc space-y-1 pl-6 text-gray-600 dark:text-gray-400">
-              <li *ngFor="let item of project.responsibilities">{{ item }}</li>
-            </ul>
+            @if (exp.isOpen) {
+              <div
+                [id]="'experience-details-' + i"
+                @expandCollapse
+                class="mt-6 border-t border-white/10 pt-5">
+                @if (exp.projects?.length) {
+                  <div class="grid gap-6 lg:grid-cols-2">
+                    @for (project of exp.projects; track project.name) {
+                      <div class="rounded-2xl bg-white/[0.035] p-5">
+                        <h4 class="text-lg font-semibold text-white">
+                          {{ project.name }}
+                        </h4>
+                        <p class="mt-2 leading-6 text-slate-400">
+                          {{ project.summary }}
+                        </p>
+                        <ul
+                          class="mt-4 grid gap-2 text-sm leading-6 text-slate-300">
+                          @for (item of project.responsibilities; track item) {
+                            <li class="flex gap-3">
+                              <span
+                                class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-300"
+                                aria-hidden="true"></span>
+                              <span>{{ item }}</span>
+                            </li>
+                          }
+                        </ul>
+                      </div>
+                    }
+                  </div>
+                } @else if (exp.responsibilities?.length) {
+                  <h4
+                    class="font-mono text-xs font-semibold uppercase tracking-[0.18em] text-cyan-200">
+                    Key contributions
+                  </h4>
+                  <ul
+                    class="mt-4 grid gap-2 text-sm leading-6 text-slate-300 md:grid-cols-2 md:gap-x-8">
+                    @for (item of exp.responsibilities; track item) {
+                      <li class="flex gap-3">
+                        <span
+                          class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-300"
+                          aria-hidden="true"></span>
+                        <span>{{ item }}</span>
+                      </li>
+                    }
+                  </ul>
+                }
+              </div>
+            }
           </div>
-        </div>
-
-        <div
-          *ngIf="exp.responsibilities?.length && !exp.projects?.length"
-          class="mt-4">
-          <h4 class="mb-2 text-lg font-semibold text-gray-800 dark:text-white">
-            Key Contributions & Responsibilities:
-          </h4>
-          <ul class="list-disc space-y-1 pl-6 text-gray-600 dark:text-gray-400">
-            <li *ngFor="let item of exp.responsibilities">{{ item }}</li>
-          </ul>
-        </div>
-      </div>
+        </article>
+      }
     </div>
   </div>
-</div>
+</section>

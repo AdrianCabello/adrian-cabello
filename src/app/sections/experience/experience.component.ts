@@ -3,11 +3,10 @@ import { CommonModule } from '@angular/common';
 import { style, transition } from '@angular/animations';
 import { trigger } from '@angular/animations';
 import { animate } from '@angular/animations';
-import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-experience',
-  imports: [CommonModule, ButtonModule],
+  imports: [CommonModule],
   templateUrl: './experience.component.html',
   standalone: true,
   animations: [
@@ -24,6 +23,33 @@ import { ButtonModule } from 'primeng/button';
 })
 export class ExperienceComponent {
   readonly experiences = signal([
+    {
+      title: 'Senior Frontend Engineer',
+      company: 'CLARA Analytics',
+      period: 'Jun 2025 - Present',
+      isOpen: false,
+      description: `Building production Angular features for data-rich and AI-enabled workflows in a cross-functional product environment.`,
+      responsibilities: [
+        'Build and maintain production frontend features with Angular and TypeScript.',
+        'Integrate data-rich and AI-enabled workflows while improving maintainability, usability, and frontend architecture.',
+        'Collaborate with product, backend, design, and QA across the full delivery lifecycle.',
+      ],
+      projects: [],
+    },
+    {
+      title: 'Founder & Tech Lead',
+      company: 'EventLoop',
+      period: 'Dec 2023 - Present',
+      isOpen: false,
+      description: `Leading product strategy, UX, architecture and delivery for an event operations platform spanning ticketing, POS, inventory and multi-location workflows.`,
+      responsibilities: [
+        'Lead product strategy, UX, frontend architecture, releases, and continuous iteration.',
+        'Built Angular 20 and TypeScript workflows for POS, ticketing, inventory, product catalogs, and multi-location operations.',
+        'Implemented role-based access, receipt OCR imports, recipe-linked stock, and real-time inventory synchronization.',
+        'Contribute to Go backend services and PostgreSQL data models while guiding technical decisions across the product.',
+      ],
+      projects: [],
+    },
     {
       title: 'Senior Frontend Developer',
       company: 'Scanntech',
@@ -44,12 +70,12 @@ export class ExperienceComponent {
       projects: [],
     },
     {
-      title: 'Senior Frontend Developer',
-      company: 'Halo Media LLC',
+      title: 'Senior Frontend Developer / Frontend Lead',
+      company: 'Halo Media · Mercer',
       period: 'Jun 2022 – Apr 2024',
       logoUrl: '../../../../assets/logos/halo.jpeg',
       isOpen: false,
-      description: `Worked on multiple AI-powered and investment-oriented web platforms for Mercer, including RFP, Mercer Mind, Catalytic Investment Exchange, and the Mercer homepage. Focused on building scalable, testable, and responsive frontend solutions using Angular and RxJS, with strong experience in AI workflows, LLM-powered features, automation, MCP-based tooling, and custom agent skills.`,
+      description: `Worked on multiple AI-powered and investment-oriented web platforms for Mercer, including RFP, Mercer Mind, Catalytic Investment Exchange, and the Mercer homepage. Focused on building scalable, testable, and responsive frontend solutions using Angular and RxJS, including real-time LLM-powered product experiences.`,
       projects: [
         {
           name: 'Mercer | RFP',

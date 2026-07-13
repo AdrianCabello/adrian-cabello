@@ -1,75 +1,98 @@
-<div class="w-full px-2 py-4 md:px-6">
+<section
+  id="education"
+  class="scroll-mt-24 px-4 py-12 sm:px-6 lg:py-20"
+  data-testid="background-section">
   <div
-    class="mx-auto max-w-7xl rounded-2xl border border-gray-700 bg-gray-800/80 p-6 shadow-2xl backdrop-blur-sm">
-    <div class="space-y-8">
-      <!-- Certifications -->
-      <h2
-        class="mb-6 flex items-center justify-between text-2xl font-semibold text-white">
-        Certifications & Training
-      </h2>
-      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        <article
-          *ngFor="let cert of certifications"
-          class="flex h-full flex-col justify-between rounded-xl border border-gray-600 bg-gray-700/50 p-5 shadow-md">
-          <div class="mb-3 flex">
-            <img
-              *ngIf="cert.logo"
-              [src]="cert.logo"
-              alt="{{ cert.title }} logo"
-              class="mr-3 mt-1 h-10 w-10 rounded-md" />
-            <div>
-              <h4 class="font-medium text-white">
-                {{ cert.title }}
-              </h4>
-              <p class="text-sm text-gray-400">
-                {{ cert.institution }}
+    class="mx-auto max-w-7xl rounded-[2rem] border border-white/10 bg-slate-900/55 p-5 shadow-2xl shadow-black/15 backdrop-blur-xl sm:p-8">
+    <div class="grid gap-12 lg:grid-cols-[0.92fr_1.08fr]">
+      <div>
+        <p class="portfolio-section-label">Education</p>
+        <h2
+          class="mt-3 text-3xl font-bold tracking-tight text-white sm:text-4xl">
+          A technical foundation built through practice.
+        </h2>
+        <div class="mt-7 grid gap-4">
+          @for (edu of educationList; track edu.title) {
+            <article
+              class="rounded-2xl border border-white/10 bg-white/[0.035] p-5 transition duration-300 hover:border-white/20">
+              <p class="font-mono text-xs text-cyan-200">{{ edu.date }}</p>
+              <h3 class="mt-2 text-lg font-semibold text-white">
+                {{ edu.title }}
+              </h3>
+              <p class="mt-1 text-sm text-slate-300">{{ edu.institution }}</p>
+              <p class="mt-3 text-sm leading-6 text-slate-400">
+                {{ edu.description }}
               </p>
-            </div>
-          </div>
+            </article>
+          }
+        </div>
+      </div>
 
-          <div class="mt-auto flex items-center justify-between">
-            <div class="text-xs text-gray-400">
-              {{ cert.date }}
-            </div>
-            <p-tag [severity]="cert.color === 'red' ? 'danger' : 'info'">
-              <a
-                *ngIf="cert.url"
-                [href]="cert.url"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="cursor-pointer text-inherit hover:underline">
-                {{ cert.badge }}
-              </a>
-              <span *ngIf="!cert.url">{{ cert.badge }}</span>
-            </p-tag>
+      <div>
+        <div class="flex items-end justify-between gap-4">
+          <div>
+            <p class="portfolio-section-label">Selected training</p>
+            <h2
+              class="mt-3 text-3xl font-bold tracking-tight text-white sm:text-4xl">
+              Recent, relevant credentials.
+            </h2>
           </div>
-        </article>
+          <span class="hidden font-mono text-xs text-slate-500 sm:block"
+            >{{ certifications.length }} total</span
+          >
+        </div>
+
+        <div class="mt-7 grid gap-4">
+          @for (cert of visibleCertifications(); track cert.title) {
+            <article
+              class="flex items-center gap-4 rounded-2xl border border-white/10 bg-white/[0.035] p-4 transition duration-300 hover:-translate-y-0.5 hover:border-cyan-300/25">
+              @if (cert.logo) {
+                <img
+                  [src]="cert.logo"
+                  [alt]="cert.institution + ' logo'"
+                  class="h-11 w-11 rounded-xl object-cover"
+                  loading="lazy" />
+              }
+              <div class="min-w-0 flex-1">
+                <h3 class="font-semibold text-white">{{ cert.title }}</h3>
+                <p class="mt-1 text-sm text-slate-400">
+                  {{ cert.institution }} · {{ cert.date }}
+                </p>
+              </div>
+              @if (cert.url) {
+                <a
+                  [href]="cert.url"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-white/10 text-cyan-200 transition hover:border-cyan-300/30 hover:bg-cyan-300/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan-300"
+                  [attr.aria-label]="'View ' + cert.title + ' credential'"
+                  data-testid="certification-link">
+                  <i
+                    class="pi pi-arrow-up-right text-sm"
+                    aria-hidden="true"></i>
+                </a>
+              }
+            </article>
+          }
+        </div>
+
+        <button
+          type="button"
+          class="mt-5 flex min-h-11 items-center gap-2 rounded-full border border-white/10 px-4 py-2 text-sm font-semibold text-slate-300 transition hover:border-cyan-300/25 hover:bg-white/5 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan-300"
+          [attr.aria-expanded]="showAllCertifications()"
+          data-testid="certifications-toggle"
+          (click)="toggleCertifications()">
+          {{
+            showAllCertifications()
+              ? 'Show selected credentials'
+              : 'View all credentials'
+          }}
+          <i
+            class="pi pi-chevron-down text-xs transition-transform duration-300"
+            [class.rotate-180]="showAllCertifications()"
+            aria-hidden="true"></i>
+        </button>
       </div>
     </div>
-    <!-- Education Cards -->
-    <h2
-      class="mb-6 mt-10 flex items-center justify-between text-2xl font-semibold text-white">
-      Academic Background
-    </h2>
-    <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
-      <article
-        *ngFor="let edu of educationList"
-        class="h-full rounded-xl border border-gray-600 bg-gray-700/50 p-5 shadow-md">
-        <div class="flex items-start gap-4">
-          <div>
-            <h3 class="text-xl font-semibold text-white">
-              {{ edu.title }}
-            </h3>
-            <p class="mt-1 text-gray-300">
-              {{ edu.institution }}
-            </p>
-            <p-tag class="mt-2 inline-flex" [value]="edu.date" severity="info"></p-tag>
-            <p class="mt-3 text-gray-400">
-              {{ edu.description }}
-            </p>
-          </div>
-        </div>
-      </article>
-    </div>
   </div>
-</div>
+</section>

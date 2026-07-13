@@ -1,122 +1,139 @@
-<div class="w-full px-2 py-4 md:px-6">
-  <div class="mx-auto max-w-7xl rounded-2xl border border-gray-700 bg-gray-800/80 p-6 shadow-2xl backdrop-blur-sm">
-    <div class="flex flex-col items-center gap-4 md:gap-6 lg:flex-row">
-  
-        <!-- Skeleton -->
-        <div *ngIf="isLoading" 
-          class="max-h-[360px] rounded-full bg-gray-700 animate-pulse">
-        </div>
-        <!-- Image -->
-        <img 
-          src="./assets/images/adrian-profile.png" 
-          alt="Adrian Cabello" 
-          class="mb-4 max-h-[360px] rounded-full shadow-md transition-opacity duration-300"
+<section
+  id="home"
+  class="scroll-mt-24 px-4 pb-12 pt-8 sm:px-6 lg:pb-20 lg:pt-14"
+  data-testid="home-section">
+  <div
+    class="mx-auto grid max-w-7xl items-center gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:gap-16">
+    <div class="relative mx-auto w-full max-w-sm lg:mx-0">
+      <div
+        class="absolute -inset-5 -z-10 rounded-[2.5rem] bg-cyan-400/10 blur-3xl"
+        aria-hidden="true"></div>
+      <div
+        class="group relative overflow-hidden rounded-[2rem] border border-white/10 bg-slate-900/70 p-3 shadow-2xl shadow-black/30">
+        @if (isLoading) {
+          <div
+            class="aspect-square animate-pulse rounded-[1.45rem] bg-slate-800"
+            aria-hidden="true"></div>
+        }
+        <img
+          src="./assets/images/adrian-profile.png"
+          alt="Adrian Cabello, Senior Angular Engineer and Tech Lead"
+          class="aspect-square w-full rounded-[1.45rem] object-cover object-top grayscale-[12%] transition duration-700 group-hover:scale-[1.025] group-hover:grayscale-0"
+          [class.absolute]="isLoading"
+          [class.inset-3]="isLoading"
           [class.opacity-0]="isLoading"
           [class.opacity-100]="!isLoading"
-          (load)="onImageLoad()"
-        />
-   
-      <div>
-        <div class="text-center md:text-left">
-          <h1 class="text-3xl font-bold text-white">
-            Hello, I'm Adrian Cabello
-          </h1>
-          <p class="mt-2 text-lg text-gray-300" data-testid="home-role-summary">
-            Senior Frontend Developer |
-            <a
-              href="https://angular.dev/"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="font-semibold text-white/90 underline decoration-sky-400/50 underline-offset-4 transition-colors hover:text-sky-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-sky-300"
-              data-testid="home-angular-link"
-            >
-              Angular 22 Specialist
-            </a>
-            |
-            <a
-              href="https://modelcontextprotocol.io/"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="font-semibold text-white/90 underline decoration-sky-400/50 underline-offset-4 transition-colors hover:text-sky-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-sky-300"
-              data-testid="home-mcp-link"
-            >
-              AI & Automation Specialist
-            </a>
-            | Tech Leader
+          (load)="onImageLoad()" />
+        <div
+          class="absolute inset-x-6 bottom-6 rounded-2xl border border-white/10 bg-[#07101f]/80 p-4 backdrop-blur-xl">
+          <div
+            class="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-cyan-200">
+            <span
+              class="h-2 w-2 animate-pulse rounded-full bg-emerald-400"></span>
+            Argentina · Remote
+          </div>
+          <p class="mt-2 text-sm text-slate-300">
+            Building products, systems and engineering teams.
           </p>
-        </div>
-        <div>
-          <div class="mt-4 space-y-2 text-gray-400">
-            <p>
-              Passionate about building <strong class="text-white/80">scalable web applications using Angular</strong>
-              with a strong focus on clean architecture, high test coverage, and performance.
-            </p>
-            <p>
-              <strong class="text-white/80">8+ years of experience</strong> in Frontend Development, working in
-              global teams of 100+ developers, delivering AI-driven platforms, dashboards, automation workflows, and
-              investment solutions.
-            </p>
-          </div>
-
-          <div class="mt-4">
-            <h2 class="text-lg font-semibold text-white">Key Expertise:</h2>
-            <ul class="mt-2 list-inside list-none text-gray-400">
-              <li>
-                <strong class="text-white/80">Frontend:</strong> JavaScript, TypeScript,
-                <a
-                  href="https://angular.dev/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="font-medium text-white/90 underline decoration-sky-400/50 underline-offset-4 transition-colors hover:text-sky-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-sky-300"
-                  data-testid="home-expertise-angular-link"
-                >
-                  Angular 22
-                </a>,
-                <a
-                  href="https://primeng.org/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="font-medium text-white/90 underline decoration-sky-400/50 underline-offset-4 transition-colors hover:text-sky-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-sky-300"
-                  data-testid="home-expertise-primeng-link"
-                >
-                  PrimeNG
-                </a>,
-                Tailwind
-              </li>
-              <li>
-                <strong class="text-white/80">Backend:</strong> Node.js, NestJS, Express, MongoDB, PostgreSQL, MySQL
-              </li>
-              <li>
-                <strong class="text-white/80">AI & Automation:</strong> LLM integrations, MCP, agent workflows, custom
-                skills, prompt engineering, and process automation
-              </li>
-              <li>
-                <strong class="text-white/80">Testing & Optimization:</strong> Jasmine, Karma, Jest
-              </li>
-              <li>
-                <strong class="text-white/80">Leadership:</strong> Leading teams, Agile/Scrum, Code Reviews
-              </li>
-            </ul>
-          </div>
-
-          <div class="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            <a pButton href="../../../assets/cv/adrian-cabello-cv.pdf" download
-              class="w-full justify-center" icon="pi pi-download" label="Download CV">
-            </a>
-            <a pButton href="mailto:c.adriancabello@gmail.com"
-              class="p-button-secondary w-full justify-center" icon="pi pi-envelope" label="Let's Talk">
-            </a>
-            <a href="https://www.linkedin.com/in/adrian-cabello-b07290b8/" target="_blank" rel="noopener noreferrer"
-              pButton class="w-full justify-center" icon="pi pi-linkedin" label="LinkedIn"
-              aria-label="Visit LinkedIn profile">
-            </a>
-            <a href="https://github.com/adriancabello" target="_blank" rel="noopener noreferrer"
-              pButton class="p-button-outlined w-full justify-center" icon="pi pi-github" label="GitHub"
-              aria-label="Visit GitHub profile">
-            </a>
-          </div>
         </div>
       </div>
     </div>
+
+    <div class="text-center lg:text-left">
+      <p
+        class="font-mono text-xs font-semibold uppercase tracking-[0.24em] text-cyan-300 sm:text-sm">
+        Senior Angular Engineer · Tech Lead
+      </p>
+      <h1
+        class="mt-5 text-balance text-4xl font-bold leading-[1.08] tracking-[-0.04em] text-white sm:text-5xl lg:text-7xl">
+        I turn complex products into
+        <span class="portfolio-gradient-text"
+          >clear, scalable experiences.</span
+        >
+      </h1>
+      <p
+        class="mx-auto mt-6 max-w-3xl text-pretty text-lg leading-8 text-slate-300 lg:mx-0"
+        data-testid="home-role-summary">
+        I'm Adrian Cabello, a frontend engineer with
+        <strong class="font-semibold text-white">9+ years of experience</strong>
+        leading Angular architecture, product delivery and high-quality UI
+        systems for enterprise and founder-led products.
+      </p>
+      <p
+        class="mx-auto mt-4 max-w-3xl text-pretty leading-7 text-slate-400 lg:mx-0"
+        data-testid="home-ai-experience-summary">
+        I combine hands-on Angular expertise with product thinking, team
+        leadership and two years building practical AI-enabled workflows with
+        LLMs, MCP and automation.
+      </p>
+
+      <div
+        class="mt-8 flex flex-col justify-center gap-3 sm:flex-row lg:justify-start">
+        <a
+          href="#experience"
+          class="portfolio-primary-button"
+          data-testid="home-experience-link">
+          View experience
+          <i class="pi pi-arrow-down text-sm" aria-hidden="true"></i>
+        </a>
+        <a
+          href="../../../assets/cv/adrian-cabello-cv.pdf"
+          download
+          class="portfolio-secondary-button"
+          data-testid="home-download-cv-link">
+          <i class="pi pi-download text-sm" aria-hidden="true"></i>
+          Download résumé
+        </a>
+        <a
+          href="mailto:c.adriancabello@gmail.com"
+          class="portfolio-text-button"
+          data-testid="home-contact-link"
+          >Contact me</a
+        >
+      </div>
+
+      <dl
+        class="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-4"
+        data-testid="home-proof-points">
+        <div class="portfolio-stat-card">
+          <dt>Experience</dt>
+          <dd>9+ years</dd>
+        </div>
+        <div class="portfolio-stat-card">
+          <dt>Angular</dt>
+          <dd>2—20</dd>
+        </div>
+        <div class="portfolio-stat-card">
+          <dt>Product</dt>
+          <dd>Founder</dd>
+        </div>
+        <div class="portfolio-stat-card">
+          <dt>Focus</dt>
+          <dd>AI + UI</dd>
+        </div>
+      </dl>
+
+      <div
+        class="mt-7 flex items-center justify-center gap-5 text-sm text-slate-400 lg:justify-start">
+        <a
+          href="https://www.linkedin.com/in/adrian-cabello-b07290b8/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="portfolio-social-link"
+          aria-label="Visit Adrian Cabello on LinkedIn"
+          data-testid="home-linkedin-link"
+          >LinkedIn</a
+        >
+        <a
+          href="https://github.com/adriancabello"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="portfolio-social-link"
+          aria-label="Visit Adrian Cabello on GitHub"
+          data-testid="home-github-link"
+          >GitHub</a
+        >
+      </div>
+    </div>
   </div>
-</div>
+</section>

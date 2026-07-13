@@ -21,4 +21,23 @@ describe('HomeComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should present the current AI and automation experience', () => {
+    const element: HTMLElement = fixture.nativeElement;
+
+    expect(
+      element.querySelector('[data-testid="home-ai-experience-summary"]')
+        ?.textContent
+    ).toContain('two years building practical AI-enabled workflows');
+    expect(
+      element.querySelector('[data-testid="home-role-summary"]')?.textContent
+    ).toContain('9+ years of experience');
+  });
+
+  it('should not claim an unsupported Angular version', () => {
+    const element: HTMLElement = fixture.nativeElement;
+
+    expect(element.textContent).toContain('2—20');
+    expect(element.textContent).not.toContain('Angular 22');
+  });
 });

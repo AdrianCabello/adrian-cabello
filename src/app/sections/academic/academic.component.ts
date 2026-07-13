@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
@@ -33,6 +33,7 @@ import { TagModule } from 'primeng/tag';
 })
 export class AcademicComponent {
   isEducationOpen = signal(false);
+  readonly showAllCertifications = signal(false);
 
   educationList = [
     {
@@ -171,4 +172,14 @@ export class AcademicComponent {
       url: 'https://www.udemy.com/certificate/UC-X1AZGGM5', // Si tenés el ID, te lo agrego al final
     },
   ];
+
+  readonly visibleCertifications = computed(() =>
+    this.showAllCertifications()
+      ? this.certifications
+      : this.certifications.slice(0, 3)
+  );
+
+  toggleCertifications(): void {
+    this.showAllCertifications.update(showAll => !showAll);
+  }
 }

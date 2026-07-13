@@ -1,26 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { MetaService } from './services/meta.service';
-import { ZoomPreventionService } from './services/zoom-prevention.service';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  imports: [
-    CommonModule,
-    RouterOutlet
-  ],
+  imports: [CommonModule, RouterOutlet],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
-  standalone: true
+  standalone: true,
 })
 export class AppComponent implements OnInit {
-  constructor(
-    private metaService: MetaService,
-    private zoomPreventionService: ZoomPreventionService
-  ) {}
+  constructor(private readonly metaService: MetaService) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.metaService.updateMetaTags();
   }
 
