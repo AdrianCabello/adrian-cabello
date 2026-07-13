@@ -68,15 +68,8 @@ export class ProjectsService {
       images: [
         '../../../assets/images/eventloop-discovery.webp',
         '../../../assets/images/eventloop-event.webp',
-        '../../../assets/images/eventloop-producer-markama.webp',
-        '../../../assets/images/eventloop-artist-adricted.webp',
       ],
-      imageLabels: [
-        'Event discovery',
-        'Event page & ticketing',
-        'Producer website · markama.ar',
-        'Artist website · adricted.com',
-      ],
+      imageLabels: ['Event discovery', 'Event page & ticketing'],
       clientName: 'EventLoop',
       website: 'https://eventloop.ar',
       instagram: 'https://instagram.com/eventloop.ar',

@@ -29,10 +29,10 @@ describe('ProjectsComponent', () => {
     );
 
     expect(gallery).toBeTruthy();
-    expect(gallery?.querySelectorAll('figure').length).toBe(4);
+    expect(gallery?.querySelectorAll('figure').length).toBe(2);
     expect(gallery?.textContent).toContain('Event page & ticketing');
-    expect(gallery?.textContent).toContain('Producer website · markama.ar');
-    expect(gallery?.textContent).toContain('Artist website · adricted.com');
+    expect(gallery?.textContent).not.toContain('Producer website · markama.ar');
+    expect(gallery?.textContent).not.toContain('Artist website · adricted.com');
   });
 
   it('should include the EventLoop custom-domain websites as projects', () => {
