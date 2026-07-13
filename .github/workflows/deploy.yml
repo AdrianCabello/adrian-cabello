@@ -37,11 +37,12 @@ jobs:
 
       - name: Prepare GitHub Pages artifact
         run: |
-          cp dist/adrian-cabello/browser/index.csr.html dist/adrian-cabello/browser/404.html
+          sed 's|<meta name="robots" content="index, follow, max-image-preview:large">|<meta name="robots" content="noindex, nofollow">|' \
+            dist/adrian-cabello/browser/index.csr.html > dist/adrian-cabello/browser/404.html
           cp CNAME dist/adrian-cabello/browser/CNAME
           for route in login admin dashboard dashboard/proyectos gastos tareas/nueva movimiento-rapido; do
             mkdir -p "dist/adrian-cabello/browser/$route"
-            cp dist/adrian-cabello/browser/index.csr.html "dist/adrian-cabello/browser/$route/index.html"
+            cp dist/adrian-cabello/browser/404.html "dist/adrian-cabello/browser/$route/index.html"
           done
 
       - name: Setup Pages
