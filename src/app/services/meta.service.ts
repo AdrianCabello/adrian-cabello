@@ -10,7 +10,7 @@ export class MetaService {
     'https://adriancabello.dev/assets/images/portfolio-social-card.jpg';
   private readonly pageTitle = 'Adrian Cabello | Full-Stack Product Engineer';
   private readonly pageDescription =
-    'Full-stack product engineer and Tech Lead with 9+ years building Angular frontends, Go and Node.js backends, AI workflows and scalable digital products.';
+    'Full-stack product engineer and Tech Lead with 9+ years building Angular and Ionic applications, leading enterprise migrations, and shipping Go, Node.js and AI-enabled products.';
 
   constructor(
     private meta: Meta,
@@ -48,7 +48,7 @@ export class MetaService {
     this.meta.updateTag({
       name: 'keywords',
       content:
-        'Full-Stack Product Engineer, Angular, TypeScript, Go, Node.js, PostgreSQL, AI Engineering, LLM, MCP, Tech Lead, Web Development',
+        'Full-Stack Product Engineer, Angular, Ionic, TypeScript, Go, Node.js, PostgreSQL, AI Engineering, LLM, MCP, Tech Lead, Web Development',
     });
     this.meta.updateTag({ name: 'author', content: 'Adrian Cabello' });
 

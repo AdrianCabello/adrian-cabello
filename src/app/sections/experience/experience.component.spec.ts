@@ -41,4 +41,17 @@ describe('ExperienceComponent', () => {
     fixture.detectChanges();
     expect(toggle.getAttribute('aria-expanded')).toBe('true');
   });
+
+  it('should include the current Scanntech mobile and migration experience', () => {
+    const scanntechExperience = component
+      .experiences()
+      .find(experience => experience.company === 'Scanntech');
+    const responsibilities =
+      scanntechExperience?.responsibilities?.join(' ') ?? '';
+
+    expect(scanntechExperience?.description).toContain('Ionic');
+    expect(responsibilities).toContain('Coca-Cola and Unilever');
+    expect(responsibilities).toContain('Angular 19');
+    expect(responsibilities).toContain('Signals');
+  });
 });
