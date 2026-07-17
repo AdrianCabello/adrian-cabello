@@ -42,4 +42,19 @@ describe('ProjectsComponent', () => {
     expect(text).toContain('Markama');
     expect(text).toContain('Custom domain · Content managed inside EventLoop');
   });
+
+  it('should include the Haircut & Chill and Leonela Cabello client websites', () => {
+    const element = fixture.nativeElement as HTMLElement;
+    const text = element.textContent ?? '';
+    const websiteLinks = Array.from(
+      element.querySelectorAll<HTMLAnchorElement>(
+        '[data-testid="project-website-link"]'
+      )
+    ).map(link => link.href);
+
+    expect(text).toContain('Haircut & Chill');
+    expect(text).toContain('Leonela Cabello');
+    expect(websiteLinks).toContain('https://hcpeluqueria.com/');
+    expect(websiteLinks).toContain('https://leonelacabello.com/');
+  });
 });

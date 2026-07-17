@@ -112,6 +112,42 @@ export class ProjectsService {
       platformNote: 'Custom domain · Content managed inside EventLoop',
     },
     {
+      title: 'Haircut & Chill',
+      role: 'Client website',
+      description:
+        'A conversion-focused website for JuanSe Favoretti’s hair studio in Tandil, combining a strong editorial identity with clear services, haircut inspiration and direct booking paths.',
+      outcomes: [
+        'Designed the experience around the studio’s relaxed, craft-led identity.',
+        'Connected Calendly, WhatsApp and Instagram so visitors can book through their preferred channel.',
+        'Built a filterable haircut catalogue that turns visual inspiration into a useful consultation tool.',
+      ],
+      tech: ['Angular', 'TypeScript', 'Responsive UX', 'Booking integration'],
+      link: 'https://hcpeluqueria.com',
+      images: ['../../../assets/images/hcpeluqueria.webp'],
+      imageLabels: ['Haircut & Chill website'],
+      clientName: 'JuanSe Favoretti',
+      website: 'https://hcpeluqueria.com',
+      instagram: 'https://www.instagram.com/haircut.andchill/',
+    },
+    {
+      title: 'Leonela Cabello',
+      role: 'Client website',
+      description:
+        'A professional website for an independent lawyer, translating complex legal services into a clear, approachable experience built around trust and easy first contact.',
+      outcomes: [
+        'Structured six legal service areas so visitors can quickly understand where to start.',
+        'Created a confident editorial identity that balances professionalism with a personal presence.',
+        'Integrated WhatsApp and Calendly as direct conversion paths for prospective clients.',
+      ],
+      tech: ['Angular', 'TypeScript', 'Responsive UX', 'SEO'],
+      link: 'https://leonelacabello.com',
+      images: ['../../../assets/images/leonelacabello.webp'],
+      imageLabels: ['Leonela Cabello legal website'],
+      clientName: 'Leonela Cabello',
+      website: 'https://leonelacabello.com',
+      instagram: 'https://www.instagram.com/legalcloser/',
+    },
+    {
       title: 'Lautaro Vulcano',
       role: 'Selected client work',
       description:
