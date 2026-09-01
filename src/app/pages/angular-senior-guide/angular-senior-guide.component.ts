@@ -9,6 +9,8 @@ import {
   signal,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { LanguageService } from '../../i18n/language.service';
+import { LanguageSwitcherComponent } from '../../shared/components/language-switcher/language-switcher.component';
 import {
   PRACTICE_CASES,
   RAPID_QUESTIONS,
@@ -143,7 +145,7 @@ const IMPORTANT_THEORY_PATTERN = new RegExp(
 @Component({
   selector: 'app-angular-senior-guide',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, LanguageSwitcherComponent],
   templateUrl: './angular-senior-guide.component.html',
   styleUrl: './angular-senior-guide.component.scss',
 })
@@ -151,7 +153,9 @@ export class AngularSeniorGuideComponent {
   private readonly platformId = inject(PLATFORM_ID);
   private readonly document = inject(DOCUMENT);
   private readonly destroyRef = inject(DestroyRef);
+  protected readonly languageService = inject(LanguageService);
   private readonly storageKey = 'angular-senior-guide-completed';
+  private readonly collapsedStorageKey = 'angular-senior-guide-collapsed';
   private readonly theorySegmentCache = new Map<
     string,
     readonly TheorySegment[]
@@ -182,27 +186,28 @@ export class AngularSeniorGuideComponent {
   protected readonly activeTopicId = signal<string | null>(null);
   protected readonly mobileNavigationOpen = signal(false);
   protected readonly completedTopicIds = signal<ReadonlySet<string>>(new Set());
+  protected readonly collapsedTopicIds = signal<ReadonlySet<string>>(new Set());
 
   protected readonly activeNavigationLabel = computed(() => {
     const activeTopic = this.topics.find(
       topic => topic.id === this.activeTopicId()
     );
     if (activeTopic) {
-      return `${activeTopic.number} · ${activeTopic.title}`;
+      return `${activeTopic.number} · ${this.translate(activeTopic.title)}`;
     }
 
     const sectionId = this.activeSectionId();
     const activeGroup = this.groups.find(group => group.id === sectionId);
     if (activeGroup) {
-      return activeGroup.title;
+      return this.translate(activeGroup.title);
     }
     if (sectionId === 'rapid') {
-      return 'Banco rápido';
+      return this.translate('Banco rápido');
     }
     if (sectionId === 'practice') {
-      return 'Casos prácticos';
+      return this.translate('Casos prácticos');
     }
-    return 'Contenido completo';
+    return this.translate('Contenido completo');
   });
 
   protected readonly theoryCount = this.topics.reduce(
@@ -247,9 +252,9 @@ export class AngularSeniorGuideComponent {
     }
     const normalizedQuery = this.normalize(this.query());
     return RAPID_QUESTIONS.filter(item =>
-      this.normalize(`${item.question} ${item.answer}`).includes(
-        normalizedQuery
-      )
+      this.normalize(
+        `${item.question} ${item.answer} ${this.translate(item.question)} ${this.translate(item.answer)}`
+      ).includes(normalizedQuery)
     );
   });
 
@@ -260,7 +265,9 @@ export class AngularSeniorGuideComponent {
     }
     const normalizedQuery = this.normalize(this.query());
     return PRACTICE_CASES.filter(item =>
-      this.normalize(`${item.title} ${item.brief}`).includes(normalizedQuery)
+      this.normalize(
+        `${item.title} ${item.brief} ${this.translate(item.title)} ${this.translate(item.brief)}`
+      ).includes(normalizedQuery)
     );
   });
 
@@ -274,6 +281,7 @@ export class AngularSeniorGuideComponent {
   constructor() {
     afterNextRender(() => {
       this.restoreProgress();
+      this.restoreCollapsedTopics();
       this.setupScrollSpy();
     });
 
@@ -316,9 +324,10 @@ export class AngularSeniorGuideComponent {
               ? 'casos-practicos'
               : collection;
       setTimeout(() => {
-        this.document
-          .getElementById(targetId)
-          ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        this.document.getElementById(targetId)?.scrollIntoView({
+          behavior: 'instant' as ScrollBehavior,
+          block: 'start',
+        });
       });
     }
   }
@@ -330,13 +339,15 @@ export class AngularSeniorGuideComponent {
     this.activeSectionId.set(topic.groupId);
     this.activeTopicId.set(topic.id);
     this.mobileNavigationOpen.set(false);
+    this.setTopicCollapsed(topic.id, false);
     this.scheduleScrollSpyRefresh();
 
     if (isPlatformBrowser(this.platformId)) {
       setTimeout(() => {
-        this.document
-          .getElementById(topic.id)
-          ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        this.document.getElementById(topic.id)?.scrollIntoView({
+          behavior: 'instant' as ScrollBehavior,
+          block: 'start',
+        });
       });
     }
   }
@@ -351,6 +362,10 @@ export class AngularSeniorGuideComponent {
 
   protected toggleMobileNavigation(): void {
     this.mobileNavigationOpen.update(isOpen => !isOpen);
+  }
+
+  protected translate(value: string): string {
+    return this.languageService.translate(value);
   }
 
   protected theorySegments(text: string): readonly TheorySegment[] {
@@ -387,12 +402,21 @@ export class AngularSeniorGuideComponent {
     return this.completedTopicIds().has(topicId);
   }
 
+  protected isTopicCollapsed(topicId: string): boolean {
+    return this.collapsedTopicIds().has(topicId);
+  }
+
+  protected toggleTopicCollapsed(topicId: string): void {
+    this.setTopicCollapsed(topicId, !this.isTopicCollapsed(topicId));
+  }
+
   protected toggleCompleted(topicId: string): void {
     const updated = new Set(this.completedTopicIds());
     if (updated.has(topicId)) {
       updated.delete(topicId);
     } else {
       updated.add(topicId);
+      this.setTopicCollapsed(topicId, true);
     }
     this.completedTopicIds.set(updated);
     this.persistProgress(updated);
@@ -407,6 +431,13 @@ export class AngularSeniorGuideComponent {
       topic.intro,
       ...topic.theory,
       ...topic.questions.flatMap(item => [item.question, item.answer]),
+      this.translate(topic.title),
+      this.translate(topic.intro),
+      ...topic.theory.map(item => this.translate(item)),
+      ...topic.questions.flatMap(item => [
+        this.translate(item.question),
+        this.translate(item.answer),
+      ]),
     ].join(' ');
     return this.normalize(searchableText).includes(normalizedQuery);
   }
@@ -446,6 +477,55 @@ export class AngularSeniorGuideComponent {
       return;
     }
     localStorage.setItem(this.storageKey, JSON.stringify([...topicIds]));
+  }
+
+  private restoreCollapsedTopics(): void {
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
+    const validIds = new Set(this.topics.map(topic => topic.id));
+    try {
+      const stored = localStorage.getItem(this.collapsedStorageKey);
+      if (stored === null) {
+        this.collapsedTopicIds.set(new Set(this.completedTopicIds()));
+        this.persistCollapsedTopics(this.collapsedTopicIds());
+        return;
+      }
+      const parsed: unknown = JSON.parse(stored);
+      this.collapsedTopicIds.set(
+        new Set(
+          Array.isArray(parsed)
+            ? parsed.filter(
+                (id): id is string => typeof id === 'string' && validIds.has(id)
+              )
+            : []
+        )
+      );
+    } catch {
+      this.collapsedTopicIds.set(new Set(this.completedTopicIds()));
+    }
+  }
+
+  private setTopicCollapsed(topicId: string, collapsed: boolean): void {
+    const updated = new Set(this.collapsedTopicIds());
+    if (collapsed) {
+      updated.add(topicId);
+    } else {
+      updated.delete(topicId);
+    }
+    this.collapsedTopicIds.set(updated);
+    this.persistCollapsedTopics(updated);
+    this.scheduleScrollSpyRefresh();
+  }
+
+  private persistCollapsedTopics(topicIds: ReadonlySet<string>): void {
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
+    localStorage.setItem(
+      this.collapsedStorageKey,
+      JSON.stringify([...topicIds])
+    );
   }
 
   private setupScrollSpy(): void {

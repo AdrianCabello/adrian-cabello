@@ -63,7 +63,7 @@ export class ProjectsService {
         'Built one platform serving attendees, producers, venues and artists.',
         'Launched productized custom-domain websites powered and managed from EventLoop.',
       ],
-      tech: ['Angular 20', 'Go', 'Node.js', 'PostgreSQL'],
+      tech: ['Angular 22', 'Go', 'Node.js', 'PostgreSQL'],
       link: 'https://eventloop.ar',
       images: [
         '../../../assets/images/eventloop-discovery.webp',

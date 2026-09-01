@@ -3,10 +3,11 @@ import { CommonModule } from '@angular/common';
 import { style, transition } from '@angular/animations';
 import { trigger } from '@angular/animations';
 import { animate } from '@angular/animations';
+import { TranslatePipe } from '../../i18n/translate.pipe';
 
 @Component({
   selector: 'app-experience',
-  imports: [CommonModule],
+  imports: [CommonModule, TranslatePipe],
   templateUrl: './experience.component.html',
   standalone: true,
   animations: [
@@ -44,7 +45,7 @@ export class ExperienceComponent {
       description: `Leading product strategy, UX, architecture and delivery for an event operations platform spanning ticketing, POS, inventory and multi-location workflows.`,
       responsibilities: [
         'Lead product strategy, UX, frontend architecture, releases, and continuous iteration.',
-        'Built Angular 20 and TypeScript workflows for POS, ticketing, inventory, product catalogs, and multi-location operations.',
+        'Built Angular 22 and TypeScript workflows for POS, ticketing, inventory, product catalogs, and multi-location operations.',
         'Implemented role-based access, receipt OCR imports, recipe-linked stock, and real-time inventory synchronization.',
         'Contribute to Go backend services and PostgreSQL data models while guiding technical decisions across the product.',
       ],

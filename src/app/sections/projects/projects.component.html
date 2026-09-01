@@ -4,13 +4,15 @@
   data-testid="projects-section">
   <div class="mx-auto max-w-7xl">
     <div class="mb-10 max-w-3xl">
-      <p class="portfolio-section-label">Selected work</p>
+      <p class="portfolio-section-label">{{ 'Selected work' | translate }}</p>
       <h2 class="portfolio-section-title">
-        Products where I owned more than the interface.
+        {{ 'Products where I owned more than the interface.' | translate }}
       </h2>
       <p class="portfolio-section-copy">
-        Architecture, delivery, product decisions and the systems behind the
-        screen — not just a list of technologies.
+        {{
+          'Architecture, delivery, product decisions and the systems behind the screen — not just a list of technologies.'
+            | translate
+        }}
       </p>
     </div>
 
@@ -25,12 +27,12 @@
               <div class="flex flex-wrap items-center gap-3">
                 <span
                   class="rounded-full border border-cyan-200/30 bg-cyan-300/10 px-3 py-1 font-mono text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-cyan-200">
-                  Flagship product
+                  {{ 'Flagship product' | translate }}
                 </span>
                 @if (project.role) {
                   <span
                     class="font-mono text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
-                    {{ project.role }}
+                    {{ project.role | translate }}
                   </span>
                 }
               </div>
@@ -40,7 +42,7 @@
               </h3>
               <p
                 class="mt-5 max-w-3xl text-lg leading-8 text-slate-300 sm:text-xl">
-                {{ project.description }}
+                {{ project.description | translate }}
               </p>
             </div>
 
@@ -52,7 +54,7 @@
                       <span
                         class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-300"
                         aria-hidden="true"></span>
-                      <span>{{ outcome }}</span>
+                      <span>{{ outcome | translate }}</span>
                     </li>
                   }
                 </ul>
@@ -72,7 +74,7 @@
                     [attr.srcset]="imageSrcSet(image)"
                     sizes="(max-width: 767px) calc(100vw - 64px), 50vw"
                     [alt]="
-                      project.imageLabels?.[$index] ||
+                      (project.imageLabels?.[$index] | translate) ||
                       project.title + ' product interface'
                     "
                     width="1200"
@@ -86,8 +88,8 @@
                   <span
                     class="font-mono text-xs font-semibold uppercase tracking-[0.14em] text-cyan-200">
                     {{
-                      project.imageLabels?.[$index] ||
-                        'Product view ' + ($index + 1)
+                      (project.imageLabels?.[$index] | translate) ||
+                        ('Product view' | translate) + ' ' + ($index + 1)
                     }}
                   </span>
                   <span class="text-xs text-slate-500">0{{ $index + 1 }}</span>
@@ -98,7 +100,9 @@
 
           <div
             class="mt-7 flex flex-col gap-5 border-t border-white/10 pt-6 sm:flex-row sm:items-center sm:justify-between">
-            <div class="flex flex-wrap gap-2" aria-label="Technologies used">
+            <div
+              class="flex flex-wrap gap-2"
+              [attr.aria-label]="'Technologies used' | translate">
               @for (tech of project.tech; track tech) {
                 <span
                   class="rounded-full border border-white/10 bg-white/5 px-3 py-1 font-mono text-xs text-slate-300"
@@ -114,7 +118,7 @@
                   rel="noopener noreferrer"
                   class="portfolio-inline-link"
                   data-testid="featured-project-website-link">
-                  Explore EventLoop
+                  {{ 'Explore EventLoop' | translate }}
                   <i
                     class="pi pi-arrow-up-right text-xs"
                     aria-hidden="true"></i>
@@ -150,7 +154,7 @@
                   [attr.srcset]="imageSrcSet(project.images[0])"
                   sizes="(max-width: 1023px) calc(100vw - 64px), 50vw"
                   [alt]="
-                    project.imageLabels?.[0] ||
+                    (project.imageLabels?.[0] | translate) ||
                     project.title + ' product interface'
                   "
                   width="1200"
@@ -162,7 +166,7 @@
               @if (project.imageLabels?.[0]) {
                 <figcaption
                   class="border-t border-white/10 px-4 py-3 font-mono text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-slate-400">
-                  {{ project.imageLabels?.[0] }}
+                  {{ project.imageLabels?.[0] | translate }}
                 </figcaption>
               }
             </figure>
@@ -171,7 +175,7 @@
               @if (project.role) {
                 <p
                   class="font-mono text-xs font-semibold uppercase tracking-[0.18em] text-cyan-300">
-                  {{ project.role }}
+                  {{ project.role | translate }}
                 </p>
               }
               <h3
@@ -179,13 +183,13 @@
                 {{ project.title }}
               </h3>
               <p class="mt-4 text-base leading-7 text-slate-300">
-                {{ project.description }}
+                {{ project.description | translate }}
               </p>
 
               @if (project.platformNote) {
                 <p
                   class="mt-4 rounded-xl border border-cyan-300/20 bg-cyan-300/[0.06] px-4 py-3 font-mono text-xs font-semibold uppercase tracking-[0.12em] text-cyan-200">
-                  {{ project.platformNote }}
+                  {{ project.platformNote | translate }}
                 </p>
               }
 
@@ -196,7 +200,7 @@
                       <span
                         class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-300"
                         aria-hidden="true"></span>
-                      <span>{{ outcome }}</span>
+                      <span>{{ outcome | translate }}</span>
                     </li>
                   }
                 </ul>
@@ -204,7 +208,7 @@
 
               <div
                 class="mt-6 flex flex-wrap gap-2"
-                aria-label="Technologies used">
+                [attr.aria-label]="'Technologies used' | translate">
                 @for (tech of project.tech; track tech) {
                   <span
                     class="rounded-full border border-white/10 bg-white/5 px-3 py-1 font-mono text-xs text-slate-300"
@@ -221,7 +225,7 @@
                     rel="noopener noreferrer"
                     class="portfolio-inline-link"
                     data-testid="project-website-link">
-                    Visit site
+                    {{ 'Visit site' | translate }}
                     <i
                       class="pi pi-arrow-up-right text-xs"
                       aria-hidden="true"></i>

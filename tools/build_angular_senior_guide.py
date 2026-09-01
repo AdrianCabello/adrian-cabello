@@ -140,17 +140,23 @@ class GuideDoc(BaseDocTemplate):
 
 chapters = [
     {
-        "title": "1. Mapa de la entrevista Senior",
-        "intro": "Una entrevista Senior evalúa criterio técnico, capacidad para reducir riesgo y comunicación. La respuesta fuerte explica el mecanismo, nombra el trade-off y conecta la decisión con un caso real.",
+        "title": "1. Cómo razonar y responder como Senior",
+        "intro": "Esta sección convierte conocimiento técnico en respuestas claras. La meta es demostrar qué ocurre, qué decisión tomarías, por qué la tomarías y cómo comprobarías que funcionó.",
         "master": [
-            "Estructurá cada respuesta en cuatro pasos: definición breve, funcionamiento interno, decisión práctica y límite o alternativa.",
-            "Separá hechos del framework de preferencias del equipo. Angular impone un modelo de componentes y DI; la estructura de carpetas y la estrategia de estado dependen del producto.",
-            "Pedí contexto antes de diseñar: volumen, frecuencia de actualización, SEO, latencia, tamaño del equipo, accesibilidad, seguridad y soporte de navegadores.",
-            "Usá ejemplos propios: formularios dinámicos, migraciones, rendimiento, incidentes, diseño de librerías, revisión de código y coordinación entre equipos.",
+            "Respondé primero qué es el concepto en una frase. Después explicá el mecanismo que produce su comportamiento, elegí una aplicación concreta y cerrá con el límite de esa elección. Ejemplo: `switchMap` reemplaza la suscripción interna anterior; lo elegiría en un buscador porque sólo interesa la consulta más reciente, pero no para guardar acciones que deben completarse todas.",
+            "Separá mecanismo de decisión. «OnPush reduce comprobaciones» describe un efecto. «Uso OnPush con estado inmutable porque los cambios llegan por inputs y signals» explica una decisión. La segunda respuesta permite evaluar si entendés cuándo la herramienta encaja.",
+            "Nombrá las restricciones que cambian la solución: volumen de datos, frecuencia de actualización, SEO, latencia, accesibilidad, seguridad, soporte de navegadores y capacidad del equipo. Si la pregunta no las informa, declaralas como supuestos en vez de inventar un escenario silenciosamente.",
+            "Compará alternativas con el mismo criterio. Para cada opción indicá beneficio, costo y modo de falla. Por ejemplo, SSR mejora el HTML inicial y el SEO, pero agrega infraestructura y exige código compatible con servidor; CSR simplifica la operación, pero depende más de JavaScript para el primer contenido.",
+            "Explicá cómo validarías la decisión. Rendimiento se comprueba con métricas como LCP, INP, tamaño de bundle o tiempo de tarea; una migración se valida con tests, telemetría, despliegue gradual y rollback; una mejora de equipo se valida con lead time, defectos o carga operativa.",
+            "Una respuesta débil enumera herramientas: «usaría Signals, OnPush y lazy loading». Una respuesta sólida conecta problema y evidencia: «el perfil mostró demasiadas vistas comprobadas; moví el estado local a Signals, mantuve referencias inmutables y medí menos scripting sin cambiar el comportamiento».",
+            "Si no recordás una API exacta, no inventes. Explicá el modelo que sí conocés, aislá el detalle dudoso y decí cómo lo verificarías en la documentación o con una prueba mínima. El razonamiento correcto es más valioso que una firma memorizada incorrectamente.",
+            "Para una experiencia real usá Contexto, Decisión, Acción y Resultado. El resultado debe incluir una señal verificable: latencia, errores, conversión, tiempo de entrega, incidentes evitados o feedback del equipo. Si no hubo medición, decí qué observaste y qué medirías hoy.",
         ],
         "qa": [
-            ("¿Qué diferencia una respuesta Senior?", "Una respuesta Senior muestra cómo tomarías la decisión, qué medirías y qué costo aceptás. Evitá recitar APIs sin explicar cuándo fallan."),
+            ("¿Qué diferencia una respuesta Senior?", "No es la cantidad de APIs nombradas. Es poder explicar el mecanismo, elegir según restricciones, comparar alternativas y proponer una forma de validar el resultado. Por ejemplo, no basta con decir «uso `switchMap`»: hay que explicar que conserva sólo la operación interna más reciente y por qué esa política coincide con el problema."),
             ("¿Qué hacés si no sabés una API exacta?", "Decí qué parte conocés, razoná desde el modelo de Angular y explicá cómo verificarías el detalle. Inventar una firma daña más que reconocer un borde."),
+            ("¿Cómo evitás responder «depende» sin tomar una posición?", "Nombrá dos o tres condiciones decisivas, fijá un escenario razonable y elegí. Por ejemplo: «si la página necesita SEO y contenido inicial rápido, elegiría SSR; si es una herramienta interna autenticada, empezaría con CSR». Después explicá qué dato haría cambiar la decisión."),
+            ("¿Cómo convertís una opinión en una decisión técnica defendible?", "Definí el objetivo, compará alternativas con los mismos criterios y acordá una señal de éxito. «Prefiero Signals» es una opinión; «uso Signals para estado local síncrono porque simplifica derivaciones y verifico el impacto con legibilidad, tests y profiling» es una decisión discutible y medible."),
         ],
     },
     {
@@ -972,7 +978,18 @@ def build_story():
     gt.setStyle(TableStyle([('BACKGROUND',(0,0),(-1,0),INK),('TEXTCOLOR',(0,0),(-1,0),colors.white),('FONTNAME',(0,0),(-1,0),BOLD_FONT),('FONTNAME',(0,1),(-1,-1),BODY_FONT),('FONTSIZE',(0,0),(-1,-1),7.4),('LEADING',(0,0),(-1,-1),10),('GRID',(0,0),(-1,-1),0.35,colors.HexColor('#CCD2DE')),('VALIGN',(0,0),(-1,-1),'TOP'),('ROWBACKGROUNDS',(0,1),(-1,-1),[colors.white,PALE]),('LEFTPADDING',(0,0),(-1,-1),5),('RIGHTPADDING',(0,0),(-1,-1),5),('TOPPADDING',(0,0),(-1,-1),4),('BOTTOMPADDING',(0,0),(-1,-1),4)]))
     story += [gt, PageBreak()]
 
-    ordered_chapters = chapters[:3] + foundation_chapters + chapters[3:]
+    ordered_chapters = [
+        foundation_chapters[4],
+        foundation_chapters[5],
+        *foundation_chapters[0:3],
+        chapters[2],
+        chapters[1],
+        *chapters[3:12],
+        foundation_chapters[3],
+        *chapters[12:23],
+        chapters[0],
+        chapters[23],
+    ]
     for chapter_number, source_chapter in enumerate(ordered_chapters, 1):
         ch = dict(source_chapter)
         clean_title = re.sub(r"^\d+\.\s*", "", ch["title"])
@@ -1013,20 +1030,20 @@ def build_story():
     story += [P("Plan intensivo de 21 días", "h1")]
     plan = [
         ["Día", "Foco", "Entrega"],
-        ["1", "JavaScript: tipos, scope, this y closures", "30 respuestas + ejercicios de coerción"],
-        ["2", "Objetos, prototipos, arrays y Big O", "Implementaciones sin helpers"],
-        ["3", "Event loop, Promises y errores", "Predicción de logs + cancelación"],
-        ["4", "Browser, DOM, storage, CORS y cache", "Mapa de plataforma y red"],
-        ["5", "HTML, semántica y formularios", "Formulario accesible completo"],
-        ["6", "CSS, layout y responsive", "Layout sin CLS y recorrido de cascade"],
-        ["7", "TypeScript avanzado", "Modelos con unions, generics y guards"],
+        ["1", "HTML, semántica y formularios", "Formulario accesible completo"],
+        ["2", "CSS, layout y responsive", "Layout sin CLS y recorrido de cascade"],
+        ["3", "JavaScript: tipos, scope, this y closures", "30 respuestas + ejercicios de coerción"],
+        ["4", "Objetos, prototipos, arrays y Big O", "Implementaciones sin helpers"],
+        ["5", "Event loop, Promises y errores", "Predicción de logs + cancelación"],
+        ["6", "TypeScript avanzado", "Modelos con unions, generics y guards"],
+        ["7", "Angular moderno y versiones", "Mapa de APIs estables y plan de actualización"],
         ["8", "Componentes, templates y lifecycle", "Componente compuesto accesible"],
         ["9", "Signals, OnPush y zoneless", "Refactor de estado + explicación"],
         ["10", "DI jerárquica", "Mapa de injectors y providers"],
         ["11", "RxJS", "Buscador con cuatro políticas de flattening"],
         ["12", "Estado y NgRx", "Diseño de store para una feature"],
         ["13", "Router y forms", "Formulario dinámico + rutas"],
-        ["14", "HTTP, auth y cache", "Interceptor y estrategia de errores"],
+        ["14", "Browser, DOM, storage, CORS y cache", "Mapa de plataforma y red"],
         ["15", "Arquitectura y patrones", "ADR de una decisión real"],
         ["16", "Performance, SSR e hidratación", "Perfil + estrategia por ruta"],
         ["17", "Testing", "Suite de componente, HTTP y router"],

@@ -4,13 +4,18 @@
   data-testid="experience-section">
   <div class="mx-auto max-w-7xl">
     <div class="mb-10 max-w-3xl">
-      <p class="portfolio-section-label">Experience</p>
+      <p class="portfolio-section-label">{{ 'Experience' | translate }}</p>
       <h2 class="portfolio-section-title">
-        From enterprise platforms to founder-led product ownership.
+        {{
+          'From enterprise platforms to founder-led product ownership.'
+            | translate
+        }}
       </h2>
       <p class="portfolio-section-copy">
-        The common thread is ownership: making architecture clearer, delivery
-        safer and complex workflows easier to use.
+        {{
+          'The common thread is ownership: making architecture clearer, delivery safer and complex workflows easier to use.'
+            | translate
+        }}
       </p>
     </div>
 
@@ -40,7 +45,7 @@
                   }
                   <div>
                     <h3 class="text-xl font-semibold text-white sm:text-2xl">
-                      {{ exp.title }}
+                      {{ exp.title | translate }}
                     </h3>
                     <p class="mt-1 text-sm font-medium text-cyan-200">
                       {{ exp.company }}
@@ -48,7 +53,7 @@
                   </div>
                 </div>
                 <p class="mt-4 max-w-4xl leading-7 text-slate-400">
-                  {{ exp.description }}
+                  {{ exp.description | translate }}
                 </p>
               </div>
 
@@ -56,7 +61,7 @@
                 class="flex shrink-0 items-center justify-between gap-4 md:flex-col md:items-end">
                 <span
                   class="rounded-full border border-white/10 bg-white/5 px-3 py-1 font-mono text-xs text-slate-300"
-                  >{{ exp.period }}</span
+                  >{{ exp.period | translate }}</span
                 >
                 <button
                   type="button"
@@ -65,7 +70,9 @@
                   [attr.aria-controls]="'experience-details-' + i"
                   [attr.data-testid]="'experience-toggle-' + i"
                   (click)="toggle(i)">
-                  {{ exp.isOpen ? 'Hide details' : 'View details' }}
+                  {{
+                    (exp.isOpen ? 'Hide details' : 'View details') | translate
+                  }}
                   <i
                     class="pi pi-chevron-down text-xs transition-transform duration-300"
                     [class.rotate-180]="exp.isOpen"
@@ -87,7 +94,7 @@
                           {{ project.name }}
                         </h4>
                         <p class="mt-2 leading-6 text-slate-400">
-                          {{ project.summary }}
+                          {{ project.summary | translate }}
                         </p>
                         <ul
                           class="mt-4 grid gap-2 text-sm leading-6 text-slate-300">
@@ -96,7 +103,7 @@
                               <span
                                 class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-300"
                                 aria-hidden="true"></span>
-                              <span>{{ item }}</span>
+                              <span>{{ item | translate }}</span>
                             </li>
                           }
                         </ul>
@@ -106,7 +113,7 @@
                 } @else if (exp.responsibilities?.length) {
                   <h4
                     class="font-mono text-xs font-semibold uppercase tracking-[0.18em] text-cyan-200">
-                    Key contributions
+                    {{ 'Key contributions' | translate }}
                   </h4>
                   <ul
                     class="mt-4 grid gap-2 text-sm leading-6 text-slate-300 md:grid-cols-2 md:gap-x-8">
@@ -115,7 +122,7 @@
                         <span
                           class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-300"
                           aria-hidden="true"></span>
-                        <span>{{ item }}</span>
+                        <span>{{ item | translate }}</span>
                       </li>
                     }
                   </ul>

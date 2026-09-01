@@ -57,7 +57,7 @@ describe('HomeComponent', () => {
   it('should not claim an unsupported Angular version', () => {
     const element: HTMLElement = fixture.nativeElement;
 
-    expect(element.textContent).toContain('2—20');
+    expect(element.textContent).toContain('2—22');
     expect(element.textContent).not.toContain('Angular 22');
   });
 });

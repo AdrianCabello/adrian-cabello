@@ -19,16 +19,10 @@ OUTPUT = ROOT / "src/app/pages/angular-senior-guide/angular-senior-guide.data.ts
 
 GROUPS = [
     {
-        "id": "enfoque-senior",
-        "index": "00",
-        "title": "Enfoque Senior",
-        "description": "Estructura de respuestas, criterio técnico y trade-offs.",
-    },
-    {
-        "id": "lenguaje-web",
+        "id": "fundamentos-web",
         "index": "01",
-        "title": "Lenguaje y plataforma web",
-        "description": "TypeScript, JavaScript, browser, HTML y CSS.",
+        "title": "Fundamentos web",
+        "description": "HTML, CSS, JavaScript y TypeScript, desde la base hasta preguntas avanzadas.",
     },
     {
         "id": "angular-core",
@@ -39,8 +33,8 @@ GROUPS = [
     {
         "id": "arquitectura",
         "index": "03",
-        "title": "Arquitectura y diseño",
-        "description": "Límites, patrones, SOLID y evolución del código.",
+        "title": "Plataforma y arquitectura",
+        "description": "Browser, DOM, red, límites, patrones, SOLID y evolución del código.",
     },
     {
         "id": "calidad-operacion",
@@ -142,14 +136,18 @@ def serialize_topic(chapter: dict, group_id: str, number: int) -> dict:
 
 def build_topics() -> list[dict]:
     ordered = [
-        ("enfoque-senior", chapters[0]),
-        ("lenguaje-web", chapters[2]),
-        *[("lenguaje-web", chapter) for chapter in foundation_chapters],
+        ("fundamentos-web", foundation_chapters[4]),
+        ("fundamentos-web", foundation_chapters[5]),
+        *[("fundamentos-web", chapter) for chapter in foundation_chapters[0:3]],
+        ("fundamentos-web", chapters[2]),
         ("angular-core", chapters[1]),
         *[("angular-core", chapter) for chapter in chapters[3:12]],
+        ("arquitectura", foundation_chapters[3]),
         *[("arquitectura", chapter) for chapter in chapters[12:14]],
         *[("calidad-operacion", chapter) for chapter in chapters[14:21]],
-        *[("criterio-senior", chapter) for chapter in chapters[21:24]],
+        *[("criterio-senior", chapter) for chapter in chapters[21:23]],
+        ("criterio-senior", chapters[0]),
+        ("criterio-senior", chapters[23]),
     ]
     return [
         serialize_topic(chapter, group_id, index)
@@ -194,7 +192,7 @@ def write_typescript() -> None:
         )
 
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
-    OUTPUT.write_text("".join(output), encoding="utf-8")
+    OUTPUT.write_text("".join(output).rstrip() + "\n", encoding="utf-8")
     print(OUTPUT)
 
 

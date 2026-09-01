@@ -3,11 +3,12 @@ import { trigger, transition, style, animate } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { TagModule } from 'primeng/tag';
+import { TranslatePipe } from '../../i18n/translate.pipe';
 
 @Component({
   selector: 'app-academic',
   standalone: true,
-  imports: [CommonModule, ButtonModule, TagModule],
+  imports: [CommonModule, ButtonModule, TagModule, TranslatePipe],
   templateUrl: './academic.component.html',
 
   animations: [

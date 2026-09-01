@@ -7,12 +7,6 @@ Replacement = str | list[str]
 
 
 THEORY_OVERRIDES: dict[str, dict[int, Replacement]] = {
-    "1. Mapa de la entrevista Senior": {
-        0: "Una respuesta técnica sólida contiene cuatro capas: una definición breve, el mecanismo interno, una decisión aplicada y el límite o alternativa de esa decisión.",
-        1: "Angular define el modelo de componentes, templates, inyección de dependencias y detección de cambios. Cada equipo decide la estructura de carpetas, los límites de features y la estrategia de estado según su producto.",
-        2: "El volumen de datos, la frecuencia de actualización, el SEO, la latencia, la accesibilidad, la seguridad y el soporte de navegadores cambian la solución correcta. Una decisión sin estas restricciones sólo describe una preferencia.",
-        3: "Un caso real aporta evidencia sobre una decisión. Formularios dinámicos, migraciones, incidentes o mejoras de rendimiento permiten explicar contexto, acción, resultado y trade-offs con datos concretos.",
-    },
     "2. Angular moderno y estrategia de versiones": {
         0: "Angular publica las versiones mayores de core y CLI de forma alineada. Cada versión admite rangos concretos de Node.js, TypeScript y RxJS; `ng version`, la tabla de compatibilidad y el Update Guide permiten comprobarlos antes de una migración.",
         4: "`@defer` separa las dependencias de una vista en otro chunk y las carga mediante triggers como viewport, idle o interaction. LCP y CLS muestran si diferir contenido visible empeora la carga principal o provoca saltos de layout.",

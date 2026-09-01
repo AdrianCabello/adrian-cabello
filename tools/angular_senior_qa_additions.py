@@ -5,14 +5,14 @@ from collections.abc import Iterable
 
 
 QA_ADDITIONS: dict[str, list[tuple[str, str]]] = {
-    "Mapa de la entrevista Senior": [
+    "Cómo razonar y responder como Senior": [
         (
             "¿Cómo estructurás una respuesta técnica extensa?",
-            "Empiezo con una definición de una frase. Después explico el mecanismo, aplico la idea a un caso y cierro con el costo o la alternativa. Esa secuencia permite que el entrevistador profundice sin perder el hilo.",
+            "Empiezo con una definición de una frase, explico el mecanismo y tomo una decisión para un escenario concreto. Cierro con el costo, la alternativa y cómo comprobaría el resultado. Si la pregunta es amplia, aviso esa estructura para que el entrevistador pueda profundizar donde le interese.",
         ),
         (
             "¿Qué hacés cuando la pregunta no incluye suficiente contexto?",
-            "Pido restricciones concretas: volumen, frecuencia de cambio, SEO, latencia, equipo y nivel de consistencia. Si debo asumir, nombro la suposición y explico qué decisión cambiaría con otro escenario.",
+            "Pido las restricciones que realmente cambian la respuesta: volumen, frecuencia de cambio, SEO, latencia, consistencia, seguridad y capacidad del equipo. Si no están disponibles, declaro un supuesto, elijo bajo ese escenario y digo qué dato me haría cambiar de opción.",
         ),
     ],
     "TypeScript avanzado": [

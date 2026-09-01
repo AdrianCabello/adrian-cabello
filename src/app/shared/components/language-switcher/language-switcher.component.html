@@ -1,0 +1,34 @@
+<div
+  class="inline-flex items-center rounded-full border border-white/10 bg-slate-950/45 p-1"
+  role="group"
+  [attr.aria-label]="
+    languageService.language() === 'es'
+      ? 'Seleccionar idioma'
+      : 'Select language'
+  "
+  data-testid="language-switcher">
+  <button
+    type="button"
+    class="min-h-8 min-w-9 rounded-full px-2.5 font-mono text-[10px] font-black transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300"
+    [class.bg-cyan-300]="languageService.language() === 'es'"
+    [class.text-slate-950]="languageService.language() === 'es'"
+    [class.text-slate-400]="languageService.language() !== 'es'"
+    [attr.aria-pressed]="languageService.language() === 'es'"
+    aria-label="Español"
+    data-testid="language-es"
+    (click)="selectLanguage('es')">
+    ES
+  </button>
+  <button
+    type="button"
+    class="min-h-8 min-w-9 rounded-full px-2.5 font-mono text-[10px] font-black transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300"
+    [class.bg-cyan-300]="languageService.language() === 'en'"
+    [class.text-slate-950]="languageService.language() === 'en'"
+    [class.text-slate-400]="languageService.language() !== 'en'"
+    [attr.aria-pressed]="languageService.language() === 'en'"
+    aria-label="English"
+    data-testid="language-en"
+    (click)="selectLanguage('en')">
+    EN
+  </button>
+</div>

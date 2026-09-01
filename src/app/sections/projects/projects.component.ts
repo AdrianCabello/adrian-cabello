@@ -1,12 +1,13 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProjectsService } from '../../services/projects.service';
+import { TranslatePipe } from '../../i18n/translate.pipe';
 
 @Component({
   selector: 'app-projects',
   templateUrl: './projects.component.html',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TranslatePipe],
 })
 export class ProjectsComponent {
   private projectsService = inject(ProjectsService);

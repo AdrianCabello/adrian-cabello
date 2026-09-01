@@ -16,65 +16,80 @@
           <span class="block text-sm font-semibold tracking-wide text-white"
             >Adrian Cabello</span
           >
-          <span class="block text-xs text-slate-400"
-            >Full-Stack Product Engineer</span
-          >
+          <span class="block text-xs text-slate-400">{{
+            'Full-Stack Product Engineer' | translate
+          }}</span>
         </span>
       </a>
 
       <nav
         class="hidden items-center gap-7 md:flex"
-        aria-label="Primary navigation">
-        <a href="#projects" class="portfolio-nav-link">Work</a>
-        <a href="#experience" class="portfolio-nav-link">Experience</a>
-        <a href="#education" class="portfolio-nav-link">Background</a>
+        [attr.aria-label]="'Primary navigation' | translate">
+        <a href="#projects" class="portfolio-nav-link">{{
+          'Work' | translate
+        }}</a>
+        <a href="#experience" class="portfolio-nav-link">{{
+          'Experience' | translate
+        }}</a>
+        <a href="#education" class="portfolio-nav-link">{{
+          'Background' | translate
+        }}</a>
         <a
           href="mailto:c.adriancabello@gmail.com"
           class="rounded-full border border-cyan-300/40 bg-cyan-300/10 px-4 py-2 text-sm font-semibold text-cyan-100 transition duration-300 hover:-translate-y-0.5 hover:border-cyan-200 hover:bg-cyan-300/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan-300"
           data-testid="header-contact-link">
-          Let's talk
+          {{ "Let's talk" | translate }}
         </a>
       </nav>
 
-      <button
-        type="button"
-        class="grid h-11 w-11 place-items-center rounded-xl border border-white/10 bg-white/5 text-white transition hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan-300 md:hidden"
-        aria-label="Toggle navigation"
-        [attr.aria-expanded]="menuOpen()"
-        aria-controls="mobile-navigation"
-        data-testid="header-menu-button"
-        (click)="toggleMenu()">
-        <i
-          class="pi text-lg"
-          [class.pi-bars]="!menuOpen()"
-          [class.pi-times]="menuOpen()"
-          aria-hidden="true"></i>
-      </button>
+      <div class="flex items-center gap-2">
+        <app-language-switcher />
+        <button
+          type="button"
+          class="grid h-11 w-11 place-items-center rounded-xl border border-white/10 bg-white/5 text-white transition hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan-300 md:hidden"
+          [attr.aria-label]="'Toggle navigation' | translate"
+          [attr.aria-expanded]="menuOpen()"
+          aria-controls="mobile-navigation"
+          data-testid="header-menu-button"
+          (click)="toggleMenu()">
+          <i
+            class="pi text-lg"
+            [class.pi-bars]="!menuOpen()"
+            [class.pi-times]="menuOpen()"
+            aria-hidden="true"></i>
+        </button>
+      </div>
     </div>
 
     @if (menuOpen()) {
       <nav
         id="mobile-navigation"
         class="portfolio-mobile-menu grid gap-2 border-t border-white/10 py-4 md:hidden"
-        aria-label="Mobile navigation"
+        [attr.aria-label]="'Mobile navigation' | translate"
         data-testid="header-mobile-navigation">
-        <a href="#projects" class="portfolio-mobile-link" (click)="closeMenu()"
-          >Work</a
+        <a
+          href="#projects"
+          class="portfolio-mobile-link"
+          (click)="closeMenu()"
+          >{{ 'Work' | translate }}</a
         >
         <a
           href="#experience"
           class="portfolio-mobile-link"
           (click)="closeMenu()"
-          >Experience</a
+          >{{ 'Experience' | translate }}</a
         >
-        <a href="#education" class="portfolio-mobile-link" (click)="closeMenu()"
-          >Background</a
+        <a
+          href="#education"
+          class="portfolio-mobile-link"
+          (click)="closeMenu()"
+          >{{ 'Background' | translate }}</a
         >
         <a
           href="mailto:c.adriancabello@gmail.com"
           class="portfolio-mobile-link"
           (click)="closeMenu()"
-          >Let's talk</a
+          >{{ "Let's talk" | translate }}</a
         >
       </nav>
     }

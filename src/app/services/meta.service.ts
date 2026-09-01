@@ -1,6 +1,7 @@
 import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
+import { LanguageService } from '../i18n/language.service';
 
 @Injectable({
   providedIn: 'root',
@@ -16,6 +17,7 @@ export class MetaService {
   constructor(
     private meta: Meta,
     private title: Title,
+    private languageService: LanguageService,
     @Inject(DOCUMENT) private document: Document
   ) {}
 
@@ -33,7 +35,7 @@ export class MetaService {
 
     this.title.setTitle('Private workspace | Adrian Cabello');
     this.updateCanonical(`${this.baseUrl}${path}`);
-    this.document.documentElement.lang = 'en';
+    this.document.documentElement.lang = this.languageService.language();
     this.meta.updateTag({ name: 'robots', content: 'noindex, nofollow' });
     this.meta.updateTag({
       name: 'description',
@@ -42,19 +44,26 @@ export class MetaService {
   }
 
   updateMetaTags() {
+    const spanish = this.languageService.language() === 'es';
+    const title = spanish
+      ? 'Adrian Cabello | Ingeniero de Producto Full-Stack'
+      : this.pageTitle;
+    const description = spanish
+      ? 'Ingeniero de producto Full-Stack y Tech Lead con más de 9 años creando aplicaciones Angular e Ionic, liderando migraciones empresariales y entregando productos con Go, Node.js e inteligencia artificial.'
+      : this.pageDescription;
     this.updateCanonical(`${this.baseUrl}/`);
-    this.document.documentElement.lang = 'en';
+    this.document.documentElement.lang = this.languageService.language();
     // Title
-    this.title.setTitle(this.pageTitle);
+    this.title.setTitle(title);
 
     // Primary Meta Tags
     this.meta.updateTag({
       name: 'title',
-      content: this.pageTitle,
+      content: title,
     });
     this.meta.updateTag({
       name: 'description',
-      content: this.pageDescription,
+      content: description,
     });
     this.meta.updateTag({
       name: 'keywords',
@@ -71,11 +80,11 @@ export class MetaService {
     });
     this.meta.updateTag({
       property: 'og:title',
-      content: this.pageTitle,
+      content: title,
     });
     this.meta.updateTag({
       property: 'og:description',
-      content: this.pageDescription,
+      content: description,
     });
     this.meta.updateTag({
       property: 'og:image',
@@ -95,7 +104,7 @@ export class MetaService {
     });
     this.meta.updateTag({
       property: 'og:image:alt',
-      content: this.pageTitle,
+      content: title,
     });
     this.meta.updateTag({
       property: 'og:site_name',
@@ -113,11 +122,11 @@ export class MetaService {
     });
     this.meta.updateTag({
       name: 'twitter:title',
-      content: this.pageTitle,
+      content: title,
     });
     this.meta.updateTag({
       name: 'twitter:description',
-      content: this.pageDescription,
+      content: description,
     });
     this.meta.updateTag({
       name: 'twitter:image',
@@ -125,7 +134,7 @@ export class MetaService {
     });
     this.meta.updateTag({
       name: 'twitter:image:alt',
-      content: this.pageTitle,
+      content: title,
     });
 
     // Additional Meta Tags
@@ -134,7 +143,10 @@ export class MetaService {
       name: 'robots',
       content: 'index, follow, max-image-preview:large',
     });
-    this.meta.updateTag({ name: 'language', content: 'English' });
+    this.meta.updateTag({
+      name: 'language',
+      content: spanish ? 'Spanish' : 'English',
+    });
     this.meta.updateTag({ name: 'generator', content: 'Angular' });
 
     // WhatsApp specific
@@ -149,14 +161,18 @@ export class MetaService {
   }
 
   private updateAngularSeniorMetaTags(): void {
-    const title = 'Guía completa de entrevista Angular Senior | Adrian Cabello';
-    const description =
-      'Teoría, ejemplos y preguntas con respuesta sobre Angular, TypeScript, JavaScript, HTML, CSS, RxJS, arquitectura, testing, seguridad y system design frontend.';
+    const spanish = this.languageService.language() === 'es';
+    const title = spanish
+      ? 'Guía completa de entrevista Angular Senior | Adrian Cabello'
+      : 'Complete Senior Angular Interview Guide | Adrian Cabello';
+    const description = spanish
+      ? 'Teoría, ejemplos y preguntas con respuesta sobre HTML, CSS, JavaScript, TypeScript, Angular, RxJS, arquitectura, testing, seguridad y system design frontend.'
+      : 'Theory, examples and answered interview questions on HTML, CSS, JavaScript, TypeScript, Angular, RxJS, architecture, testing, security and frontend system design.';
     const url = `${this.baseUrl}/angular-senior`;
 
     this.title.setTitle(title);
     this.updateCanonical(url);
-    this.document.documentElement.lang = 'es';
+    this.document.documentElement.lang = this.languageService.language();
     this.meta.updateTag({ name: 'title', content: title });
     this.meta.updateTag({ name: 'description', content: description });
     this.meta.updateTag({
@@ -166,7 +182,10 @@ export class MetaService {
     });
     this.meta.updateTag({ name: 'author', content: 'Adrian Cabello' });
     this.meta.updateTag({ name: 'robots', content: 'index, follow' });
-    this.meta.updateTag({ name: 'language', content: 'Spanish' });
+    this.meta.updateTag({
+      name: 'language',
+      content: spanish ? 'Spanish' : 'English',
+    });
     this.meta.updateTag({ name: 'theme-color', content: '#07101f' });
     this.meta.updateTag({ property: 'og:type', content: 'article' });
     this.meta.updateTag({ property: 'og:url', content: url });

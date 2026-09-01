@@ -5,13 +5,17 @@
   data-testid="resources-section">
   <div class="mx-auto max-w-7xl">
     <div class="max-w-3xl">
-      <p class="portfolio-section-label">Technical resources</p>
+      <p class="portfolio-section-label">
+        {{ 'Technical resources' | translate }}
+      </p>
       <h2 id="resources-title" class="portfolio-section-title">
-        Knowledge is more useful when it is shared.
+        {{ 'Knowledge is more useful when it is shared.' | translate }}
       </h2>
       <p class="portfolio-section-copy">
-        I turn production experience into practical material that engineers can
-        study, discuss and apply.
+        {{
+          'I turn production experience into practical material that engineers can study, discuss and apply.'
+            | translate
+        }}
       </p>
     </div>
 
@@ -36,57 +40,57 @@
             </span>
             <span
               class="rounded-full border border-white/10 bg-white/[0.035] px-3 py-1.5 font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">
-              Open resource · Spanish
+              {{ 'Open resource · Spanish' | translate }}
             </span>
           </div>
 
           <h3
             id="angular-guide-title"
             class="mt-6 max-w-3xl text-3xl font-bold leading-tight tracking-[-0.035em] text-white sm:text-4xl lg:text-5xl">
-            Angular Senior Interview Guide
+            {{ 'Angular Senior Interview Guide' | translate }}
           </h3>
           <p class="mt-5 max-w-3xl text-base leading-8 text-slate-300">
-            A complete study system covering modern Angular, TypeScript,
-            JavaScript, browser fundamentals, HTML, CSS, RxJS, architecture,
-            performance, testing, security and senior engineering judgment.
-            Every topic combines theory with interview questions, concrete
-            answers and practical cases.
+            {{
+              'A complete study system covering modern Angular, TypeScript, JavaScript, browser fundamentals, HTML, CSS, RxJS, architecture, performance, testing, security and senior engineering judgment. Every topic combines theory with interview questions, concrete answers and practical cases.'
+                | translate
+            }}
           </p>
           <p class="mt-4 max-w-3xl text-sm leading-7 text-slate-400">
-            Built and maintained by Adrian Cabello from more than nine years of
-            product engineering, Angular architecture and technical leadership
-            experience.
+            {{
+              'Built and maintained by Adrian Cabello from more than nine years of product engineering, Angular architecture and technical leadership experience.'
+                | translate
+            }}
           </p>
 
           <dl class="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4">
             <div class="rounded-2xl border border-white/10 bg-slate-950/35 p-4">
               <dt
                 class="font-mono text-[9px] font-bold uppercase tracking-[0.16em] text-slate-500">
-                Topics
+                {{ 'Topics' | translate }}
               </dt>
               <dd class="mt-2 text-2xl font-black text-white">30</dd>
             </div>
             <div class="rounded-2xl border border-white/10 bg-slate-950/35 p-4">
               <dt
                 class="font-mono text-[9px] font-bold uppercase tracking-[0.16em] text-slate-500">
-                Concepts
+                {{ 'Concepts' | translate }}
               </dt>
-              <dd class="mt-2 text-2xl font-black text-white">223</dd>
+              <dd class="mt-2 text-2xl font-black text-white">227</dd>
             </div>
             <div class="rounded-2xl border border-white/10 bg-slate-950/35 p-4">
               <dt
                 class="font-mono text-[9px] font-bold uppercase tracking-[0.16em] text-slate-500">
-                Questions
+                {{ 'Questions' | translate }}
               </dt>
-              <dd class="mt-2 text-2xl font-black text-amber-200">258</dd>
+              <dd class="mt-2 text-2xl font-black text-amber-200">260</dd>
             </div>
             <div class="rounded-2xl border border-white/10 bg-slate-950/35 p-4">
               <dt
                 class="font-mono text-[9px] font-bold uppercase tracking-[0.16em] text-slate-500">
-                Format
+                {{ 'Format' | translate }}
               </dt>
               <dd class="mt-2 text-sm font-black text-cyan-100">
-                Theory + Q&amp;A
+                {{ 'Theory + Q&A' | translate }}
               </dd>
             </div>
           </dl>
@@ -96,17 +100,17 @@
             (click)="scrollToPageTop()"
             class="portfolio-primary-button mt-8 w-full sm:w-auto"
             data-testid="angular-guide-resource-link">
-            Explore the guide
+            {{ 'Explore the guide' | translate }}
             <i class="pi pi-arrow-up-right text-sm" aria-hidden="true"></i>
           </a>
         </div>
 
         <div
           class="border-t border-white/10 bg-slate-950/25 p-6 sm:p-8 lg:border-l lg:border-t-0 lg:p-10"
-          aria-label="Guide coverage">
+          [attr.aria-label]="'Guide coverage' | translate">
           <p
             class="font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-cyan-300">
-            Inside the guide
+            {{ 'Inside the guide' | translate }}
           </p>
           <ol class="mt-6 grid gap-3">
             <li
@@ -114,55 +118,57 @@
               <span class="font-mono text-xs font-black text-amber-300"
                 >01</span
               >
-              <span class="text-sm font-semibold text-slate-200"
-                >TypeScript, JavaScript and the web platform</span
-              >
+              <span class="text-sm font-semibold text-slate-200">{{
+                'HTML, CSS, JavaScript and TypeScript' | translate
+              }}</span>
             </li>
             <li
               class="grid grid-cols-[2rem_minmax(0,1fr)] gap-3 rounded-xl border border-cyan-300/15 bg-cyan-300/[0.045] p-3.5">
               <span class="font-mono text-xs font-black text-amber-300"
                 >02</span
               >
-              <span class="text-sm font-semibold text-white"
-                >Modern Angular, Signals, RxJS and forms</span
-              >
+              <span class="text-sm font-semibold text-white">{{
+                'Modern Angular, Signals, RxJS and forms' | translate
+              }}</span>
             </li>
             <li
               class="grid grid-cols-[2rem_minmax(0,1fr)] gap-3 rounded-xl border border-white/[0.07] bg-white/[0.025] p-3.5">
               <span class="font-mono text-xs font-black text-amber-300"
                 >03</span
               >
-              <span class="text-sm font-semibold text-slate-200"
-                >Architecture, patterns and system design</span
-              >
+              <span class="text-sm font-semibold text-slate-200">{{
+                'Architecture, patterns and system design' | translate
+              }}</span>
             </li>
             <li
               class="grid grid-cols-[2rem_minmax(0,1fr)] gap-3 rounded-xl border border-white/[0.07] bg-white/[0.025] p-3.5">
               <span class="font-mono text-xs font-black text-amber-300"
                 >04</span
               >
-              <span class="text-sm font-semibold text-slate-200"
-                >Performance, testing, security and delivery</span
-              >
+              <span class="text-sm font-semibold text-slate-200">{{
+                'Performance, testing, security and delivery' | translate
+              }}</span>
             </li>
             <li
               class="grid grid-cols-[2rem_minmax(0,1fr)] gap-3 rounded-xl border border-white/[0.07] bg-white/[0.025] p-3.5">
               <span class="font-mono text-xs font-black text-amber-300"
                 >05</span
               >
-              <span class="text-sm font-semibold text-slate-200"
-                >Leadership, trade-offs and interview practice</span
-              >
+              <span class="text-sm font-semibold text-slate-200">{{
+                'Leadership, trade-offs and interview practice' | translate
+              }}</span>
             </li>
           </ol>
 
           <div class="mt-6 border-l border-cyan-300/30 pl-4">
             <p class="text-sm font-bold text-white">
-              One continuous study path
+              {{ 'One continuous study path' | translate }}
             </p>
             <p class="mt-1 text-xs leading-6 text-slate-400">
-              Searchable, progress-aware and designed to move from fundamentals
-              to senior-level decisions without losing context.
+              {{
+                'Searchable, progress-aware and designed to move from fundamentals to senior-level decisions without losing context.'
+                  | translate
+              }}
             </p>
           </div>
         </div>

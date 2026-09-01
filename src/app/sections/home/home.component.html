@@ -17,7 +17,10 @@
             ./assets/images/adrian-profile.webp     800w
           "
           sizes="(max-width: 1023px) 354px, 384px"
-          alt="Adrian Cabello, Full-Stack Product Engineer and Tech Lead"
+          [alt]="
+            'Adrian Cabello, Full-Stack Product Engineer and Tech Lead'
+              | translate
+          "
           width="800"
           height="800"
           fetchpriority="high"
@@ -29,10 +32,12 @@
             class="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-cyan-200">
             <span
               class="h-2 w-2 animate-pulse rounded-full bg-emerald-400"></span>
-            Argentina · Remote
+            {{ 'Argentina · Remote' | translate }}
           </div>
           <p class="mt-2 text-sm text-slate-300">
-            Building products, systems and engineering teams.
+            {{
+              'Building products, systems and engineering teams.' | translate
+            }}
           </p>
         </div>
       </div>
@@ -41,31 +46,34 @@
     <div class="text-center lg:text-left">
       <p
         class="font-mono text-xs font-semibold uppercase tracking-[0.24em] text-cyan-300 sm:text-sm">
-        Full-Stack Product Engineer · Tech Lead
+        {{ 'Full-Stack Product Engineer · Tech Lead' | translate }}
       </p>
       <h1
         class="mt-5 text-balance text-4xl font-bold leading-[1.08] tracking-[-0.04em] text-white sm:text-5xl lg:text-7xl">
-        I build complex products
-        <span class="portfolio-gradient-text"
-          >from interface to infrastructure.</span
-        >
+        {{ 'I build complex products' | translate }}
+        <span class="portfolio-gradient-text">{{
+          'from interface to infrastructure.' | translate
+        }}</span>
       </h1>
       <p
         class="mx-auto mt-6 max-w-3xl text-pretty text-lg leading-8 text-slate-300 lg:mx-0"
         data-testid="home-role-summary">
-        I'm Adrian Cabello, a product engineer with
-        <strong class="font-semibold text-white">9+ years of experience</strong>
-        building scalable web and mobile products, leading Angular architecture
-        and migrations, and shipping end-to-end systems with Ionic, Go, Node.js
-        and PostgreSQL.
+        {{ "I'm Adrian Cabello, a product engineer with" | translate }}
+        <strong class="font-semibold text-white">{{
+          '9+ years of experience' | translate
+        }}</strong>
+        {{
+          'building scalable web and mobile products, leading Angular architecture and migrations, and shipping end-to-end systems with Ionic, Go, Node.js and PostgreSQL.'
+            | translate
+        }}
       </p>
       <p
         class="mx-auto mt-4 max-w-3xl text-pretty leading-7 text-slate-400 lg:mx-0"
         data-testid="home-ai-experience-summary">
-        I've built Ionic ordering and geolocated delivery workflows for
-        Coca-Cola and Unilever programs, migrated a large enterprise application
-        to Angular 19 with Signals, and use LLMs, MCP and automation in
-        day-to-day delivery.
+        {{
+          "I've built Ionic ordering and geolocated delivery workflows for Coca-Cola and Unilever programs, migrated a large enterprise application to Angular 19 with Signals, and use LLMs, MCP and automation in day-to-day delivery."
+            | translate
+        }}
       </p>
 
       <div
@@ -74,7 +82,7 @@
           href="#experience"
           class="portfolio-primary-button"
           data-testid="home-experience-link">
-          View experience
+          {{ 'View experience' | translate }}
           <i class="pi pi-arrow-down text-sm" aria-hidden="true"></i>
         </a>
         <a
@@ -83,13 +91,13 @@
           class="portfolio-secondary-button"
           data-testid="home-download-cv-link">
           <i class="pi pi-download text-sm" aria-hidden="true"></i>
-          Download résumé
+          {{ 'Download résumé' | translate }}
         </a>
         <a
           href="mailto:c.adriancabello@gmail.com"
           class="portfolio-text-button"
           data-testid="home-contact-link"
-          >Contact me</a
+          >{{ 'Contact me' | translate }}</a
         >
       </div>
 
@@ -97,19 +105,19 @@
         class="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-4"
         data-testid="home-proof-points">
         <div class="portfolio-stat-card">
-          <dt>Experience</dt>
-          <dd>9+ years</dd>
+          <dt>{{ 'Experience' | translate }}</dt>
+          <dd>{{ '9+ years' | translate }}</dd>
         </div>
         <div class="portfolio-stat-card">
           <dt>Angular</dt>
-          <dd>2—20</dd>
+          <dd>2—22</dd>
         </div>
         <div class="portfolio-stat-card">
-          <dt>Mobile</dt>
+          <dt>{{ 'Mobile' | translate }}</dt>
           <dd>Ionic</dd>
         </div>
         <div class="portfolio-stat-card">
-          <dt>Backend</dt>
+          <dt>{{ 'Backend' | translate }}</dt>
           <dd>Go + Node</dd>
         </div>
       </dl>
@@ -121,7 +129,7 @@
           target="_blank"
           rel="noopener noreferrer"
           class="portfolio-social-link"
-          aria-label="Visit Adrian Cabello on LinkedIn"
+          [attr.aria-label]="'Visit Adrian Cabello on LinkedIn' | translate"
           data-testid="home-linkedin-link"
           >LinkedIn</a
         >
@@ -130,7 +138,7 @@
           target="_blank"
           rel="noopener noreferrer"
           class="portfolio-social-link"
-          aria-label="Visit Adrian Cabello on GitHub"
+          [attr.aria-label]="'Visit Adrian Cabello on GitHub' | translate"
           data-testid="home-github-link"
           >GitHub</a
         >
