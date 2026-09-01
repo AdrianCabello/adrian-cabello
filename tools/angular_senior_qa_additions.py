@@ -28,11 +28,11 @@ QA_ADDITIONS: dict[str, list[tuple[str, str]]] = {
     "JavaScript: tipos, coerción, scope y funciones": [
         (
             "¿Por qué existe la Temporal Dead Zone?",
-            "El binding de `let` o `const` existe desde el inicio del bloque, pero JavaScript impide leerlo antes de ejecutar su inicialización. Así detecta accesos prematuros en lugar de devolver `undefined` como ocurre con `var`.",
+            "Al entrar en un bloque, JavaScript crea los bindings de `let`, `const` y `class`, pero los deja sin inicializar hasta ejecutar su declaración. Ese intervalo es la Temporal Dead Zone. Leer el binding durante ese tramo lanza `ReferenceError`: `console.log(total); let total = 1;`. Incluso `typeof total` falla si `total` está en la TDZ, a diferencia de una variable que no existe. Con `var`, en cambio, el binding se inicializa con `undefined`, por lo que el acceso prematuro no falla y puede ocultar un error de orden. La TDZ existe para que una variable con scope de bloque no se use antes de tener el valor que su declaración promete. No significa que `let` y `const` no tengan hoisting: sus bindings se crean al entrar al scope, pero todavía no son accesibles.",
         ),
         (
             "¿Usarías alguna vez `==`?",
-            "Aceptaría `value == null` si el estándar del equipo permite comprobar `null` y `undefined` juntos. Para el resto prefiero `===` porque evita que quien lee tenga que reconstruir la tabla de coerción.",
+            "Sí, pero sólo usaría deliberadamente `value == null` cuando quiero aceptar exactamente `null` o `undefined`. La comparación es verdadera para esos dos valores y falsa para `0`, `false`, `''` y `NaN`; por ejemplo, `if (response.middleName == null)` detecta que el campo opcional no llegó sin rechazar una cadena vacía válida. Es una excepción conocida de Abstract Equality y conviene permitirla explícitamente con una regla como `eqeqeq: ['error', 'always', { null: 'ignore' }]`. En el resto del código uso `===` y `!==`, porque `==` aplica coerciones difíciles de leer: `'' == 0`, `'0' == false` y `[] == false` son verdaderas. Si el equipo prioriza máxima explicitud, escribo `value === null || value === undefined`; comunica el mismo contrato sin depender de conocer la excepción.",
         ),
     ],
     "JavaScript: objetos, prototipos, arrays y programación funcional": [
