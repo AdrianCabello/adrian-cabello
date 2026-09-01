@@ -2,23 +2,24 @@
 
 ## 🚀 Overview
 
-Personal portfolio and private Personal OS dashboard built with Angular 19. The public site presents my work as a Full-Stack Product Engineer and Tech Lead, while the authenticated dashboard connects to the Rakium backend for tasks, notes, finances, and portfolio project management.
+Personal portfolio and private Personal OS dashboard built with Angular 22. The public site presents my work as a Full-Stack Product Engineer and Tech Lead, while the authenticated dashboard connects to the Rakium backend for tasks, notes, finances, and portfolio project management.
 
 ## ✨ Features
 
 - **Modern UI/UX**: Clean and professional design with smooth transitions
 - **Responsive Design**: Fully responsive layout that works on all devices
 - **SEO Optimized**: Implemented meta tags and Open Graph protocol for better sharing
+- **Localized SEO**: Prerendered English and Spanish URLs with canonicals, `hreflang`, sitemap alternates, and structured data
 - **Performance Focused**: Optimized build process and lazy loading
 - **Private Dashboard**: Authenticated Personal OS routes for tasks, expenses, notes, and quick financial movements
 - **Static-Friendly Routing**: Deep-link support for GitHub Pages and the Express runner
 
 ## 🛠️ Technologies
 
-- Angular 19
+- Angular 22
 - TypeScript
 - TailwindCSS
-- Angular build with static/SPA deployment support
+- Angular SSR tooling with prerendered `/en`, `/es`, and localized guide routes; private routes remain CSR
 - GitHub Actions (CI/CD)
 
 ## 🏗️ Architecture

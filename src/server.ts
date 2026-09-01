@@ -1,7 +1,4 @@
-import {
-  createNodeRequestHandler,
-  isMainModule,
-} from '@angular/ssr/node';
+import { createNodeRequestHandler, isMainModule } from '@angular/ssr/node';
 import express from 'express';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -39,7 +36,7 @@ app.use(
  * This keeps deep links such as /login and /dashboard working without relying on
  * the Angular SSR app-engine manifest at runtime.
  */
-app.use('/**', (_req, res) => {
+app.use((_req, res) => {
   res.sendFile(join(browserDistFolder, 'index.csr.html'));
 });
 

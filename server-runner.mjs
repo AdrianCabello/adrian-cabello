@@ -12,10 +12,10 @@ app.use(
     maxAge: '1y',
     index: false,
     redirect: false,
-  }),
+  })
 );
 
-app.use('*', (_req, res) => {
+app.use((_req, res) => {
   res.sendFile(join(browserFolder, 'index.csr.html'));
 });
 

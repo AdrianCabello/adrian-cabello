@@ -14,7 +14,7 @@
     <div
       class="mx-auto flex min-h-16 max-w-[1440px] items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8">
       <a
-        routerLink="/"
+        [routerLink]="portfolioPath()"
         class="group flex items-center gap-3 rounded-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-amber-300"
         [attr.aria-label]="translate('Ir al portfolio de Adrian Cabello')"
         data-testid="guide-home-link">
@@ -37,7 +37,7 @@
         class="hidden items-center gap-5 lg:flex"
         [attr.aria-label]="translate('Enlaces de Adrian Cabello')">
         <a
-          routerLink="/"
+          [routerLink]="portfolioPath()"
           class="rounded-md py-2 text-xs font-bold text-slate-400 transition hover:text-cyan-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan-300"
           data-testid="guide-portfolio-link"
           >Portfolio</a
@@ -159,6 +159,7 @@
           src="./assets/images/adrian-profile-400.webp"
           srcset="
             ./assets/images/adrian-profile-400.webp 400w,
+            ./assets/images/adrian-profile-720.webp 720w,
             ./assets/images/adrian-profile.webp     800w
           "
           sizes="(max-width: 639px) 72px, 88px"
@@ -209,7 +210,7 @@
         <div
           class="flex flex-wrap gap-2 sm:col-start-2 lg:col-auto lg:flex-col">
           <a
-            routerLink="/"
+            [routerLink]="portfolioPath()"
             class="inline-flex min-h-11 items-center justify-center whitespace-nowrap rounded-full border border-amber-300/40 bg-amber-300/10 px-4 text-xs font-extrabold text-amber-100 transition hover:-translate-y-px hover:border-amber-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300"
             data-testid="guide-author-portfolio-link">
             {{ translate('Ver experiencia') }}
@@ -621,9 +622,13 @@
                             }
                           </div>
 
+                        </section>
+
+                        <div
+                          class="border-t border-white/10 p-5 sm:p-7 lg:col-span-2">
                           <button
                             type="button"
-                            class="mt-5 inline-flex min-h-11 w-full items-center justify-center rounded-xl border text-xs font-bold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-300"
+                            class="inline-flex min-h-11 w-full items-center justify-center rounded-xl border text-xs font-bold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-300"
                             [class.border-emerald-300]="isCompleted(topic.id)"
                             [class.bg-emerald-300]="isCompleted(topic.id)"
                             [class.text-slate-950]="isCompleted(topic.id)"
@@ -642,7 +647,7 @@
                               )
                             }}
                           </button>
-                        </section>
+                        </div>
                       </div>
                     }
                   </article>

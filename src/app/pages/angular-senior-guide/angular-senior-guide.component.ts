@@ -154,6 +154,10 @@ export class AngularSeniorGuideComponent {
   private readonly document = inject(DOCUMENT);
   private readonly destroyRef = inject(DestroyRef);
   protected readonly languageService = inject(LanguageService);
+
+  protected portfolioPath(): string {
+    return `/${this.languageService.language()}`;
+  }
   private readonly storageKey = 'angular-senior-guide-completed';
   private readonly collapsedStorageKey = 'angular-senior-guide-collapsed';
   private readonly theorySegmentCache = new Map<

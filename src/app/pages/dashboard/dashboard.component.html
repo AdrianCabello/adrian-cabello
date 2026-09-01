@@ -136,9 +136,10 @@
     @if (error()) {
       <p-message
         severity="error"
-        [text]="error()"
         styleClass="mb-5 w-full"
-        data-testid="dashboard-error" />
+        data-testid="dashboard-error">
+        {{ error() }}
+      </p-message>
     }
 
     @if (isLoading()) {
@@ -235,9 +236,7 @@
               monthExpenses() | currency: 'ARS' : 'symbol-narrow' : '1.0-0'
             }}</strong>
             <p class="mt-1 text-[11px] text-slate-500">
-              {{
-                monthlyExpensesUsd() | currency: 'USD' : 'symbol' : '1.0-2'
-              }}
+              {{ monthlyExpensesUsd() | currency: 'USD' : 'symbol' : '1.0-2' }}
               USD incluidos
             </p>
           </a>
@@ -704,7 +703,7 @@
                       </p>
                       @if (project.technologies?.length) {
                         <p class="mt-2 text-xs text-slate-500">
-                          {{ project.technologies?.slice(0, 4)?.join(' · ') }}
+                          {{ project.technologies.slice(0, 4).join(' · ') }}
                         </p>
                       }
                     </div>
@@ -782,7 +781,7 @@
                     optionValue="value"
                     styleClass="h-10 w-full"
                     data-testid="dashboard-account-type" />
-                  <p-inputNumber
+                  <p-inputnumber
                     [(ngModel)]="newAccountInitialBalance"
                     name="newAccountInitialBalance"
                     mode="currency"
@@ -820,7 +819,7 @@
                     optionValue="value"
                     styleClass="h-10 w-full"
                     data-testid="dashboard-category-type" />
-                  <p-inputNumber
+                  <p-inputnumber
                     [(ngModel)]="newCategoryBudget"
                     name="newCategoryBudget"
                     mode="currency"
@@ -917,7 +916,7 @@
               <label class="text-sm text-slate-300" for="dashboardDollarRate"
                 >Dólar usado por la app</label
               >
-              <p-inputNumber
+              <p-inputnumber
                 inputId="dashboardDollarRate"
                 [(ngModel)]="dollarRateInput"
                 name="dollarRateInput"

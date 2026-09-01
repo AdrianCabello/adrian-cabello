@@ -1,10 +1,9 @@
-import { Component, DestroyRef, OnInit, effect, inject } from '@angular/core';
+import { Component, DestroyRef, OnInit, inject } from '@angular/core';
 import { MetaService } from './services/meta.service';
 import { CommonModule } from '@angular/common';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { filter } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { LanguageService } from './i18n/language.service';
 
 @Component({
   selector: 'app-root',
@@ -16,14 +15,7 @@ import { LanguageService } from './i18n/language.service';
 export class AppComponent implements OnInit {
   private readonly router = inject(Router);
   private readonly destroyRef = inject(DestroyRef);
-  private readonly languageService = inject(LanguageService);
-
-  constructor(private readonly metaService: MetaService) {
-    effect(() => {
-      this.languageService.language();
-      this.metaService.updateForUrl(this.router.url);
-    });
-  }
+  constructor(private readonly metaService: MetaService) {}
 
   ngOnInit(): void {
     this.metaService.updateForUrl(this.router.url);

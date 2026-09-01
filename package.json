@@ -1,6 +1,9 @@
 {
   "name": "adrian-cabello",
   "version": "0.0.0",
+  "engines": {
+    "node": ">=22.22.3"
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -12,40 +15,31 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "^19.0.0",
-    "@angular/cdk": "^19.2.19",
-    "@angular/common": "^19.0.0",
-    "@angular/compiler": "^19.0.0",
-    "@angular/core": "^19.0.0",
-    "@angular/forms": "^19.0.0",
-    "@angular/platform-browser": "^19.0.0",
-    "@angular/platform-browser-dynamic": "^19.0.0",
-    "@angular/platform-server": "^19.0.0",
-    "@angular/router": "^19.0.0",
-    "@angular/ssr": "^19.0.1",
-    "@fortawesome/angular-fontawesome": "^1.0.0",
-    "@fortawesome/fontawesome-svg-core": "^6.7.2",
-    "@fortawesome/free-brands-svg-icons": "^6.7.2",
-    "@fortawesome/free-solid-svg-icons": "^6.7.2",
-    "@primeuix/themes": "^2.0.3",
-    "@tsparticles/slim": "^3.8.1",
-    "express": "^4.18.2",
-    "lucide-angular": "^0.487.0",
-    "ng-particles": "^3.12.0",
-    "primeicons": "^7.0.0",
-    "primeng": "^19.1.4",
+    "@angular/animations": "22.1.4",
+    "@angular/cdk": "22.1.4",
+    "@angular/common": "22.1.4",
+    "@angular/compiler": "22.1.4",
+    "@angular/core": "22.1.4",
+    "@angular/forms": "22.1.4",
+    "@angular/platform-browser": "22.1.4",
+    "@angular/platform-server": "22.1.4",
+    "@angular/router": "22.1.4",
+    "@angular/ssr": "22.1.6",
+    "@primeuix/themes": "3.0.0",
+    "express": "^5.2.1",
+    "primeicons": "8.0.0",
+    "primeng": "22.1.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
-    "tsparticles": "^3.8.1",
-    "zone.js": "~0.15.0"
+    "zone.js": "~0.16.2"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^19.0.1",
-    "@angular/cli": "^19.0.1",
-    "@angular/compiler-cli": "^19.0.0",
-    "@types/express": "^4.17.17",
+    "@angular/build": "22.1.6",
+    "@angular/cli": "22.1.6",
+    "@angular/compiler-cli": "22.1.4",
+    "@types/express": "^5.0.6",
     "@types/jasmine": "~5.1.0",
-    "@types/node": "^18.18.0",
+    "@types/node": "^24.0.0",
     "angular-cli-ghpages": "^2.0.3",
     "autoprefixer": "^10.4.17",
     "jasmine-core": "~5.4.0",
@@ -58,6 +52,6 @@
     "prettier": "^3.5.3",
     "prettier-plugin-tailwindcss": "^0.6.11",
     "tailwindcss": "^3.4.1",
-    "typescript": "~5.6.2"
+    "typescript": "~6.0.3"
   }
 }

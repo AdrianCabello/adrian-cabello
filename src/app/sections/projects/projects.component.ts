@@ -18,6 +18,6 @@ export class ProjectsComponent {
       return null;
     }
 
-    return `${image.replace(/\.webp$/, '-480.webp')} 480w, ${image} 1200w`;
+    return `${image.replace(/\.webp$/, '-480.webp')} 480w, ${image.replace(/\.webp$/, '-768.webp')} 768w, ${image} 1200w`;
   }
 }

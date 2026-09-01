@@ -6,7 +6,23 @@ export const serverRoutes: ServerRoute[] = [
     renderMode: RenderMode.Prerender,
   },
   {
+    path: 'en',
+    renderMode: RenderMode.Prerender,
+  },
+  {
+    path: 'es',
+    renderMode: RenderMode.Prerender,
+  },
+  {
     path: 'angular-senior',
+    renderMode: RenderMode.Prerender,
+  },
+  {
+    path: 'en/angular-senior',
+    renderMode: RenderMode.Prerender,
+  },
+  {
+    path: 'es/angular-senior',
     renderMode: RenderMode.Prerender,
   },
   {

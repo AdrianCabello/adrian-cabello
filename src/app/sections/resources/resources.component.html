@@ -96,7 +96,7 @@
           </dl>
 
           <a
-            routerLink="/angular-senior"
+            [routerLink]="guidePath()"
             (click)="scrollToPageTop()"
             class="portfolio-primary-button mt-8 w-full sm:w-auto"
             data-testid="angular-guide-resource-link">

@@ -1,5 +1,5 @@
 # Stage 1: Build the Angular application with SSR
-FROM node:20-alpine AS build
+FROM node:24-alpine AS build
 
 WORKDIR /app
 
@@ -16,7 +16,7 @@ COPY . .
 RUN npm run build
 
 # Stage 2: Serve the application
-FROM node:20-alpine AS run
+FROM node:24-alpine AS run
 
 WORKDIR /app
 
