@@ -13,6 +13,16 @@ export interface StudyQuestion {
   readonly answer: string;
 }
 
+export interface StudyReference {
+  readonly label: string;
+  readonly url: string;
+}
+
+export interface TheorySection {
+  readonly title: string;
+  readonly items: readonly string[];
+}
+
 export interface StudyTopic {
   readonly id: string;
   readonly number: string;
@@ -20,18 +30,15 @@ export interface StudyTopic {
   readonly title: string;
   readonly intro: string;
   readonly theory: readonly string[];
+  readonly theorySections: readonly TheorySection[];
   readonly questions: readonly StudyQuestion[];
   readonly code?: string;
+  readonly references: readonly StudyReference[];
 }
 
 export interface PracticeCase {
   readonly title: string;
   readonly brief: string;
-}
-
-export interface StudyReference {
-  readonly label: string;
-  readonly url: string;
 }
 
 export const STUDY_GROUPS: readonly StudyGroup[] = [
@@ -92,6 +99,35 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
       'Scripts con `defer` descargan en paralelo y ejecutan tras parsear, en orden. `async` ejecuta cuando descarga y no conserva orden. Modules difieren y usan defer por defecto.',
       'SEO técnico incluye HTML rastreable, canonical, robots, structured data, status correctos, sitemap y rendering compatible con el contenido.',
     ],
+    theorySections: [
+      {
+        title: 'Documento y semántica',
+        items: [
+          '`head` contiene metadata, title, links, preload y scripts. `body` contiene el documento visible. Un title y description claros mejoran navegación y presentación en resultados.',
+          '`header`, `nav`, `main`, `article`, `section`, `aside` y `footer` describen la función de cada región. Navegadores y tecnologías asistivas usan esa estructura para crear landmarks. `div` y `span` agrupan contenido sin añadir significado.',
+          'Block e inline describen comportamiento de formatting context, que CSS puede cambiar. La semántica del elemento no cambia al modificar `display`.',
+          '`a` navega y necesita `href`; `button` ejecuta una acción. `target=_blank` requiere una política de `rel` apropiada para reducir acceso a opener.',
+        ],
+      },
+      {
+        title: 'Formularios y contenido',
+        items: [
+          'Imágenes necesitan `alt` según función. `picture`, `srcset` y `sizes` permiten formatos y resoluciones. Width y height reservan espacio y reducen CLS.',
+          'Video y audio admiten múltiples `source`, `track` para subtítulos y controles. Un iframe crea otro contexto; restringilo con `sandbox`, permisos y origen confiable.',
+          'Form asocia `label` con control, usa `name` para submission y aprovecha tipos nativos. GET codifica en URL; POST envía body. El servidor valida todos los campos.',
+          'Un `button` dentro de un formulario tiene tipo `submit` por defecto. `type=button` representa una acción auxiliar y evita envíos accidentales. La semántica de submit también permite enviar con Enter y ejecutar la validación nativa.',
+        ],
+      },
+      {
+        title: 'Carga, SEO y accesibilidad',
+        items: [
+          'Una tabla de datos se compone con `caption`, `thead`, `tbody`, celdas `th` y relaciones `scope`. Esa estructura permite asociar cada dato con sus encabezados. Las tablas usadas para layout comunican relaciones inexistentes y dificultan el responsive design.',
+          '`br` introduce un salto dentro del mismo contenido, como una dirección o un poema. `hr` marca un cambio temático entre bloques. El espacio visual entre elementos pertenece a margin, padding o gap en CSS.',
+          'Scripts con `defer` descargan en paralelo y ejecutan tras parsear, en orden. `async` ejecuta cuando descarga y no conserva orden. Modules difieren y usan defer por defecto.',
+          'SEO técnico incluye HTML rastreable, canonical, robots, structured data, status correctos, sitemap y rendering compatible con el contenido.',
+        ],
+      },
+    ],
     questions: [
       {
         question: '¿Etiqueta y atributo?',
@@ -125,6 +161,12 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
       },
     ],
     code: '<form (ngSubmit)="save()" [formGroup]="profileForm">\n  <label for="email">Correo</label>\n  <input id="email" type="email" autocomplete="email"\n         formControlName="email" aria-describedby="email-error">\n  <p id="email-error" role="alert">Ingresá un correo válido.</p>\n  <button type="submit">Guardar</button>\n</form>',
+    references: [
+      {
+        label: 'MDN · HTML',
+        url: 'https://developer.mozilla.org/docs/Web/HTML',
+      },
+    ],
   },
   {
     id: 'css-completo-cascade-layout-responsive-y-rendimiento',
@@ -148,6 +190,37 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
       'BEM nombra Block, Element y Modifier; CSS Modules, Shadow DOM y Angular encapsulation resuelven scopes con modelos distintos.',
       'Preprocesadores agregan sintaxis en build; frameworks entregan utilidades o componentes. Ninguno reemplaza cascade, layout ni accesibilidad.',
       '`contain` limita qué partes del árbol pueden afectar layout, paint o style fuera de un elemento. `content-visibility: auto` permite omitir el render de contenido fuera del viewport. Ambas herramientas reducen trabajo, pero cambian mediciones, foco y accesibilidad si se aplican sin comprobar el resultado.',
+    ],
+    theorySections: [
+      {
+        title: 'Cascada y box model',
+        items: [
+          'La cascada considera origen, importancia, layers, specificity, scope y orden. `!important` altera el orden dentro del origen y crea costo de mantenimiento.',
+          'Specificity cuenta IDs, clases/atributos/pseudo-clases y tipos/pseudo-elementos. `:where()` aporta especificidad cero; `:is()` y `:not()` toman la del argumento más específico.',
+          'Box model suma content, padding, border y margin. `box-sizing: border-box` incluye padding y border dentro del tamaño declarado.',
+          'Margin separa cajas; padding amplía el interior y el área de fondo. Márgenes verticales pueden colapsar en block formatting context.',
+          '`display: none` quita la caja y el árbol de accesibilidad; `visibility: hidden` conserva espacio y oculta; `opacity: 0` conserva layout y puede conservar interacción si no la controlás.',
+        ],
+      },
+      {
+        title: 'Layout y responsive',
+        items: [
+          'Position static sigue flujo; relative conserva espacio y crea referencia; absolute sale del flujo y usa containing block; fixed se relaciona con viewport salvo transform ancestors; sticky cambia según scroll container.',
+          'Flexbox organiza una dimensión y distribuye espacio; Grid controla filas y columnas. `min-width: 0` suele resolver overflow de hijos flex.',
+          'Responsive design combina tamaños fluidos, media queries, container queries, imágenes adaptativas y límites de ancho. Los breakpoints basados en el punto donde el contenido deja de funcionar resisten mejor cambios de dispositivos y layout.',
+          'Overflow puede clippear, scrollear o crear formatting context. `text-overflow: ellipsis` necesita restricciones de overflow y white-space.',
+          '`z-index` solo compara dentro del mismo stacking context. Transform, opacity, positioned elements y isolation pueden crear contextos nuevos.',
+        ],
+      },
+      {
+        title: 'Composición y rendimiento',
+        items: [
+          'Una transition interpola el cambio entre dos estados; una animation recorre keyframes aunque no cambie una propiedad por interacción. `transform` y `opacity` suelen ejecutarse en composición y evitan layout, mientras `prefers-reduced-motion` permite reducir movimiento no esencial.',
+          'BEM nombra Block, Element y Modifier; CSS Modules, Shadow DOM y Angular encapsulation resuelven scopes con modelos distintos.',
+          'Preprocesadores agregan sintaxis en build; frameworks entregan utilidades o componentes. Ninguno reemplaza cascade, layout ni accesibilidad.',
+          '`contain` limita qué partes del árbol pueden afectar layout, paint o style fuera de un elemento. `content-visibility: auto` permite omitir el render de contenido fuera del viewport. Ambas herramientas reducen trabajo, pero cambian mediciones, foco y accesibilidad si se aplican sin comprobar el resultado.',
+        ],
+      },
     ],
     questions: [
       {
@@ -182,6 +255,12 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
       },
     ],
     code: '@layer reset, base, components, utilities;\n\n@layer components {\n  .card { container-type: inline-size; }\n  @container (min-width: 36rem) {\n    .card__body { display: grid; grid-template-columns: 2fr 1fr; }\n  }\n}\n\n@media (prefers-reduced-motion: reduce) {\n  *, *::before, *::after { animation-duration: 0.01ms !important; }\n}',
+    references: [
+      {
+        label: 'MDN · CSS',
+        url: 'https://developer.mozilla.org/docs/Web/CSS',
+      },
+    ],
   },
   {
     id: 'javascript-tipos-coercion-scope-y-funciones',
@@ -207,6 +286,39 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
       'Closures sostienen factories, currying, memoization, event handlers y callbacks asíncronos. El entorno permanece vivo mientras una función alcanzable lo necesite: no es una fuga por sí mismo, pero puede retener DOM, caches o respuestas grandes. El cleanup debe remover listeners, cancelar timers o suscripciones y evitar capturar objetos completos cuando alcanza con un identificador o un dato pequeño.',
       'El spread copia un nivel y enumera propiedades. `structuredClone` cubre muchos valores y ciclos, pero no funciones ni todos los objetos host. Un JSON round-trip pierde fechas, `undefined`, `BigInt` y prototipos.',
       'Destructuring extrae valores y admite defaults. El default corre solo para `undefined`, no para `null`. Rest agrupa el remanente y debe ocupar la última posición.',
+    ],
+    theorySections: [
+      {
+        title: 'Tipos y conversiones',
+        items: [
+          'JavaScript tiene tipos primitivos `undefined`, `null`, `boolean`, `number`, `bigint`, `string` y `symbol`. Los objetos se comparan por referencia. `typeof null` devuelve `object` por una decisión histórica.',
+          '`var` posee function scope, permite redeclaración y su declaración se eleva. `let` y `const` poseen block scope y permanecen en temporal dead zone hasta la inicialización. `const` fija la referencia, no vuelve inmutable el objeto.',
+          'La coerción es la conversión de un valor de un tipo a otro. Es explícita cuando el código llama a `Number(value)`, `String(value)` o `Boolean(value)`, e implícita cuando el lenguaje convierte porque un operador o contexto necesita otro tipo. Formularios, query params, atributos DOM y storage entregan strings aunque representen números o booleanos; convertir y validar en esa frontera evita que la coerción se propague al dominio.',
+          "Cuando un operador necesita convertir un objeto a primitivo, JavaScript ejecuta la operación abstracta `ToPrimitive`. Primero respeta `Symbol.toPrimitive` y, según el hint, consulta `valueOf` y `toString` hasta obtener un primitivo. Por eso `[]` se convierte en `''`, `[1, 2]` en `'1,2'` y un objeto común suele producir `'[object Object]'`; después el operador continúa con la conversión numérica o textual que corresponda.",
+          "El operador `+` es especial: después de convertir objetos a primitivos, concatena si alguno de los operandos es string; si no, realiza suma numérica. `1 + '2'` produce `'12'`, mientras `'5' - 2`, `'5' * 2` y `'5' / 2` convierten a número. Los template literals fuerzan string y los contextos de `if`, `!`, `&&` y `||` usan conversión booleana.",
+          "Las conversiones tienen bordes que conviene conocer: `Number('')` y `Number(null)` producen `0`, `Number(undefined)` produce `NaN`, y `Boolean('false')` es `true` porque cualquier string no vacío es truthy. `Number` exige que toda la cadena represente un número; `parseInt('10px', 10)` acepta el prefijo numérico. Ninguna de las dos reemplaza validar rango, formato y finitud con `Number.isFinite`.",
+        ],
+      },
+      {
+        title: 'Scope, hoisting y closures',
+        items: [
+          '`===` compara tipo y valor sin coerción. `Object.is` difiere en `NaN` y `-0`. `==` tiene casos útiles, como `value == null`, pero exige conocer su tabla de coerción.',
+          'Falsy incluye `false`, `0`, `-0`, `0n`, cadena vacía, `null`, `undefined` y `NaN`. Un array u objeto vacío es truthy.',
+          'Una declaración de función se eleva con su cuerpo. Una function expression sigue las reglas de su variable. Las arrow functions capturan `this`, `arguments` y `super` del entorno; no sirven como constructor.',
+          '`this` depende de cómo se invoca una función: method call, `call/apply/bind`, constructor con `new` o binding léxico de arrow. Extraer un método puede perder el receiver.',
+          'Un closure es la combinación de una función con el entorno léxico donde fue creada. La función puede ejecutarse después de que terminó la llamada exterior y seguir resolviendo parámetros y variables de ese entorno. `makeCounter` puede declarar `let count = 0` y devolver una función que incrementa `count`; cada llamada a `makeCounter()` crea un binding privado e independiente.',
+        ],
+      },
+      {
+        title: 'Funciones, this y decisiones',
+        items: [
+          'El closure conserva bindings, no una fotografía de sus valores. Si el binding cambia, las funciones que lo cerraron observan el valor actual. Esto permite estado privado y callbacks coordinados, pero también explica bugs cuando varias funciones comparten accidentalmente una misma variable mutable.',
+          'En un loop, `var` crea un único binding con scope de función, por lo que callbacks diferidos suelen leer el valor final. `let` crea un binding nuevo por iteración. Antes de `let`, una IIFE o una factory recibía el valor de cada vuelta y creaba un entorno distinto.',
+          'Closures sostienen factories, currying, memoization, event handlers y callbacks asíncronos. El entorno permanece vivo mientras una función alcanzable lo necesite: no es una fuga por sí mismo, pero puede retener DOM, caches o respuestas grandes. El cleanup debe remover listeners, cancelar timers o suscripciones y evitar capturar objetos completos cuando alcanza con un identificador o un dato pequeño.',
+          'El spread copia un nivel y enumera propiedades. `structuredClone` cubre muchos valores y ciclos, pero no funciones ni todos los objetos host. Un JSON round-trip pierde fechas, `undefined`, `BigInt` y prototipos.',
+          'Destructuring extrae valores y admite defaults. El default corre solo para `undefined`, no para `null`. Rest agrupa el remanente y debe ocupar la última posición.',
+        ],
+      },
     ],
     questions: [
       {
@@ -273,6 +385,12 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
       },
     ],
     code: "function makeCounter() {\n  let count = 0;\n  return () => ++count;\n}\n\nconst first = makeCounter();\nconst second = makeCounter();\nconsole.log(first(), first(), second()); // 1, 2, 1\n\nconsole.log(1 + '2');       // '12'\nconsole.log('5' - 2);       // 3\nconsole.log(Number('42'));  // 42\nconsole.log(Boolean(''));   // false\nconsole.log([] == false);   // true\nconsole.log([] === false);  // false",
+    references: [
+      {
+        label: 'MDN · JavaScript',
+        url: 'https://developer.mozilla.org/docs/Web/JavaScript',
+      },
+    ],
   },
   {
     id: 'javascript-objetos-prototipos-arrays-y-programacion-funcional',
@@ -292,6 +410,33 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
       'Currying transforma una función de varios argumentos en una secuencia de funciones. Partial application fija algunos argumentos; no son conceptos idénticos.',
       'Memoization guarda resultados asociados a sus argumentos. La estrategia necesita una regla de igualdad, un límite de tamaño y una política de invalidación; sin esos límites, la caché puede devolver datos obsoletos o retener memoria sin control.',
       'Big O describe crecimiento. Acceso por índice de array suele ser O(1); búsqueda lineal O(n); sort comparativo O(n log n); acceso promedio a Map O(1). Las constantes todavía afectan al usuario.',
+    ],
+    theorySections: [
+      {
+        title: 'Fundamentos',
+        items: [
+          '`Object.create(proto)` fija el prototipo. `new C()` crea un objeto, enlaza `C.prototype`, ejecuta `C` con ese `this` y devuelve el objeto salvo retorno explícito de otro objeto.',
+          'Una propiedad puede ser own o heredada. `Object.hasOwn` comprueba ownership; `in` recorre la cadena. `Object.keys` devuelve claves enumerables propias.',
+          'Los property descriptors controlan `writable`, `enumerable` y `configurable`; getters y setters forman accessors. Cambiar descriptores afecta serialización y copia.',
+          'Arrays son objetos con índices y `length`. `for...of` recorre valores de un iterable; `for...in` recorre claves enumerables y no conviene para arrays.',
+        ],
+      },
+      {
+        title: 'Mecanismo y aplicación',
+        items: [
+          '`map` crea una colección transformada, `filter` conserva elementos, `reduce` acumula, `find` devuelve la primera coincidencia y `some` o `every` evalúan predicados. Cada método comunica una intención distinta y evita acumular efectos dentro de un loop genérico.',
+          '`sort` muta y convierte a string sin comparator. `toSorted`, `toReversed`, `toSpliced` y `with` devuelven copias en runtimes modernos.',
+          'Una pure function depende de sus argumentos y no produce efectos observables. La pureza mejora tests y composición, pero una aplicación necesita efectos en fronteras controladas.',
+        ],
+      },
+      {
+        title: 'Decisiones y límites',
+        items: [
+          'Currying transforma una función de varios argumentos en una secuencia de funciones. Partial application fija algunos argumentos; no son conceptos idénticos.',
+          'Memoization guarda resultados asociados a sus argumentos. La estrategia necesita una regla de igualdad, un límite de tamaño y una política de invalidación; sin esos límites, la caché puede devolver datos obsoletos o retener memoria sin control.',
+          'Big O describe crecimiento. Acceso por índice de array suele ser O(1); búsqueda lineal O(n); sort comparativo O(n log n); acceso promedio a Map O(1). Las constantes todavía afectan al usuario.',
+        ],
+      },
     ],
     questions: [
       {
@@ -325,6 +470,12 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
           'Cada operador puede recorrer y asignar otra colección. En una ruta caliente o una lista grande, un solo loop puede reducir memoria y trabajo. Mantengo la cadena cuando su claridad pesa más que ese costo medido.',
       },
     ],
+    references: [
+      {
+        label: 'MDN · JavaScript objects',
+        url: 'https://developer.mozilla.org/docs/Web/JavaScript/Guide/Working_with_objects',
+      },
+    ],
   },
   {
     id: 'javascript-asincrono-event-loop-promises-y-errores',
@@ -354,6 +505,48 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
       'Una race condition aparece cuando varias operaciones compiten por actualizar el mismo estado y terminan en otro orden. Un buscador puede mostrar una respuesta vieja si la primera petición tarda más que la última. Abortá la anterior, asigná una versión a cada solicitud o aceptá el resultado sólo si todavía corresponde a la consulta vigente.',
       'Debounce espera un período sin eventos antes de ejecutar; sirve para búsquedas mientras el usuario escribe. Throttle impone una frecuencia máxima; sirve para scroll o resize. Ambos necesitan cleanup para cancelar timers o trabajo pendiente cuando se destruye el consumidor.',
       '`async/await` organiza espera de I/O, pero no reduce el costo del código síncrono. Dividí CPU intenso en tareas pequeñas cuando necesitás devolver control al navegador. Usá un Web Worker cuando el cálculo merece otro thread y el costo de copiar datos y enviar mensajes resulta aceptable.',
+    ],
+    theorySections: [
+      {
+        title: 'Modelo de ejecución',
+        items: [
+          'El código síncrono termina una instrucción antes de comenzar la siguiente. JavaScript usa un solo call stack para ejecutar ese código en el main thread del navegador. Una función lenta ocupa el stack y retrasa clicks, input, layout y paint.',
+          'Una operación asíncrona inicia un trabajo cuyo resultado llegará después. El navegador puede encargarse de un timer, una petición de red o un evento mientras el stack continúa con otras instrucciones. Asincronía describe coordinación en el tiempo; no significa que dos fragmentos de JavaScript se ejecuten al mismo tiempo en el mismo thread.',
+          'El event loop coordina el call stack con el entorno del navegador y sus colas. Toma una task, ejecuta su callback hasta vaciar el stack, drena todas las microtasks pendientes, permite que el navegador renderice y después avanza a otra task. `setTimeout`, eventos y mensajes generan tasks; continuaciones de Promises y `queueMicrotask` generan microtasks.',
+          'Una `Promise` es un objeto que representa el resultado futuro de una sola operación. Nace en estado `pending` y termina como `fulfilled` con un valor o `rejected` con una razón. `fulfilled` y `rejected` forman el estado `settled`. Una Promise settled no puede cambiar de estado ni volver a emitir otro resultado.',
+          'El constructor `new Promise(executor)` ejecuta el executor de inmediato y de forma síncrona. Las funciones `resolve` y `reject` fijan el resultado eventual; no vuelven asíncrono el trabajo que se ejecuta dentro del executor. La asincronía proviene de la API usada, como `fetch`, un timer o IndexedDB. Si una API ya devuelve una Promise, envolverla en otra suele agregar código y errores sin aportar control.',
+        ],
+      },
+      {
+        title: 'Promise y async/await',
+        items: [
+          '`then` registra el camino de éxito, `catch` registra el de rechazo y `finally` ejecuta cleanup sin recibir ni reemplazar el resultado salvo que lance un error. Cada método devuelve una Promise nueva. Por eso una cadena no modifica la Promise anterior: cada eslabón describe cómo obtener el resultado siguiente.',
+          'El valor que retorna un callback decide el siguiente eslabón. Un valor común cumple la Promise siguiente con ese valor; una Promise o thenable hace que la siguiente adopte su estado; un `throw` la rechaza. Omitir `return` entrega `undefined` y deja fuera de la cadena cualquier operación iniciada dentro del callback.',
+          'Los handlers de `then`, `catch` y `finally` no corren durante el stack actual, aunque la Promise ya esté settled. JavaScript los encola como microtasks. El navegador drena esa cola antes de tomar otra task, por eso una cadena que crea microtasks sin terminar puede retrasar timers, eventos y render.',
+          'Una función declarada con `async` devuelve una Promise. Un `return value` produce una Promise fulfilled con `value`; un `throw error` produce una Promise rejected. `await promise` pausa sólo la ejecución de esa función, libera el stack y reanuda su continuación como microtask cuando la Promise termina. `await` no bloquea el thread ni mueve trabajo de CPU a otro thread.',
+          'Dos `await` consecutivos suelen ejecutar operaciones en secuencia cuando la segunda comienza después de resolver la primera. Si ambas son independientes, iniciarlas antes y esperar `Promise.all` reduce el tiempo total. La concurrencia empieza al crear o invocar las operaciones, no al escribir `Promise.all`.',
+        ],
+      },
+      {
+        title: 'Observable y streams',
+        items: [
+          'Los combinadores expresan políticas distintas. `Promise.all` cumple cuando todas cumplen, conserva el orden de entrada y rechaza ante el primer rechazo observado. `Promise.allSettled` espera todos los resultados. `Promise.race` adopta el primer settlement. `Promise.any` toma el primer fulfillment y, si todos rechazan, devuelve un `AggregateError`.',
+          'Un `Observable` representa una fuente que puede enviar cero, uno o varios valores a lo largo del tiempo. Una suscripción conecta un observer con esa fuente. El observer puede recibir notificaciones `next`, una única notificación terminal `error` o una única notificación terminal `complete`. Después de `error` o `complete` no llegan más valores.',
+          'La mayoría de los Observables de RxJS son lazy: el producer comienza para cada `subscribe`. Un Observable cold crea una ejecución independiente por suscriptor, como una request HTTP. Un Observable hot comparte una fuente que ya produce, como eventos del usuario o un Subject. Operadores como `map`, `filter`, `switchMap` y `catchError` crean Observables nuevos y describen el flujo sin mutar la fuente.',
+          '`unsubscribe` ejecuta el teardown registrado por el Observable y deja de entregar notificaciones a ese suscriptor. Detener el trabajo subyacente depende de que el producer implemente ese teardown. Angular `HttpClient` aborta la request al desuscribirse; un Observable propio que inicia un timer debe cancelarlo en su función de cleanup. Desuscribirse no deshace efectos que ya ocurrieron.',
+          'Promise y Observable modelan contratos distintos. Una Promise comparte un único resultado settled y se consume con `then` o `await`. Un Observable modela una secuencia, puede ser lazy, permite composición temporal y ofrece teardown por suscripción. Convertir entre ambos puede perder información: `firstValueFrom` toma el primer valor y necesita que la fuente emita o termine; convertir una Promise a Observable no vuelve cancelable la operación original.',
+        ],
+      },
+      {
+        title: 'Cancelación, errores y rendimiento',
+        items: [
+          '`try/catch` captura errores síncronos del bloque y rechazos que atraviesan un `await`. No captura un error lanzado más tarde por un callback desconectado, como un `setTimeout`. Ese callback necesita su propio manejo o debe formar parte de una Promise que el flujo retorne y espere.',
+          'Una Promise no define cancelación. `AbortController` permite pedirle a `fetch` y a otras APIs compatibles que detengan su trabajo mediante una `signal`. Cancelar el cliente evita procesar una respuesta innecesaria, aunque el servidor puede continuar si ya recibió y empezó la operación.',
+          'Una race condition aparece cuando varias operaciones compiten por actualizar el mismo estado y terminan en otro orden. Un buscador puede mostrar una respuesta vieja si la primera petición tarda más que la última. Abortá la anterior, asigná una versión a cada solicitud o aceptá el resultado sólo si todavía corresponde a la consulta vigente.',
+          'Debounce espera un período sin eventos antes de ejecutar; sirve para búsquedas mientras el usuario escribe. Throttle impone una frecuencia máxima; sirve para scroll o resize. Ambos necesitan cleanup para cancelar timers o trabajo pendiente cuando se destruye el consumidor.',
+          '`async/await` organiza espera de I/O, pero no reduce el costo del código síncrono. Dividí CPU intenso en tareas pequeñas cuando necesitás devolver control al navegador. Usá un Web Worker cuando el cálculo merece otro thread y el costo de copiar datos y enviar mensajes resulta aceptable.',
+        ],
+      },
     ],
     questions: [
       {
@@ -444,6 +637,16 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
       },
     ],
     code: "function delay(ms, value) {\n  return new Promise((resolve) => {\n    setTimeout(() => resolve(value), ms);\n  });\n}\n\nasync function loadDashboard() {\n  const userRequest = delay(300, { id: 7 });\n  const settingsRequest = delay(200, { theme: 'dark' });\n\n  try {\n    const [user, settings] = await Promise.all([\n      userRequest,\n      settingsRequest,\n    ]);\n    return { user, settings };\n  } catch (error) {\n    throw new Error('No se pudo cargar el dashboard', { cause: error });\n  }\n}\n\nconsole.log('A');\nsetTimeout(() => console.log('B'), 0);\nPromise.resolve().then(() => console.log('C'));\nqueueMicrotask(() => console.log('D'));\nconsole.log('E');\n\n// A, E, C, D, B\nloadDashboard().then(console.log).catch(console.error);",
+    references: [
+      {
+        label: 'MDN · Asynchronous JavaScript',
+        url: 'https://developer.mozilla.org/docs/Learn_web_development/Extensions/Async_JS',
+      },
+      {
+        label: 'RxJS · Observable',
+        url: 'https://rxjs.dev/guide/observable',
+      },
+    ],
   },
   {
     id: 'typescript-avanzado',
@@ -453,6 +656,10 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
     intro:
       'Angular amplifica TypeScript. Una base débil en el lenguaje produce templates inseguros, estado mutable y RxJS difícil de mantener.',
     theory: [
+      'TypeScript agrega un sistema de tipos estático sobre JavaScript. El compilador comprueba el programa y elimina los tipos al emitir JavaScript; por eso un tipo no valida datos que llegan en runtime.',
+      'La inferencia deduce tipos a partir de valores y contexto. El tipado estructural considera compatibles dos valores cuando su forma satisface el contrato, aunque no compartan una clase o declaración nominal.',
+      'Una unión expresa alternativas y el narrowing descarta posibilidades mediante `typeof`, `in`, `instanceof`, discriminantes o type guards. Un `switch` que entrega el caso restante a `never` detecta variantes nuevas durante la compilación.',
+      '`interface` describe contratos extensibles y admite declaration merging. `type` también representa unions, tuplas, primitivas y tipos calculados. La capacidad que necesita el modelo decide la elección.',
       'TypeScript extiende JavaScript con un sistema de tipos estático. El compilador comprueba el programa y elimina los tipos al emitir JavaScript; por eso una anotación no valida por sí sola los datos que llegan en runtime.',
       "La inferencia obtiene un tipo desde el valor y su contexto. Una anotación fija el contrato de forma explícita. `as const` conserva literales y vuelve readonly la estructura inferida, mientras una anotación amplia puede convertir un literal como `'open'` en `string`.",
       'TypeScript usa tipado estructural: dos valores son compatibles cuando su forma cumple las propiedades requeridas, aunque sus clases o nombres sean distintos. El exceso de propiedades se comprueba con más rigor en object literals que en variables intermedias.',
@@ -469,6 +676,48 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
       'Optional chaining (`?.`) corta una cadena sólo ante `null` o `undefined`. Nullish coalescing (`??`) usa el valor alternativo únicamente para esos dos casos, mientras que `||` también reemplaza `0`, `false` y la cadena vacía.',
       'Los decorators reciben metadata sobre clases o miembros y pueden reemplazar o complementar su definición según la propuesta y configuración usada. Angular los emplea para registrar componentes, directivas, pipes e inyectables.',
       'La configuración `strict` activa un conjunto de comprobaciones, entre ellas nullability, parámetros de funciones y propiedades inicializadas. El compilador encuentra estados inválidos antes de que lleguen al template o al runtime.',
+    ],
+    theorySections: [
+      {
+        title: 'Sistema de tipos',
+        items: [
+          'TypeScript agrega un sistema de tipos estático sobre JavaScript. El compilador comprueba el programa y elimina los tipos al emitir JavaScript; por eso un tipo no valida datos que llegan en runtime.',
+          'La inferencia deduce tipos a partir de valores y contexto. El tipado estructural considera compatibles dos valores cuando su forma satisface el contrato, aunque no compartan una clase o declaración nominal.',
+          'Una unión expresa alternativas y el narrowing descarta posibilidades mediante `typeof`, `in`, `instanceof`, discriminantes o type guards. Un `switch` que entrega el caso restante a `never` detecta variantes nuevas durante la compilación.',
+          '`interface` describe contratos extensibles y admite declaration merging. `type` también representa unions, tuplas, primitivas y tipos calculados. La capacidad que necesita el modelo decide la elección.',
+          'TypeScript extiende JavaScript con un sistema de tipos estático. El compilador comprueba el programa y elimina los tipos al emitir JavaScript; por eso una anotación no valida por sí sola los datos que llegan en runtime.',
+        ],
+      },
+      {
+        title: 'Narrowing y modelado',
+        items: [
+          "La inferencia obtiene un tipo desde el valor y su contexto. Una anotación fija el contrato de forma explícita. `as const` conserva literales y vuelve readonly la estructura inferida, mientras una anotación amplia puede convertir un literal como `'open'` en `string`.",
+          'TypeScript usa tipado estructural: dos valores son compatibles cuando su forma cumple las propiedades requeridas, aunque sus clases o nombres sean distintos. El exceso de propiedades se comprueba con más rigor en object literals que en variables intermedias.',
+          'Una `interface` describe contratos de objetos y admite declaration merging. Un `type` también puede representar unions, intersections, primitivas, tuplas y transformaciones calculadas. Ambos pueden expresar muchos contratos de objetos.',
+          'Una union `A | B` acepta cualquiera de sus miembros y sólo permite operaciones comunes hasta estrechar el tipo. Una intersection `A & B` exige que el valor cumpla ambos contratos al mismo tiempo.',
+          'Las firmas de funciones tipan parámetros y retorno. Los overloads publican varias formas válidas de llamada sobre una implementación, mientras los parámetros opcionales, rest y valores por defecto modelan variaciones dentro de una misma firma.',
+        ],
+      },
+      {
+        title: 'Tipos calculados y generics',
+        items: [
+          '`any` desactiva la comprobación para el valor y permite que el hueco de tipos se propague. `unknown` acepta cualquier valor, pero exige comprobar su tipo antes de operar con él.',
+          '`never` representa un valor que no puede existir. Aparece en funciones que no retornan y en ramas exhaustivas de una unión, donde permite detectar variantes sin manejar durante la compilación.',
+          'Un generic introduce parámetros de tipo. La relación entre entrada y salida se conserva sin reemplazarla por `any`; por ejemplo, una función `identity<T>(value: T): T` devuelve el mismo tipo que recibió.',
+          'Una discriminated union reúne variantes que comparten una propiedad literal, como `kind`. Al comprobar esa propiedad, TypeScript estrecha el tipo y habilita únicamente los campos de la variante activa. Un caso `default` asignado a `never` detecta estados nuevos que todavía no tienen manejo.',
+          'El operador `satisfies` comprueba que una expresión cumple un tipo sin reemplazar el tipo inferido de la expresión. Una anotación puede ensanchar el valor y un type assertion sólo le pide al compilador que confíe en el programador.',
+        ],
+      },
+      {
+        title: 'Runtime y configuración',
+        items: [
+          'Los utility types transforman tipos existentes. `Partial` vuelve opcionales sus propiedades, `Required` hace lo contrario, `Pick` y `Omit` seleccionan claves, y `Record` modela un mapa de claves a valores.',
+          'Un type guard estrecha un tipo dentro de una rama. `typeof`, `instanceof`, el operador `in`, predicados `value is T` y funciones de assertion permiten demostrarle al compilador qué variante existe en runtime.',
+          'Optional chaining (`?.`) corta una cadena sólo ante `null` o `undefined`. Nullish coalescing (`??`) usa el valor alternativo únicamente para esos dos casos, mientras que `||` también reemplaza `0`, `false` y la cadena vacía.',
+          'Los decorators reciben metadata sobre clases o miembros y pueden reemplazar o complementar su definición según la propuesta y configuración usada. Angular los emplea para registrar componentes, directivas, pipes e inyectables.',
+          'La configuración `strict` activa un conjunto de comprobaciones, entre ellas nullability, parámetros de funciones y propiedades inicializadas. El compilador encuentra estados inválidos antes de que lleguen al template o al runtime.',
+        ],
+      },
     ],
     questions: [
       {
@@ -491,23 +740,85 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
         answer:
           'El generic debe conservar una relación entre valores, por ejemplo entre entrada y salida o entre una key y su propiedad. Si el parámetro de tipo aparece una sola vez, quizá una unión o un tipo concreto comunique mejor el contrato.',
       },
+      {
+        question: '¿TypeScript valida una respuesta HTTP?',
+        answer:
+          'No. Los tipos desaparecen al compilar y una assertion sólo cambia lo que cree el compilador. Valido el JSON con un schema o type guard en la frontera y recién entonces lo convierto al modelo interno.',
+      },
+      {
+        question: '¿Qué significa que TypeScript sea estructural?',
+        answer:
+          'La compatibilidad depende de la forma del valor. Si un objeto posee las propiedades requeridas con tipos compatibles, puede satisfacer el contrato aunque provenga de otra declaración. Esto facilita composición, pero exige cuidado con exceso de propiedades y tipos demasiado amplios.',
+      },
+      {
+        question: '¿Cómo funciona un conditional type con `infer`?',
+        answer:
+          'Un conditional type elige un resultado según una relación `T extends U`. `infer` declara una variable de tipo dentro del patrón: `type Result<T> = T extends Promise<infer R> ? R : T` extrae el valor resuelto de una Promise.',
+      },
+      {
+        question: '¿Cuándo usarías un mapped type?',
+        answer:
+          'Cuando un contrato deriva de otro de forma mecánica. `type Flags<T> = { [K in keyof T]: boolean }` conserva las keys y cambia sus valores. Esto evita duplicar modelos que luego divergen.',
+      },
     ],
     code: "type LoadState<T> =\n  | { kind: 'idle' }\n  | { kind: 'loading' }\n  | { kind: 'success'; data: T }\n  | { kind: 'error'; error: Error };\n\nfunction assertNever(value: never): never {\n  throw new Error(`Unhandled state: ${JSON.stringify(value)}`);\n}",
+    references: [
+      {
+        label: 'TypeScript · Handbook',
+        url: 'https://www.typescriptlang.org/docs/handbook/intro.html',
+      },
+    ],
   },
   {
-    id: 'angular-moderno-y-estrategia-de-versiones',
+    id: 'angular-fundamentos-renderizado-y-versiones',
     number: '07',
     groupId: 'angular-core',
-    title: 'Angular moderno y estrategia de versiones',
+    title: 'Angular: fundamentos, renderizado y versiones',
     intro:
-      'La guía toma Angular 22 como referencia. Angular 22 está activo desde junio de 2026; Angular 21 y 20 siguen en LTS. Un Senior distingue APIs estables, migraciones y compatibilidad.',
+      'Angular organiza la aplicación como un árbol de componentes, compila templates, inyecta dependencias y actualiza el DOM mediante change detection. Desde esa base se entienden standalone, Signals, zoneless y las migraciones entre versiones.',
     theory: [
+      'Angular es un framework para construir aplicaciones web a partir de un árbol de componentes. Cada componente une una clase TypeScript, una plantilla, estilos y un host element. El router, la inyección de dependencias, forms y HttpClient completan la plataforma.',
+      '`bootstrapApplication` crea el environment injector, instancia el componente raíz y conecta su host view al DOM. Desde esa raíz Angular recorre views, evalúa bindings y actualiza sólo las propiedades del DOM cuyo valor cambió.',
+      'Una plantilla combina HTML con expresiones y bindings. `{{ value }}` interpola texto, `[property]` escribe una propiedad, `[attr.name]` escribe un atributo, `(event)` escucha un evento y `[(value)]` combina entrada y salida bajo un contrato de two-way binding.',
+      'Angular compila las plantillas y conoce de antemano qué nodos y bindings debe crear. Change detection vuelve a evaluar esos bindings cuando una notificación marca una vista para comprobar; Signals permiten registrar dependencias reactivas precisas.',
       'Angular publica las versiones mayores de core y CLI de forma alineada. Cada versión admite rangos concretos de Node.js, TypeScript y RxJS; `ng version`, la tabla de compatibilidad y el Update Guide permiten comprobarlos antes de una migración.',
       'Las aplicaciones nuevas usan componentes standalone. NgModules siguen siendo relevantes en bases antiguas y bibliotecas, pero ya no deben dirigir un diseño nuevo sin motivo.',
       'Angular 21+ usa change detection zoneless por defecto. El código debe notificar cambios mediante signals, listeners, `AsyncPipe`, `setInput` o `markForCheck`.',
       'El control flow moderno usa `@if`, `@for`, `@switch` y `@empty`. `track` necesita una identidad estable; usar el índice en listas mutables crea errores visuales y trabajo DOM.',
       '`@defer` separa las dependencias de una vista en otro chunk y las carga mediante triggers como viewport, idle o interaction. LCP y CLS muestran si diferir contenido visible empeora la carga principal o provoca saltos de layout.',
       'La adopción de una API nueva depende de su estabilidad, soporte, capacidad del equipo y costo de fallback. APIs como `resource`, `httpResource` o Signal Forms requieren revisar su estado antes de incorporarlas a una base de producción.',
+    ],
+    theorySections: [
+      {
+        title: 'Modelo de Angular',
+        items: [
+          'Angular es un framework para construir aplicaciones web a partir de un árbol de componentes. Cada componente une una clase TypeScript, una plantilla, estilos y un host element. El router, la inyección de dependencias, forms y HttpClient completan la plataforma.',
+          '`bootstrapApplication` crea el environment injector, instancia el componente raíz y conecta su host view al DOM. Desde esa raíz Angular recorre views, evalúa bindings y actualiza sólo las propiedades del DOM cuyo valor cambió.',
+          'Una plantilla combina HTML con expresiones y bindings. `{{ value }}` interpola texto, `[property]` escribe una propiedad, `[attr.name]` escribe un atributo, `(event)` escucha un evento y `[(value)]` combina entrada y salida bajo un contrato de two-way binding.',
+        ],
+      },
+      {
+        title: 'Templates y actualización del DOM',
+        items: [
+          'Angular compila las plantillas y conoce de antemano qué nodos y bindings debe crear. Change detection vuelve a evaluar esos bindings cuando una notificación marca una vista para comprobar; Signals permiten registrar dependencias reactivas precisas.',
+          'Angular publica las versiones mayores de core y CLI de forma alineada. Cada versión admite rangos concretos de Node.js, TypeScript y RxJS; `ng version`, la tabla de compatibilidad y el Update Guide permiten comprobarlos antes de una migración.',
+          'Las aplicaciones nuevas usan componentes standalone. NgModules siguen siendo relevantes en bases antiguas y bibliotecas, pero ya no deben dirigir un diseño nuevo sin motivo.',
+        ],
+      },
+      {
+        title: 'Angular moderno',
+        items: [
+          'Angular 21+ usa change detection zoneless por defecto. El código debe notificar cambios mediante signals, listeners, `AsyncPipe`, `setInput` o `markForCheck`.',
+          'El control flow moderno usa `@if`, `@for`, `@switch` y `@empty`. `track` necesita una identidad estable; usar el índice en listas mutables crea errores visuales y trabajo DOM.',
+        ],
+      },
+      {
+        title: 'Versiones y migraciones',
+        items: [
+          '`@defer` separa las dependencias de una vista en otro chunk y las carga mediante triggers como viewport, idle o interaction. LCP y CLS muestran si diferir contenido visible empeora la carga principal o provoca saltos de layout.',
+          'La adopción de una API nueva depende de su estabilidad, soporte, capacidad del equipo y costo de fallback. APIs como `resource`, `httpResource` o Signal Forms requieren revisar su estado antes de incorporarlas a una base de producción.',
+        ],
+      },
     ],
     questions: [
       {
@@ -530,6 +841,39 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
         answer:
           'Difiero contenido costoso que no participa del primer objetivo visual. Elijo trigger y prefetch según la probabilidad de uso, reservo espacio para evitar CLS y mido LCP, transferencia e interacción en una build de producción.',
       },
+      {
+        question:
+          '¿Qué ocurre desde `bootstrapApplication` hasta ver el primer componente?',
+        answer:
+          'Angular crea el environment injector con los providers de la aplicación, instancia el componente raíz, crea su host view y ejecuta el primer render. La plantilla compilada crea nodos, evalúa bindings y conecta listeners antes de que los cambios posteriores entren en change detection.',
+      },
+      {
+        question: '¿Interpolación, property binding o attribute binding?',
+        answer:
+          'Interpolación produce texto. Property binding escribe una propiedad runtime del elemento o componente. Attribute binding escribe el atributo, por ejemplo ARIA o SVG. Elijo según el destino real del valor, no según una preferencia de sintaxis.',
+      },
+      {
+        question: '¿Cómo actualiza Angular el DOM?',
+        answer:
+          'La plantilla compilada contiene instrucciones para cada binding. Durante change detection Angular evalúa la expresión, compara el resultado con el valor anterior y escribe sólo el destino que cambió. No vuelve a construir todo el HTML del componente.',
+      },
+      {
+        question:
+          '¿Qué adoptarías primero al modernizar una aplicación antigua?',
+        answer:
+          'Actualizo majors soportadas y estabilizo tests. Después reduzco NgModules con standalone, migro control flow y recién introduzco Signals o zoneless donde el modelo de estado lo justifique. Cada etapa conserva una forma de medir y revertir.',
+      },
+    ],
+    code: "bootstrapApplication(AppComponent, {\n  providers: [provideRouter(routes), provideHttpClient()],\n});\n\n@Component({\n  selector: 'app-root',\n  template: `\n    <button [disabled]=\"saving()\" (click)=\"save()\">\n      {{ saving() ? 'Guardando…' : 'Guardar' }}\n    </button>\n  `,\n})\nexport class AppComponent {\n  saving = signal(false);\n}",
+    references: [
+      {
+        label: 'Angular · Essentials',
+        url: 'https://angular.dev/essentials',
+      },
+      {
+        label: 'Angular · Releases',
+        url: 'https://angular.dev/reference/releases',
+      },
     ],
   },
   {
@@ -540,12 +884,48 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
     intro:
       'Un componente Senior mantiene una API pequeña, estado local explícito y un template legible. La composición supera a la herencia para reutilizar UI.',
     theory: [
+      'Cada componente renderiza dentro de un host element. La propiedad `host` de la metadata declara clases, atributos, propiedades y listeners del host en un solo lugar; una binding del consumidor puede colisionar con una binding del componente y Angular resuelve la prioridad según cuál sea estática o dinámica.',
+      '`@let` declara un valor local que Angular mantiene actualizado. Una template reference variable como `#input` referencia un elemento, componente, directiva exportada o `TemplateRef`, y sólo existe dentro del scope de la view donde se declaró.',
+      '`ng-container` agrupa bindings sin crear un nodo DOM. `ng-template` declara un fragmento que no se renderiza por sí solo; Angular lo representa con `TemplateRef` y puede instanciarlo mediante `NgTemplateOutlet` o `ViewContainerRef.createEmbeddedView`.',
+      '`NgComponentOutlet` y `ViewContainerRef.createComponent` crean componentes conocidos en runtime. Los helpers `inputBinding`, `outputBinding` y `twoWayBinding` conectan su API al crearlos y evitan asignaciones o subscriptions manuales dispersas.',
       'La metadata de un componente conecta una clase con su selector, template, estilos, estrategia de encapsulación, change detection, imports y providers. Los host bindings aplican propiedades, atributos o listeners al elemento anfitrión del componente.',
       '`input()` declara un signal de entrada y `output()` crea un emisor tipado hacia el padre. `model()` combina una entrada con su salida `nombreChange`, lo que habilita two-way binding para controles cuyo valor forma parte de su contrato público.',
       'La proyección con `ng-content` define slots estáticos. `TemplateRef`, `ng-template`, `ViewContainerRef` y creación dinámica cubren composición avanzada.',
       '`viewChild` y `viewChildren` consultan la vista propia; `contentChild` y `contentChildren` consultan contenido proyectado. Las queries basadas en signals cambian cuando cambia el árbol. Una query `required` falla si el contrato no encuentra el hijo esperado.',
       'Una directiva añade comportamiento; un componente añade comportamiento y vista. Una pipe pura debe transformar sin efectos y devolver el mismo resultado para las mismas entradas.',
       'Angular puede evaluar una expresión de template durante cada comprobación de la vista. Una función costosa invocada desde el template repite ese trabajo. `computed` memoriza una derivación y sólo la recalcula cuando cambia alguno de los signals leídos.',
+    ],
+    theorySections: [
+      {
+        title: 'Contrato del componente',
+        items: [
+          'Cada componente renderiza dentro de un host element. La propiedad `host` de la metadata declara clases, atributos, propiedades y listeners del host en un solo lugar; una binding del consumidor puede colisionar con una binding del componente y Angular resuelve la prioridad según cuál sea estática o dinámica.',
+          '`@let` declara un valor local que Angular mantiene actualizado. Una template reference variable como `#input` referencia un elemento, componente, directiva exportada o `TemplateRef`, y sólo existe dentro del scope de la view donde se declaró.',
+          '`ng-container` agrupa bindings sin crear un nodo DOM. `ng-template` declara un fragmento que no se renderiza por sí solo; Angular lo representa con `TemplateRef` y puede instanciarlo mediante `NgTemplateOutlet` o `ViewContainerRef.createEmbeddedView`.',
+        ],
+      },
+      {
+        title: 'Templates y fragmentos',
+        items: [
+          '`NgComponentOutlet` y `ViewContainerRef.createComponent` crean componentes conocidos en runtime. Los helpers `inputBinding`, `outputBinding` y `twoWayBinding` conectan su API al crearlos y evitan asignaciones o subscriptions manuales dispersas.',
+          'La metadata de un componente conecta una clase con su selector, template, estilos, estrategia de encapsulación, change detection, imports y providers. Los host bindings aplican propiedades, atributos o listeners al elemento anfitrión del componente.',
+          '`input()` declara un signal de entrada y `output()` crea un emisor tipado hacia el padre. `model()` combina una entrada con su salida `nombreChange`, lo que habilita two-way binding para controles cuyo valor forma parte de su contrato público.',
+        ],
+      },
+      {
+        title: 'Composición y render dinámico',
+        items: [
+          'La proyección con `ng-content` define slots estáticos. `TemplateRef`, `ng-template`, `ViewContainerRef` y creación dinámica cubren composición avanzada.',
+          '`viewChild` y `viewChildren` consultan la vista propia; `contentChild` y `contentChildren` consultan contenido proyectado. Las queries basadas en signals cambian cuando cambia el árbol. Una query `required` falla si el contrato no encuentra el hijo esperado.',
+        ],
+      },
+      {
+        title: 'Rendimiento del template',
+        items: [
+          'Una directiva añade comportamiento; un componente añade comportamiento y vista. Una pipe pura debe transformar sin efectos y devolver el mismo resultado para las mismas entradas.',
+          'Angular puede evaluar una expresión de template durante cada comprobación de la vista. Una función costosa invocada desde el template repite ese trabajo. `computed` memoriza una derivación y sólo la recalcula cuando cambia alguno de los signals leídos.',
+        ],
+      },
     ],
     questions: [
       {
@@ -569,6 +949,37 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
         answer:
           'Creo una directiva cuando necesito añadir comportamiento a un elemento existente sin imponer markup. Creo un componente cuando la unidad posee estructura visual, estado y una API que deben evolucionar juntos.',
       },
+      {
+        question: '¿Property binding o attribute binding?',
+        answer:
+          'Una property binding escribe en la propiedad runtime del elemento o componente, por ejemplo `[disabled]`. Una attribute binding escribe el atributo HTML con `[attr.aria-expanded]`. Uso atributos para ARIA, SVG o metadata sin una propiedad DOM equivalente.',
+      },
+      {
+        question: '¿Qué representa una template reference variable?',
+        answer:
+          'Depende del nodo: en un elemento nativo referencia el HTMLElement, en un componente su instancia, con `exportAs` una directiva y sobre `ng-template` un TemplateRef. Su scope pertenece a la view que la declara.',
+      },
+      {
+        question: '¿Por qué `ng-template` no aparece en el DOM?',
+        answer:
+          'Declara una receta de view. Angular sólo crea sus nodos cuando una directiva, `NgTemplateOutlet` o `ViewContainerRef` instancia su TemplateRef. Esto permite repetir el fragmento y pasarle contexto.',
+      },
+      {
+        question: '¿Cómo crearías un componente dinámico con bindings?',
+        answer:
+          'Uso `ViewContainerRef.createComponent` si debe formar parte de esa view y paso `bindings` con `inputBinding`, `outputBinding` o `twoWayBinding`. Para un caso declarativo puedo usar `NgComponentOutlet`; para lazy loading visual prefiero evaluar `@defer`.',
+      },
+    ],
+    code: "@Component({\n  selector: 'user-picker',\n  host: { '[class.disabled]': 'disabled()' },\n  template: `\n    @let selected = selectedUser();\n    <button #trigger (click)=\"open.set(true)\">{{ selected?.name ?? 'Elegir' }}</button>\n    <ng-template #row let-user>\n      <button (click)=\"select(user)\">{{ user.name }}</button>\n    </ng-template>\n  `,\n})\nexport class UserPicker {\n  disabled = input(false);\n  selectedUser = model<User | null>(null);\n  open = signal(false);\n}",
+    references: [
+      {
+        label: 'Angular · Templates',
+        url: 'https://angular.dev/guide/templates',
+      },
+      {
+        label: 'Angular · Programmatic rendering',
+        url: 'https://angular.dev/guide/components/programmatic-rendering',
+      },
     ],
   },
   {
@@ -579,11 +990,37 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
     intro:
       'El orden importa cuando un componente coordina inputs, queries, DOM y recursos externos.',
     theory: [
+      'Angular crea una instancia, asigna inputs, ejecuta el primer change detection, inicializa contenido y vista, y luego repite los hooks de check en cada recorrido. Cada hook corresponde a un punto concreto de ese proceso y no funciona como un evento genérico.',
+      'Los hooks de render no se ejecutan durante SSR. `afterNextRender` sirve para una operación DOM posterior al próximo render y `afterEveryRender` para una integración que debe acompañar renders sucesivos; ambos requieren cleanup si crean recursos persistentes.',
       'El constructor configura dependencias y estado barato. `ngOnInit` usa inputs inicializados. `ngOnChanges` reacciona a cambios de inputs y corre antes de `ngOnInit` en la primera pasada.',
       '`ngAfterContentInit/Checked` se relacionan con contenido proyectado. `ngAfterViewInit/Checked` se relacionan con la vista propia y queries.',
       '`afterNextRender` ejecuta un callback después del siguiente render completo; `afterEveryRender` lo hace tras cada render. Agrupar escrituras DOM antes de lecturas geométricas evita alternar style recalculation y layout forzado.',
       '`DestroyRef` registra cleanup en el mismo contexto donde nace un recurso. `takeUntilDestroyed` completa una suscripción cuando ese contexto se destruye. Observers, timers y listeners creados fuera de Angular requieren también su función explícita de limpieza.',
       '`ExpressionChangedAfterItHasBeenCheckedError` aparece en desarrollo cuando una expresión cambia después de que Angular ya verificó esa vista dentro del mismo ciclo. La causa suele ser un flujo de datos que escribe hacia un ancestro o modifica estado durante un hook tardío; diferir con un timer oculta la inconsistencia.',
+    ],
+    theorySections: [
+      {
+        title: 'Modelo mental',
+        items: [
+          'Angular crea una instancia, asigna inputs, ejecuta el primer change detection, inicializa contenido y vista, y luego repite los hooks de check en cada recorrido. Cada hook corresponde a un punto concreto de ese proceso y no funciona como un evento genérico.',
+          'Los hooks de render no se ejecutan durante SSR. `afterNextRender` sirve para una operación DOM posterior al próximo render y `afterEveryRender` para una integración que debe acompañar renders sucesivos; ambos requieren cleanup si crean recursos persistentes.',
+          'El constructor configura dependencias y estado barato. `ngOnInit` usa inputs inicializados. `ngOnChanges` reacciona a cambios de inputs y corre antes de `ngOnInit` en la primera pasada.',
+        ],
+      },
+      {
+        title: 'Funcionamiento y APIs',
+        items: [
+          '`ngAfterContentInit/Checked` se relacionan con contenido proyectado. `ngAfterViewInit/Checked` se relacionan con la vista propia y queries.',
+          '`afterNextRender` ejecuta un callback después del siguiente render completo; `afterEveryRender` lo hace tras cada render. Agrupar escrituras DOM antes de lecturas geométricas evita alternar style recalculation y layout forzado.',
+        ],
+      },
+      {
+        title: 'Decisiones, riesgos y verificación',
+        items: [
+          '`DestroyRef` registra cleanup en el mismo contexto donde nace un recurso. `takeUntilDestroyed` completa una suscripción cuando ese contexto se destruye. Observers, timers y listeners creados fuera de Angular requieren también su función explícita de limpieza.',
+          '`ExpressionChangedAfterItHasBeenCheckedError` aparece en desarrollo cuando una expresión cambia después de que Angular ya verificó esa vista dentro del mismo ciclo. La causa suele ser un flujo de datos que escribe hacia un ancestro o modifica estado durante un hook tardío; diferir con un timer oculta la inconsistencia.',
+        ],
+      },
     ],
     questions: [
       {
@@ -606,6 +1043,33 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
         answer:
           'Coloca la limpieza junto al recurso que la necesita y evita concentrar teardown sin contexto en `ngOnDestroy`. Lo uso con listeners, observers y `takeUntilDestroyed` para vincular su vida al contexto de inyección.',
       },
+      {
+        question: '¿En qué orden corre la primera inicialización?',
+        answer:
+          'Angular asigna inputs, ejecuta `ngOnChanges`, `ngOnInit`, hooks de content, hooks de view y completa el render. Los hooks `Checked` vuelven a correr en recorridos posteriores; los `Init` corren una vez.',
+      },
+      {
+        question: '¿`afterNextRender` funciona durante SSR?',
+        answer:
+          'No. Los render callbacks dependen del navegador. Los uso para medir o integrar DOM después del render y mantengo el camino SSR libre de esa API.',
+      },
+      {
+        question: '¿Cuándo usarías `ngOnChanges` frente a `computed`?',
+        answer:
+          '`ngOnChanges` sirve cuando necesito comparar cambios de inputs o ejecutar una adaptación imperativa. Un `computed` expresa mejor una derivación pura de signal inputs porque mantiene la relación sin sincronización manual.',
+      },
+      {
+        question:
+          '¿Por qué un `setTimeout` puede esconder un ExpressionChanged?',
+        answer:
+          'Mueve la mutación a otra task y evita la comprobación actual, pero conserva un flujo de datos mal ubicado. Corrijo quién posee el estado o muevo el trabajo al hook y fase adecuados.',
+      },
+    ],
+    references: [
+      {
+        label: 'Angular · Lifecycle',
+        url: 'https://angular.dev/guide/components/lifecycle',
+      },
     ],
   },
   {
@@ -616,6 +1080,9 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
     intro:
       'Esta sección suele separar experiencia reciente de conocimiento heredado. Explicá quién notifica a Angular, qué vista queda dirty y cuándo se recalcula una derivación.',
     theory: [
+      'Change detection recorre las views que Angular considera necesarias, evalúa sus bindings y compara el resultado con el valor anterior. Una notificación marca una view y sus ancestros para que el próximo recorrido incluya esa rama.',
+      'OnPush puede saltar un subárbol limpio. Un input con referencia nueva, un evento manejado en la view, una lectura de signal que cambia, `AsyncPipe`, `setInput` o `markForCheck` vuelven a marcar trabajo.',
+      '`linkedSignal` conserva un estado editable que se reinicia o adapta cuando cambia una dependencia. `resource` y `httpResource` modelan carga asíncrona reactiva; su conveniencia no reemplaza una política explícita de caché, invalidación y errores.',
       'Default verifica un subárbol con mayor frecuencia. OnPush permite saltar subárboles cuando no reciben nuevos inputs ni notificaciones.',
       'Un signal writable usa `set` o `update`; `computed` deriva estado, memoriza y rastrea dependencias dinámicas; `effect` conecta estado reactivo con una API no reactiva.',
       '`computed` representa estado derivado: lee otros signals, memoriza el resultado y permanece libre de efectos. `effect` ejecuta una operación cuando cambian sus dependencias. Copiar una derivación mediante `effect` crea dos fuentes de verdad y puede producir ciclos o escrituras redundantes.',
@@ -623,6 +1090,38 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
       '`untracked` lee un signal sin registrar dependencia. Usalo cuando la lectura sea incidental, no para tapar un grafo mal diseñado.',
       'Zoneless reduce parches y checks innecesarios. Requiere que las actualizaciones lleguen mediante APIs que notifican a Angular.',
       'Signals y RxJS se complementan: signals para estado síncrono leído por la vista; RxJS para flujos asíncronos, cancelación, concurrencia y eventos.',
+    ],
+    theorySections: [
+      {
+        title: 'Recorrido y notificaciones',
+        items: [
+          'Change detection recorre las views que Angular considera necesarias, evalúa sus bindings y compara el resultado con el valor anterior. Una notificación marca una view y sus ancestros para que el próximo recorrido incluya esa rama.',
+          'OnPush puede saltar un subárbol limpio. Un input con referencia nueva, un evento manejado en la view, una lectura de signal que cambia, `AsyncPipe`, `setInput` o `markForCheck` vuelven a marcar trabajo.',
+          '`linkedSignal` conserva un estado editable que se reinicia o adapta cuando cambia una dependencia. `resource` y `httpResource` modelan carga asíncrona reactiva; su conveniencia no reemplaza una política explícita de caché, invalidación y errores.',
+        ],
+      },
+      {
+        title: 'Signals y estado derivado',
+        items: [
+          'Default verifica un subárbol con mayor frecuencia. OnPush permite saltar subárboles cuando no reciben nuevos inputs ni notificaciones.',
+          'Un signal writable usa `set` o `update`; `computed` deriva estado, memoriza y rastrea dependencias dinámicas; `effect` conecta estado reactivo con una API no reactiva.',
+          '`computed` representa estado derivado: lee otros signals, memoriza el resultado y permanece libre de efectos. `effect` ejecuta una operación cuando cambian sus dependencias. Copiar una derivación mediante `effect` crea dos fuentes de verdad y puede producir ciclos o escrituras redundantes.',
+        ],
+      },
+      {
+        title: 'OnPush y zoneless',
+        items: [
+          'Signals comparan por `Object.is` salvo función de igualdad. Una mutación profunda conserva la referencia y puede ocultar el cambio.',
+          '`untracked` lee un signal sin registrar dependencia. Usalo cuando la lectura sea incidental, no para tapar un grafo mal diseñado.',
+        ],
+      },
+      {
+        title: 'Diagnóstico y rendimiento',
+        items: [
+          'Zoneless reduce parches y checks innecesarios. Requiere que las actualizaciones lleguen mediante APIs que notifican a Angular.',
+          'Signals y RxJS se complementan: signals para estado síncrono leído por la vista; RxJS para flujos asíncronos, cancelación, concurrencia y eventos.',
+        ],
+      },
     ],
     questions: [
       {
@@ -651,8 +1150,38 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
         answer:
           '`computed` calcula estado derivado y sólo depende de otros signals. `effect` sincroniza el grafo reactivo con una frontera externa como storage, logging o canvas. No copio estado derivado mediante efectos.',
       },
+      {
+        question: '¿Qué marca una view OnPush como dirty?',
+        answer:
+          'Una referencia nueva en un input, un evento manejado dentro de la view, un signal leído por la plantilla que cambia, AsyncPipe, `setInput` o `markForCheck`. Una mutación interna de un objeto sin notificación conserva la misma referencia y puede dejar la UI vieja.',
+      },
+      {
+        question: '¿`markForCheck` o `detectChanges`?',
+        answer:
+          '`markForCheck` agenda la view para el próximo recorrido y mantiene el flujo normal. `detectChanges` ejecuta una comprobación inmediata de esa view y sus hijos; lo reservo para integraciones controladas porque puede introducir trabajo y orden inesperados.',
+      },
+      {
+        question: '¿Qué resuelve `linkedSignal`?',
+        answer:
+          'Modela un estado editable que depende de otra señal y necesita reajustarse cuando cambia esa fuente, como una selección que debe seguir siendo válida al reemplazar la lista. Evita un effect dedicado a copiar y corregir estado.',
+      },
+      {
+        question: '¿Cómo investigás demasiados renders?',
+        answer:
+          'Grabo una interacción con Angular DevTools y el Performance panel, identifico qué notificación marcó la rama y reviso referencias, funciones de template y efectos. Cambio una causa y vuelvo a medir scripting e INP.',
+      },
     ],
     code: "private readonly query = signal('');\nreadonly normalizedQuery = computed(() => this.query().trim().toLowerCase());\nreadonly results = computed(() =>\n  this.items().filter(x => x.name.toLowerCase().includes(this.normalizedQuery()))\n);",
+    references: [
+      {
+        label: 'Angular · Signals',
+        url: 'https://angular.dev/guide/signals',
+      },
+      {
+        label: 'Angular · Zoneless',
+        url: 'https://angular.dev/guide/zoneless',
+      },
+    ],
   },
   {
     id: 'dependency-injection-en-profundidad',
@@ -662,12 +1191,41 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
     intro:
       'Angular resuelve dependencias en jerarquías. La ubicación del provider define vida útil, visibilidad y aislamiento.',
     theory: [
+      'Dependency Injection separa la creación de una dependencia de su consumo. Angular busca un provider para un token, ejecuta su factory cuando corresponde y conserva la instancia según el injector que la posee.',
+      "La resolución comienza en el injector asociado al nodo o environment actual y asciende por la jerarquía. Un provider de componente crea una instancia por subárbol; uno de ruta vive con ese entorno lazy; `providedIn: 'root'` comparte la instancia en la aplicación.",
+      '`useClass`, `useValue`, `useFactory` y `useExisting` expresan distintas formas de producir un token. Los multi providers acumulan varios valores bajo el mismo token y sirven para pipelines extensibles.',
       "`providedIn: 'root'` crea un singleton por root EnvironmentInjector y permite tree shaking. Un provider de componente crea una instancia por componente.",
       'La resolución busca primero ElementInjectors y después EnvironmentInjectors. Lazy routes pueden crear contextos e instancias separadas.',
       '`useClass` crea una clase para un token; `useValue` entrega un valor existente; `useExisting` crea un alias; `useFactory` calcula la dependencia con otras inyecciones. Los multi providers acumulan varios valores bajo un token e `InjectionToken` representa contratos que no existen como clase en runtime.',
       '`providers` es visible para vista y contenido descendiente; `viewProviders` oculta el provider al contenido proyectado.',
       '`self`, `skipSelf`, `host` y `optional` limitan la búsqueda. Usalos para contratos intencionales, no como parche.',
       '`inject()` necesita injection context: inicializador, constructor administrado por DI, factory o `runInInjectionContext`.',
+    ],
+    theorySections: [
+      {
+        title: 'Modelo mental',
+        items: [
+          'Dependency Injection separa la creación de una dependencia de su consumo. Angular busca un provider para un token, ejecuta su factory cuando corresponde y conserva la instancia según el injector que la posee.',
+          "La resolución comienza en el injector asociado al nodo o environment actual y asciende por la jerarquía. Un provider de componente crea una instancia por subárbol; uno de ruta vive con ese entorno lazy; `providedIn: 'root'` comparte la instancia en la aplicación.",
+          '`useClass`, `useValue`, `useFactory` y `useExisting` expresan distintas formas de producir un token. Los multi providers acumulan varios valores bajo el mismo token y sirven para pipelines extensibles.',
+        ],
+      },
+      {
+        title: 'Funcionamiento y APIs',
+        items: [
+          "`providedIn: 'root'` crea un singleton por root EnvironmentInjector y permite tree shaking. Un provider de componente crea una instancia por componente.",
+          'La resolución busca primero ElementInjectors y después EnvironmentInjectors. Lazy routes pueden crear contextos e instancias separadas.',
+          '`useClass` crea una clase para un token; `useValue` entrega un valor existente; `useExisting` crea un alias; `useFactory` calcula la dependencia con otras inyecciones. Los multi providers acumulan varios valores bajo un token e `InjectionToken` representa contratos que no existen como clase en runtime.',
+        ],
+      },
+      {
+        title: 'Decisiones, riesgos y verificación',
+        items: [
+          '`providers` es visible para vista y contenido descendiente; `viewProviders` oculta el provider al contenido proyectado.',
+          '`self`, `skipSelf`, `host` y `optional` limitan la búsqueda. Usalos para contratos intencionales, no como parche.',
+          '`inject()` necesita injection context: inicializador, constructor administrado por DI, factory o `runInInjectionContext`.',
+        ],
+      },
     ],
     questions: [
       {
@@ -690,6 +1248,33 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
         answer:
           'El injector que registra el provider define su alcance y vida útil. Un provider de componente aísla instancias por subárbol; uno de ruta puede vivir con la feature lazy; root comparte la instancia en la aplicación.',
       },
+      {
+        question: '¿Cómo busca Angular un provider?',
+        answer:
+          'Empieza en el injector del contexto actual, consulta providers del nodo y environment, y asciende hasta encontrar el token. Los modificadores de resolución cambian ese recorrido; si ningún provider existe y no es optional, Angular lanza un error.',
+      },
+      {
+        question: '¿Provider de componente o de ruta?',
+        answer:
+          'El provider de componente crea una instancia asociada a ese subárbol y se destruye con él. El provider de ruta comparte estado entre componentes de la feature lazy y vive con su environment injector.',
+      },
+      {
+        question: '¿Para qué sirve un multi provider?',
+        answer:
+          'Permite que varias partes registren valores bajo el mismo token y que el consumidor reciba un array. Lo uso para plugins, validadores o pipelines extensibles donde cada feature aporta una implementación.',
+      },
+      {
+        question: "¿Qué riesgo tiene `providedIn: 'root'`?",
+        answer:
+          'Convierte el servicio en singleton de aplicación. Si guarda estado de pantalla o usuario sin una política de reset, puede mezclar ciclos de navegación y sesiones. El scope debe coincidir con la vida útil del dato.',
+      },
+    ],
+    code: "export const ANALYTICS = new InjectionToken<Analytics>('analytics');\n\nexport const appConfig: ApplicationConfig = {\n  providers: [\n    { provide: ANALYTICS, useClass: BrowserAnalytics },\n    { provide: HTTP_INTERCEPTORS, useClass: AuditInterceptor, multi: true },\n  ],\n};",
+    references: [
+      {
+        label: 'Angular · Dependency Injection',
+        url: 'https://angular.dev/guide/di',
+      },
     ],
   },
   {
@@ -700,6 +1285,9 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
     intro:
       'La entrevista Senior suele plantear búsquedas, guardado, polling o eventos concurrentes. Elegí el operador a partir de la política de concurrencia.',
     theory: [
+      'Una subscription representa la ejecución y su teardown. `complete` y `error` cierran el contrato; `unsubscribe` lo termina desde el consumidor. El producer debe registrar cleanup para liberar timers, listeners, sockets o requests cancelables.',
+      'La ubicación de `catchError` cambia el alcance del fallo. Dentro de un flattening operator recupera una operación interna y mantiene viva la fuente; afuera termina o reemplaza el flujo completo.',
+      '`shareReplay` comparte una subscription y conserva emisiones para suscriptores tardíos. Antes de usarlo como caché hay que decidir tamaño de buffer, refCount, reset, errores, vida útil y aislamiento por usuario.',
       'Cold observables crean el productor por subscription; hot observables comparten un productor externo. `share` y `shareReplay` cambian esa relación.',
       '`switchMap` cancela el inner anterior; sirve para búsqueda. `concatMap` serializa; sirve para preservar orden. `mergeMap` permite concurrencia. `exhaustMap` ignora disparos mientras uno está activo.',
       '`map` transforma valores; `tap` ejecuta efectos; `filter` decide emisiones; `scan` acumula; `catchError` define el límite del error.',
@@ -707,6 +1295,38 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
       '`combineLatest` reacciona a últimos valores; `forkJoin` espera que todos completen; `withLatestFrom` toma contexto cuando la fuente emite.',
       '`Subject` no conserva un valor, `BehaviorSubject` guarda el último y exige uno inicial, y `ReplaySubject` reproduce una cantidad o ventana de emisiones. Exponer sólo `asObservable()` impide que consumidores externos escriban en el estado del productor.',
       '`shareReplay({bufferSize: 1, refCount: true})` puede cachear, pero necesitás invalidación, manejo de error y semántica de vida útil.',
+    ],
+    theorySections: [
+      {
+        title: 'Contrato Observable',
+        items: [
+          'Una subscription representa la ejecución y su teardown. `complete` y `error` cierran el contrato; `unsubscribe` lo termina desde el consumidor. El producer debe registrar cleanup para liberar timers, listeners, sockets o requests cancelables.',
+          'La ubicación de `catchError` cambia el alcance del fallo. Dentro de un flattening operator recupera una operación interna y mantiene viva la fuente; afuera termina o reemplaza el flujo completo.',
+          '`shareReplay` comparte una subscription y conserva emisiones para suscriptores tardíos. Antes de usarlo como caché hay que decidir tamaño de buffer, refCount, reset, errores, vida útil y aislamiento por usuario.',
+        ],
+      },
+      {
+        title: 'Operadores y concurrencia',
+        items: [
+          'Cold observables crean el productor por subscription; hot observables comparten un productor externo. `share` y `shareReplay` cambian esa relación.',
+          '`switchMap` cancela el inner anterior; sirve para búsqueda. `concatMap` serializa; sirve para preservar orden. `mergeMap` permite concurrencia. `exhaustMap` ignora disparos mientras uno está activo.',
+          '`map` transforma valores; `tap` ejecuta efectos; `filter` decide emisiones; `scan` acumula; `catchError` define el límite del error.',
+        ],
+      },
+      {
+        title: 'Errores y teardown',
+        items: [
+          'La ubicación de `catchError` define qué stream termina. Dentro de `switchMap` o de otro flattening operator, el error se reemplaza sólo para esa petición y el stream exterior puede seguir escuchando. Fuera del operador, el error finaliza la cadena completa salvo que se retorne otro observable.',
+          '`combineLatest` reacciona a últimos valores; `forkJoin` espera que todos completen; `withLatestFrom` toma contexto cuando la fuente emite.',
+        ],
+      },
+      {
+        title: 'Sharing y caché',
+        items: [
+          '`Subject` no conserva un valor, `BehaviorSubject` guarda el último y exige uno inicial, y `ReplaySubject` reproduce una cantidad o ventana de emisiones. Exponer sólo `asObservable()` impide que consumidores externos escriban en el estado del productor.',
+          '`shareReplay({bufferSize: 1, refCount: true})` puede cachear, pero necesitás invalidación, manejo de error y semántica de vida útil.',
+        ],
+      },
     ],
     questions: [
       {
@@ -729,8 +1349,34 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
         answer:
           'Puede retener el último valor y mantener viva la suscripción más tiempo del esperado. Defino buffer, `refCount` y política de reset según el ciclo de vida. También decido cómo invalidar errores y datos stale.',
       },
+      {
+        question: '¿Dónde colocás `catchError` dentro de `switchMap`?',
+        answer:
+          'Dentro si cada request puede fallar y la fuente debe seguir escuchando búsquedas. Fuera si cualquier error termina o reemplaza el flujo completo. La posición determina qué subscription se cierra.',
+      },
+      {
+        question: '¿Qué debe hacer el teardown de un Observable?',
+        answer:
+          'Detiene el recurso creado por esa suscripción: remueve listeners, limpia timers, cierra sockets o aborta I/O compatible. También debe tolerar llamadas repetidas sin producir efectos inválidos.',
+      },
+      {
+        question: '¿Cuándo `shareReplay(1)` puede producir un leak?',
+        answer:
+          'Cuando mantiene la fuente suscripta después de irse el último consumidor o conserva un valor pesado sin política de reset. Configuro `refCount` y resets según si necesito una caché persistente o sólo compartir consumidores simultáneos.',
+      },
+      {
+        question: '¿Cómo elegir entre los cuatro flattening operators?',
+        answer:
+          'Elijo la política de concurrencia: `switchMap` reemplaza, `concatMap` encola, `mergeMap` permite paralelismo y `exhaustMap` ignora nuevas entradas mientras una sigue activa. La semántica del negocio decide cuál pérdida u orden resulta válido.',
+      },
     ],
     code: 'results$ = this.query.valueChanges.pipe(\n  debounceTime(250),\n  distinctUntilChanged(),\n  switchMap(query => this.api.search(query).pipe(\n    catchError(error => of({ items: [], error }))\n  )),\n  shareReplay({ bufferSize: 1, refCount: true })\n);',
+    references: [
+      {
+        label: 'RxJS · Operator decision tree',
+        url: 'https://rxjs.dev/operator-decision-tree',
+      },
+    ],
   },
   {
     id: 'estado-local-servicios-signals-y-ngrx',
@@ -740,12 +1386,39 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
     intro:
       'No existe una herramienta única. Un Senior reduce el alcance del estado y aumenta la estructura cuando la complejidad lo exige.',
     theory: [
+      'El estado pertenece al dueño más cercano que necesita escribirlo. Un componente resuelve estado efímero; un servicio de feature coordina varias vistas; un store formaliza eventos y efectos cuando muchas partes modifican el mismo dominio.',
+      'Estado fuente y estado derivado deben estar separados. Signals `computed` y selectors calculan vistas del mismo dato; copiar el resultado a otra variable exige sincronización y permite inconsistencias.',
       'Estado local de componente: UI efímera. Servicio de feature: coordinación de una rama. Store global: datos compartidos, flujos complejos, auditoría o herramientas de desarrollo.',
       'Server state es una copia local de datos remotos y necesita caché, stale time, invalidación, deduplicación y reintentos. Client state nace en la interfaz, como selección, filtros o un wizard, y su ciclo de vida depende de la navegación y del alcance de la feature.',
       'En NgRx, una action describe un evento, un reducer calcula el siguiente estado sin efectos, un selector deriva y memoriza consultas, y un effect conecta eventos con I/O. Entity normaliza colecciones como un diccionario de ids más una lista ordenada.',
       'El estado derivado se calcula desde la fuente mediante selectors o `computed`; almacenarlo por separado exige sincronizar copias. Las actions expresadas como hechos de dominio, por ejemplo `invoiceSubmitted`, permiten que varios efectos reaccionen sin acoplarse al botón que originó el evento.',
       'ComponentStore y SignalStore encapsulan estado de una feature sin crear un store global. La elección depende de la estabilidad de la API, el ecosistema disponible y la experiencia del equipo con el modelo reactivo.',
       'Una actualización optimista modifica la UI antes de recibir confirmación. El diseño necesita rollback o reconciliación cuando falla, una clave idempotente para evitar duplicados y una regla para conflictos entre la versión local y la remota.',
+    ],
+    theorySections: [
+      {
+        title: 'Modelo mental',
+        items: [
+          'El estado pertenece al dueño más cercano que necesita escribirlo. Un componente resuelve estado efímero; un servicio de feature coordina varias vistas; un store formaliza eventos y efectos cuando muchas partes modifican el mismo dominio.',
+          'Estado fuente y estado derivado deben estar separados. Signals `computed` y selectors calculan vistas del mismo dato; copiar el resultado a otra variable exige sincronización y permite inconsistencias.',
+          'Estado local de componente: UI efímera. Servicio de feature: coordinación de una rama. Store global: datos compartidos, flujos complejos, auditoría o herramientas de desarrollo.',
+        ],
+      },
+      {
+        title: 'Funcionamiento y APIs',
+        items: [
+          'Server state es una copia local de datos remotos y necesita caché, stale time, invalidación, deduplicación y reintentos. Client state nace en la interfaz, como selección, filtros o un wizard, y su ciclo de vida depende de la navegación y del alcance de la feature.',
+          'En NgRx, una action describe un evento, un reducer calcula el siguiente estado sin efectos, un selector deriva y memoriza consultas, y un effect conecta eventos con I/O. Entity normaliza colecciones como un diccionario de ids más una lista ordenada.',
+          'El estado derivado se calcula desde la fuente mediante selectors o `computed`; almacenarlo por separado exige sincronizar copias. Las actions expresadas como hechos de dominio, por ejemplo `invoiceSubmitted`, permiten que varios efectos reaccionen sin acoplarse al botón que originó el evento.',
+        ],
+      },
+      {
+        title: 'Decisiones, riesgos y verificación',
+        items: [
+          'ComponentStore y SignalStore encapsulan estado de una feature sin crear un store global. La elección depende de la estabilidad de la API, el ecosistema disponible y la experiencia del equipo con el modelo reactivo.',
+          'Una actualización optimista modifica la UI antes de recibir confirmación. El diseño necesita rollback o reconciliación cuando falla, una clave idempotente para evitar duplicados y una regla para conflictos entre la versión local y la remota.',
+        ],
+      },
     ],
     questions: [
       {
@@ -768,6 +1441,36 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
         answer:
           'Lo considero cuando varios flujos escriben el mismo dominio, necesito trazabilidad de eventos, efectos coordinados o reglas de actualización compartidas. Un formulario local o una pantalla aislada no justifican ese costo por sí solos.',
       },
+      {
+        question: '¿Cuándo un servicio con Signals deja de alcanzar?',
+        answer:
+          'Cuando varias features escriben el mismo dominio, necesito historial claro de eventos, efectos coordinados, herramientas de inspección o reglas consistentes de actualización. En ese punto un store formal reduce caminos implícitos.',
+      },
+      {
+        question: '¿Qué es estado derivado?',
+        answer:
+          'Es un valor calculable desde estado fuente, como el total de un carrito. Lo expreso con `computed` o un selector y no lo guardo por separado, porque dos copias pueden divergir.',
+      },
+      {
+        question: '¿Cómo modelás una optimistic update?',
+        answer:
+          'Aplico un cambio local con un identificador de operación, envío la request y confirmo o revierto según el resultado. Resuelvo concurrencia, duplicados y mensajes de error sin perder una edición posterior.',
+      },
+      {
+        question: '¿Qué pondrías en el store global?',
+        answer:
+          'Estado de dominio compartido cuya vida cruza rutas y necesita coordinación. Estados de foco, accordion o formulario temporal permanecen cerca del componente salvo que otra parte de la aplicación deba controlarlos.',
+      },
+    ],
+    references: [
+      {
+        label: 'Angular · Signals',
+        url: 'https://angular.dev/guide/signals',
+      },
+      {
+        label: 'NgRx · Guide',
+        url: 'https://ngrx.io/guide/store',
+      },
     ],
   },
   {
@@ -778,12 +1481,41 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
     intro:
       'El router define fronteras de carga, autorización y datos. Diseñá rutas como parte de la arquitectura.',
     theory: [
+      'El Router compara la URL con un árbol de rutas, ejecuta redirects, guards y resolvers, activa componentes en outlets y conserva snapshots más streams de cambios. La navegación puede cancelarse o redirigirse antes de crear la vista.',
+      '`loadComponent` y `loadChildren` crean fronteras lazy. Los providers declarados en una ruta pertenecen a su environment injector y permiten aislar servicios por feature.',
+      'Component input binding puede llevar params, query params, datos estáticos y resolvers a inputs del componente. Esa API reduce subscriptions manuales, pero el nombre y la ausencia de cada valor siguen formando parte del contrato de ruta.',
       '`loadComponent` y `loadChildren` crean fronteras de lazy loading que descargan una feature al navegar. Un chunk por componente pequeño aumenta requests y overhead; una frontera por capacidad de producto suele equilibrar carga inicial y reutilización.',
       'Guards controlan navegación en el cliente; el servidor debe repetir autorización. `CanMatch` evita seleccionar rutas; `CanActivate` decide activación.',
       'Resolvers reducen estados intermedios cuando la ruta necesita datos antes de mostrar. Para pantallas tolerantes al loading, una carga dentro de la feature mejora percepción.',
       'Los path params identifican recursos dentro de la ruta; los query params representan filtros o estado compartible; el fragment apunta a una sección del documento. Rutas hijas componen layouts, outlets muestran árboles paralelos, redirects normalizan URLs y route data aporta metadata estática.',
       'Una `RouteReuseStrategy` puede conservar la instancia y el DOM de una ruta al navegar. También conserva memoria, estado y suscripciones; una política de invalidación decide cuándo destruir ese snapshot.',
       '`RouterTestingHarness` crea un router de prueba, navega por URL y expone el componente activado. Permite comprobar parámetros inválidos, redirects, guards rechazados y errores de resolvers desde el comportamiento observable.',
+    ],
+    theorySections: [
+      {
+        title: 'Modelo mental',
+        items: [
+          'El Router compara la URL con un árbol de rutas, ejecuta redirects, guards y resolvers, activa componentes en outlets y conserva snapshots más streams de cambios. La navegación puede cancelarse o redirigirse antes de crear la vista.',
+          '`loadComponent` y `loadChildren` crean fronteras lazy. Los providers declarados en una ruta pertenecen a su environment injector y permiten aislar servicios por feature.',
+          'Component input binding puede llevar params, query params, datos estáticos y resolvers a inputs del componente. Esa API reduce subscriptions manuales, pero el nombre y la ausencia de cada valor siguen formando parte del contrato de ruta.',
+        ],
+      },
+      {
+        title: 'Funcionamiento y APIs',
+        items: [
+          '`loadComponent` y `loadChildren` crean fronteras de lazy loading que descargan una feature al navegar. Un chunk por componente pequeño aumenta requests y overhead; una frontera por capacidad de producto suele equilibrar carga inicial y reutilización.',
+          'Guards controlan navegación en el cliente; el servidor debe repetir autorización. `CanMatch` evita seleccionar rutas; `CanActivate` decide activación.',
+          'Resolvers reducen estados intermedios cuando la ruta necesita datos antes de mostrar. Para pantallas tolerantes al loading, una carga dentro de la feature mejora percepción.',
+        ],
+      },
+      {
+        title: 'Decisiones, riesgos y verificación',
+        items: [
+          'Los path params identifican recursos dentro de la ruta; los query params representan filtros o estado compartible; el fragment apunta a una sección del documento. Rutas hijas componen layouts, outlets muestran árboles paralelos, redirects normalizan URLs y route data aporta metadata estática.',
+          'Una `RouteReuseStrategy` puede conservar la instancia y el DOM de una ruta al navegar. También conserva memoria, estado y suscripciones; una política de invalidación decide cuándo destruir ese snapshot.',
+          '`RouterTestingHarness` crea un router de prueba, navega por URL y expone el componente activado. Permite comprobar parámetros inválidos, redirects, guards rechazados y errores de resolvers desde el comportamiento observable.',
+        ],
+      },
     ],
     questions: [
       {
@@ -806,6 +1538,33 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
         answer:
           'Evito bloquear navegación para datos secundarios o lentos. La pantalla puede mostrar estructura, loading y recuperación parcial. Uso resolver cuando el dato define si la ruta tiene sentido o cuando entrar sin él produciría un estado inválido.',
       },
+      {
+        question: '¿En qué orden intervienen guards y resolvers?',
+        answer:
+          'Angular reconoce la ruta, evalúa guards y, si permiten continuar, ejecuta resolvers antes de activar el componente. Un redirect o cancelación corta la navegación; los errores necesitan una política de navegación o error handler.',
+      },
+      {
+        question: '¿Un guard protege datos?',
+        answer:
+          'No. Controla la navegación del cliente y mejora la experiencia. La API debe autenticar y autorizar cada operación porque un usuario puede llamar el endpoint sin pasar por el Router.',
+      },
+      {
+        question: '¿Cuándo usarías un resolver?',
+        answer:
+          'Cuando la ruta no tiene sentido sin un dato pequeño y crítico o necesito decidir antes de activarla. Para contenido secundario prefiero cargar dentro de la vista y mostrar estados parciales, porque un resolver largo retrasa toda la navegación.',
+      },
+      {
+        question: '¿Cómo probás el Router?',
+        answer:
+          'Uso RouterTestingHarness con rutas reales, navego una URL y compruebo componente, redirects y estado visible. Tests aislados cubren la lógica de guards o resolvers y los de integración cubren el orden de navegación.',
+      },
+    ],
+    code: "export const routes: Routes = [{\n  path: 'users/:id',\n  loadComponent: () => import('./user.page').then(m => m.UserPage),\n  canActivate: [authGuard],\n  resolve: { user: userResolver },\n  providers: [UserFeatureStore],\n}];",
+    references: [
+      {
+        label: 'Angular · Routing',
+        url: 'https://angular.dev/guide/routing',
+      },
     ],
   },
   {
@@ -816,6 +1575,9 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
     intro:
       'Los formularios Senior incluyen tipado, composición, validación asíncrona, accesibilidad y rendimiento.',
     theory: [
+      'Reactive Forms crea un árbol de controles en TypeScript. Cada control conserva valor, estado de validación, interacción y disabled; el grupo agrega los estados de sus hijos y emite cuando cambia el modelo.',
+      "`updateOn: 'blur'` o `'submit'` reduce validaciones y requests durante escritura. Un validador de grupo compara campos relacionados y devuelve el error en el nivel que posee la regla.",
+      'Un validador asíncrono debe completar y resolver carreras. Debounce, `switchMap` y una caché corta evitan requests innecesarias; la UI distingue `PENDING`, error de red y valor inválido.',
       'Reactive Forms modela el formulario en TypeScript; template-driven sirve para casos pequeños. Typed Forms reduce casts y errores.',
       '`FormControl`, `FormGroup`, `FormArray` y `FormRecord` cubren formas fijas, listas y claves dinámicas.',
       'Un validador síncrono devuelve `ValidationErrors | null`; uno asíncrono devuelve Promise u Observable y necesita cancelación o debounce según el caso.',
@@ -823,6 +1585,33 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
       'Copiar cada emisión de `valueChanges` a otro objeto crea dos representaciones del formulario que pueden divergir. El `FormGroup` puede ser la fuente de verdad durante la edición y el submit puede mapear su valor a un comando o DTO.',
       'Los errores se muestran después de interacción o submit para evitar ruido antes de que el usuario actúe. `aria-describedby` asocia el mensaje con el control; el foco debe llegar al primer campo inválido cuando un submit no puede continuar.',
       'Signal Forms ofrece un modelo nuevo en versiones recientes. Presentalo como opción a evaluar, no como reemplazo automático de Reactive Forms.',
+    ],
+    theorySections: [
+      {
+        title: 'Modelo mental',
+        items: [
+          'Reactive Forms crea un árbol de controles en TypeScript. Cada control conserva valor, estado de validación, interacción y disabled; el grupo agrega los estados de sus hijos y emite cuando cambia el modelo.',
+          "`updateOn: 'blur'` o `'submit'` reduce validaciones y requests durante escritura. Un validador de grupo compara campos relacionados y devuelve el error en el nivel que posee la regla.",
+          'Un validador asíncrono debe completar y resolver carreras. Debounce, `switchMap` y una caché corta evitan requests innecesarias; la UI distingue `PENDING`, error de red y valor inválido.',
+          'Reactive Forms modela el formulario en TypeScript; template-driven sirve para casos pequeños. Typed Forms reduce casts y errores.',
+        ],
+      },
+      {
+        title: 'Funcionamiento y APIs',
+        items: [
+          '`FormControl`, `FormGroup`, `FormArray` y `FormRecord` cubren formas fijas, listas y claves dinámicas.',
+          'Un validador síncrono devuelve `ValidationErrors | null`; uno asíncrono devuelve Promise u Observable y necesita cancelación o debounce según el caso.',
+          '`ControlValueAccessor` conecta un control propio con Angular Forms mediante cuatro operaciones: escribir un valor, registrar cambios, registrar touched y aplicar disabled. El control no debe volver a emitir como cambio el valor que Forms acaba de escribirle, porque eso crea un loop.',
+        ],
+      },
+      {
+        title: 'Decisiones, riesgos y verificación',
+        items: [
+          'Copiar cada emisión de `valueChanges` a otro objeto crea dos representaciones del formulario que pueden divergir. El `FormGroup` puede ser la fuente de verdad durante la edición y el submit puede mapear su valor a un comando o DTO.',
+          'Los errores se muestran después de interacción o submit para evitar ruido antes de que el usuario actúe. `aria-describedby` asocia el mensaje con el control; el foco debe llegar al primer campo inválido cuando un submit no puede continuar.',
+          'Signal Forms ofrece un modelo nuevo en versiones recientes. Presentalo como opción a evaluar, no como reemplazo automático de Reactive Forms.',
+        ],
+      },
     ],
     questions: [
       {
@@ -845,6 +1634,33 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
         answer:
           'Modelo la validación como un flujo que cancela la consulta anterior al cambiar el valor. Aplico debounce cuando corresponde y distingo error de transporte, valor inválido y estado pendiente en la interfaz.',
       },
+      {
+        question: '¿Dónde ubicarías una validación entre dos campos?',
+        answer:
+          'En el FormGroup que posee ambos controles. El validador devuelve un error del grupo y la presentación decide en qué campos anunciarlo sin mutar errores ajenos.',
+      },
+      {
+        question: "¿Qué cambia con `updateOn: 'blur'`?",
+        answer:
+          'El control actualiza valor y validación al perder foco. Reduce trabajo y requests mientras se escribe, pero cambia cuándo valueChanges emite y cuándo la UI puede mostrar el resultado.',
+      },
+      {
+        question: '¿Cómo tipás un FormArray?',
+        answer:
+          'Declaro el tipo del control repetido, por ejemplo `FormArray<FormGroup<AddressControls>>`. El tipo describe controles, mientras `getRawValue` produce el valor incluyendo controles disabled.',
+      },
+      {
+        question: '¿Cómo enfocás el primer error al enviar?',
+        answer:
+          'Marco controles como touched, localizo el primer elemento inválido siguiendo el orden visual, lo enfoco y conecto el mensaje con `aria-describedby`. Un resumen de errores puede enlazar cada campo en formularios largos.',
+      },
+    ],
+    code: "readonly form = new FormGroup({\n  email: new FormControl('', {\n    nonNullable: true,\n    validators: [Validators.required, Validators.email],\n    asyncValidators: [uniqueEmailValidator(this.http)],\n    updateOn: 'blur',\n  }),\n  addresses: new FormArray<FormGroup<AddressControls>>([]),\n});",
+    references: [
+      {
+        label: 'Angular · Forms',
+        url: 'https://angular.dev/guide/forms',
+      },
     ],
   },
   {
@@ -855,6 +1671,9 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
     intro:
       'El cliente debe modelar contratos, cancelación y fallos. Los interceptors resuelven preocupaciones transversales, no lógica de dominio.',
     theory: [
+      '`HttpRequest` y `HttpHeaders` son inmutables. Un interceptor usa `request.clone` para cambiar URL, headers, params o body y luego entrega la request al siguiente handler.',
+      'Los interceptors funcionales se ejecutan en el orden de registro para la request y en orden inverso para la response. `HttpContextToken` permite activar políticas por request sin convertirlas en headers de red.',
+      "`observe: 'events'` expone progreso, headers y respuesta final. El progreso de upload requiere un backend que lo soporte; fetch no informa progreso de subida del mismo modo que XHR.",
       '`provideHttpClient` registra el cliente HTTP y los interceptors funcionales forman una cadena alrededor de cada request. Los servicios o repositorios de feature encapsulan URLs, DTOs y reglas de acceso para que los componentes dependan del dominio.',
       'Los tipos de TypeScript desaparecen al compilar y no validan el JSON recibido. Un schema runtime comprueba datos externos antes de usarlos; un mapper traduce el DTO del servidor a un modelo interno estable.',
       'Un interceptor puede agregar autenticación, correlation IDs y telemetría, o normalizar errores. Un loader global necesita contar requests concurrentes: un booleano se apaga cuando termina la primera aunque otras sigan activas.',
@@ -862,6 +1681,33 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
       'Timeout, cancelación, offline, fallo de red, 401/403, 404, validación y 5xx representan estados distintos. La interfaz puede ofrecer reintento para red o timeout, login para 401, corrección de campos para validación y un fallback ante errores del servidor.',
       '`httpResource` conecta `HttpClient` con una API de signals para request, valor, loading y error. En dominios grandes, la estrategia todavía necesita claves de caché, invalidación, aislamiento por usuario y coordinación con otras escrituras.',
       'Una caché se define por su clave, vida útil, política de invalidación y aislamiento. La deduplicación comparte una petición en curso; stale-while-revalidate entrega el valor anterior mientras actualiza. Incluir el usuario o tenant en la clave evita mezclar datos privados.',
+    ],
+    theorySections: [
+      {
+        title: 'Modelo mental',
+        items: [
+          '`HttpRequest` y `HttpHeaders` son inmutables. Un interceptor usa `request.clone` para cambiar URL, headers, params o body y luego entrega la request al siguiente handler.',
+          'Los interceptors funcionales se ejecutan en el orden de registro para la request y en orden inverso para la response. `HttpContextToken` permite activar políticas por request sin convertirlas en headers de red.',
+          "`observe: 'events'` expone progreso, headers y respuesta final. El progreso de upload requiere un backend que lo soporte; fetch no informa progreso de subida del mismo modo que XHR.",
+          '`provideHttpClient` registra el cliente HTTP y los interceptors funcionales forman una cadena alrededor de cada request. Los servicios o repositorios de feature encapsulan URLs, DTOs y reglas de acceso para que los componentes dependan del dominio.',
+        ],
+      },
+      {
+        title: 'Funcionamiento y APIs',
+        items: [
+          'Los tipos de TypeScript desaparecen al compilar y no validan el JSON recibido. Un schema runtime comprueba datos externos antes de usarlos; un mapper traduce el DTO del servidor a un modelo interno estable.',
+          'Un interceptor puede agregar autenticación, correlation IDs y telemetría, o normalizar errores. Un loader global necesita contar requests concurrentes: un booleano se apaga cuando termina la primera aunque otras sigan activas.',
+          'Un retry repite una operación que falló. Los métodos idempotentes pueden repetirse sin cambiar el resultado; una escritura necesita una clave de idempotencia si existe riesgo de duplicación. Backoff, jitter y un límite evitan amplificar una caída, y los errores funcionales 4xx requieren otra acción.',
+        ],
+      },
+      {
+        title: 'Decisiones, riesgos y verificación',
+        items: [
+          'Timeout, cancelación, offline, fallo de red, 401/403, 404, validación y 5xx representan estados distintos. La interfaz puede ofrecer reintento para red o timeout, login para 401, corrección de campos para validación y un fallback ante errores del servidor.',
+          '`httpResource` conecta `HttpClient` con una API de signals para request, valor, loading y error. En dominios grandes, la estrategia todavía necesita claves de caché, invalidación, aislamiento por usuario y coordinación con otras escrituras.',
+          'Una caché se define por su clave, vida útil, política de invalidación y aislamiento. La deduplicación comparte una petición en curso; stale-while-revalidate entrega el valor anterior mientras actualiza. Incluir el usuario o tenant en la clave evita mezclar datos privados.',
+        ],
+      },
     ],
     questions: [
       {
@@ -884,6 +1730,33 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
         answer:
           'Relaciono cada escritura con las keys afectadas. Puedo invalidar, actualizar de forma optimista o reemplazar con la respuesta del servidor. La política incluye rollback y evita borrar datos de dominios no relacionados.',
       },
+      {
+        question: '¿Por qué una request de HttpClient se clona?',
+        answer:
+          'HttpRequest es inmutable. `clone` crea una request con los cambios y conserva el objeto original para que la cadena de interceptors pueda razonar sin mutaciones compartidas.',
+      },
+      {
+        question: '¿En qué orden corren los interceptors?',
+        answer:
+          'La request atraviesa la lista en el orden de registro. La response vuelve por la cadena en orden inverso, como capas anidadas. El orden afecta auth, cache, retry, loaders y telemetría.',
+      },
+      {
+        question: '¿Para qué sirve HttpContext?',
+        answer:
+          'Transporta configuración local dentro del pipeline sin enviarla al servidor. Un interceptor puede leer un HttpContextToken para omitir auth, activar cache o cambiar tratamiento de errores para una request concreta.',
+      },
+      {
+        question: '¿Cómo evitás dos refresh de token simultáneos?',
+        answer:
+          'Comparto una única operación de refresh mientras esté activa, encolo o reintento las requests originales después del nuevo token y limpio el estado al terminar. Si el refresh falla, cierro sesión una sola vez.',
+      },
+    ],
+    code: 'export const authInterceptor: HttpInterceptorFn = (request, next) => {\n  const token = inject(AuthStore).token();\n  const authenticated = request.clone({\n    setHeaders: { Authorization: `Bearer ${token}` },\n  });\n  return next(authenticated);\n};',
+    references: [
+      {
+        label: 'Angular · HTTP',
+        url: 'https://angular.dev/guide/http',
+      },
     ],
   },
   {
@@ -904,6 +1777,33 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
       'DNS resuelve host; TLS autentica y cifra; HTTP transporta requests. HTTP/2 multiplexa streams; HTTP/3 usa QUIC sobre UDP.',
       'SPA actualiza vistas sin recargar documento. History API mantiene URL; el servidor debe redirigir rutas de app al HTML o renderizarlas.',
       'Web Worker ejecuta JavaScript fuera del main thread y se comunica por mensajes. No accede al DOM. Service Worker opera como proxy de red y ciclo separado.',
+    ],
+    theorySections: [
+      {
+        title: 'Fundamentos',
+        items: [
+          'DOM representa el documento; BOM agrupa APIs del navegador como `window`, history, location, navigator y screen. Angular abstrae parte del DOM, pero no reemplaza la plataforma.',
+          'Selección: `querySelector`, `querySelectorAll`, `getElementById`. Eventos atraviesan capture, target y bubble. Delegation aprovecha bubbling para manejar listas dinámicas.',
+          '`preventDefault` evita la acción por defecto; `stopPropagation` detiene propagación. Usarlos sin entender semántica rompe formularios, enlaces y accesibilidad.',
+          'El navegador parsea HTML y CSS, construye DOM y CSSOM, calcula estilos y layout, pinta y compone capas. Leer layout después de escribir estilos puede forzar reflow.',
+        ],
+      },
+      {
+        title: 'Mecanismo y aplicación',
+        items: [
+          '`localStorage` persiste por origin y ofrece API síncrona; `sessionStorage` vive por pestaña; IndexedDB almacena datos estructurados de forma asíncrona. Cookies viajan según sus atributos y reglas de request.',
+          'Same-origin combina scheme, host y port. CORS permite que un servidor autorice lecturas cross-origin; la preflight OPTIONS valida ciertos métodos y headers.',
+          'HTTP cache usa `Cache-Control`, validators como ETag y claves que pueden variar. Service Worker puede interceptar requests y agrega otra capa de cache e invalidación.',
+        ],
+      },
+      {
+        title: 'Decisiones y límites',
+        items: [
+          'DNS resuelve host; TLS autentica y cifra; HTTP transporta requests. HTTP/2 multiplexa streams; HTTP/3 usa QUIC sobre UDP.',
+          'SPA actualiza vistas sin recargar documento. History API mantiene URL; el servidor debe redirigir rutas de app al HTML o renderizarlas.',
+          'Web Worker ejecuta JavaScript fuera del main thread y se comunica por mensajes. No accede al DOM. Service Worker opera como proxy de red y ciclo separado.',
+        ],
+      },
     ],
     questions: [
       {
@@ -937,6 +1837,12 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
           'No. CORS controla qué respuestas puede leer JavaScript desde otro origin en un navegador. Un script de servidor puede llamar al endpoint. La API todavía necesita autenticación, autorización y validación.',
       },
     ],
+    references: [
+      {
+        label: 'Angular · Style guide',
+        url: 'https://angular.dev/style-guide',
+      },
+    ],
   },
   {
     id: 'arquitectura-de-aplicaciones-angular',
@@ -953,6 +1859,30 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
       'Un monorepo mejora sharing y refactors coordinados; agrega costo de tooling y ownership. Nx puede imponer boundaries y cachear tareas.',
       'Micro-frontends sirven para despliegue y ownership independientes. Aumentan duplicación, integración, observabilidad y consistencia visual.',
       'Un Architecture Decision Record conserva el contexto, las alternativas evaluadas, la decisión, sus consecuencias y una fecha de revisión. El registro explica por qué existe una restricción cuando cambia el equipo o el contexto original.',
+    ],
+    theorySections: [
+      {
+        title: 'Fundamentos',
+        items: [
+          'La organización por feature agrupa UI, acceso a datos, modelos y rutas que cambian por la misma capacidad de producto. Una organización global por tipo técnico dispersa una modificación entre carpetas distantes y debilita los límites de dominio.',
+          'Un componente presentacional recibe datos y emite eventos; un orquestador coordina estado, navegación y servicios. La separación reduce dependencias cuando varias vistas reutilizan la presentación, pero añade capas vacías si ambas piezas cambian siempre juntas.',
+          'Dependency inversion hace que el dominio dependa de un contrato estable y que el detalle implemente ese contrato. En Angular, un `InjectionToken` más un adapter permite cambiar analytics, storage, pagos o una API externa sin modificar consumidores.',
+        ],
+      },
+      {
+        title: 'Mecanismo y aplicación',
+        items: [
+          'La public API de una librería o feature declara qué símbolos pueden consumir otros módulos. Los imports profundos atraviesan ese límite, acoplan al árbol interno de archivos y convierten un refactor local en un cambio global.',
+          'Un monorepo mejora sharing y refactors coordinados; agrega costo de tooling y ownership. Nx puede imponer boundaries y cachear tareas.',
+        ],
+      },
+      {
+        title: 'Decisiones y límites',
+        items: [
+          'Micro-frontends sirven para despliegue y ownership independientes. Aumentan duplicación, integración, observabilidad y consistencia visual.',
+          'Un Architecture Decision Record conserva el contexto, las alternativas evaluadas, la decisión, sus consecuencias y una fecha de revisión. El registro explica por qué existe una restricción cuando cambia el equipo o el contexto original.',
+        ],
+      },
     ],
     questions: [
       {
@@ -975,6 +1905,22 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
         answer:
           'Recibe componentes, modelos y servicios de dominios distintos hasta convertirse en una dependencia global. Separo primitives reutilizables de contratos de negocio y dejo cada modelo cerca de la feature que lo posee.',
       },
+      {
+        question: '¿Cómo evitás que una feature dependa de detalles de otra?',
+        answer:
+          'Expongo una public API pequeña y contratos de dominio. La feature consumidora no importa componentes internos, stores privados ni rutas de archivos profundas; se comunica mediante servicios, eventos o modelos publicados.',
+      },
+      {
+        question: '¿Cuándo una capa facade agrega valor?',
+        answer:
+          'Cuando concentra varios stores o servicios, traduce modelos y ofrece casos de uso estables a la UI. Si sólo reenvía cada método con el mismo nombre y tipo, agrega navegación sin reducir acoplamiento.',
+      },
+    ],
+    references: [
+      {
+        label: 'Angular · Style guide',
+        url: 'https://angular.dev/style-guide',
+      },
     ],
   },
   {
@@ -990,6 +1936,28 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
       'SRP separa motivos de cambio. OCP favorece extensión por contratos. LSP exige sustitución válida. ISP mantiene contratos pequeños. DIP invierte dependencias hacia abstracciones.',
       'Composition over inheritance evita jerarquías rígidas. Las directivas, providers y content projection forman mecanismos de composición.',
       'Un god service acumula motivos de cambio; un shared module masivo crea dependencias implícitas; los barrel cycles ocultan ciclos; los boolean flags multiplican estados; las subscriptions anidadas pierden control de concurrencia y la lógica de negocio en templates se repite y resulta difícil de probar.',
+    ],
+    theorySections: [
+      {
+        title: 'Fundamentos',
+        items: [
+          'Strategy para políticas intercambiables; Adapter para integrar contratos externos; Facade para reducir superficie; Factory para construcción variable.',
+          'Observer aparece en RxJS; Decorator en metadata e interceptors; Command y event patterns aparecen en stores. Singleton depende del injector.',
+        ],
+      },
+      {
+        title: 'Mecanismo y aplicación',
+        items: [
+          'SRP separa motivos de cambio. OCP favorece extensión por contratos. LSP exige sustitución válida. ISP mantiene contratos pequeños. DIP invierte dependencias hacia abstracciones.',
+          'Composition over inheritance evita jerarquías rígidas. Las directivas, providers y content projection forman mecanismos de composición.',
+        ],
+      },
+      {
+        title: 'Decisiones y límites',
+        items: [
+          'Un god service acumula motivos de cambio; un shared module masivo crea dependencias implícitas; los barrel cycles ocultan ciclos; los boolean flags multiplican estados; las subscriptions anidadas pierden control de concurrencia y la lógica de negocio en templates se repite y resulta difícil de probar.',
+        ],
+      },
     ],
     questions: [
       {
@@ -1012,6 +1980,23 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
         answer:
           'Una facade que sólo renombra cada método añade navegación sin reducir acoplamiento. La uso cuando concentra un caso de uso, oculta coordinación entre dependencias o protege a la UI de cambios del subsistema.',
       },
+      {
+        question: '¿Cómo aplicarías Strategy en Angular?',
+        answer:
+          'Defino un contrato para la operación, registro implementaciones mediante DI y selecciono la estrategia por configuración o contexto. El consumidor conoce la capacidad, mientras cada algoritmo conserva tests y dependencias propias.',
+      },
+      {
+        question:
+          '¿Qué señal indica que una abstracción llegó demasiado pronto?',
+        answer:
+          'La interfaz tiene una sola implementación, replica todos sus métodos y cambia junto con el detalle. Espero casos de variación concretos y extraigo la frontera que esos casos comparten.',
+      },
+    ],
+    references: [
+      {
+        label: 'Angular · Style guide',
+        url: 'https://angular.dev/style-guide',
+      },
     ],
   },
   {
@@ -1028,6 +2013,29 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
       'Una pipe impura y una función costosa en template pueden ejecutarse en cada check. Listeners globales sin cleanup retienen vistas, las imágenes sin dimensiones causan CLS y una dependencia grande aumenta parse, compile y ejecución además de transferencia.',
       'AOT, tree shaking, budgets y source-map analysis detectan regresiones. Un import pequeño puede arrastrar una dependencia grande.',
       'Las escrituras DOM invalidan estilos y las lecturas geométricas pueden forzar su cálculo. Agrupar ambas fases evita layout thrashing. Debounce reduce eventos de alta frecuencia; un Web Worker descarga CPU cuando el costo de serializar mensajes resulta menor que bloquear el main thread.',
+    ],
+    theorySections: [
+      {
+        title: 'Fundamentos',
+        items: [
+          'LCP mide cuándo aparece el mayor elemento visible, INP observa la latencia de las interacciones y CLS acumula desplazamientos inesperados. Bundle size, long tasks, memoria y frecuencia de renders explican sus causas. Lighthouse usa un entorno sintético; RUM registra dispositivos y redes reales.',
+          'Lazy routes y `@defer` sacan JavaScript del bundle inicial. El beneficio depende del waterfall de chunks, preloading, prefetch y caché HTTP: demasiadas fronteras pequeñas pueden intercambiar bytes iniciales por latencia de red.',
+        ],
+      },
+      {
+        title: 'Mecanismo y aplicación',
+        items: [
+          '`OnPush` permite saltar subárboles sin notificaciones, signals marcan consumidores precisos y un `track` estable conserva nodos de una lista. Virtual scroll limita el DOM visible; la paginación reduce además datos transferidos y trabajo del servidor.',
+          'Una pipe impura y una función costosa en template pueden ejecutarse en cada check. Listeners globales sin cleanup retienen vistas, las imágenes sin dimensiones causan CLS y una dependencia grande aumenta parse, compile y ejecución además de transferencia.',
+        ],
+      },
+      {
+        title: 'Decisiones y límites',
+        items: [
+          'AOT, tree shaking, budgets y source-map analysis detectan regresiones. Un import pequeño puede arrastrar una dependencia grande.',
+          'Las escrituras DOM invalidan estilos y las lecturas geométricas pueden forzar su cálculo. Agrupar ambas fases evita layout thrashing. Debounce reduce eventos de alta frecuencia; un Web Worker descarga CPU cuando el costo de serializar mensajes resulta menor que bloquear el main thread.',
+        ],
+      },
     ],
     questions: [
       {
@@ -1050,6 +2058,22 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
         answer:
           'No. OnPush puede reducir verificaciones de vistas, pero una función que ocupa el main thread sigue bloqueando input y render. Divido el trabajo, reduzco su complejidad o lo muevo a un Worker si el costo de mensajes lo permite.',
       },
+      {
+        question: '¿Cómo investigarías un INP alto?',
+        answer:
+          'Reproduzco la interacción con Performance panel y RUM, localizo long tasks y separo scripting, style, layout y paint. Después reduzco trabajo de la ruta crítica, divido CPU o limita renders y vuelvo a medir en dispositivos reales.',
+      },
+      {
+        question: '¿Cuándo virtual scroll no alcanza?',
+        answer:
+          'Virtual scroll reduce nodos DOM, pero no reduce datos descargados, filtros costosos ni memoria del modelo completo. Con cientos de miles de filas combino paginación server-side, consultas remotas y una ventana visible accesible.',
+      },
+    ],
+    references: [
+      {
+        label: 'web.dev · Web Vitals',
+        url: 'https://web.dev/articles/vitals',
+      },
     ],
   },
   {
@@ -1060,12 +2084,41 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
     intro:
       'Elegí estrategia por ruta. SEO, personalización, costo de servidor y tiempo de interacción empujan decisiones distintas.',
     theory: [
+      'La hidratación reutiliza el DOM producido por el servidor y conecta las views del cliente sin reconstruir la página. El HTML del servidor y el primer render del cliente deben producir la misma estructura.',
+      '`Date.now`, `Math.random`, locale, datos privados y condiciones distintas entre servidor y navegador pueden crear mismatches. El servidor debe transferir el dato determinista o el cliente debe calcularlo después de hidratar.',
+      'Incremental hydration conserva bloques `@defer` deshidratados hasta un trigger `hydrate on ...`. Event replay registra interacciones previas y las reproduce cuando la sección ya puede responder.',
       'CSR simplifica aplicaciones privadas. SSG sirve contenido estable. SSR sirve HTML fresco y SEO. Hybrid combina estrategias por ruta.',
       'Hydration reutiliza el HTML del servidor. El cliente debe producir una estructura compatible; DOM inválido o manipulación directa rompe el proceso.',
       'Incremental hydration activa sectores cuando se necesitan y trabaja con `@defer`. Event replay conserva interacciones previas a la hidratación.',
       '`window`, `document`, storage y otras APIs del navegador no existen durante SSR. Platform checks, tokens inyectables y render hooks aíslan ese código para que el servidor pueda construir el HTML sin acceder al entorno cliente.',
       'Transfer cache reutiliza en el cliente ciertas respuestas obtenidas durante SSR y evita una segunda petición inmediata. La clave y el HTML generado deben aislar datos por usuario para impedir que una respuesta privada termine en otra sesión.',
       'Un placeholder con las mismas dimensiones que el contenido final reserva espacio y reduce CLS. El contenido above-the-fold participa en LCP y suele cargarse antes; los bloques secundarios admiten lazy loading o hidratación diferida.',
+    ],
+    theorySections: [
+      {
+        title: 'Fundamentos',
+        items: [
+          'La hidratación reutiliza el DOM producido por el servidor y conecta las views del cliente sin reconstruir la página. El HTML del servidor y el primer render del cliente deben producir la misma estructura.',
+          '`Date.now`, `Math.random`, locale, datos privados y condiciones distintas entre servidor y navegador pueden crear mismatches. El servidor debe transferir el dato determinista o el cliente debe calcularlo después de hidratar.',
+          'Incremental hydration conserva bloques `@defer` deshidratados hasta un trigger `hydrate on ...`. Event replay registra interacciones previas y las reproduce cuando la sección ya puede responder.',
+        ],
+      },
+      {
+        title: 'Mecanismo y aplicación',
+        items: [
+          'CSR simplifica aplicaciones privadas. SSG sirve contenido estable. SSR sirve HTML fresco y SEO. Hybrid combina estrategias por ruta.',
+          'Hydration reutiliza el HTML del servidor. El cliente debe producir una estructura compatible; DOM inválido o manipulación directa rompe el proceso.',
+          'Incremental hydration activa sectores cuando se necesitan y trabaja con `@defer`. Event replay conserva interacciones previas a la hidratación.',
+        ],
+      },
+      {
+        title: 'Decisiones y límites',
+        items: [
+          '`window`, `document`, storage y otras APIs del navegador no existen durante SSR. Platform checks, tokens inyectables y render hooks aíslan ese código para que el servidor pueda construir el HTML sin acceder al entorno cliente.',
+          'Transfer cache reutiliza en el cliente ciertas respuestas obtenidas durante SSR y evita una segunda petición inmediata. La clave y el HTML generado deben aislar datos por usuario para impedir que una respuesta privada termine en otra sesión.',
+          'Un placeholder con las mismas dimensiones que el contenido final reserva espacio y reduce CLS. El contenido above-the-fold participa en LCP y suele cargarse antes; los bloques secundarios admiten lazy loading o hidratación diferida.',
+        ],
+      },
     ],
     questions: [
       {
@@ -1088,6 +2141,38 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
         answer:
           'El cliente produce un árbol distinto al HTML del servidor por datos no deterministas, acceso al navegador o markup condicional. Comparto el estado inicial, aíslo APIs del browser y mantengo estable la estructura hasta hidratar.',
       },
+      {
+        question: '¿Qué produce un hydration mismatch?',
+        answer:
+          'El servidor y el primer render del cliente generan estructuras diferentes. Fechas, random, locale, acceso temprano al DOM o condiciones browser-only son causas comunes. Transfiero datos deterministas y pospongo efectos de navegador hasta después de hidratar.',
+      },
+      {
+        question: '¿Qué hace event replay?',
+        answer:
+          'Captura interacciones que ocurren sobre HTML SSR antes de que Angular conecte listeners y las reproduce al terminar la hidratación correspondiente. Evita que un click temprano parezca perdido.',
+      },
+      {
+        question: '¿Qué diferencia full e incremental hydration?',
+        answer:
+          'Full hydration activa la aplicación completa. Incremental hydration conserva límites `@defer` deshidratados y los activa por triggers como viewport o interaction, reduciendo JavaScript inicial a cambio de más estados y decisiones de carga.',
+      },
+      {
+        question:
+          '¿Por qué evitarías cambiar el árbol con `isPlatformBrowser`?',
+        answer:
+          'La condición puede hacer que servidor y cliente creen nodos distintos durante la hidratación. Mantengo la misma estructura y ejecuto sólo la integración browser después del render, o excluyo de hidratación un caso aislado como último recurso.',
+      },
+    ],
+    code: 'bootstrapApplication(AppComponent, {\n  providers: [provideClientHydration()],\n});\n\n// La estructura renderizada debe coincidir en servidor y cliente.\n@defer (on viewport; hydrate on interaction) {\n  <reviews-panel />\n} @placeholder {\n  <reviews-skeleton />\n}',
+    references: [
+      {
+        label: 'Angular · SSR',
+        url: 'https://angular.dev/guide/ssr',
+      },
+      {
+        label: 'Angular · Hydration',
+        url: 'https://angular.dev/guide/hydration',
+      },
     ],
   },
   {
@@ -1098,6 +2183,8 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
     intro:
       'Una suite Senior protege comportamiento y contratos. Evitá tests que copian la implementación.',
     theory: [
+      'Un test útil prepara estado, ejecuta una acción observable y comprueba el resultado. Vitest aporta runner, assertions, spies y fake timers; TestBed agrega el entorno de inyección, compilación y render de Angular.',
+      'Los component harnesses encapsulan la forma de operar un componente y permiten que los tests usen una API estable. RouterTestingHarness navega rutas reales dentro del test y verifica guards, params, resolvers y componentes activados.',
       'Pirámide práctica: muchas pruebas de lógica, componentes para comportamiento DOM, integración en fronteras y pocos E2E de journeys críticos.',
       'Angular moderno documenta Vitest junto con TestBed. Bases existentes pueden usar Jasmine/Jest; la estrategia importa más que la sintaxis.',
       'Un test de componente interactúa con el DOM mediante roles, labels y eventos, y comprueba el resultado visible. Los métodos privados y la estructura interna son detalles de implementación; afirmar sobre ellos vuelve frágil el test ante refactors sin cambio de comportamiento.',
@@ -1105,6 +2192,32 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
       '`RouterTestingHarness` simplifica navegación. Los component harnesses crean APIs de prueba estables para UI reutilizable.',
       'Fake timers controlan el reloj de debounce, retry y delays sin esperar tiempo real. Los marble tests representan emisiones RxJS sobre una línea temporal virtual y sirven cuando el orden y la concurrencia forman parte del contrato.',
       'Un mock reemplaza una frontera y permite aislar la unidad, pero demasiados mocks pueden describir una integración que ningún proveedor real soporta. Los contract tests verifican que DTOs, adapters y clientes respeten el mismo contrato.',
+    ],
+    theorySections: [
+      {
+        title: 'Fundamentos',
+        items: [
+          'Un test útil prepara estado, ejecuta una acción observable y comprueba el resultado. Vitest aporta runner, assertions, spies y fake timers; TestBed agrega el entorno de inyección, compilación y render de Angular.',
+          'Los component harnesses encapsulan la forma de operar un componente y permiten que los tests usen una API estable. RouterTestingHarness navega rutas reales dentro del test y verifica guards, params, resolvers y componentes activados.',
+          'Pirámide práctica: muchas pruebas de lógica, componentes para comportamiento DOM, integración en fronteras y pocos E2E de journeys críticos.',
+        ],
+      },
+      {
+        title: 'Mecanismo y aplicación',
+        items: [
+          'Angular moderno documenta Vitest junto con TestBed. Bases existentes pueden usar Jasmine/Jest; la estrategia importa más que la sintaxis.',
+          'Un test de componente interactúa con el DOM mediante roles, labels y eventos, y comprueba el resultado visible. Los métodos privados y la estructura interna son detalles de implementación; afirmar sobre ellos vuelve frágil el test ante refactors sin cambio de comportamiento.',
+          '`HttpTestingController` intercepta requests de `HttpClient` y permite afirmar método, URL, body y headers antes de responder con éxito o error. `verify()` comprueba al final que ninguna petición haya quedado pendiente.',
+        ],
+      },
+      {
+        title: 'Decisiones y límites',
+        items: [
+          '`RouterTestingHarness` simplifica navegación. Los component harnesses crean APIs de prueba estables para UI reutilizable.',
+          'Fake timers controlan el reloj de debounce, retry y delays sin esperar tiempo real. Los marble tests representan emisiones RxJS sobre una línea temporal virtual y sirven cuando el orden y la concurrencia forman parte del contrato.',
+          'Un mock reemplaza una frontera y permite aislar la unidad, pero demasiados mocks pueden describir una integración que ningún proveedor real soporta. Los contract tests verifican que DTOs, adapters y clientes respeten el mismo contrato.',
+        ],
+      },
     ],
     questions: [
       {
@@ -1127,6 +2240,33 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
         answer:
           'Controlo reloj, scheduler y respuestas externas. Espero una condición observable en lugar de usar delays arbitrarios, cierro requests pendientes y elimino estado compartido entre casos.',
       },
+      {
+        question: '¿Qué aporta Vitest y qué aporta TestBed?',
+        answer:
+          'Vitest ejecuta suites, assertions, spies y timers. TestBed crea el entorno Angular de providers, componentes y change detection. Un servicio puro puede no necesitar TestBed; un componente con DI y template sí suele beneficiarse.',
+      },
+      {
+        question: '¿Cuándo usarías un component harness?',
+        answer:
+          'Cuando varias pruebas o consumidores necesitan operar un componente complejo sin depender de su DOM interno. El harness ofrece acciones y consultas estables y reduce roturas por cambios de markup.',
+      },
+      {
+        question: '¿Cómo probás debounce y retry?',
+        answer:
+          'Uso fake timers o el scheduler virtual, avanzo el reloj de forma explícita y compruebo emisiones, cancelaciones y número de intentos. El test no espera tiempo real ni depende de la velocidad de la máquina.',
+      },
+      {
+        question: '¿Qué debe verificar un test de HttpClient?',
+        answer:
+          'Método, URL, params, headers y body que forman parte del contrato; luego responde con éxito o error y comprueba el resultado visible. `verify()` asegura que no quedaron requests sin resolver.',
+      },
+    ],
+    code: "it('shows the resolved user', async () => {\n  const harness = await RouterTestingHarness.create('/users/7');\n  const request = http.expectOne('/api/users/7');\n  request.flush({ id: 7, name: 'Ada' });\n  await harness.fixture.whenStable();\n  expect(harness.routeNativeElement?.textContent).toContain('Ada');\n});",
+    references: [
+      {
+        label: 'Angular · Testing',
+        url: 'https://angular.dev/guide/testing',
+      },
     ],
   },
   {
@@ -1144,6 +2284,30 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
       'Un guard decide navegación en el cliente y mejora la experiencia, pero el usuario puede omitirlo o llamar la API de forma directa. La API debe comprobar permisos y ownership para cada operación.',
       'El bundle frontend y sus variables de entorno llegan al navegador y cualquier usuario puede inspeccionarlos. Claves privadas, credenciales de servicio y secretos pertenecen al servidor o a un gestor de secretos.',
       'Las versiones soportadas de Angular reciben correcciones; el lockfile fija el grafo instalado. Una auditoría de supply chain revisa vulnerabilidades, paquetes abandonados, scripts de instalación y cambios inesperados de mantenedor.',
+    ],
+    theorySections: [
+      {
+        title: 'Fundamentos',
+        items: [
+          'Interpolación y property binding tratan valores como datos. `[innerHTML]` pasa por sanitización; URLs de recursos y bypass APIs requieren revisión estricta.',
+          '`DomSanitizer.bypassSecurityTrust*` no limpia contenido: crea un valor que omite la sanitización de Angular. Su uso concentra una decisión de confianza y necesita una fuente controlada, revisión y auditoría.',
+          'Content Security Policy limita los orígenes y tipos de recursos que puede ejecutar el navegador. Trusted Types obliga a que sinks DOM peligrosos reciban valores creados por políticas registradas. Juntas reducen el impacto de una inyección que llega al DOM.',
+        ],
+      },
+      {
+        title: 'Mecanismo y aplicación',
+        items: [
+          'CSRF aprovecha credenciales que el navegador adjunta de forma automática, como cookies. SameSite, un token XSRF y la validación del servidor prueban que la petición salió de la aplicación esperada. Un bearer token evita ese mecanismo, pero puede ser robado por XSS según dónde se almacene.',
+          'Un guard decide navegación en el cliente y mejora la experiencia, pero el usuario puede omitirlo o llamar la API de forma directa. La API debe comprobar permisos y ownership para cada operación.',
+        ],
+      },
+      {
+        title: 'Decisiones y límites',
+        items: [
+          'El bundle frontend y sus variables de entorno llegan al navegador y cualquier usuario puede inspeccionarlos. Claves privadas, credenciales de servicio y secretos pertenecen al servidor o a un gestor de secretos.',
+          'Las versiones soportadas de Angular reciben correcciones; el lockfile fija el grafo instalado. Una auditoría de supply chain revisa vulnerabilidades, paquetes abandonados, scripts de instalación y cambios inesperados de mantenedor.',
+        ],
+      },
     ],
     questions: [
       {
@@ -1166,6 +2330,26 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
         answer:
           'El usuario controla el cliente y puede omitir la navegación o llamar la API de forma directa. El guard mejora la experiencia. El servidor verifica identidad, permisos y ownership en cada operación.',
       },
+      {
+        question: '¿Cómo mostrarías HTML proporcionado por usuarios?',
+        answer:
+          'Lo sanitizo con una política y librería adecuada en el servidor o una frontera auditada, conservo CSP y evito `bypassSecurityTrustHtml`. Si el producto admite un subconjunto, permito sólo tags y atributos explícitos.',
+      },
+      {
+        question: '¿Dónde guardarías un token de sesión?',
+        answer:
+          'Depende del modelo de amenazas. Una cookie HttpOnly reduce robo directo por XSS y requiere protección CSRF; memoria evita persistencia pero se pierde al recargar. No presento localStorage como opción segura por defecto para credenciales de larga vida.',
+      },
+    ],
+    references: [
+      {
+        label: 'Angular · Security',
+        url: 'https://angular.dev/best-practices/security',
+      },
+      {
+        label: 'OWASP · Cheat sheets',
+        url: 'https://cheatsheetseries.owasp.org/',
+      },
     ],
   },
   {
@@ -1182,6 +2366,29 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
       'Los errores asociados mediante `aria-describedby` se leen junto al control. Una live region anuncia cambios asíncronos que no reciben foco, como el resultado de una operación o una validación remota.',
       'CSS: cascade, specificity, stacking contexts, box model, Flexbox, Grid, container/media queries y responsive images.',
       'Zoom, texto largo y localización cambian las dimensiones del contenido; contraste y high contrast cambian su percepción; reduced motion limita animaciones. Un componente flexible conserva lectura, foco y controles sin depender de alturas fijas.',
+    ],
+    theorySections: [
+      {
+        title: 'Fundamentos',
+        items: [
+          'HTML semántico aporta nombre, rol y comportamiento nativo. `button` ejecuta acciones, `a` con `href` navega, los headings forman el índice, `label` nombra controles y los landmarks permiten saltar entre regiones.',
+          'La navegación por teclado necesita un orden de foco que siga la lectura y un indicador visible. Un modal mueve el foco a su interior, impide escapar al contenido de fondo, anuncia su nombre y devuelve el foco al elemento que lo abrió.',
+        ],
+      },
+      {
+        title: 'Mecanismo y aplicación',
+        items: [
+          'ARIA añade nombre, rol, estado o relaciones cuando HTML nativo no alcanza. No incorpora por sí sola teclado ni comportamiento; un `div role=button` todavía necesita foco y activación con Enter y Space.',
+          'Los errores asociados mediante `aria-describedby` se leen junto al control. Una live region anuncia cambios asíncronos que no reciben foco, como el resultado de una operación o una validación remota.',
+        ],
+      },
+      {
+        title: 'Decisiones y límites',
+        items: [
+          'CSS: cascade, specificity, stacking contexts, box model, Flexbox, Grid, container/media queries y responsive images.',
+          'Zoom, texto largo y localización cambian las dimensiones del contenido; contraste y high contrast cambian su percepción; reduced motion limita animaciones. Un componente flexible conserva lectura, foco y controles sin depender de alturas fijas.',
+        ],
+      },
     ],
     questions: [
       {
@@ -1204,6 +2411,22 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
         answer:
           'Muevo el foco a un punto útil dentro del diálogo, mantengo la navegación en su contenido, cierro con Escape cuando corresponde y devuelvo el foco al disparador. El diálogo también necesita nombre y fondo inerte.',
       },
+      {
+        question: '¿Cómo probarías un modal accesible?',
+        answer:
+          'Lo abro sólo con teclado, compruebo nombre accesible, foco inicial, ciclo de Tab, Escape y retorno del foco. Después valido el fondo inerte y escucho el flujo con VoiceOver o NVDA.',
+      },
+      {
+        question: '¿Cuándo usarías una live region?',
+        answer:
+          'Para anunciar un cambio asíncrono relevante que no recibe foco, como un resultado guardado o un error remoto. Evito anunciar cada pulsación o cambio visual porque interrumpe y satura al lector de pantalla.',
+      },
+    ],
+    references: [
+      {
+        label: 'WAI · ARIA Practices',
+        url: 'https://www.w3.org/WAI/ARIA/apg/',
+      },
     ],
   },
   {
@@ -1220,6 +2443,29 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
       'Un feature flag separa despliegue de exposición. Owner, métricas y fecha de retiro controlan su ciclo de vida; un flag permanente mantiene dos caminos de código y duplica combinaciones de prueba.',
       '`ng update` y los schematics transforman configuración y código para una versión nueva. Actualizar una major por vez reduce combinaciones no soportadas; las deprecations, el bundle y las métricas runtime muestran qué trabajo queda después de compilar.',
       'Los source maps relacionan el bundle minificado con el TypeScript original. En producción requieren acceso restringido porque revelan estructura y código; asociarlos con release, commit y evento permite reconstruir el stack correcto.',
+    ],
+    theorySections: [
+      {
+        title: 'Fundamentos',
+        items: [
+          'La configuración de build contiene valores públicos que pueden quedar embebidos en los bundles. Los secretos permanecen fuera del frontend. Validar la configuración al arrancar detecta URLs o flags faltantes y evita que cada entorno interprete defaults distintos.',
+          'Un pipeline de CI ejecuta typecheck, lint, unit tests, build con budgets y recorridos críticos antes de publicar. Una caché usa el lockfile y la configuración como parte de su clave para no reutilizar dependencias o resultados incompatibles.',
+        ],
+      },
+      {
+        title: 'Mecanismo y aplicación',
+        items: [
+          'Los assets con hash pueden usar caché larga porque una modificación cambia su URL. El HTML conserva una política corta para descubrir el release nuevo. Un rollback necesita artefactos anteriores y compatibilidad temporal entre el frontend nuevo y la versión previa de la API.',
+          'Un feature flag separa despliegue de exposición. Owner, métricas y fecha de retiro controlan su ciclo de vida; un flag permanente mantiene dos caminos de código y duplica combinaciones de prueba.',
+        ],
+      },
+      {
+        title: 'Decisiones y límites',
+        items: [
+          '`ng update` y los schematics transforman configuración y código para una versión nueva. Actualizar una major por vez reduce combinaciones no soportadas; las deprecations, el bundle y las métricas runtime muestran qué trabajo queda después de compilar.',
+          'Los source maps relacionan el bundle minificado con el TypeScript original. En producción requieren acceso restringido porque revelan estructura y código; asociarlos con release, commit y evento permite reconstruir el stack correcto.',
+        ],
+      },
     ],
     questions: [
       {
@@ -1242,6 +2488,22 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
         answer:
           'Los genero para relacionar errores minificados con el TypeScript, pero restrinjo su acceso al sistema de observabilidad. Asocio cada mapa con release y commit para simbolizar el stack correcto.',
       },
+      {
+        question: '¿Cómo diseñás un rollback de frontend?',
+        answer:
+          'Conservo artefactos inmutables por release, mantengo compatibilidad temporal con la API y puedo volver a apuntar el hosting al build anterior. Base de datos y contratos nuevos necesitan una estrategia forward-compatible para que el bundle viejo siga funcionando.',
+      },
+      {
+        question: '¿Qué presupuesto pondrías en CI?',
+        answer:
+          'Límites de bundle inicial y chunks críticos, typecheck, tests y métricas del recorrido principal. Un presupuesto debe fallar cerca de la causa y tener owner; una cifra ignorada en cada pipeline no protege rendimiento.',
+      },
+    ],
+    references: [
+      {
+        label: 'web.dev · Learn performance',
+        url: 'https://web.dev/learn/performance',
+      },
     ],
   },
   {
@@ -1258,6 +2520,29 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
       'Angular DevTools muestra árbol, DI y profiling. Chrome Performance, Network, Memory y Coverage completan el diagnóstico.',
       'Un leak se vuelve visible al repetir navegación y comparar heap snapshots. Detached DOM nodes, listeners, timers y caches sin límite muestran qué referencia mantiene viva una vista que Angular ya destruyó.',
       'Un error boundary de feature contiene el fallo y ofrece una salida: retry, fallback, estado parcial o contacto de soporte. Un toast genérico desaparece y no conserva la operación que el usuario necesita recuperar.',
+    ],
+    theorySections: [
+      {
+        title: 'Fundamentos',
+        items: [
+          'La frontera global captura errores que ninguna feature manejó. El registro conserva tipo, causa y contexto técnico sin exponer stack traces, tokens ni datos personales en la interfaz.',
+          'Release, ruta, acción, correlation ID, usuario anonimizado y breadcrumbs permiten reconstruir una falla. El mismo correlation ID propagado por gateway y backend conecta el error del navegador con logs y traces del servidor.',
+        ],
+      },
+      {
+        title: 'Mecanismo y aplicación',
+        items: [
+          'La tasa de errores indica frecuencia, la latencia por endpoint localiza esperas, Web Vitals describe experiencia de render e interacción y el éxito de journeys mide tareas completas. Un log sin una pregunta operativa ni una acción asociada añade volumen sin diagnóstico.',
+          'Angular DevTools muestra árbol, DI y profiling. Chrome Performance, Network, Memory y Coverage completan el diagnóstico.',
+        ],
+      },
+      {
+        title: 'Decisiones y límites',
+        items: [
+          'Un leak se vuelve visible al repetir navegación y comparar heap snapshots. Detached DOM nodes, listeners, timers y caches sin límite muestran qué referencia mantiene viva una vista que Angular ya destruyó.',
+          'Un error boundary de feature contiene el fallo y ofrece una salida: retry, fallback, estado parcial o contacto de soporte. Un toast genérico desaparece y no conserva la operación que el usuario necesita recuperar.',
+        ],
+      },
     ],
     questions: [
       {
@@ -1280,6 +2565,22 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
         answer:
           'Repito el recorrido, fuerzo garbage collection en un entorno de diagnóstico y comparo heap snapshots. Busco componentes retenidos, detached DOM nodes, listeners, timers y caches que conservan referencias.',
       },
+      {
+        question: '¿Cómo distinguís un error del frontend de uno de API?',
+        answer:
+          'Relaciono el evento del navegador con request, status, correlation ID y trace del backend. Si la API respondió bien, reviso parsing y render; si falló, el mismo identificador permite seguir la operación por gateway y servicio.',
+      },
+      {
+        question: '¿Qué datos evitarías enviar a telemetría?',
+        answer:
+          'Tokens, passwords, bodies sensibles, datos personales sin necesidad y HTML completo. Defino una allowlist, anonimizo identificadores y aplico sampling y retención según el propósito operativo.',
+      },
+    ],
+    references: [
+      {
+        label: 'web.dev · Learn performance',
+        url: 'https://web.dev/learn/performance',
+      },
     ],
   },
   {
@@ -1296,6 +2597,29 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
       'WebSocket ofrece comunicación bidireccional persistente, SSE envía un stream unidireccional sobre HTTP y polling repite requests. La solución necesita reconexión, orden, deduplicación y backpressure para no procesar eventos más rápido de lo que la UI puede consumirlos.',
       'Un diseño completo incluye autorización, accesibilidad, telemetría, niveles de prueba, estrategia de despliegue y migración. Esas fronteras determinan si el sistema puede operarse y evolucionar después del primer release.',
       'La primera versión cubre la escala y los riesgos conocidos con el menor número de piezas. Umbrales observables, como latencia, volumen o frecuencia de incidentes, indican cuándo una estrategia deja de servir y justifican el siguiente cambio.',
+    ],
+    theorySections: [
+      {
+        title: 'Fundamentos',
+        items: [
+          'Los usuarios, flujos críticos, SEO, offline, tiempo real, volumen, permisos, localización y objetivos de rendimiento forman las restricciones del diseño. Cada restricción modifica las fronteras, la estrategia de datos o el modo de rendering.',
+          'Un diagrama frontend ubica features, router, estado, API layer, componentes compartidos y fronteras de dominio. La propiedad de cada dato determina quién puede escribirlo, quién lo deriva y cuánto tiempo debe vivir.',
+        ],
+      },
+      {
+        title: 'Mecanismo y aplicación',
+        items: [
+          'Una estrategia de caché define key, TTL e invalidación. La consistencia establece cuándo aceptar datos stale, cómo reconciliar optimistic updates, qué hacer ante conflictos y cómo mantener cursores o páginas al cambiar la colección.',
+          'WebSocket ofrece comunicación bidireccional persistente, SSE envía un stream unidireccional sobre HTTP y polling repite requests. La solución necesita reconexión, orden, deduplicación y backpressure para no procesar eventos más rápido de lo que la UI puede consumirlos.',
+        ],
+      },
+      {
+        title: 'Decisiones y límites',
+        items: [
+          'Un diseño completo incluye autorización, accesibilidad, telemetría, niveles de prueba, estrategia de despliegue y migración. Esas fronteras determinan si el sistema puede operarse y evolucionar después del primer release.',
+          'La primera versión cubre la escala y los riesgos conocidos con el menor número de piezas. Umbrales observables, como latencia, volumen o frecuencia de incidentes, indican cuándo una estrategia deja de servir y justifican el siguiente cambio.',
+        ],
+      },
     ],
     questions: [
       {
@@ -1318,6 +2642,23 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
         answer:
           'Define key, TTL, invalidación, deduplicación y comportamiento stale. También explica cómo reconciliar optimistic updates, conflictos y cambios de paginación sin mezclar datos de usuarios o filtros distintos.',
       },
+      {
+        question: '¿Cómo diseñarías datos en tiempo real sin saturar la UI?',
+        answer:
+          'Defino frecuencia útil por widget, agrupo eventos, deduplico por versión y aplico backpressure. Pauso consumidores fuera del viewport y separo el ritmo de recepción del ritmo de render.',
+      },
+      {
+        question:
+          '¿Qué incluirías en una propuesta de system design además del diagrama?',
+        answer:
+          'Contratos de datos, ownership, estrategia de caché, errores, seguridad, accesibilidad, métricas y rollout. También dejo umbrales que indiquen cuándo la primera solución necesita otra arquitectura.',
+      },
+    ],
+    references: [
+      {
+        label: 'Google · Engineering practices',
+        url: 'https://google.github.io/eng-practices/',
+      },
     ],
   },
   {
@@ -1334,6 +2675,29 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
       'Durante un incidente, el equipo primero estabiliza el servicio, comunica impacto, asigna roles y conserva evidencia. El postmortem reconstruye causas y cambia código, alertas o proceso sin buscar culpables.',
       'La negociación de alcance compara riesgo, dependencias, costo de demora y una entrega incremental. Exponer incertidumbre permite reservar tiempo, instrumentar el resultado o reducir el alcance antes de comprometer una fecha.',
       'Lead time, defectos, costo de mantenimiento, adopción y carga cognitiva describen salud técnica desde resultados. Líneas de código y cantidad de tickets premian volumen aunque el sistema sea más complejo o menos estable.',
+    ],
+    theorySections: [
+      {
+        title: 'Fundamentos',
+        items: [
+          'Un code review evalúa corrección, seguridad, diseño y tests. Un comentario bloqueante describe un defecto que impide integrar; una sugerencia propone una mejora opcional. Explicar el motivo permite que el autor aplique el criterio en código futuro.',
+          'Una decisión técnica documentada contiene contexto, alternativas y consecuencias. La fecha de revisión evita tratar como permanente una elección tomada bajo restricciones que pueden cambiar.',
+        ],
+      },
+      {
+        title: 'Mecanismo y aplicación',
+        items: [
+          'Mentoring hace visible el modelo mental, aumenta la dificultad de forma gradual y devuelve la decisión a quien aprende. Resolver cada problema por la otra persona concentra conocimiento y convierte al mentor en cuello de botella.',
+          'Durante un incidente, el equipo primero estabiliza el servicio, comunica impacto, asigna roles y conserva evidencia. El postmortem reconstruye causas y cambia código, alertas o proceso sin buscar culpables.',
+        ],
+      },
+      {
+        title: 'Decisiones y límites',
+        items: [
+          'La negociación de alcance compara riesgo, dependencias, costo de demora y una entrega incremental. Exponer incertidumbre permite reservar tiempo, instrumentar el resultado o reducir el alcance antes de comprometer una fecha.',
+          'Lead time, defectos, costo de mantenimiento, adopción y carga cognitiva describen salud técnica desde resultados. Líneas de código y cantidad de tickets premian volumen aunque el sistema sea más complejo o menos estable.',
+        ],
+      },
     ],
     questions: [
       {
@@ -1356,6 +2720,23 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
         answer:
           'Registro contexto, restricciones, opciones consideradas, decisión y consecuencias. Añado owner y fecha de revisión cuando las condiciones pueden cambiar. El documento permite discutir la elección sin depender de memoria oral.',
       },
+      {
+        question: '¿Cómo resolvés un desacuerdo de arquitectura?',
+        answer:
+          'Acordamos objetivo y restricciones, escribimos alternativas con el mismo criterio y ejecutamos un spike si la incertidumbre lo requiere. La decisión queda registrada con consecuencias y fecha de revisión.',
+      },
+      {
+        question:
+          '¿Cómo elevás la calidad sin convertirte en cuello de botella?',
+        answer:
+          'Automatizo reglas repetibles, documento ejemplos y distribuyo ownership. En reviews explico el criterio y permito que otras personas tomen decisiones con límites claros.',
+      },
+    ],
+    references: [
+      {
+        label: 'Google · Engineering practices',
+        url: 'https://google.github.io/eng-practices/',
+      },
     ],
   },
   {
@@ -1374,6 +2755,31 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
       'Una respuesta débil enumera herramientas: «usaría Signals, OnPush y lazy loading». Una respuesta sólida conecta problema y evidencia: «el perfil mostró demasiadas vistas comprobadas; moví el estado local a Signals, mantuve referencias inmutables y medí menos scripting sin cambiar el comportamiento».',
       'Si no recordás una API exacta, no inventes. Explicá el modelo que sí conocés, aislá el detalle dudoso y decí cómo lo verificarías en la documentación o con una prueba mínima. El razonamiento correcto es más valioso que una firma memorizada incorrectamente.',
       'Para una experiencia real usá Contexto, Decisión, Acción y Resultado. El resultado debe incluir una señal verificable: latencia, errores, conversión, tiempo de entrega, incidentes evitados o feedback del equipo. Si no hubo medición, decí qué observaste y qué medirías hoy.',
+    ],
+    theorySections: [
+      {
+        title: 'Fundamentos',
+        items: [
+          'Respondé primero qué es el concepto en una frase. Después explicá el mecanismo que produce su comportamiento, elegí una aplicación concreta y cerrá con el límite de esa elección. Ejemplo: `switchMap` reemplaza la suscripción interna anterior; lo elegiría en un buscador porque sólo interesa la consulta más reciente, pero no para guardar acciones que deben completarse todas.',
+          'Separá mecanismo de decisión. «OnPush reduce comprobaciones» describe un efecto. «Uso OnPush con estado inmutable porque los cambios llegan por inputs y signals» explica una decisión. La segunda respuesta permite evaluar si entendés cuándo la herramienta encaja.',
+          'Nombrá las restricciones que cambian la solución: volumen de datos, frecuencia de actualización, SEO, latencia, accesibilidad, seguridad, soporte de navegadores y capacidad del equipo. Si la pregunta no las informa, declaralas como supuestos en vez de inventar un escenario silenciosamente.',
+        ],
+      },
+      {
+        title: 'Mecanismo y aplicación',
+        items: [
+          'Compará alternativas con el mismo criterio. Para cada opción indicá beneficio, costo y modo de falla. Por ejemplo, SSR mejora el HTML inicial y el SEO, pero agrega infraestructura y exige código compatible con servidor; CSR simplifica la operación, pero depende más de JavaScript para el primer contenido.',
+          'Explicá cómo validarías la decisión. Rendimiento se comprueba con métricas como LCP, INP, tamaño de bundle o tiempo de tarea; una migración se valida con tests, telemetría, despliegue gradual y rollback; una mejora de equipo se valida con lead time, defectos o carga operativa.',
+          'Una respuesta débil enumera herramientas: «usaría Signals, OnPush y lazy loading». Una respuesta sólida conecta problema y evidencia: «el perfil mostró demasiadas vistas comprobadas; moví el estado local a Signals, mantuve referencias inmutables y medí menos scripting sin cambiar el comportamiento».',
+        ],
+      },
+      {
+        title: 'Decisiones y límites',
+        items: [
+          'Si no recordás una API exacta, no inventes. Explicá el modelo que sí conocés, aislá el detalle dudoso y decí cómo lo verificarías en la documentación o con una prueba mínima. El razonamiento correcto es más valioso que una firma memorizada incorrectamente.',
+          'Para una experiencia real usá Contexto, Decisión, Acción y Resultado. El resultado debe incluir una señal verificable: latencia, errores, conversión, tiempo de entrega, incidentes evitados o feedback del equipo. Si no hubo medición, decí qué observaste y qué medirías hoy.',
+        ],
+      },
     ],
     questions: [
       {
@@ -1409,6 +2815,12 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
           'Pido las restricciones que realmente cambian la respuesta: volumen, frecuencia de cambio, SEO, latencia, consistencia, seguridad y capacidad del equipo. Si no están disponibles, declaro un supuesto, elijo bajo ese escenario y digo qué dato me haría cambiar de opción.',
       },
     ],
+    references: [
+      {
+        label: 'Google · Engineering practices',
+        url: 'https://google.github.io/eng-practices/',
+      },
+    ],
   },
   {
     id: 'preparacion-personal-y-respuestas-conductuales',
@@ -1424,6 +2836,29 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
       'El caso de formularios dinámicos demuestra arquitectura, Redux o NgRx, escalabilidad y coordinación. Cantidad de formularios, tiempo de entrega y defectos antes y después convierten la historia en evidencia medible.',
       'La experiencia desde Angular 2 permite comparar cambios del framework a través del tiempo. Una adopción acertada muestra beneficio y migración; una API rechazada muestra restricciones y costo que superaban ese beneficio.',
       'Las preguntas al entrevistador revelan arquitectura, prácticas de calidad, organización del equipo, roadmap, manejo de incidentes, autonomía y criterio de éxito. Las respuestas permiten evaluar el alcance real del rol.',
+    ],
+    theorySections: [
+      {
+        title: 'Fundamentos',
+        items: [
+          'Un pitch de 60 a 90 segundos conecta especialidad, años de experiencia, dominios, dos logros y motivación para el rol. Recorrer cada empleo del CV consume tiempo sin mostrar el criterio que une la trayectoria.',
+          'STAR: situación y tarea breves; acción centrada en tus decisiones; resultado con métrica, aprendizaje o reducción de riesgo.',
+        ],
+      },
+      {
+        title: 'Mecanismo y aplicación',
+        items: [
+          'Un banco conductual cubre conflicto, error, feedback, liderazgo, deadlines, incertidumbre, incidentes, rendimiento y arquitectura. Cada historia puede responder varias preguntas si identifica con precisión la decisión y el resultado.',
+          'El caso de formularios dinámicos demuestra arquitectura, Redux o NgRx, escalabilidad y coordinación. Cantidad de formularios, tiempo de entrega y defectos antes y después convierten la historia en evidencia medible.',
+        ],
+      },
+      {
+        title: 'Decisiones y límites',
+        items: [
+          'La experiencia desde Angular 2 permite comparar cambios del framework a través del tiempo. Una adopción acertada muestra beneficio y migración; una API rechazada muestra restricciones y costo que superaban ese beneficio.',
+          'Las preguntas al entrevistador revelan arquitectura, prácticas de calidad, organización del equipo, roadmap, manejo de incidentes, autonomía y criterio de éxito. Las respuestas permiten evaluar el alcance real del rol.',
+        ],
+      },
     ],
     questions: [
       {
@@ -1446,6 +2881,22 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
         question: '¿Cómo contás un error sin debilitar tu perfil?',
         answer:
           'Elijo un error real, explico la decisión que lo produjo y asumo mi parte. Describo cómo limité el impacto, qué señal agregué y qué cambio de código o proceso evitó repetirlo.',
+      },
+      {
+        question: '¿Cómo respondés sobre un conflicto técnico?',
+        answer:
+          'Describo la restricción, la posición de cada parte y cómo llevé la discusión a evidencia. Explico la decisión final, mi contribución y qué cambió en el producto o en la forma de trabajar.',
+      },
+      {
+        question: '¿Cómo hablás de un proyecto sin métricas históricas?',
+        answer:
+          'Uso señales verificables como incidentes, tiempo de entrega, defectos o feedback, y aclaro qué no se midió. Cierro con la métrica que instrumentaría hoy en lugar de inventar un número.',
+      },
+    ],
+    references: [
+      {
+        label: 'Google · Engineering practices',
+        url: 'https://google.github.io/eng-practices/',
       },
     ],
   },

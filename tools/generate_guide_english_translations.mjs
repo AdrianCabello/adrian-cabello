@@ -7,10 +7,7 @@ const sourcePath = path.join(
   root,
   'src/app/pages/angular-senior-guide/angular-senior-guide.data.ts'
 );
-const outputPath = path.join(
-  root,
-  'src/app/i18n/guide-translations.en.ts'
-);
+const outputPath = path.join(root, 'src/app/i18n/guide-translations.en.ts');
 
 const guideUiCopy = [
   'Ir al contenido',
@@ -38,6 +35,7 @@ const guideUiCopy = [
   'Casos prácticos',
   'Estudiado',
   'Marcar listo',
+  'Listo',
   'Teoría',
   'Ejemplo',
   'Preguntas y respuestas',
@@ -49,6 +47,12 @@ const guideUiCopy = [
   'Probá con otro término',
   'Limpiar búsqueda',
   'Referencias oficiales',
+  'Fuentes del tema',
+  '¿Cómo te sentís con este tema?',
+  'Último repaso',
+  'Repasar',
+  'Practicando',
+  'Seguro',
   'Índice',
   'temas',
   'tema',
@@ -66,7 +70,14 @@ const compiled = ts.transpileModule(source, {
 const module = { exports: {} };
 new Function('exports', 'module', compiled)(module.exports, module);
 
-const ignoredKeys = new Set(['id', 'index', 'number', 'groupId', 'code', 'url']);
+const ignoredKeys = new Set([
+  'id',
+  'index',
+  'number',
+  'groupId',
+  'code',
+  'url',
+]);
 const strings = new Set(guideUiCopy);
 
 function collect(value, key = '') {
@@ -89,7 +100,8 @@ function collect(value, key = '') {
 
 Object.values(module.exports).forEach(value => collect(value));
 
-const protectedPattern = /`[^`]+`|\b(?:Angular|TypeScript|JavaScript|RxJS|Signals?|Observable|Promise|HTML|CSS|DOM|CSSOM|CORS|ARIA|WCAG|Flexbox|Grid|OnPush|ZoneJS|NgRx|Router|HttpClient|SOLID|SSR|SSG|LCP|CLS|INP|XSS|CSRF|CSP|CI\/CD|WebSocket|SSE|IndexedDB|Service Worker|Node\.js|PostgreSQL|Go)\b/gi;
+const protectedPattern =
+  /`[^`]+`|\b(?:Angular|TypeScript|JavaScript|RxJS|Signals?|Observable|Promise|HTML|CSS|DOM|CSSOM|CORS|ARIA|WCAG|Flexbox|Grid|OnPush|ZoneJS|NgRx|Router|HttpClient|SOLID|SSR|SSG|LCP|CLS|INP|XSS|CSRF|CSP|CI\/CD|WebSocket|SSE|IndexedDB|Service Worker|Node\.js|PostgreSQL|Go)\b/gi;
 
 function protectTechnicalTerms(text) {
   const values = [];
@@ -141,7 +153,9 @@ async function translateBatch(texts, attempt = 0) {
     return results;
   } catch (error) {
     if (attempt >= 3) {
-      throw new Error(`Could not translate batch starting with: ${texts[0]}\n${error}`);
+      throw new Error(
+        `Could not translate batch starting with: ${texts[0]}\n${error}`
+      );
     }
     await new Promise(resolve => setTimeout(resolve, 500 * 2 ** attempt));
     return translateBatch(texts, attempt + 1);
@@ -149,11 +163,31 @@ async function translateBatch(texts, attempt = 0) {
 }
 
 const entries = [...strings];
-const translations = {};
+let existingTranslations = {};
+try {
+  const existingSource = await fs.readFile(outputPath, 'utf8');
+  const existingCompiled = ts.transpileModule(existingSource, {
+    compilerOptions: {
+      module: ts.ModuleKind.CommonJS,
+      target: ts.ScriptTarget.ES2022,
+    },
+  }).outputText;
+  const existingModule = { exports: {} };
+  new Function('exports', 'module', existingCompiled)(
+    existingModule.exports,
+    existingModule
+  );
+  existingTranslations =
+    existingModule.exports.GUIDE_ENGLISH_TRANSLATIONS ?? {};
+} catch {
+  existingTranslations = {};
+}
+const translations = { ...existingTranslations };
+const pendingEntries = entries.filter(entry => !translations[entry]);
 const batches = [];
 let currentBatch = [];
 let currentLength = 0;
-for (const entry of entries) {
+for (const entry of pendingEntries) {
   if (
     currentBatch.length > 0 &&
     (currentBatch.length >= 12 || currentLength + entry.length > 4500)
@@ -182,7 +216,7 @@ async function worker() {
       translations[original] = results[resultIndex];
     });
     completed += batch.length;
-    process.stdout.write(`Translated ${completed}/${entries.length}\n`);
+    process.stdout.write(`Translated ${completed}/${pendingEntries.length}\n`);
     await new Promise(resolve => setTimeout(resolve, 250));
   }
 }

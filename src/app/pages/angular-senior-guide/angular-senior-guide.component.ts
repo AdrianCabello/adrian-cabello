@@ -22,7 +22,14 @@ import {
 
 type CollectionId = 'all' | 'rapid' | 'practice' | string;
 
-type TheorySegmentKind = 'text' | 'important' | 'code';
+type TheorySegmentKind = 'text' | 'important' | 'code' | 'match';
+
+type ReviewLevel = 'review' | 'practice' | 'confident';
+
+interface TopicReview {
+  readonly level: ReviewLevel;
+  readonly reviewedAt: string;
+}
 
 interface TheorySegment {
   readonly text: string;
@@ -135,10 +142,10 @@ const IMPORTANT_THEORY_TERMS = [
 ] as const;
 
 const IMPORTANT_THEORY_PATTERN = new RegExp(
-  `(${[...IMPORTANT_THEORY_TERMS]
+  `((?<![\\p{L}\\p{N}_])(?:${[...IMPORTANT_THEORY_TERMS]
     .sort((first, second) => second.length - first.length)
     .map(term => term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
-    .join('|')})`,
+    .join('|')})(?:s)?(?![\\p{L}\\p{N}_]))`,
   'giu'
 );
 
@@ -160,6 +167,7 @@ export class AngularSeniorGuideComponent {
   }
   private readonly storageKey = 'angular-senior-guide-completed';
   private readonly collapsedStorageKey = 'angular-senior-guide-collapsed';
+  private readonly reviewStorageKey = 'angular-senior-guide-review-levels';
   private readonly theorySegmentCache = new Map<
     string,
     readonly TheorySegment[]
@@ -191,6 +199,9 @@ export class AngularSeniorGuideComponent {
   protected readonly mobileNavigationOpen = signal(false);
   protected readonly completedTopicIds = signal<ReadonlySet<string>>(new Set());
   protected readonly collapsedTopicIds = signal<ReadonlySet<string>>(new Set());
+  protected readonly topicReviews = signal<
+    Readonly<Record<string, TopicReview>>
+  >({});
 
   protected readonly activeNavigationLabel = computed(() => {
     const activeTopic = this.topics.find(
@@ -255,10 +266,12 @@ export class AngularSeniorGuideComponent {
       return [];
     }
     const normalizedQuery = this.normalize(this.query());
+    const terms = this.queryTerms(normalizedQuery);
     return RAPID_QUESTIONS.filter(item =>
-      this.normalize(
-        `${item.question} ${item.answer} ${this.translate(item.question)} ${this.translate(item.answer)}`
-      ).includes(normalizedQuery)
+      this.matchesTerms(
+        `${item.question} ${item.answer} ${this.translate(item.question)} ${this.translate(item.answer)}`,
+        terms
+      )
     );
   });
 
@@ -268,10 +281,12 @@ export class AngularSeniorGuideComponent {
       return [];
     }
     const normalizedQuery = this.normalize(this.query());
+    const terms = this.queryTerms(normalizedQuery);
     return PRACTICE_CASES.filter(item =>
-      this.normalize(
-        `${item.title} ${item.brief} ${this.translate(item.title)} ${this.translate(item.brief)}`
-      ).includes(normalizedQuery)
+      this.matchesTerms(
+        `${item.title} ${item.brief} ${this.translate(item.title)} ${this.translate(item.brief)}`,
+        terms
+      )
     );
   });
 
@@ -286,6 +301,7 @@ export class AngularSeniorGuideComponent {
     afterNextRender(() => {
       this.restoreProgress();
       this.restoreCollapsedTopics();
+      this.restoreTopicReviews();
       this.setupScrollSpy();
     });
 
@@ -306,6 +322,7 @@ export class AngularSeniorGuideComponent {
 
   protected updateQuery(event: Event): void {
     this.query.set((event.target as HTMLInputElement).value);
+    this.theorySegmentCache.clear();
     this.activeSectionId.set(null);
     this.activeTopicId.set(null);
     this.scheduleScrollSpyRefresh();
@@ -373,7 +390,9 @@ export class AngularSeniorGuideComponent {
   }
 
   protected theorySegments(text: string): readonly TheorySegment[] {
-    const cached = this.theorySegmentCache.get(text);
+    const queryKey = this.normalize(this.query());
+    const cacheKey = `${queryKey}::${text}`;
+    const cached = this.theorySegmentCache.get(cacheKey);
     if (cached) {
       return cached;
     }
@@ -398,8 +417,43 @@ export class AngularSeniorGuideComponent {
       });
     }
 
-    this.theorySegmentCache.set(text, segments);
-    return segments;
+    const highlighted = this.highlightQueryMatches(segments);
+    this.theorySegmentCache.set(cacheKey, highlighted);
+    return highlighted;
+  }
+
+  protected visibleTheorySections(topic: StudyTopic) {
+    const query = this.queryTerms();
+    if (
+      query.length === 0 ||
+      this.matchesTerms(`${topic.title} ${topic.intro}`, query)
+    ) {
+      return topic.theorySections;
+    }
+    return topic.theorySections
+      .map(section => ({
+        ...section,
+        items: section.items.filter(item =>
+          this.matchesTerms(`${item} ${this.translate(item)}`, query)
+        ),
+      }))
+      .filter(section => section.items.length > 0);
+  }
+
+  protected visibleQuestions(topic: StudyTopic) {
+    const query = this.queryTerms();
+    if (
+      query.length === 0 ||
+      this.matchesTerms(`${topic.title} ${topic.intro}`, query)
+    ) {
+      return topic.questions;
+    }
+    return topic.questions.filter(item =>
+      this.matchesTerms(
+        `${item.question} ${item.answer} ${this.translate(item.question)} ${this.translate(item.answer)}`,
+        query
+      )
+    );
   }
 
   protected isCompleted(topicId: string): boolean {
@@ -426,6 +480,51 @@ export class AngularSeniorGuideComponent {
     this.persistProgress(updated);
   }
 
+  protected reviewLevel(topicId: string): ReviewLevel | null {
+    return this.topicReviews()[topicId]?.level ?? null;
+  }
+
+  protected reviewDate(topicId: string): string | null {
+    const value = this.topicReviews()[topicId]?.reviewedAt;
+    if (!value) {
+      return null;
+    }
+    return new Intl.DateTimeFormat(
+      this.languageService.language() === 'es' ? 'es-AR' : 'en-US',
+      { day: '2-digit', month: 'short', year: 'numeric' }
+    ).format(new Date(value));
+  }
+
+  protected setReviewLevel(topicId: string, level: ReviewLevel): void {
+    const updated = {
+      ...this.topicReviews(),
+      [topicId]: { level, reviewedAt: new Date().toISOString() },
+    } satisfies Record<string, TopicReview>;
+    this.topicReviews.set(updated);
+    this.persistTopicReviews(updated);
+  }
+
+  protected handleAnswerToggle(event: Event): void {
+    const details = event.currentTarget as HTMLDetailsElement;
+    if (!details.open || !isPlatformBrowser(this.platformId)) {
+      return;
+    }
+    this.document.defaultView?.requestAnimationFrame(() => {
+      const minimumTop = this.document.defaultView?.matchMedia(
+        '(min-width: 1024px)'
+      ).matches
+        ? 112
+        : 176;
+      const top = details.getBoundingClientRect().top;
+      if (top < minimumTop) {
+        this.document.defaultView?.scrollBy({
+          top: top - minimumTop,
+          behavior: 'smooth',
+        });
+      }
+    });
+  }
+
   private topicMatches(topic: StudyTopic, normalizedQuery: string): boolean {
     if (!normalizedQuery) {
       return true;
@@ -443,7 +542,7 @@ export class AngularSeniorGuideComponent {
         this.translate(item.answer),
       ]),
     ].join(' ');
-    return this.normalize(searchableText).includes(normalizedQuery);
+    return this.matchesTerms(searchableText, this.queryTerms(normalizedQuery));
   }
 
   private normalize(value: string): string {
@@ -451,7 +550,55 @@ export class AngularSeniorGuideComponent {
       .normalize('NFD')
       .replace(/[\u0300-\u036f]/g, '')
       .toLowerCase()
+      .replace(/\b(?:vs\.?|versus)\b/g, ' ')
+      .replace(/\b(?:o|u)\b/g, ' ')
+      .replace(/[^a-z0-9+#.]+/g, ' ')
+      .replace(/\s+/g, ' ')
       .trim();
+  }
+
+  private queryTerms(
+    normalizedQuery = this.normalize(this.query())
+  ): readonly string[] {
+    return normalizedQuery.split(' ').filter(term => term.length > 1);
+  }
+
+  private matchesTerms(value: string, terms: readonly string[]): boolean {
+    if (terms.length === 0) {
+      return true;
+    }
+    const normalized = this.normalize(value);
+    return terms.every(term => normalized.includes(term));
+  }
+
+  private highlightQueryMatches(
+    segments: readonly TheorySegment[]
+  ): readonly TheorySegment[] {
+    const terms = this.queryTerms();
+    if (terms.length === 0) {
+      return segments;
+    }
+    const pattern = new RegExp(
+      `(${[...terms]
+        .sort((first, second) => second.length - first.length)
+        .map(term => term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
+        .join('|')})`,
+      'giu'
+    );
+    return segments.flatMap(segment => {
+      if (segment.kind === 'code') {
+        return [segment];
+      }
+      return segment.text
+        .split(pattern)
+        .filter(Boolean)
+        .map(part => ({
+          text: part,
+          kind: terms.some(term => this.normalize(part) === term)
+            ? ('match' as const)
+            : segment.kind,
+        }));
+    });
   }
 
   private restoreProgress(): void {
@@ -481,6 +628,30 @@ export class AngularSeniorGuideComponent {
       return;
     }
     localStorage.setItem(this.storageKey, JSON.stringify([...topicIds]));
+  }
+
+  private restoreTopicReviews(): void {
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
+    try {
+      const parsed: unknown = JSON.parse(
+        localStorage.getItem(this.reviewStorageKey) ?? '{}'
+      );
+      if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
+        this.topicReviews.set(parsed as Readonly<Record<string, TopicReview>>);
+      }
+    } catch {
+      this.topicReviews.set({});
+    }
+  }
+
+  private persistTopicReviews(
+    reviews: Readonly<Record<string, TopicReview>>
+  ): void {
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.setItem(this.reviewStorageKey, JSON.stringify(reviews));
+    }
   }
 
   private restoreCollapsedTopics(): void {
@@ -641,7 +812,7 @@ export class AngularSeniorGuideComponent {
     const activationLine = browserWindow.matchMedia('(min-width: 1024px)')
       .matches
       ? 120
-      : 168;
+      : 196;
     let activeElement: HTMLElement | undefined;
 
     for (const element of trackedElements) {

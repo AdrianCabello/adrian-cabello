@@ -786,10 +786,12 @@ loadDashboard().then(console.log).catch(console.error);""",
 
 from angular_senior_theory_overrides import apply_theory_overrides
 from angular_senior_qa_additions import apply_qa_additions
+from angular_senior_content_expansions import apply_content_expansions
 
 
 apply_theory_overrides([*chapters, *foundation_chapters])
 apply_qa_additions([*chapters, *foundation_chapters])
+apply_content_expansions([*chapters, *foundation_chapters])
 
 
 foundation_rapid_fire = [

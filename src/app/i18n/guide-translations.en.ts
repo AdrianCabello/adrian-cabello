@@ -2,1568 +2,1192 @@
 // The Spanish source remains canonical in angular-senior-guide.data.ts.
 
 export const GUIDE_ENGLISH_TRANSLATIONS: Readonly<Record<string, string>> = {
-  'Ir al contenido': 'Go to content',
-  'Ir al portfolio de Adrian Cabello': "Go to Adrian Cabello's portfolio",
-  'Portfolio · Perfil': 'Portfolio · Profile',
-  'Enlaces de Adrian Cabello': 'Links to Adrian Cabello',
-  Progreso: 'Progress',
-  'Progreso de módulos': 'Module Progress',
-  'Guía de entrevista · Edición 2026': 'Interview Guide · 2026 Edition',
-  'HTML, CSS, JavaScript, TypeScript, Angular moderno, RxJS, browser, arquitectura, performance, testing, seguridad, system design y liderazgo técnico.':
-    'HTML, CSS, JavaScript, TypeScript, modern Angular, RxJS, browser, architecture, performance, testing, security, system design and technical leadership.',
-  Módulos: 'Modules',
-  Conceptos: 'Concepts',
-  Preguntas: 'Questions',
-  'Autor de la guía': 'Guide author',
-  'Full-Stack Product Engineer y Tech Lead con más de 9 años creando productos web y mobile, liderando arquitectura Angular y migraciones de aplicaciones empresariales. Armé esta guía para convertir experiencia real en teoría precisa, respuestas concretas y decisiones técnicas con sus trade-offs.':
-    'Full-Stack Product Engineer and Tech Lead with more than 9 years creating web and mobile products, leading Angular architecture and business application migrations. I put together this guide to convert real experience into precise theory, concrete answers and technical decisions with their trade-offs.',
-  'Adrian Cabello, Full-Stack Product Engineer y Tech Lead':
-    'Adrian Cabello, Full-Stack Product Engineer and Tech Lead',
-  'Experiencia destacada': 'Outstanding experience',
-  '9+ años': '9+ years',
-  'Ver experiencia': 'See experience',
-  'Buscar en la guía': 'Search in the guide',
-  'Secciones de estudio': 'Study sections',
-  'Contenido completo': 'Complete content',
-  'Ver bloque completo': 'See full block',
-  'Banco rápido': 'fast bank',
-  'Casos prácticos': 'Practical cases',
-  Estudiado: 'studied',
-  'Marcar listo': 'Mark ready',
-  Teoría: 'Theory',
-  Ejemplo: 'Example',
-  'Preguntas y respuestas': 'Questions and answers',
-  'Ver respuesta': 'See answer',
-  Ocultar: 'Hide',
-  'Definiciones breves para responder con precisión antes de ampliar con mecanismo, caso y trade-off.':
-    'Brief definitions to answer precisely before expanding with mechanism, case and trade-off.',
-  Respuesta: 'Answer',
-  'Sin coincidencias': 'No matches',
-  'Probá con otro término': 'Try another term',
-  'Limpiar búsqueda': 'Clear search',
-  'Referencias oficiales': 'Official references',
-  Índice: 'Index',
-  temas: 'themes',
-  tema: 'theme',
-  Bloque: 'Block',
-  'Fundamentos web': 'Web Fundamentals',
-  'HTML, CSS, JavaScript y TypeScript, desde la base hasta preguntas avanzadas.':
-    'HTML, CSS, JavaScript and TypeScript, from basic to advanced questions.',
-  'Angular moderno': 'Angular modern',
-  'Componentes, reactividad, DI, RxJS, routing, forms y HTTP.':
-    'Components, reactivity, DI, RxJS, routing, forms and HTTP.',
-  'Plataforma y arquitectura': 'Platform and architecture',
-  'Browser, DOM, red, límites, patrones, SOLID y evolución del código.':
-    'Browser, DOM, network, limits, patterns, SOLID and code evolution.',
-  'Calidad y operación': 'Quality and operation',
-  'Performance, rendering, testing, seguridad, CI/CD y observabilidad.':
-    'Performance, rendering, testing, security, CI/CD and observability.',
-  'Criterio Senior': 'Senior Criterion',
-  'System design, liderazgo y conversaciones de entrevista.':
-    'System design, leadership and interview conversations.',
-  'HTML completo: semántica, formularios, medios y SEO':
-    'HTML complete: semantics, forms, media and SEO',
-  'HTML define significado, navegación por teclado, formularios y la base que consumen buscadores y tecnologías asistivas.':
-    'HTML defines meaning, keyboard navigation, forms and the basis that search engines and assistive technologies consume.',
-  '`head` contiene metadata, title, links, preload y scripts. `body` contiene el documento visible. Un title y description claros mejoran navegación y presentación en resultados.':
-    '`head` contains metadata, title, links, preload and scripts. `body` contains the visible document. A clear title and description improve navigation and presentation in results.',
-  '`header`, `nav`, `main`, `article`, `section`, `aside` y `footer` describen la función de cada región. Navegadores y tecnologías asistivas usan esa estructura para crear landmarks. `div` y `span` agrupan contenido sin añadir significado.':
-    '`header`, `nav`, `main`, `article`, `section`, `aside`, and `footer` describe the function of each region. Navigators and assistive technologies use that structure to create landmarks. `div` and `span` group content without adding meaning.',
-  'Block e inline describen comportamiento de formatting context, que CSS puede cambiar. La semántica del elemento no cambia al modificar `display`.':
-    'Block and inline describe formatting context behavior, which CSS can change. The semantics of the element do not change when modifying `display`.',
-  '`a` navega y necesita `href`; `button` ejecuta una acción. `target=_blank` requiere una política de `rel` apropiada para reducir acceso a opener.':
-    '`a` browse and need `href`; `button` executes an action. `target=_blank` requires an appropriate `rel` policy to reduce opener access.',
-  'Imágenes necesitan `alt` según función. `picture`, `srcset` y `sizes` permiten formatos y resoluciones. Width y height reservan espacio y reducen CLS.':
-    'Images need `alt` according to function. `picture`, `srcset` and `sizes` allow formats and resolutions. Width and height reserve space and reduce CLS.',
-  'Video y audio admiten múltiples `source`, `track` para subtítulos y controles. Un iframe crea otro contexto; restringilo con `sandbox`, permisos y origen confiable.':
-    'Video and audio support multiple `source`, `track` for subtitles and controls. An iframe creates another context; restrict it with `sandbox`, permissions and trusted origin.',
-  'Form asocia `label` con control, usa `name` para submission y aprovecha tipos nativos. GET codifica en URL; POST envía body. El servidor valida todos los campos.':
-    'Form associates `label` with control, uses `name` for submission, and takes advantage of native types. GET encodes to URL; POST sends body. The server validates all fields.',
-  'Un `button` dentro de un formulario tiene tipo `submit` por defecto. `type=button` representa una acción auxiliar y evita envíos accidentales. La semántica de submit también permite enviar con Enter y ejecutar la validación nativa.':
-    'A `button` within a form has type `submit` by default. `type=button` represents an auxiliary action and prevents accidental sending. The submit semantics also allow you to submit with Enter and run native validation.',
-  'Una tabla de datos se compone con `caption`, `thead`, `tbody`, celdas `th` y relaciones `scope`. Esa estructura permite asociar cada dato con sus encabezados. Las tablas usadas para layout comunican relaciones inexistentes y dificultan el responsive design.':
-    'A data table is composed of `caption`, `thead`, `tbody`, `th` cells, and `scope` relationships. This structure allows each data to be associated with its headers. The tables used for layout communicate non-existent relationships and make responsive design difficult.',
-  '`br` introduce un salto dentro del mismo contenido, como una dirección o un poema. `hr` marca un cambio temático entre bloques. El espacio visual entre elementos pertenece a margin, padding o gap en CSS.':
-    '`br` introduces a break within the same content, such as an address or a poem. `hr` marks a thematic change between blocks. The visual space between elements belongs to margin, padding or gap in CSS.',
-  'Scripts con `defer` descargan en paralelo y ejecutan tras parsear, en orden. `async` ejecuta cuando descarga y no conserva orden. Modules difieren y usan defer por defecto.':
-    'Scripts with `defer` download in parallel and execute after parsing, in order. `async` runs when downloading and does not preserve order. Modules differ and use defer by default.',
-  'SEO técnico incluye HTML rastreable, canonical, robots, structured data, status correctos, sitemap y rendering compatible con el contenido.':
-    'Technical SEO includes HTML crawlable, canonical, robots, structured data, correct status, sitemap and rendering compatible with the content.',
-  '¿Etiqueta y atributo?': 'Label and attribute?',
-  'La etiqueta define el elemento; el atributo configura información o comportamiento en su start tag. Una property DOM representa el estado vivo y puede diferir del atributo inicial.':
-    'The tag defines the element; The attribute configures information or behavior in its start tag. A property DOM represents the live state and may differ from the initial attribute.',
-  '¿`id` o `class`?': '`id` or `class`?',
-  '`id` identifica un elemento dentro del documento y sirve para relaciones, fragmentos y labels. `class` agrupa elementos para estilos o comportamiento.':
-    '`id` identifies an element within the document and is used for relationships, fragments and labels. `class` groups elements for styles or behavior.',
-  '¿Cómo crear un formulario accesible?': 'How to create an accessible form?',
-  'Asocio labels, agrupo opciones con fieldset/legend, uso tipos y autocomplete, explico errores y muevo foco cuando el flujo lo requiere.':
-    'I associate labels, group options with fieldset/legend, use types and autocomplete, explain errors and move focus when the flow requires it.',
-  '¿`ol` o `ul`?': '`ol` or `ul`?',
-  '`ol` comunica que el orden modifica el significado; `ul` agrupa elementos sin secuencia semántica.':
-    '`ol` communicates that the order modifies the meaning; `ul` groups elements without semantic sequence.',
-  '¿Cuándo usás un enlace y cuándo un botón?':
-    'When do you use a link and when do you use a button?',
-  'Un enlace con `href` cambia ubicación y conserva acciones nativas como abrir en otra pestaña. Un botón ejecuta una acción en la interfaz. Elegir el elemento correcto aporta teclado, rol y expectativas sin recrearlos con JavaScript.':
-    'A link with `href` changes location and preserves native actions such as opening in another tab. A button executes an action in the interface. Choosing the right element brings keyboard, role and expectations without recreating them with JavaScript.',
-  '¿Qué aporta la validación nativa de formularios?':
-    'What does native form validation provide?',
-  'Atributos como `required`, `type`, `min`, `max` y `pattern` expresan restricciones y permiten feedback del navegador. La aplicación puede personalizar mensajes, pero el servidor debe repetir la validación porque el cliente se puede modificar.':
-    'Attributes such as `required`, `type`, `min`, `max` and `pattern` express constraints and allow feedback from the browser. The application can customize messages, but the server must repeat the validation because the client can modify it.',
-  'CSS completo: cascade, layout, responsive y rendimiento':
-    'CSS complete: cascade, layout, responsive and performance',
-  'CSS resuelve una cascada antes de calcular layout y paint. Las preguntas clásicas empiezan con selectores; las Senior llegan a stacking contexts, containment y estabilidad visual.':
-    'CSS resolves a waterfall before calculating layout and paint. Classic questions start with selectors; Seniors reach stacking contexts, containment and visual stability.',
-  'La cascada considera origen, importancia, layers, specificity, scope y orden. `!important` altera el orden dentro del origen y crea costo de mantenimiento.':
-    'The cascade considers origin, importance, layers, specificity, scope and order. `!important` alters the order within the origin and creates maintenance cost.',
-  'Specificity cuenta IDs, clases/atributos/pseudo-clases y tipos/pseudo-elementos. `:where()` aporta especificidad cero; `:is()` y `:not()` toman la del argumento más específico.':
-    'Specificity counts IDs, classes/attributes/pseudo-classes and types/pseudo-elements. `:where()` provides zero specificity; `:is()` and `:not()` take the most specific argument.',
-  'Box model suma content, padding, border y margin. `box-sizing: border-box` incluye padding y border dentro del tamaño declarado.':
-    'Box model adds content, padding, border and margin. `box-sizing: border-box` includes padding and border within the declared size.',
-  'Margin separa cajas; padding amplía el interior y el área de fondo. Márgenes verticales pueden colapsar en block formatting context.':
-    'Margin separates boxes; padding expands the interior and background area. Vertical margins can collapse in block formatting context.',
-  '`display: none` quita la caja y el árbol de accesibilidad; `visibility: hidden` conserva espacio y oculta; `opacity: 0` conserva layout y puede conservar interacción si no la controlás.':
-    '`display: none` removes the accessibility box and tree; `visibility: hidden` conserves space and hides; `opacity: 0` preserves layout and can preserve interaction if you do not control it.',
-  'Position static sigue flujo; relative conserva espacio y crea referencia; absolute sale del flujo y usa containing block; fixed se relaciona con viewport salvo transform ancestors; sticky cambia según scroll container.':
-    'Position static follows flow; relative conserves space and creates reference; absolute exits the stream and uses containing block; fixed relates to viewport except transform ancestors; sticky changes depending on scroll container.',
-  'Flexbox organiza una dimensión y distribuye espacio; Grid controla filas y columnas. `min-width: 0` suele resolver overflow de hijos flex.':
-    'Flexbox organizes a dimension and distributes space; Grid controls rows and columns. `min-width: 0` usually resolves overflow of flex children.',
-  'Responsive design combina tamaños fluidos, media queries, container queries, imágenes adaptativas y límites de ancho. Los breakpoints basados en el punto donde el contenido deja de funcionar resisten mejor cambios de dispositivos y layout.':
-    'Responsive design combines fluid sizes, media queries, container queries, adaptive images and width limits. Breakpoints based on the point where the content stops working better resist device and layout changes.',
-  'Overflow puede clippear, scrollear o crear formatting context. `text-overflow: ellipsis` necesita restricciones de overflow y white-space.':
-    'Overflow can clip, scroll or create formatting context. `text-overflow: ellipsis` needs overflow and white-space restrictions.',
-  '`z-index` solo compara dentro del mismo stacking context. Transform, opacity, positioned elements y isolation pueden crear contextos nuevos.':
-    '`z-index` only compares within the same stacking context. Transform, opacity, positioned elements and isolation can create new contexts.',
-  'Una transition interpola el cambio entre dos estados; una animation recorre keyframes aunque no cambie una propiedad por interacción. `transform` y `opacity` suelen ejecutarse en composición y evitan layout, mientras `prefers-reduced-motion` permite reducir movimiento no esencial.':
-    'A transition interpolates the change between two states; An animation cycles through keyframes even if it does not change a property by interaction. `transform` and `opacity` are usually executed in composition and avoid layout, while `prefers-reduced-motion` allows reducing non-essential movement.',
-  'BEM nombra Block, Element y Modifier; CSS Modules, Shadow DOM y Angular encapsulation resuelven scopes con modelos distintos.':
-    'BEM names Block, Element and Modifier; CSS Modules, Shadow DOM and Angular encapsulation resolve scopes with different models.',
-  'Preprocesadores agregan sintaxis en build; frameworks entregan utilidades o componentes. Ninguno reemplaza cascade, layout ni accesibilidad.':
-    'Preprocessors add syntax in build; Frameworks deliver utilities or components. None replaces cascade, layout or accessibility.',
-  '`contain` limita qué partes del árbol pueden afectar layout, paint o style fuera de un elemento. `content-visibility: auto` permite omitir el render de contenido fuera del viewport. Ambas herramientas reducen trabajo, pero cambian mediciones, foco y accesibilidad si se aplican sin comprobar el resultado.':
-    '`contain` limits which parts of the tree can affect layout, paint, or style outside of an element. `content-visibility: auto` allows you to skip rendering content outside the viewport. Both tools reduce work, but change measurements, focus and accessibility if they are applied without checking the result.',
-  '¿Flexbox o Grid?': 'Flexbox or Grid?',
-  'Flexbox distribuye elementos a lo largo de un eje y permite wrapping. Grid define una estructura bidimensional. Una interfaz puede usar ambos en niveles distintos.':
-    'Flexbox distributes elements along an axis and allows wrapping. Grid defines a two-dimensional structure. An interface can use both at different levels.',
-  '¿Por qué `z-index: 9999` no funciona?':
-    'Why is `z-index: 9999` not working?',
-  'El elemento puede vivir dentro de un stacking context que queda debajo de otro. Comparo contextos ancestros antes de subir el número.':
-    'The element can live within a stacking context that is below another. I compare ancestral contexts before uploading the number.',
-  '¿`display:none` o `visibility:hidden`?':
-    '`display:none` or `visibility:hidden`?',
-  '`display:none` elimina la caja; `visibility:hidden` conserva su espacio. Si necesitás ocultar solo visualmente y mantener lectura, uso un patrón visually-hidden probado.':
-    '`display:none` removes box; `visibility:hidden` conserves its space. If you need to only visually hide and maintain readability, I use a proven visually-hidden pattern.',
-  '¿Cómo evitás CSS frágil?': 'How do you avoid brittle CSS?',
-  'Reduzco especificidad, defino tokens y layers, limito alcance, documento variantes y pruebo estados, tamaños, temas y contenido real.':
-    'I reduce specificity, define tokens and layers, limit scope, document variants and test states, sizes, themes and actual content.',
-  '¿Cómo diagnosticás un problema de `z-index`?':
-    'How do you diagnose a `z-index` problem?',
-  'Identifico los stacking contexts de ambos elementos y comparo sus ancestros, no sólo sus números. `transform`, `opacity`, `isolation` y ciertos elementos posicionados crean contextos que limitan dónde compite un descendiente.':
-    'I identify the stacking contexts of both elements and compare their ancestors, not just their numbers. `transform`, `opacity`, `isolation`, and certain positioned elements create contexts that limit where a descendant competes.',
-  '¿Media query o container query?': 'Media query or container query?',
-  'Una media query responde al viewport o a preferencias del usuario. Una container query responde al espacio disponible para el componente. La segunda permite reutilizar la misma pieza en layouts distintos sin conocer la página que la contiene.':
-    'A media query responds to the viewport or user preferences. A container query responds to the space available for the component. The second allows you to reuse the same piece in different layouts without knowing the page that contains it.',
-  'JavaScript: tipos, coerción, scope y funciones':
-    'JavaScript: types, coercion, scope and functions',
-  'Estas preguntas aparecen en entrevistas frontend de cualquier nivel. Una respuesta Senior explica la regla del lenguaje, muestra un caso que falla y propone una forma de escribir código predecible.':
-    'These questions appear in frontend interviews of any level. A Senior answer explains the language rule, shows a failing case, and proposes a way to write predictable code.',
-  'JavaScript tiene tipos primitivos `undefined`, `null`, `boolean`, `number`, `bigint`, `string` y `symbol`. Los objetos se comparan por referencia. `typeof null` devuelve `object` por una decisión histórica.':
-    'JavaScript has primitive types `undefined`, `null`, `boolean`, `number`, `bigint`, `string`, and `symbol`. Objects are compared by reference. `typeof null` returns `object` for a historical decision.',
-  '`var` posee function scope, permite redeclaración y su declaración se eleva. `let` y `const` poseen block scope y permanecen en temporal dead zone hasta la inicialización. `const` fija la referencia, no vuelve inmutable el objeto.':
-    '`var` has function scope, allows redeclaration and its declaration is raised. `let` and `const` have block scope and remain in the temporary dead zone until initialization. `const` sets the reference, it does not make the object immutable.',
-  'La coerción implícita aplica reglas distintas según el operador. `+` concatena si aparece un string; otros operadores aritméticos convierten sus operandos a número. `Number`, `String` y `Boolean` hacen visible la conversión en fronteras como formularios, storage y parámetros de URL.':
-    'Implicit coercion applies different rules depending on the operator. `+` concatenates if a string appears; Other arithmetic operators convert their operands to numbers. `Number`, `String` and `Boolean` make conversion visible on borders such as forms, storage and URL parameters.',
-  '`===` compara tipo y valor sin coerción. `Object.is` difiere en `NaN` y `-0`. `==` tiene casos útiles, como `value == null`, pero exige conocer su tabla de coerción.':
-    '`===` compares type and value without coercion. `Object.is` differs in `NaN` and `-0`. `==` has useful cases, like `value == null`, but requires knowing its coercion table.',
-  'Falsy incluye `false`, `0`, `-0`, `0n`, cadena vacía, `null`, `undefined` y `NaN`. Un array u objeto vacío es truthy.':
-    'Falsy includes `false`, `0`, `-0`, `0n`, empty string, `null`, `undefined`, and `NaN`. An empty array or object is truthy.',
-  'Una declaración de función se eleva con su cuerpo. Una function expression sigue las reglas de su variable. Las arrow functions capturan `this`, `arguments` y `super` del entorno; no sirven como constructor.':
-    'A function declaration is raised with its body. A function expression follows the rules of its variable. The arrow functions capture `this`, `arguments`, and `super` from the environment; They do not serve as a constructor.',
-  '`this` depende de cómo se invoca una función: method call, `call/apply/bind`, constructor con `new` o binding léxico de arrow. Extraer un método puede perder el receiver.':
-    '`this` depends on how a function is invoked: method call, `call/apply/bind`, constructor with `new` or arrow lexical binding. Extracting a method may lose the receiver.',
-  'Un closure conserva acceso al entorno léxico. Sirve para encapsular estado, factories y callbacks; también puede retener memoria si una referencia mantiene vivo un grafo grande.':
-    'A closure preserves access to the lexical environment. It serves to encapsulate state, factories and callbacks; It can also retain memory if a reference keeps a large graph alive.',
-  'El spread copia un nivel y enumera propiedades. `structuredClone` cubre muchos valores y ciclos, pero no funciones ni todos los objetos host. Un JSON round-trip pierde fechas, `undefined`, `BigInt` y prototipos.':
-    'The spread copies a level and lists properties. `structuredClone` covers many values ​​and cycles, but not functions or all host objects. A JSON round-trip misses dates, `undefined`, `BigInt`, and prototypes.',
-  'Destructuring extrae valores y admite defaults. El default corre solo para `undefined`, no para `null`. Rest agrupa el remanente y debe ocupar la última posición.':
-    'Destructuring extracts values and supports defaults. The default runs only for `undefined`, not for `null`. Rest groups the remainder and should occupy the last position.',
-  '¿Cuál es la diferencia entre `var`, `let` y `const`?':
-    'What is the difference between `var`, `let` and `const`?',
-  '`var` usa scope de función y permite redeclaración. `let` y `const` usan scope de bloque y temporal dead zone. `const` impide reasignar la variable, pero el valor referenciado puede mutar.':
-    '`var` uses function scope and allows redeclaration. `let` and `const` use block scope and temporary dead zone. `const` prevents reassigning the variable, but the referenced value can mutate.',
-  '¿Por qué `[] == false` da true?': 'Why does `[] == false` give true?',
-  '`==` convierte el array a primitivo, produce una cadena vacía y después convierte ambos lados a número: cero y cero. Con `===` el resultado es false porque los tipos difieren.':
-    '`==` converts the array to primitive, produces an empty string, and then converts both sides to numbers: zero and zero. With `===` the result is false because the types differ.',
-  '¿Arrow function o función normal?': 'Arrow function or normal function?',
-  'Uso arrow para callbacks que necesitan el `this` exterior. Uso función normal para métodos dinámicos, constructores o APIs que asignan receiver.':
-    'I use arrow for callbacks that need the outer `this`. Use normal function for dynamic methods, constructors or APIs that assign receiver.',
-  '¿Shallow copy o deep copy?': 'Shallow copy or deep copy?',
-  'Spread y `Object.assign` copian el primer nivel. Las referencias anidadas siguen compartidas. Elijo una copia profunda solo si el modelo y el costo lo justifican.':
-    'Spread and `Object.assign` copy the first level. Nested references are still shared. I choose a deep copy only if the model and cost justify it.',
-  '¿Por qué existe la Temporal Dead Zone?':
-    'Why does the Temporal Dead Zone exist?',
-  'El binding de `let` o `const` existe desde el inicio del bloque, pero JavaScript impide leerlo antes de ejecutar su inicialización. Así detecta accesos prematuros en lugar de devolver `undefined` como ocurre con `var`.':
-    'The `let` or `const` binding exists from the beginning of the block, but JavaScript prevents reading it before executing its initialization. This way it detects premature accesses instead of returning `undefined` as happens with `var`.',
-  '¿Usarías alguna vez `==`?': 'Would you ever use `==`?',
-  'Aceptaría `value == null` si el estándar del equipo permite comprobar `null` y `undefined` juntos. Para el resto prefiero `===` porque evita que quien lee tenga que reconstruir la tabla de coerción.':
-    'I would accept `value == null` if the equipment standard allows checking `null` and `undefined` together. For the rest I prefer `===` because it prevents the reader from having to rebuild the coercion table.',
-  'JavaScript: objetos, prototipos, arrays y programación funcional':
-    'JavaScript: objects, prototypes, arrays and functional programming',
-  'JavaScript usa delegación prototípica. Las clases ofrecen sintaxis, pero los objetos todavía resuelven propiedades a través de una cadena de prototipos.':
-    'JavaScript uses prototypical delegation. Classes offer syntax, but objects still resolve properties through a chain of prototypes.',
-  '`Object.create(proto)` fija el prototipo. `new C()` crea un objeto, enlaza `C.prototype`, ejecuta `C` con ese `this` y devuelve el objeto salvo retorno explícito de otro objeto.':
-    '`Object.create(proto)` fixes the prototype. `new C()` creates an object, binds `C.prototype`, executes `C` with that `this`, and returns the object unless another object is explicitly returned.',
-  'Una propiedad puede ser own o heredada. `Object.hasOwn` comprueba ownership; `in` recorre la cadena. `Object.keys` devuelve claves enumerables propias.':
-    'A property can be owned or inherited. `Object.hasOwn` checks ownership; `in` loops through the chain. `Object.keys` returns own enumerable keys.',
-  'Los property descriptors controlan `writable`, `enumerable` y `configurable`; getters y setters forman accessors. Cambiar descriptores afecta serialización y copia.':
-    'The property descriptors control `writable`, `enumerable` and `configurable`; getters and setters form accessors. Changing descriptors affects serialization and copying.',
-  'Arrays son objetos con índices y `length`. `for...of` recorre valores de un iterable; `for...in` recorre claves enumerables y no conviene para arrays.':
-    'Arrays are objects with indexes and `length`. `for...of` loops through values ​​of an iterable; `for...in` loops through enumerable keys and is not suitable for arrays.',
-  '`map` crea una colección transformada, `filter` conserva elementos, `reduce` acumula, `find` devuelve la primera coincidencia y `some` o `every` evalúan predicados. Cada método comunica una intención distinta y evita acumular efectos dentro de un loop genérico.':
-    '`map` creates a transformed collection, `filter` persists elements, `reduce` accumulates, `find` returns the first match, and `some` or `every` evaluates predicates. Each method communicates a different intention and avoids accumulating effects within a generic loop.',
-  '`sort` muta y convierte a string sin comparator. `toSorted`, `toReversed`, `toSpliced` y `with` devuelven copias en runtimes modernos.':
-    '`sort` mutates and converts to string without comparator. `toSorted`, `toReversed`, `toSpliced`, and `with` return copies in modern runtimes.',
-  'Una pure function depende de sus argumentos y no produce efectos observables. La pureza mejora tests y composición, pero una aplicación necesita efectos en fronteras controladas.':
-    'A pure function depends on its arguments and produces no observable effects. Purity improves tests and composition, but an application needs effects at controlled boundaries.',
-  'Currying transforma una función de varios argumentos en una secuencia de funciones. Partial application fija algunos argumentos; no son conceptos idénticos.':
-    'Currying transforms a multi-argument function into a sequence of functions. Partial application sets some arguments; They are not identical concepts.',
-  'Memoization guarda resultados asociados a sus argumentos. La estrategia necesita una regla de igualdad, un límite de tamaño y una política de invalidación; sin esos límites, la caché puede devolver datos obsoletos o retener memoria sin control.':
-    'Memoization saves results associated with its arguments. The strategy needs an equality rule, a size limit, and an override policy; Without those limits, the cache can return stale data or retain memory uncontrollably.',
-  'Big O describe crecimiento. Acceso por índice de array suele ser O(1); búsqueda lineal O(n); sort comparativo O(n log n); acceso promedio a Map O(1). Las constantes todavía afectan al usuario.':
-    'Big O describes growth. Access by array index is usually O(1); linear search O(n); sort comparative O(n log n); average access to Map O(1). The constants still affect the user.',
-  '¿Clase o prototipo?': 'Class or prototype?',
-  '`class` organiza herencia y métodos con sintaxis más clara; el runtime resuelve métodos mediante prototipos. Conocer el modelo explica `instanceof`, shadowing y métodos compartidos.':
-    '`class` organizes inheritance and methods with clearer syntax; the runtime resolves methods through prototypes. Knowing the model explains `instanceof`, shadowing and shared methods.',
-  '¿`map` o `forEach`?': '`map` or `forEach`?',
-  '`map` crea una colección transformada y exige usar el retorno. `forEach` expresa un efecto por elemento y devuelve `undefined`.':
-    '`map` creates a transformed collection and requires using the return. `forEach` expresses one effect per element and returns `undefined`.',
-  '¿`Map` o objeto?': '`Map` or object?',
-  '`Map` acepta cualquier clave, preserva orden de inserción y ofrece size e iteración directa. Un objeto encaja en records con claves string/symbol y serialización JSON.':
-    '`Map` accepts any key, preserves insertion order, and offers size and direct iteration. An object fits into records with string/symbol keys and JSON serialization.',
-  '¿Qué muta un array?': 'What mutates an array?',
-  '`push`, `pop`, `shift`, `unshift`, `splice`, `sort`, `reverse`, `fill` y `copyWithin`. `map`, `filter`, `slice`, `concat` y los métodos `to*` crean otro array.':
-    '`push`, `pop`, `shift`, `unshift`, `splice`, `sort`, `reverse`, `fill` and `copyWithin`. `map`, `filter`, `slice`, `concat` and the `to*` methods create another array.',
-  '¿Qué pierde una copia con spread?': 'What does a spread copy lose?',
-  'Spread copia propiedades enumerables propias del primer nivel. Las referencias anidadas siguen compartidas y la copia no conserva descriptores completos ni comportamiento interno de todos los objetos. Primero defino qué parte del modelo necesita una nueva identidad.':
-    'Spread copies enumerable properties from the first level. Nested references remain shared and the copy does not preserve complete descriptors or internal behavior of all objects. First I define which part of the model needs a new identity.',
-  '¿Cuándo evitás `map`, `filter` y `reduce` encadenados?':
-    'When do you avoid chained `map`, `filter` and `reduce`?',
-  'Cada operador puede recorrer y asignar otra colección. En una ruta caliente o una lista grande, un solo loop puede reducir memoria y trabajo. Mantengo la cadena cuando su claridad pesa más que ese costo medido.':
-    'Each operator can loop through and assign another collection. On a hot route or a large list, a single loop can reduce memory and work. I keep the chain when its clarity outweighs that measured cost.',
-  'JavaScript asíncrono: event loop, Promises y errores':
-    'JavaScript asynchronous: event loop, Promises and errors',
-  'JavaScript ejecuta código en un solo call stack y delega timers, red y eventos al entorno. Promises, async/await y el event loop permiten coordinar cuándo continúa cada operación sin bloquear la interfaz.':
-    'JavaScript runs code on one call stack and delegates timers, network activity, and events to the host environment. Promises, async/await, and the event loop coordinate when each operation continues without blocking the interface.',
-  'El código síncrono termina una instrucción antes de comenzar la siguiente. JavaScript usa un solo call stack para ejecutar ese código en el main thread del navegador. Una función lenta ocupa el stack y retrasa clicks, input, layout y paint.':
-    'Synchronous code finishes one instruction before starting the next. JavaScript uses one call stack to run that code on the browser main thread. A slow function occupies the stack and delays clicks, input, layout, and paint.',
-  'Una operación asíncrona inicia un trabajo cuyo resultado llegará después. El navegador puede encargarse de un timer, una petición de red o un evento mientras el stack continúa con otras instrucciones. Asincronía describe coordinación en el tiempo; no significa que dos fragmentos de JavaScript se ejecuten al mismo tiempo en el mismo thread.':
-    'An asynchronous operation starts work whose result will arrive later. The browser can manage a timer, network request, or event while the stack continues with other instructions. Asynchrony describes coordination over time; it does not mean that two pieces of JavaScript run at the same time on the same thread.',
-  'El event loop coordina el call stack con el entorno del navegador y sus colas. Toma una task, ejecuta su callback hasta vaciar el stack, drena todas las microtasks pendientes, permite que el navegador renderice y después avanza a otra task. `setTimeout`, eventos y mensajes generan tasks; continuaciones de Promises y `queueMicrotask` generan microtasks.':
-    'The event loop coordinates the call stack with the browser environment and its queues. It takes one task, runs its callback until the stack is empty, drains all pending microtasks, lets the browser render, and then advances to another task. `setTimeout`, events, and messages create tasks; Promise continuations and `queueMicrotask` create microtasks.',
-  'Una `Promise` es un objeto que representa el resultado futuro de una sola operación. Nace en estado `pending` y termina como `fulfilled` con un valor o `rejected` con una razón. `fulfilled` y `rejected` forman el estado `settled`. Una Promise settled no puede cambiar de estado ni volver a emitir otro resultado.':
-    'A `Promise` is an object that represents the future result of one operation. It starts in the `pending` state and finishes as `fulfilled` with a value or `rejected` with a reason. `fulfilled` and `rejected` are the two `settled` outcomes. A settled Promise cannot change state or emit another result.',
-  'El constructor `new Promise(executor)` ejecuta el executor de inmediato y de forma síncrona. Las funciones `resolve` y `reject` fijan el resultado eventual; no vuelven asíncrono el trabajo que se ejecuta dentro del executor. La asincronía proviene de la API usada, como `fetch`, un timer o IndexedDB. Si una API ya devuelve una Promise, envolverla en otra suele agregar código y errores sin aportar control.':
-    'The `new Promise(executor)` constructor runs the executor immediately and synchronously. The `resolve` and `reject` functions set the eventual outcome; they do not make work inside the executor asynchronous. The asynchronous behavior comes from an API such as `fetch`, a timer, or IndexedDB. Wrapping an API that already returns a Promise usually adds code and failure modes without adding control.',
-  '`then` registra el camino de éxito, `catch` registra el de rechazo y `finally` ejecuta cleanup sin recibir ni reemplazar el resultado salvo que lance un error. Cada método devuelve una Promise nueva. Por eso una cadena no modifica la Promise anterior: cada eslabón describe cómo obtener el resultado siguiente.':
-    '`then` registers the success path, `catch` registers the rejection path, and `finally` performs cleanup without receiving or replacing the result unless it throws. Each method returns a new Promise. A chain therefore does not modify the previous Promise: each link describes how to obtain the next result.',
-  'El valor que retorna un callback decide el siguiente eslabón. Un valor común cumple la Promise siguiente con ese valor; una Promise o thenable hace que la siguiente adopte su estado; un `throw` la rechaza. Omitir `return` entrega `undefined` y deja fuera de la cadena cualquier operación iniciada dentro del callback.':
-    'The value returned by a callback determines the next link. A plain value fulfills the next Promise with that value; a Promise or thenable makes the next Promise adopt its state; a `throw` rejects it. Omitting `return` produces `undefined` and leaves any operation started inside the callback outside the chain.',
-  'Los handlers de `then`, `catch` y `finally` no corren durante el stack actual, aunque la Promise ya esté settled. JavaScript los encola como microtasks. El navegador drena esa cola antes de tomar otra task, por eso una cadena que crea microtasks sin terminar puede retrasar timers, eventos y render.':
-    'The handlers passed to `then`, `catch`, and `finally` do not run during the current stack, even when the Promise is already settled. JavaScript queues them as microtasks. The browser drains that queue before taking another task, so a chain that keeps creating microtasks can delay timers, events, and rendering.',
-  'Una función declarada con `async` devuelve una Promise. Un `return value` produce una Promise fulfilled con `value`; un `throw error` produce una Promise rejected. `await promise` pausa sólo la ejecución de esa función, libera el stack y reanuda su continuación como microtask cuando la Promise termina. `await` no bloquea el thread ni mueve trabajo de CPU a otro thread.':
-    'A function declared with `async` returns a Promise. `return value` produces a Promise fulfilled with `value`; `throw error` produces a rejected Promise. `await promise` pauses only that function, releases the stack, and resumes its continuation as a microtask when the Promise settles. `await` does not block the thread or move CPU work to another thread.',
-  'Dos `await` consecutivos suelen ejecutar operaciones en secuencia cuando la segunda comienza después de resolver la primera. Si ambas son independientes, iniciarlas antes y esperar `Promise.all` reduce el tiempo total. La concurrencia empieza al crear o invocar las operaciones, no al escribir `Promise.all`.':
-    'Two consecutive `await` expressions usually run operations sequentially when the second starts after the first resolves. If both operations are independent, starting them first and awaiting `Promise.all` reduces total time. Concurrency starts when the operations are created or invoked, not when `Promise.all` is written.',
-  'Los combinadores expresan políticas distintas. `Promise.all` cumple cuando todas cumplen, conserva el orden de entrada y rechaza ante el primer rechazo observado. `Promise.allSettled` espera todos los resultados. `Promise.race` adopta el primer settlement. `Promise.any` toma el primer fulfillment y, si todos rechazan, devuelve un `AggregateError`.':
-    'The combinators express different policies. `Promise.all` fulfills when every input fulfills, preserves input order, and rejects on the first observed rejection. `Promise.allSettled` waits for every result. `Promise.race` adopts the first settlement. `Promise.any` takes the first fulfillment and rejects with an `AggregateError` when every input rejects.',
-  'Un `Observable` representa una fuente que puede enviar cero, uno o varios valores a lo largo del tiempo. Una suscripción conecta un observer con esa fuente. El observer puede recibir notificaciones `next`, una única notificación terminal `error` o una única notificación terminal `complete`. Después de `error` o `complete` no llegan más valores.':
-    'An `Observable` represents a source that can send zero, one, or many values over time. A subscription connects an observer to that source. The observer can receive `next` notifications, one terminal `error` notification, or one terminal `complete` notification. No more values arrive after `error` or `complete`.',
-  'La mayoría de los Observables de RxJS son lazy: el producer comienza para cada `subscribe`. Un Observable cold crea una ejecución independiente por suscriptor, como una request HTTP. Un Observable hot comparte una fuente que ya produce, como eventos del usuario o un Subject. Operadores como `map`, `filter`, `switchMap` y `catchError` crean Observables nuevos y describen el flujo sin mutar la fuente.':
-    'Most RxJS Observables are lazy: the producer starts for each `subscribe`. A cold Observable creates an independent execution per subscriber, such as an HTTP request. A hot Observable shares a source that already produces values, such as user events or a Subject. Operators such as `map`, `filter`, `switchMap`, and `catchError` create new Observables and describe the flow without mutating the source.',
-  '`unsubscribe` ejecuta el teardown registrado por el Observable y deja de entregar notificaciones a ese suscriptor. Detener el trabajo subyacente depende de que el producer implemente ese teardown. Angular `HttpClient` aborta la request al desuscribirse; un Observable propio que inicia un timer debe cancelarlo en su función de cleanup. Desuscribirse no deshace efectos que ya ocurrieron.':
-    '`unsubscribe` runs the teardown registered by the Observable and stops delivering notifications to that subscriber. Stopping the underlying work depends on the producer implementing that teardown. Angular `HttpClient` aborts the request on unsubscribe; a custom Observable that starts a timer must cancel it in its cleanup function. Unsubscribing does not undo effects that already occurred.',
-  'Promise y Observable modelan contratos distintos. Una Promise comparte un único resultado settled y se consume con `then` o `await`. Un Observable modela una secuencia, puede ser lazy, permite composición temporal y ofrece teardown por suscripción. Convertir entre ambos puede perder información: `firstValueFrom` toma el primer valor y necesita que la fuente emita o termine; convertir una Promise a Observable no vuelve cancelable la operación original.':
-    'Promise and Observable model different contracts. A Promise shares one settled result and is consumed with `then` or `await`. An Observable models a sequence, can be lazy, supports time-based composition, and provides teardown per subscription. Conversion can lose information: `firstValueFrom` takes the first value and needs the source to emit or finish; converting a Promise to an Observable does not make the original operation cancelable.',
-  '`try/catch` captura errores síncronos del bloque y rechazos que atraviesan un `await`. No captura un error lanzado más tarde por un callback desconectado, como un `setTimeout`. Ese callback necesita su propio manejo o debe formar parte de una Promise que el flujo retorne y espere.':
-    '`try/catch` catches synchronous errors in its block and rejections that pass through an `await`. It does not catch an error thrown later by a disconnected callback such as `setTimeout`. That callback needs its own handling or must belong to a Promise that the flow returns and awaits.',
-  'Una Promise no define cancelación. `AbortController` permite pedirle a `fetch` y a otras APIs compatibles que detengan su trabajo mediante una `signal`. Cancelar el cliente evita procesar una respuesta innecesaria, aunque el servidor puede continuar si ya recibió y empezó la operación.':
-    'A Promise does not define cancellation. `AbortController` lets code ask `fetch` and other compatible APIs to stop their work through a `signal`. Client-side cancellation avoids processing an unnecessary response, although the server may continue if it already received and started the operation.',
-  'Una race condition aparece cuando varias operaciones compiten por actualizar el mismo estado y terminan en otro orden. Un buscador puede mostrar una respuesta vieja si la primera petición tarda más que la última. Abortá la anterior, asigná una versión a cada solicitud o aceptá el resultado sólo si todavía corresponde a la consulta vigente.':
-    'A race condition occurs when several operations compete to update the same state and finish in a different order. A search box can display an old response when the first request takes longer than the latest one. Abort the previous request, assign a version to each request, or accept the result only while it still matches the current query.',
-  'Debounce espera un período sin eventos antes de ejecutar; sirve para búsquedas mientras el usuario escribe. Throttle impone una frecuencia máxima; sirve para scroll o resize. Ambos necesitan cleanup para cancelar timers o trabajo pendiente cuando se destruye el consumidor.':
-    'Debounce waits for a period without events before running; it fits search while the user types. Throttle imposes a maximum frequency; it fits scroll or resize. Both need cleanup to cancel timers or pending work when the consumer is destroyed.',
-  '`async/await` organiza espera de I/O, pero no reduce el costo del código síncrono. Dividí CPU intenso en tareas pequeñas cuando necesitás devolver control al navegador. Usá un Web Worker cuando el cálculo merece otro thread y el costo de copiar datos y enviar mensajes resulta aceptable.':
-    '`async/await` organizes I/O waits but does not reduce the cost of synchronous code. Split CPU-intensive work into small tasks when the browser needs control back. Use a Web Worker when the calculation warrants another thread and the cost of copying data and sending messages is acceptable.',
-  '¿Qué es una Promise?': 'What is a Promise?',
-  "Una Promise representa un único resultado que todavía puede no estar disponible. Empieza `pending` y termina `fulfilled` con un valor o `rejected` con un error. Por ejemplo, `fetch('/users')` devuelve de inmediato una Promise; el objeto permite registrar qué hacer cuando lleguen la respuesta o el fallo. La Promise no contiene un thread ni ejecuta dos resultados: modela la finalización de una operación.":
-    "A Promise represents one result that may not be available yet. It starts `pending` and finishes `fulfilled` with a value or `rejected` with an error. For example, `fetch('/users')` returns a Promise immediately; the object lets code register what to do when the response or failure arrives. A Promise does not contain a thread or produce two results: it models the completion of one operation.",
-  '¿El executor de `new Promise` es asíncrono?':
-    'Is the `new Promise` executor asynchronous?',
-  "No. `new Promise((resolve) => { console.log('executor'); resolve(1); })` imprime `executor` durante el stack actual. Lo que corre después como microtask es el callback registrado con `then`. Poner un loop pesado dentro del executor bloquea la interfaz igual que cualquier otro código síncrono.":
-    "No. `new Promise((resolve) => { console.log('executor'); resolve(1); })` prints `executor` during the current stack. The callback registered with `then` runs later as a microtask. A heavy loop inside the executor blocks the interface like any other synchronous code.",
-  '¿Qué devuelve `then`?': 'What does `then` return?',
-  '`then` devuelve una Promise nueva. Si el callback retorna `42`, la nueva Promise cumple con `42`; si retorna `fetch(...)`, adopta el estado de esa Promise; si lanza un error, queda rechazada. Este contrato permite encadenar transformaciones y propagar errores hasta un `catch`.':
-    '`then` returns a new Promise. If the callback returns `42`, the new Promise fulfills with `42`; if it returns `fetch(...)`, it adopts that Promise state; if it throws, the new Promise rejects. This contract supports chained transformations and error propagation to a `catch`.',
-  '¿Qué pasa si olvidás `return` dentro de un `then`?':
-    'What happens when you forget `return` inside `then`?',
-  'El callback retorna `undefined`, así que el siguiente `then` continúa sin esperar la operación interna. En `loadUser().then(user => { saveUser(user); }).then(showSuccess)`, `showSuccess` puede ejecutarse antes de que termine `saveUser`. La corrección es `return saveUser(user)` o usar `await saveUser(user)` dentro de una función `async`.':
-    'The callback returns `undefined`, so the next `then` continues without waiting for the inner operation. In `loadUser().then(user => { saveUser(user); }).then(showSuccess)`, `showSuccess` can run before `saveUser` finishes. Return `saveUser(user)` or use `await saveUser(user)` inside an `async` function.',
-  '¿En qué orden imprime el ejemplo?': 'In what order does the example print?',
-  'Primero corre el stack síncrono: `A` y `E`. Después se procesan las microtasks en el orden en que fueron encoladas: `C` y `D`. Al final corre la task del timer y aparece `B`. El resultado es `A, E, C, D, B`. Un timer con demora cero indica una demora mínima; no salta por delante del stack ni de las microtasks.':
-    'The synchronous stack runs first: `A` and `E`. Microtasks then run in queue order: `C` and `D`. The timer task runs last and prints `B`. The result is `A, E, C, D, B`. A zero-delay timer specifies a minimum delay; it does not jump ahead of the stack or microtasks.',
-  '¿`await` bloquea JavaScript?': 'Does `await` block JavaScript?',
-  '`await` pausa la función `async` que lo contiene y devuelve el control al caller. El main thread puede procesar otras tareas. Cuando la Promise termina, JavaScript encola la continuación de la función como microtask. Un cálculo pesado antes o después del `await` sigue bloqueando porque `await` no crea otro thread.':
-    '`await` pauses the containing `async` function and returns control to the caller. The main thread can process other tasks. When the Promise settles, JavaScript queues the function continuation as a microtask. Heavy computation before or after `await` still blocks because `await` does not create another thread.',
-  '¿Cuándo usar ejecución secuencial y cuándo concurrente?':
-    'When should operations run sequentially or concurrently?',
-  'Usá secuencia cuando una operación depende del resultado anterior, como cargar un usuario y después consultar sus permisos. Para trabajos independientes, iniciá ambos antes: `const userRequest = loadUser(); const settingsRequest = loadSettings(); const [user, settings] = await Promise.all([userRequest, settingsRequest]);`. Así el tiempo total se aproxima a la operación más lenta en lugar de sumar ambas esperas.':
-    'Use sequential execution when one operation depends on the previous result, such as loading a user before requesting that user permissions. For independent work, start both operations first: `const userRequest = loadUser(); const settingsRequest = loadSettings(); const [user, settings] = await Promise.all([userRequest, settingsRequest]);`. Total time then approaches the slower operation instead of adding both waits.',
-  '¿Promise u Observable?': 'Promise or Observable?',
-  'Una Promise entrega un único resultado y no incorpora cancelación. Empieza cuando la operación que la creó ya fue iniciada. Un Observable puede emitir cero, uno o varios valores; suele comenzar al suscribirse, permite `unsubscribe` y compone tiempo, cancelación y concurrencia mediante operadores. Para una request HTTP aislada una Promise puede alcanzar; para eventos, streams o flujos cancelables, un Observable expresa mejor el contrato.':
-    'A Promise delivers one result and does not include cancellation. It begins after the operation that created it has already started. An Observable can emit zero, one, or many values; it usually begins on subscription, supports `unsubscribe`, and composes time, cancellation, and concurrency through operators. A Promise can fit one isolated HTTP request; an Observable expresses events, streams, and cancelable flows more clearly.',
-  '¿Qué es un Observable y qué hace `subscribe`?':
-    'What is an Observable and what does `subscribe` do?',
-  'Un Observable describe cómo producir y entregar una secuencia de notificaciones. `subscribe` inicia o conecta esa producción y devuelve una `Subscription`. El observer recibe `next(value)` mientras hay datos y después puede recibir `complete()` o `error(reason)` como final excluyente. Ejemplo: `interval(1000)` emite valores hasta que el consumidor se desuscribe; `http.get()` suele emitir una respuesta y completar.':
-    'An Observable describes how to produce and deliver a sequence of notifications. `subscribe` starts or connects that production and returns a `Subscription`. The observer receives `next(value)` while data exists and can then receive either `complete()` or `error(reason)` as the terminal signal. For example, `interval(1000)` emits until the consumer unsubscribes; `http.get()` usually emits one response and completes.',
-  '¿Observable cold u hot?': 'Cold or hot Observable?',
-  "Un cold Observable crea una ejecución por suscriptor. Dos suscripciones a `http.get('/users')` suelen crear dos requests. Un hot Observable comparte una fuente externa o una ejecución entre suscriptores, como clicks o un Subject. `share` y `shareReplay` pueden compartir una fuente cold, pero requieren definir replay, refCount y reset para no conservar datos o conexiones más tiempo del previsto.":
-    "A cold Observable creates one execution per subscriber. Two subscriptions to `http.get('/users')` usually create two requests. A hot Observable shares an external source or one execution among subscribers, such as clicks or a Subject. `share` and `shareReplay` can share a cold source, but replay, refCount, and reset behavior must be defined so data or connections are not retained longer than intended.",
-  '¿`unsubscribe` siempre cancela el trabajo?':
-    'Does `unsubscribe` always cancel the work?',
-  '`unsubscribe` deja de entregar valores y ejecuta el teardown del producer. Cancela el trabajo sólo si ese teardown sabe detenerlo. `HttpClient` puede abortar la request; un Observable creado con `new Observable` debe retornar cleanup, por ejemplo `return () => clearInterval(id)`. Una Promise convertida con `from(promise)` seguirá resolviéndose porque la Promise original no conoce la suscripción.':
-    '`unsubscribe` stops value delivery and runs the producer teardown. It cancels the work only when that teardown knows how to stop it. `HttpClient` can abort the request; an Observable created with `new Observable` must return cleanup, for example `return () => clearInterval(id)`. A Promise converted with `from(promise)` continues resolving because the original Promise does not know about the subscription.',
-  '¿Cuándo convertir una Promise a Observable o un Observable a Promise?':
-    'When should you convert a Promise to an Observable or an Observable to a Promise?',
-  '`from(promise)` integra un resultado único en un pipeline RxJS, pero no agrega cancelación a la Promise. `firstValueFrom(source$)` resuelve con la primera emisión y se desuscribe; `lastValueFrom(source$)` espera que la fuente complete y usa la última. Si la fuente no emite o no completa, la Promise puede rechazar o quedar pendiente, por lo que la conversión necesita un contrato de finalización claro.':
-    '`from(promise)` integrates a single result into an RxJS pipeline but does not add cancellation to the Promise. `firstValueFrom(source$)` resolves with the first emission and unsubscribes; `lastValueFrom(source$)` waits for the source to complete and uses the final value. If the source never emits or completes, the Promise may reject or remain pending, so the conversion needs a clear completion contract.',
-  '¿Cómo cancelás `fetch`?': 'How do you cancel `fetch`?',
-  'Creo `const controller = new AbortController()`, paso `controller.signal` a `fetch` y llamo `controller.abort()` cuando la respuesta deja de ser útil. El rechazo resultante representa cancelación y no un error funcional. También limpio el controller al destruir el componente o al iniciar una solicitud que reemplaza la anterior.':
-    'Create `const controller = new AbortController()`, pass `controller.signal` to `fetch`, and call `controller.abort()` when the response is no longer useful. The resulting rejection represents cancellation rather than a functional error. Clean up the controller when destroying the component or starting a request that replaces the previous one.',
-  '¿Por qué `try/catch` no captura un error de `setTimeout`?':
-    'Why does `try/catch` not catch an error from `setTimeout`?',
-  "El callback del timer corre en otra task, después de que el bloque `try` terminó. `try { setTimeout(() => { throw new Error('boom'); }); } catch {}` no lo captura. El callback necesita manejar su error o la API debe envolver el resultado en una Promise que el caller pueda retornar y esperar.":
-    "The timer callback runs in another task after the `try` block has finished. `try { setTimeout(() => { throw new Error('boom'); }); } catch {}` does not catch it. The callback must handle its error, or the API must wrap the result in a Promise that the caller can return and await.",
-  '¿Cómo evitás que una respuesta vieja reemplace una nueva?':
-    'How do you prevent an old response from replacing a new one?',
-  'Guardo la identidad de la solicitud vigente, cancelo la anterior o comparo una versión antes de escribir estado. En un buscador, la consulta `ang` puede responder después de `angular`; sin esa protección, la UI muestra resultados que ya no coinciden con el input. En RxJS, `switchMap` expresa la política de conservar sólo la operación más reciente.':
-    'Keep the current request identity, cancel the previous request, or compare a version before writing state. In a search box, the `ang` query can return after `angular`; without protection, the UI displays results that no longer match the input. In RxJS, `switchMap` expresses the policy of keeping only the latest operation.',
-  '¿Cómo puede una cadena de microtasks bloquear la interfaz?':
-    'How can a chain of microtasks block the interface?',
-  'El navegador vacía la cola de microtasks antes de avanzar al siguiente task y al render. Una cadena que agenda otra microtask puede retrasar input y pintura. Divido el trabajo y cedo al scheduler cuando necesito que el navegador procese otra tarea.':
-    'The browser empties the microtask queue before advancing to the next task and rendering. A chain that schedules another microtask can delay input and painting. I split the work and defer to the scheduler when I need the browser to process another task.',
-  '¿Qué ocurre si falla una promesa dentro de `Promise.all`?':
-    'What happens if a promise inside `Promise.all` fails?',
-  '`Promise.all` rechaza al recibir el primer rechazo observable, pero las operaciones restantes continúan salvo que su API admita cancelación. Uso `allSettled` cuando necesito el resultado de cada operación y `AbortController` cuando debo detener I/O compatible.':
-    '`Promise.all` rejects upon receipt of the first observable rejection, but remaining operations continue unless its API supports cancellation. I use `allSettled` when I need the result of each operation and `AbortController` when I need to stop compatible I/O.',
-  'TypeScript avanzado': 'TypeScript advanced',
-  'Angular amplifica TypeScript. Una base débil en el lenguaje produce templates inseguros, estado mutable y RxJS difícil de mantener.':
-    'Angular amplifies TypeScript. A weak foundation in the language produces unsafe templates, mutable state, and RxJS that are difficult to maintain.',
-  'TypeScript extiende JavaScript con un sistema de tipos estático. El compilador comprueba el programa y elimina los tipos al emitir JavaScript; por eso una anotación no valida por sí sola los datos que llegan en runtime.':
-    'TypeScript extends JavaScript with a static type system. The compiler checks the program and removes the types by issuing JavaScript; That is why an annotation does not by itself validate the data that arrives in runtime.',
-  "La inferencia obtiene un tipo desde el valor y su contexto. Una anotación fija el contrato de forma explícita. `as const` conserva literales y vuelve readonly la estructura inferida, mientras una anotación amplia puede convertir un literal como `'open'` en `string`.":
-    "Inference obtains a type from the value and its context. An annotation establishes the contract explicitly. `as const` preserves literals and makes the inferred structure readonly, while a broad annotation can convert a literal such as `'open'` to `string`.",
-  'TypeScript usa tipado estructural: dos valores son compatibles cuando su forma cumple las propiedades requeridas, aunque sus clases o nombres sean distintos. El exceso de propiedades se comprueba con más rigor en object literals que en variables intermedias.':
-    'TypeScript uses structural typing: two values ​​are compatible when their form meets the required properties, even if their classes or names are different. Excess properties are checked more rigorously in object literals than in intermediate variables.',
-  'Una `interface` describe contratos de objetos y admite declaration merging. Un `type` también puede representar unions, intersections, primitivas, tuplas y transformaciones calculadas. Ambos pueden expresar muchos contratos de objetos.':
-    'A `interface` describes object contracts and supports declaration merging. A `type` can also represent unions, intersections, primitives, tuples, and computed transformations. Both can express many object contracts.',
-  'Una union `A | B` acepta cualquiera de sus miembros y sólo permite operaciones comunes hasta estrechar el tipo. Una intersection `A & B` exige que el valor cumpla ambos contratos al mismo tiempo.':
-    'A `A | B` union accepts any of its members and only allows common operations until the type is narrowed. A `A & B` intersection requires that the security satisfy both contracts at the same time.',
-  'Las firmas de funciones tipan parámetros y retorno. Los overloads publican varias formas válidas de llamada sobre una implementación, mientras los parámetros opcionales, rest y valores por defecto modelan variaciones dentro de una misma firma.':
-    'Function signatures type parameters and returns. Overloads publish several valid forms of calls on an implementation, while optional parameters, rest and default values ​​model variations within the same signature.',
-  '`any` desactiva la comprobación para el valor y permite que el hueco de tipos se propague. `unknown` acepta cualquier valor, pero exige comprobar su tipo antes de operar con él.':
-    '`any` disables checking for the value and allows the type gap to propagate. `unknown` accepts any value, but requires checking its type before trading on it.',
-  '`never` representa un valor que no puede existir. Aparece en funciones que no retornan y en ramas exhaustivas de una unión, donde permite detectar variantes sin manejar durante la compilación.':
-    '`never` represents a value that cannot exist. It appears in non-returning functions and in exhaustive branches of a union, where it allows detecting unhandled variants during compilation.',
-  'Un generic introduce parámetros de tipo. La relación entre entrada y salida se conserva sin reemplazarla por `any`; por ejemplo, una función `identity<T>(value: T): T` devuelve el mismo tipo que recibió.':
-    'A generic introduces type parameters. The relationship between input and output is preserved without being replaced by `any`; for example, a function `identity<T>(value: T): T` returns the same type as it received.',
-  'Una discriminated union reúne variantes que comparten una propiedad literal, como `kind`. Al comprobar esa propiedad, TypeScript estrecha el tipo y habilita únicamente los campos de la variante activa. Un caso `default` asignado a `never` detecta estados nuevos que todavía no tienen manejo.':
-    'A discriminated union brings together variants that share a literal property, such as `kind`. When checking that property, TypeScript narrows the type and enables only the fields of the active variant. A case `default` assigned to `never` detects new states that are not yet handled.',
-  'El operador `satisfies` comprueba que una expresión cumple un tipo sin reemplazar el tipo inferido de la expresión. Una anotación puede ensanchar el valor y un type assertion sólo le pide al compilador que confíe en el programador.':
-    'The `satisfies` operator checks that an expression conforms to a type without replacing the inferred type of the expression. An annotation can widen the value and a type assertion only asks the compiler to trust the programmer.',
-  'Los utility types transforman tipos existentes. `Partial` vuelve opcionales sus propiedades, `Required` hace lo contrario, `Pick` y `Omit` seleccionan claves, y `Record` modela un mapa de claves a valores.':
-    'Utility types transform existing types. `Partial` makes its properties optional, `Required` does the opposite, `Pick` and `Omit` select keys, and `Record` models a key-to-value map.',
-  'Un type guard estrecha un tipo dentro de una rama. `typeof`, `instanceof`, el operador `in`, predicados `value is T` y funciones de assertion permiten demostrarle al compilador qué variante existe en runtime.':
-    'A type guard narrows a type within a branch. `typeof`, `instanceof`, the `in` operator, `value is T` predicates and assertion functions allow you to show the compiler which variant exists at runtime.',
-  'Optional chaining (`?.`) corta una cadena sólo ante `null` o `undefined`. Nullish coalescing (`??`) usa el valor alternativo únicamente para esos dos casos, mientras que `||` también reemplaza `0`, `false` y la cadena vacía.':
-    'Optional chaining (`?.`) cuts a chain only before `null` or `undefined`. Nullish coalescing (`??`) uses the alternative value only for those two cases, while `||` also replaces `0`, `false`, and the empty string.',
-  'Los decorators reciben metadata sobre clases o miembros y pueden reemplazar o complementar su definición según la propuesta y configuración usada. Angular los emplea para registrar componentes, directivas, pipes e inyectables.':
-    'Decorators receive metadata about classes or members and can replace or complement their definition depending on the proposal and configuration used. Angular uses them to register components, directives, pipes and injectables.',
-  'La configuración `strict` activa un conjunto de comprobaciones, entre ellas nullability, parámetros de funciones y propiedades inicializadas. El compilador encuentra estados inválidos antes de que lleguen al template o al runtime.':
-    'The `strict` setting enables a set of checks, including nullability, function parameters, and initialized properties. The compiler finds invalid states before they reach the template or runtime.',
-  '¿Por qué `unknown` supera a `any`?': 'Why does `unknown` outperform `any`?',
-  '`unknown` obliga a validar o estrechar el tipo antes de usarlo. `any` permite operaciones inválidas y propaga huecos por toda la aplicación.':
-    '`unknown` forces you to validate or narrow the type before using it. `any` allows invalid operations and propagates holes throughout the application.',
-  '¿`interface` o `type`?': '`interface` or `type`?',
-  'Ambos describen formas de objetos. `interface` admite declaration merging y extensión orientada a contratos; `type` también representa unions, intersections, tuplas y tipos calculados. La consistencia del código y la capacidad necesaria deciden la elección.':
-    'Both describe shapes of objects. `interface` supports declaration merging and contract-oriented extension; `type` also represents unions, intersections, tuples, and computed types. The consistency of the code and the capacity needed decide the choice.',
-  '¿Qué diferencia existe entre `satisfies` y `as`?':
-    'What is the difference between `satisfies` and `as`?',
-  '`satisfies` comprueba que el valor cumple un contrato y conserva su inferencia. `as` fuerza una interpretación del tipo y puede ocultar una incompatibilidad. Uso assertions sólo cuando el runtime aporta una garantía que el compilador no puede demostrar.':
-    '`satisfies` checks that the value satisfies a contract and preserves its inference. `as` forces an interpretation of the type and may hide an incompatibility. I use assertions only when the runtime provides a guarantee that the compiler cannot prove.',
-  '¿Cómo diseñás un generic útil?': 'How do you design a useful generic?',
-  'El generic debe conservar una relación entre valores, por ejemplo entre entrada y salida o entre una key y su propiedad. Si el parámetro de tipo aparece una sola vez, quizá una unión o un tipo concreto comunique mejor el contrato.':
-    'The generic must preserve a relationship between values, for example between input and output or between a key and its property. If the type parameter appears only once, perhaps a union or a specific type better communicates the contract.',
-  'Angular moderno y estrategia de versiones':
-    'Modern Angular and release strategy',
-  'La guía toma Angular 22 como referencia. Angular 22 está activo desde junio de 2026; Angular 21 y 20 siguen en LTS. Un Senior distingue APIs estables, migraciones y compatibilidad.':
-    'The guide takes Angular 22 as reference. Angular 22 is active since June 2026; Angular 21 and 20 are still on LTS. A Senior distinguishes stable APIs, migrations and compatibility.',
-  'Angular publica las versiones mayores de core y CLI de forma alineada. Cada versión admite rangos concretos de Node.js, TypeScript y RxJS; `ng version`, la tabla de compatibilidad y el Update Guide permiten comprobarlos antes de una migración.':
-    'Angular releases major versions of core and CLI in an aligned manner. Each version supports specific ranges of Node.js, TypeScript, and RxJS; `ng version`, the compatibility table and the Update Guide allow you to check them before a migration.',
-  'Las aplicaciones nuevas usan componentes standalone. NgModules siguen siendo relevantes en bases antiguas y bibliotecas, pero ya no deben dirigir un diseño nuevo sin motivo.':
-    'New applications use standalone components. NgModules are still relevant in older databases and libraries, but should no longer drive a new design for no reason.',
-  'Angular 21+ usa change detection zoneless por defecto. El código debe notificar cambios mediante signals, listeners, `AsyncPipe`, `setInput` o `markForCheck`.':
-    'Angular 21+ uses change detection zoneless by default. The code must report changes using signals, listeners, `AsyncPipe`, `setInput`, or `markForCheck`.',
-  'El control flow moderno usa `@if`, `@for`, `@switch` y `@empty`. `track` necesita una identidad estable; usar el índice en listas mutables crea errores visuales y trabajo DOM.':
-    'Modern control flow uses `@if`, `@for`, `@switch` and `@empty`. `track` needs a stable identity; using index on mutable lists creates visual bugs and DOM job.',
-  '`@defer` separa las dependencias de una vista en otro chunk y las carga mediante triggers como viewport, idle o interaction. LCP y CLS muestran si diferir contenido visible empeora la carga principal o provoca saltos de layout.':
-    '`@defer` separates the dependencies of a view in another chunk and loads them using triggers such as viewport, idle or interaction. LCP and CLS show whether deferring visible content worsens main loading or causes layout breaks.',
-  'La adopción de una API nueva depende de su estabilidad, soporte, capacidad del equipo y costo de fallback. APIs como `resource`, `httpResource` o Signal Forms requieren revisar su estado antes de incorporarlas a una base de producción.':
-    'Adoption of a new API depends on its stability, support, team capacity, and fallback cost. APIs such as `resource`, `httpResource` or Signal Forms require their status to be reviewed before being incorporated into a production base.',
-  '¿Migrarías todo a la última versión?':
-    'Would you migrate everything to the latest version?',
-  'Migraría por incrementos soportados, con tests, presupuestos de bundle y observabilidad. Priorizo seguridad, compatibilidad y APIs deprecadas; después adopto sintaxis nueva.':
-    'I would migrate by supported increments, with tests, bundle budgets and observability. I prioritize security, compatibility and deprecated APIs; then I adopt new syntax.',
-  '¿Standalone elimina los módulos?': 'Does Standalone remove modules?',
-  'Elimina la necesidad de NgModules para declarar componentes. Los módulos todavía pueden agrupar APIs heredadas o librerías. Standalone simplifica dependencias y lazy loading.':
-    'Eliminates the need for NgModules to declare components. Modules can still bundle legacy APIs or libraries. Standalone simplifies dependencies and lazy loading.',
-  '¿Qué revisarías antes de activar zoneless?':
-    'What would you check before activating zoneless?',
-  'Busco mutaciones que dependen de ZoneJS, librerías que actualizan campos sin notificar y usos directos de APIs externas. Migro el estado visible a signals, `AsyncPipe` o marcas explícitas y comparo tests y métricas antes de retirar ZoneJS.':
-    'I look for mutations that depend on ZoneJS, libraries that update fields without notifying and direct uses of external APIs. I migrate the visible state to signals, `AsyncPipe` or explicit flags and compare tests and metrics before removing ZoneJS.',
-  '¿Cómo decidís qué contenido cargar con `@defer`?':
-    'How do you decide what content to upload with `@defer`?',
-  'Difiero contenido costoso que no participa del primer objetivo visual. Elijo trigger y prefetch según la probabilidad de uso, reservo espacio para evitar CLS y mido LCP, transferencia e interacción en una build de producción.':
-    'I differentiate expensive content that does not participate in the first visual objective. I choose trigger and prefetch based on the probability of use, reserve space to avoid CLS and measure LCP, transfer and interaction in a production build.',
-  'Componentes, templates y composición':
-    'Components, templates and composition',
-  'Un componente Senior mantiene una API pequeña, estado local explícito y un template legible. La composición supera a la herencia para reutilizar UI.':
-    'A Senior component maintains a small API, explicit local state, and a readable template. Composition beats inheritance for UI reuse.',
-  'La metadata de un componente conecta una clase con su selector, template, estilos, estrategia de encapsulación, change detection, imports y providers. Los host bindings aplican propiedades, atributos o listeners al elemento anfitrión del componente.':
-    'The metadata of a component connects a class with its selector, template, styles, encapsulation strategy, change detection, imports and providers. Host bindings apply properties, attributes or listeners to the host element of the component.',
-  '`input()` declara un signal de entrada y `output()` crea un emisor tipado hacia el padre. `model()` combina una entrada con su salida `nombreChange`, lo que habilita two-way binding para controles cuyo valor forma parte de su contrato público.':
-    '`input()` declares an input signal and `output()` creates an emitter typed towards the parent. `model()` combines an input with its output `nombreChange`, which enables two-way binding for controls whose value is part of their public contract.',
-  'La proyección con `ng-content` define slots estáticos. `TemplateRef`, `ng-template`, `ViewContainerRef` y creación dinámica cubren composición avanzada.':
-    'Projection with `ng-content` defines static slots. `TemplateRef`, `ng-template`, `ViewContainerRef` and dynamic creation cover advanced compositing.',
-  '`viewChild` y `viewChildren` consultan la vista propia; `contentChild` y `contentChildren` consultan contenido proyectado. Las queries basadas en signals cambian cuando cambia el árbol. Una query `required` falla si el contrato no encuentra el hijo esperado.':
-    '`viewChild` and `viewChildren` query the self view; `contentChild` and `contentChildren` query projected content. Queries based on signals change when the tree changes. A `required` query fails if the contract does not find the expected child.',
-  'Una directiva añade comportamiento; un componente añade comportamiento y vista. Una pipe pura debe transformar sin efectos y devolver el mismo resultado para las mismas entradas.':
-    'A directive adds behavior; a component adds behavior and view. A pure pipe should transform without effects and return the same result for the same inputs.',
-  'Angular puede evaluar una expresión de template durante cada comprobación de la vista. Una función costosa invocada desde el template repite ese trabajo. `computed` memoriza una derivación y sólo la recalcula cuando cambia alguno de los signals leídos.':
-    'Angular can evaluate a template expression during each view check. An expensive function called from the template repeats that work. `computed` memorizes a derivation and only recalculates it when one of the signals read changes.',
-  '¿Input o servicio de estado?': 'Input or state service?',
-  'Un input expresa dependencia del padre y mantiene el componente reutilizable. Un servicio sirve para estado compartido por ramas distantes o un dominio. No ocultes datos de presentación globalizando todo.':
-    'An input expresses dependency on the parent and keeps the component reusable. A service serves state shared by distant branches or a domain. Do not hide presentation data by globalizing everything.',
-  '¿Content projection o input TemplateRef?':
-    'Content projection or input TemplateRef?',
-  '`ng-content` funciona para slots fijos y ergonomía declarativa. `TemplateRef` permite repetir, parametrizar o elegir plantillas en tiempo de ejecución.':
-    '`ng-content` works for fixed slots and declarative ergonomics. `TemplateRef` allows you to repeat, parameterize, or choose templates at runtime.',
-  '¿Qué debería formar parte de la API pública de un componente?':
-    "What should be part of a component's public API?",
-  'Sólo inputs, outputs y slots que representan variaciones reales del producto. Si una opción expone detalles internos o combina estados inválidos, prefiero dividir responsabilidades o modelar una unión más precisa.':
-    'Only inputs, outputs and slots that represent real variations of the product. If an option exposes internal details or joins invalid states, I prefer to split responsibilities or model a more precise join.',
-  '¿Cuándo crearías una directiva en lugar de un componente?':
-    'When would you create a directive instead of a component?',
-  'Creo una directiva cuando necesito añadir comportamiento a un elemento existente sin imponer markup. Creo un componente cuando la unidad posee estructura visual, estado y una API que deben evolucionar juntos.':
-    'I create a directive when I need to add behavior to an existing element without imposing markup. I create a component when the unit has visual structure, state, and an API that must evolve together.',
-  'Ciclo de vida y render hooks': 'Lifecycle and render hooks',
-  'El orden importa cuando un componente coordina inputs, queries, DOM y recursos externos.':
-    'Order matters when a component coordinates inputs, queries, DOM and external resources.',
-  'El constructor configura dependencias y estado barato. `ngOnInit` usa inputs inicializados. `ngOnChanges` reacciona a cambios de inputs y corre antes de `ngOnInit` en la primera pasada.':
-    'The builder sets up dependencies and cheap state. `ngOnInit` uses initialized inputs. `ngOnChanges` reacts to input changes and runs before `ngOnInit` on the first pass.',
-  '`ngAfterContentInit/Checked` se relacionan con contenido proyectado. `ngAfterViewInit/Checked` se relacionan con la vista propia y queries.':
-    '`ngAfterContentInit/Checked` relate to projected content. `ngAfterViewInit/Checked` are related to the view itself and queries.',
-  '`afterNextRender` ejecuta un callback después del siguiente render completo; `afterEveryRender` lo hace tras cada render. Agrupar escrituras DOM antes de lecturas geométricas evita alternar style recalculation y layout forzado.':
-    '`afterNextRender` executes a callback after the next complete render; `afterEveryRender` does it after each render. Grouping DOM writes before geometric reads avoids alternating style recalculation and forced layout.',
-  '`DestroyRef` registra cleanup en el mismo contexto donde nace un recurso. `takeUntilDestroyed` completa una suscripción cuando ese contexto se destruye. Observers, timers y listeners creados fuera de Angular requieren también su función explícita de limpieza.':
-    '`DestroyRef` registers cleanup in the same context where a resource is born. `takeUntilDestroyed` completes a subscription when that context is destroyed. Observers, timers and listeners created outside of Angular also require their explicit cleanup function.',
-  '`ExpressionChangedAfterItHasBeenCheckedError` aparece en desarrollo cuando una expresión cambia después de que Angular ya verificó esa vista dentro del mismo ciclo. La causa suele ser un flujo de datos que escribe hacia un ancestro o modifica estado durante un hook tardío; diferir con un timer oculta la inconsistencia.':
-    '`ExpressionChangedAfterItHasBeenCheckedError` appears in development when an expression changes after Angular has already checked that view within the same loop. The cause is usually a data flow that writes to an ancestor or modifies state during a late hook; deferring with a timer hides the inconsistency.',
-  '¿Constructor o `ngOnInit`?': 'Builder or `ngOnInit`?',
-  'El constructor pertenece a TypeScript y DI. `ngOnInit` pertenece al ciclo de Angular y recibe inputs listos. Evitá I/O en ambos si un resolver, store o recurso expresa mejor la carga.':
-    'The constructor belongs to TypeScript and DI. `ngOnInit` belongs to the Angular loop and receives ready inputs. Avoid I/O on both if a resolver, store or resource expresses the load better.',
-  '¿Cómo evitás leaks?': 'How do you avoid leaks?',
-  'Uso `AsyncPipe`, signals o `takeUntilDestroyed`; limpio APIs externas con `DestroyRef.onDestroy`. Después verifico navegación repetida con profiler y tests.':
-    'Use `AsyncPipe`, signals or `takeUntilDestroyed`; clean external APIs with `DestroyRef.onDestroy`. Then I verify repeated navigation with profiler and tests.',
-  '¿`ngAfterViewInit` o `afterNextRender` para medir DOM?':
-    '`ngAfterViewInit` or `afterNextRender` to measure DOM?',
-  '`ngAfterViewInit` confirma que Angular inicializó la vista, pero una medición puede depender de un render posterior. `afterNextRender` ejecuta trabajo después del siguiente render del árbol y permite separar fases de escritura y lectura.':
-    '`ngAfterViewInit` confirms that Angular initialized the view, but a measurement may depend on a later render. `afterNextRender` executes work after the next render of the tree and allows separating write and read phases.',
-  '¿Qué ventaja aporta `DestroyRef`?':
-    'What advantage does `DestroyRef` provide?',
-  'Coloca la limpieza junto al recurso que la necesita y evita concentrar teardown sin contexto en `ngOnDestroy`. Lo uso con listeners, observers y `takeUntilDestroyed` para vincular su vida al contexto de inyección.':
-    'Place the cleanup next to the resource that needs it and avoid concentrating contextless teardown on `ngOnDestroy`. I use it with listeners, observers and `takeUntilDestroyed` to bind their life to the injection context.',
-  'Change detection, Signals y zoneless':
-    'Change detection, Signals and zoneless',
-  'Esta sección suele separar experiencia reciente de conocimiento heredado. Explicá quién notifica a Angular, qué vista queda dirty y cuándo se recalcula una derivación.':
-    'This section usually separates recent experience from inherited knowledge. Explain who notifies Angular, which view becomes dirty, and when a derivation is recalculated.',
-  'Default verifica un subárbol con mayor frecuencia. OnPush permite saltar subárboles cuando no reciben nuevos inputs ni notificaciones.':
-    'Default checks a subtree more frequently. OnPush allows skipping subtrees when they do not receive new inputs or notifications.',
-  'Un signal writable usa `set` o `update`; `computed` deriva estado, memoriza y rastrea dependencias dinámicas; `effect` conecta estado reactivo con una API no reactiva.':
-    'A signal writable uses `set` or `update`; `computed` derives state, memorizes and tracks dynamic dependencies; `effect` connects reactive state with a non-reactive API.',
-  '`computed` representa estado derivado: lee otros signals, memoriza el resultado y permanece libre de efectos. `effect` ejecuta una operación cuando cambian sus dependencias. Copiar una derivación mediante `effect` crea dos fuentes de verdad y puede producir ciclos o escrituras redundantes.':
-    '`computed` represents derived state: it reads other signals, memorizes the result and remains free of effects. `effect` executes an operation when its dependencies change. Copying a derivation using `effect` creates two sources of truth and can cause redundant cycles or writes.',
-  'Signals comparan por `Object.is` salvo función de igualdad. Una mutación profunda conserva la referencia y puede ocultar el cambio.':
-    'Signals compare by `Object.is` except equality function. A deep mutation preserves the reference and can hide the change.',
-  '`untracked` lee un signal sin registrar dependencia. Usalo cuando la lectura sea incidental, no para tapar un grafo mal diseñado.':
-    '`untracked` reads a signal without registering a dependency. Use it when reading is incidental, not to cover up a poorly designed graph.',
-  'Zoneless reduce parches y checks innecesarios. Requiere que las actualizaciones lleguen mediante APIs que notifican a Angular.':
-    'Zoneless reduces unnecessary patches and checks. Requires updates to arrive via APIs that notify Angular.',
-  'Signals y RxJS se complementan: signals para estado síncrono leído por la vista; RxJS para flujos asíncronos, cancelación, concurrencia y eventos.':
-    'Signals and RxJS complement each other: signals for synchronous state read by the view; RxJS for asynchronous streams, cancellation, concurrency, and events.',
-  '¿OnPush vuelve inmutable la app?': 'Does OnPush make the app immutable?',
-  'No. OnPush cambia cuándo Angular verifica la vista. La inmutabilidad facilita detectar cambios por referencia y evita estado compartido corrupto.':
-    'No. OnPush changes when Angular checks the view. Immutability makes it easier to detect changes by reference and avoids corrupt shared state.',
-  '¿Cuándo usar `effect`?': 'When to use `effect`?',
-  'Para logging, almacenamiento, canvas, APIs del navegador o integración externa. Las derivaciones de UI pertenecen a `computed`.':
-    'For logging, storage, canvas, browser APIs or external integration. UI derivations belong to `computed`.',
-  '¿Qué rompe al quitar ZoneJS?': 'What breaks when removing ZoneJS?',
-  'Código que muta campos sin emitir una notificación compatible, además de dependencias en eventos de `NgZone`. Migraría estado a signals o marcaría la vista.':
-    'Code that mutates fields without issuing a supported notification, as well as dependencies on `NgZone` events. I would migrate state to signals or flag the view.',
-  '¿Por qué una mutación profunda puede no actualizar la vista?':
-    'Why might a deep mutation not update the view?',
-  'Un signal compara el valor nuevo con el anterior mediante `Object.is` por defecto. Mutar una propiedad conserva la referencia y no publica otro valor. Creo una nueva referencia o modelo el campo como un signal independiente.':
-    'A signal compares the new value with the old one using `Object.is` by default. Mutating a property preserves the reference and does not publish another value. I create a new reference or model field as a separate signal.',
-  '¿Cómo elegís entre `computed` y `effect`?':
-    'How do you choose between `computed` and `effect`?',
-  '`computed` calcula estado derivado y sólo depende de otros signals. `effect` sincroniza el grafo reactivo con una frontera externa como storage, logging o canvas. No copio estado derivado mediante efectos.':
-    '`computed` calculates derived state and only depends on other signals. `effect` synchronizes the reactive graph with an external boundary such as storage, logging, or canvas. I do not copy derived state through effects.',
-  'Dependency Injection en profundidad': 'Dependency Injection in depth',
-  'Angular resuelve dependencias en jerarquías. La ubicación del provider define vida útil, visibilidad y aislamiento.':
-    'Angular resolves dependencies in hierarchies. The location of the provider defines lifetime, visibility and isolation.',
-  "`providedIn: 'root'` crea un singleton por root EnvironmentInjector y permite tree shaking. Un provider de componente crea una instancia por componente.":
-    "`providedIn: 'root'` creates a singleton per root EnvironmentInjector and allows tree shaking. A component provider creates one instance per component.",
-  'La resolución busca primero ElementInjectors y después EnvironmentInjectors. Lazy routes pueden crear contextos e instancias separadas.':
-    'The resolver looks for ElementInjectors first and then EnvironmentInjectors. Lazy routes can create separate contexts and instances.',
-  '`useClass` crea una clase para un token; `useValue` entrega un valor existente; `useExisting` crea un alias; `useFactory` calcula la dependencia con otras inyecciones. Los multi providers acumulan varios valores bajo un token e `InjectionToken` representa contratos que no existen como clase en runtime.':
-    '`useClass` creates a class for a token; `useValue` returns an existing value; `useExisting` creates an alias; `useFactory` calculates the dependency on other injections. Multi providers accumulate several values ​​under a token and `InjectionToken` represents contracts that do not exist as a class in runtime.',
-  '`providers` es visible para vista y contenido descendiente; `viewProviders` oculta el provider al contenido proyectado.':
-    '`providers` is visible to view and descendant content; `viewProviders` hides the provider from the projected content.',
-  '`self`, `skipSelf`, `host` y `optional` limitan la búsqueda. Usalos para contratos intencionales, no como parche.':
-    '`self`, `skipSelf`, `host` and `optional` limit the search. Use them for intentional contracts, not as a patch.',
-  '`inject()` necesita injection context: inicializador, constructor administrado por DI, factory o `runInInjectionContext`.':
-    '`inject()` needs injection context: initializer, DI-managed constructor, factory, or `runInInjectionContext`.',
-  '¿Un servicio Angular es siempre singleton?':
-    'Is a Angular service always singleton?',
-  "Es singleton dentro del injector que lo provee. Dos injectors pueden crear dos instancias. La frase 'singleton global' omite el scope.":
-    "It is a singleton within the injector that provides it. Two injectors can create two instances. The phrase 'singleton global' omits the scope.",
-  '¿Por qué usar InjectionToken?': 'Why use InjectionToken?',
-  'Permite inyectar configuración, funciones o interfaces borradas en runtime. El token conserva identidad y puede definir factory y tipo.':
-    'Allows you to inject deleted configuration, functions or interfaces into runtime. The token preserves identity and can define factory and type.',
-  '¿Qué diferencia hay entre `useClass` y `useExisting`?':
-    'What is the difference between `useClass` and `useExisting`?',
-  '`useClass` pide al injector que construya otra instancia de la clase indicada. `useExisting` crea un alias hacia una instancia registrada. Uso el alias cuando dos tokens deben compartir identidad y estado.':
-    '`useClass` asks the injector to construct another instance of the indicated class. `useExisting` creates an alias to a registered instance. I use aliasing when two tokens must share identity and state.',
-  '¿Cómo afecta el lugar del provider a una feature?':
-    'How does the location of the provider affect a feature?',
-  'El injector que registra el provider define su alcance y vida útil. Un provider de componente aísla instancias por subárbol; uno de ruta puede vivir con la feature lazy; root comparte la instancia en la aplicación.':
-    'The injector that registers the provider defines its scope and lifetime. A component provider isolates instances per subtree; one route can live with the lazy feature; root shares the instance in the application.',
-  'RxJS y concurrencia': 'RxJS and concurrency',
-  'La entrevista Senior suele plantear búsquedas, guardado, polling o eventos concurrentes. Elegí el operador a partir de la política de concurrencia.':
-    'The Senior interview usually involves searches, saving, polling or concurrent events. I chose the operator based on the concurrency policy.',
-  'Cold observables crean el productor por subscription; hot observables comparten un productor externo. `share` y `shareReplay` cambian esa relación.':
-    'Cold observables create the producer by subscription; hot observables share an external producer. `share` and `shareReplay` change that relationship.',
-  '`switchMap` cancela el inner anterior; sirve para búsqueda. `concatMap` serializa; sirve para preservar orden. `mergeMap` permite concurrencia. `exhaustMap` ignora disparos mientras uno está activo.':
-    '`switchMap` cancels the previous inner; It is used for search. `concatMap` serialize; serves to preserve order. `mergeMap` allows concurrency. `exhaustMap` ignores triggers while one is active.',
-  '`map` transforma valores; `tap` ejecuta efectos; `filter` decide emisiones; `scan` acumula; `catchError` define el límite del error.':
-    '`map` transforms values; `tap` executes effects; `filter` decides emissions; `scan` accumulate; `catchError` defines the error limit.',
-  'La ubicación de `catchError` define qué stream termina. Dentro de `switchMap` o de otro flattening operator, el error se reemplaza sólo para esa petición y el stream exterior puede seguir escuchando. Fuera del operador, el error finaliza la cadena completa salvo que se retorne otro observable.':
-    'The location of `catchError` defines which stream ends. Within `switchMap` or another flattening operator, the error is replaced only for that request and the outside stream can continue listening. Outside the operator, the error terminates the entire string unless another observable is returned.',
-  '`combineLatest` reacciona a últimos valores; `forkJoin` espera que todos completen; `withLatestFrom` toma contexto cuando la fuente emite.':
-    '`combineLatest` reacts to latest values; `forkJoin` waits for everyone to complete; `withLatestFrom` takes context when the source emits.',
-  '`Subject` no conserva un valor, `BehaviorSubject` guarda el último y exige uno inicial, y `ReplaySubject` reproduce una cantidad o ventana de emisiones. Exponer sólo `asObservable()` impide que consumidores externos escriban en el estado del productor.':
-    '`Subject` does not keep a value, `BehaviorSubject` keeps the last one and requires an initial one, and `ReplaySubject` plays a number or window of emissions. Exposing only `asObservable()` prevents external consumers from writing to the producer state.',
-  '`shareReplay({bufferSize: 1, refCount: true})` puede cachear, pero necesitás invalidación, manejo de error y semántica de vida útil.':
-    '`shareReplay({bufferSize: 1, refCount: true})` can cache, but you need invalidation, error handling, and lifetime semantics.',
-  '¿Por qué no subscribirse dentro de subscribe?':
-    'Why not subscribe within subscribe?',
-  'Anida ciclos de vida y errores, complica cancelación y crea carreras. Un operador de flattening expresa la política y devuelve una sola subscription.':
-    'It nests life cycles and errors, complicates cancellation and creates races. A flattening operator expresses the policy and returns a single subscription.',
-  '¿Cómo cancelás una búsqueda anterior?':
-    'How do you cancel a previous search?',
-  'Debounceo, elimino duplicados y uso `switchMap`. El unsubscribe cancela la petición XHR/fetch cuando el backend y el cliente lo permiten.':
-    'I debounce, remove duplicates and use `switchMap`. unsubscribe cancels the XHR/fetch request when the backend and client allow it.',
-  '¿`switchMap` cancela el trabajo en el servidor?':
-    'Does `switchMap` cancel job on server?',
-  'Unsubscribe detiene la observación y puede abortar el request si la fuente integra cancelación, como `HttpClient`. El servidor puede haber iniciado el trabajo. Las operaciones con efectos necesitan idempotencia o un protocolo de cancelación propio.':
-    'Unsubscribe stops the observation and may abort the request if the source integrates cancellation, such as `HttpClient`. The server may have started the job. Effects operations require idempotence or their own cancellation protocol.',
-  '¿Qué riesgo tiene `shareReplay`?': 'How risky is `shareReplay`?',
-  'Puede retener el último valor y mantener viva la suscripción más tiempo del esperado. Defino buffer, `refCount` y política de reset según el ciclo de vida. También decido cómo invalidar errores y datos stale.':
-    'You can retain the last value and keep the subscription alive longer than expected. I define buffer, `refCount` and reset policy according to the life cycle. I also decide how to invalidate errors and stale data.',
-  'Estado: local, servicios, Signals y NgRx':
-    'Status: local, services, Signals and NgRx',
-  'No existe una herramienta única. Un Senior reduce el alcance del estado y aumenta la estructura cuando la complejidad lo exige.':
-    'There is no single tool. A Senior reduces the scope of the state and increases the structure when complexity demands it.',
-  'Estado local de componente: UI efímera. Servicio de feature: coordinación de una rama. Store global: datos compartidos, flujos complejos, auditoría o herramientas de desarrollo.':
-    'Component local state: Ephemeral UI. Feature service: coordination of a branch. Global store: shared data, complex flows, auditing or development tools.',
-  'Server state es una copia local de datos remotos y necesita caché, stale time, invalidación, deduplicación y reintentos. Client state nace en la interfaz, como selección, filtros o un wizard, y su ciclo de vida depende de la navegación y del alcance de la feature.':
-    'Server state is a local copy of remote data and requires caching, stale time, invalidation, deduplication, and retries. Client state is born in the interface, as selection, filters or a wizard, and its life cycle depends on the navigation and the scope of the feature.',
-  'En NgRx, una action describe un evento, un reducer calcula el siguiente estado sin efectos, un selector deriva y memoriza consultas, y un effect conecta eventos con I/O. Entity normaliza colecciones como un diccionario de ids más una lista ordenada.':
-    'In NgRx, an action describes an event, a reducer computes the next state without effects, a selector derives and memorizes queries, and an effect connects events to I/O. Entity normalizes collections as a dictionary of ids plus an ordered list.',
-  'El estado derivado se calcula desde la fuente mediante selectors o `computed`; almacenarlo por separado exige sincronizar copias. Las actions expresadas como hechos de dominio, por ejemplo `invoiceSubmitted`, permiten que varios efectos reaccionen sin acoplarse al botón que originó el evento.':
-    'The derived state is calculated from the source using selectors or `computed`; Storing it separately requires synchronizing copies. Actions expressed as domain events, for example `invoiceSubmitted`, allow various effects to react without being attached to the button that caused the event.',
-  'ComponentStore y SignalStore encapsulan estado de una feature sin crear un store global. La elección depende de la estabilidad de la API, el ecosistema disponible y la experiencia del equipo con el modelo reactivo.':
-    "ComponentStore and SignalStore encapsulate state of a feature without creating a global store. The choice depends on the stability of the API, the available ecosystem, and the team's experience with the reactive model.",
-  'Una actualización optimista modifica la UI antes de recibir confirmación. El diseño necesita rollback o reconciliación cuando falla, una clave idempotente para evitar duplicados y una regla para conflictos entre la versión local y la remota.':
-    'An optimistic update modifies the UI before receiving confirmation. The design needs rollback or reconciliation when it fails, an idempotent key to avoid duplicates, and a rule for conflicts between the local and remote versions.',
-  '¿Cuándo elegir NgRx?': 'When to choose NgRx?',
-  'Cuando varios flujos comparten estado, necesitás trazabilidad, efectos coordinados o reglas complejas. Para un formulario aislado, un store global aumenta costo sin beneficio.':
-    'When several flows share state, you need traceability, coordinated effects or complex rules. For an isolated form, a global store increases cost without benefit.',
-  '¿Qué nunca guardarías en el store?':
-    'What would you never keep in the store?',
-  'Derivaciones recalculables, objetos no serializables sin necesidad y estado DOM efímero. Guardaría la fuente mínima de verdad.':
-    'Recalculable derivations, unnecessarily non-serializable objects, and ephemeral DOM state. I would save the minimal source of truth.',
-  '¿Cómo separás server state de client state?':
-    'How do you separate server state from client state?',
-  'Server state es una copia de datos remotos y requiere stale time, caché e invalidación. Client state nace en la interacción, por ejemplo filtros o pasos de un wizard. Separarlos evita que un store trate ambos ciclos de vida con la misma política.':
-    'Server state is a copy of remote data and requires stale time, caching, and invalidation. Client state is born in the interaction, for example filters or steps of a wizard. Separating them prevents a store from treating both lifecycles with the same policy.',
-  '¿Qué señales justifican introducir NgRx?':
-    'What signals justify introducing NgRx?',
-  'Lo considero cuando varios flujos escriben el mismo dominio, necesito trazabilidad de eventos, efectos coordinados o reglas de actualización compartidas. Un formulario local o una pantalla aislada no justifican ese costo por sí solos.':
-    'I consider it when multiple flows write the same domain, I need event traceability, coordinated effects or shared update rules. A local form or isolated display does not justify that cost alone.',
-  'Routing y navegación': 'Routing and navigation',
-  'El router define fronteras de carga, autorización y datos. Diseñá rutas como parte de la arquitectura.':
-    'The router defines upload, authorization and data boundaries. Design routes as part of the architecture.',
-  '`loadComponent` y `loadChildren` crean fronteras de lazy loading que descargan una feature al navegar. Un chunk por componente pequeño aumenta requests y overhead; una frontera por capacidad de producto suele equilibrar carga inicial y reutilización.':
-    '`loadComponent` and `loadChildren` create lazy loading borders that download a feature when browsing. A small chunk per component increases requests and overhead; A product capacity frontier usually balances initial loading and reuse.',
-  'Guards controlan navegación en el cliente; el servidor debe repetir autorización. `CanMatch` evita seleccionar rutas; `CanActivate` decide activación.':
-    'Guards control navigation on the client; The server must repeat authorization. `CanMatch` avoids selecting routes; `CanActivate` decides activation.',
-  'Resolvers reducen estados intermedios cuando la ruta necesita datos antes de mostrar. Para pantallas tolerantes al loading, una carga dentro de la feature mejora percepción.':
-    'Resolvers reduce intermediate states when the route needs data before displaying. For load-tolerant displays, a load within the feature improves perception.',
-  'Los path params identifican recursos dentro de la ruta; los query params representan filtros o estado compartible; el fragment apunta a una sección del documento. Rutas hijas componen layouts, outlets muestran árboles paralelos, redirects normalizan URLs y route data aporta metadata estática.':
-    'Path params identify resources within the path; query params represent filters or shareable state; the fragment points to a section of the document. Child routes make up layouts, outlets show parallel trees, redirects normalize URLs and route data provides static metadata.',
-  'Una `RouteReuseStrategy` puede conservar la instancia y el DOM de una ruta al navegar. También conserva memoria, estado y suscripciones; una política de invalidación decide cuándo destruir ese snapshot.':
-    'A `RouteReuseStrategy` can preserve the instance and the DOM of a route when navigating. It also preserves memory, state and subscriptions; an invalidation policy decides when to destroy that snapshot.',
-  '`RouterTestingHarness` crea un router de prueba, navega por URL y expone el componente activado. Permite comprobar parámetros inválidos, redirects, guards rechazados y errores de resolvers desde el comportamiento observable.':
-    '`RouterTestingHarness` creates a test router, navigates by URL, and exposes the activated component. Allows checking for invalid parameters, redirects, rejected guards and resolving errors from the observable behavior.',
-  '¿Guard equivale a seguridad?': 'Does Guard equal security?',
-  'No. Un usuario controla el cliente. El guard mejora UX y evita navegación accidental; la API autoriza cada operación.':
-    'No. A user controls the client. The guard improves UX and prevents accidental navigation; the API authorizes each operation.',
-  '¿Resolver o carga en componente?': 'Resolve or load into component?',
-  'Resolver cuando la vista no tiene sentido sin el dato o necesitás coherencia antes de activar. Carga en componente para streaming, skeletons o contenido parcial.':
-    'Resolve when the view does not make sense without the data or you need consistency before activating. Component loading for streaming, skeletons or partial content.',
-  '¿Qué diferencia hay entre `CanMatch` y `CanActivate`?':
-    'What is the difference between `CanMatch` and `CanActivate`?',
-  '`CanMatch` decide si una configuración de ruta puede participar del matching y permite probar otra ruta. `CanActivate` actúa después de elegirla y decide si se activa. Ninguno reemplaza la autorización del servidor.':
-    '`CanMatch` decides if a route configuration can participate in matching and allows another route to be tested. `CanActivate` acts after choosing it and decides whether to activate it. None replace server authorization.',
-  '¿Cuándo evitarías un resolver?': 'When would you avoid a resolve?',
-  'Evito bloquear navegación para datos secundarios o lentos. La pantalla puede mostrar estructura, loading y recuperación parcial. Uso resolver cuando el dato define si la ruta tiene sentido o cuando entrar sin él produciría un estado inválido.':
-    'I avoid blocking navigation for secondary or slow data. The screen can show structure, loading and partial recovery. I use resolve when the data defines whether the route makes sense or when entering without it would produce an invalid state.',
-  'Formularios complejos': 'Complex forms',
-  'Los formularios Senior incluyen tipado, composición, validación asíncrona, accesibilidad y rendimiento.':
-    'Senior forms include typing, composition, asynchronous validation, accessibility, and performance.',
-  'Reactive Forms modela el formulario en TypeScript; template-driven sirve para casos pequeños. Typed Forms reduce casts y errores.':
-    'Reactive Forms models the form in TypeScript; template-driven is for small cases. Typed Forms reduce casts and errors.',
-  '`FormControl`, `FormGroup`, `FormArray` y `FormRecord` cubren formas fijas, listas y claves dinámicas.':
-    '`FormControl`, `FormGroup`, `FormArray` and `FormRecord` cover fixed forms, lists and dynamic keys.',
-  'Un validador síncrono devuelve `ValidationErrors | null`; uno asíncrono devuelve Promise u Observable y necesita cancelación o debounce según el caso.':
-    'A synchronous validator returns `ValidationErrors | null`; an asynchronous one returns Promise or Observable and needs cancellation or debounce depending on the case.',
-  '`ControlValueAccessor` conecta un control propio con Angular Forms mediante cuatro operaciones: escribir un valor, registrar cambios, registrar touched y aplicar disabled. El control no debe volver a emitir como cambio el valor que Forms acaba de escribirle, porque eso crea un loop.':
-    '`ControlValueAccessor` connects your own control to Angular Forms using four operations: writing a value, recording changes, recording touched, and disabling. The control should not re-emit the value that Forms just wrote to it as a change, because that creates a loop.',
-  'Copiar cada emisión de `valueChanges` a otro objeto crea dos representaciones del formulario que pueden divergir. El `FormGroup` puede ser la fuente de verdad durante la edición y el submit puede mapear su valor a un comando o DTO.':
-    'Copying each utterance of `valueChanges` to another object creates two representations of the form that can diverge. The `FormGroup` can be the source of truth during editing and the submit can map its value to a command or DTO.',
-  'Los errores se muestran después de interacción o submit para evitar ruido antes de que el usuario actúe. `aria-describedby` asocia el mensaje con el control; el foco debe llegar al primer campo inválido cuando un submit no puede continuar.':
-    'Errors are displayed after interaction or submit to avoid noise before the user acts. `aria-describedby` associates the message with the control; focus should reach the first invalid field when a submit cannot continue.',
-  'Signal Forms ofrece un modelo nuevo en versiones recientes. Presentalo como opción a evaluar, no como reemplazo automático de Reactive Forms.':
-    'Signal Forms offers a new model in recent versions. Present it as an option to evaluate, not as an automatic replacement for Reactive Forms.',
-  '¿Cómo diseñarías 60 formularios dinámicos?':
-    'How would you design 60 dynamic forms?',
-  'Defino un schema tipado, componentes por tipo de campo, reglas de visibilidad derivadas y validadores registrables. Separo datos, layout y comportamiento; pruebo el motor con casos de contrato.':
-    'I define a typed schema, components by field type, derived visibility rules and registrable validators. I separate data, layout and behavior; I test the engine with contract cases.',
-  '¿Qué falla en un CVA?': "What's wrong with a CVA?",
-  'Emitir durante `writeValue`, olvidar estado disabled o no marcar touched. Eso crea loops y rompe la semántica del formulario.':
-    'Issue during `writeValue`, forget disabled state or do not check touched. That creates loops and breaks the semantics of the form.',
-  '¿Qué contrato debe cumplir un `ControlValueAccessor`?':
-    'What contract must a `ControlValueAccessor` fulfill?',
-  'Debe escribir el valor externo sin emitir un cambio de usuario, registrar callbacks de cambio y touched, y respetar el estado disabled. También necesita una representación clara para null y valores parciales.':
-    'You must write the external value without issuing a user change, register change and touched callbacks, and honor the disabled state. You also need a clear representation for null and partial values.',
-  '¿Cómo evitás carreras en validación asíncrona?':
-    'How do you avoid races in asynchronous validation?',
-  'Modelo la validación como un flujo que cancela la consulta anterior al cambiar el valor. Aplico debounce cuando corresponde y distingo error de transporte, valor inválido y estado pendiente en la interfaz.':
-    'I model validation as a flow that cancels the previous query upon changing the value. I apply debounce when appropriate and distinguish transport error, invalid value and pending status on the interface.',
-  'HTTP, APIs, errores y caché': 'HTTP, APIs, errors and cache',
-  'El cliente debe modelar contratos, cancelación y fallos. Los interceptors resuelven preocupaciones transversales, no lógica de dominio.':
-    'The client must model contracts, cancellation and failures. Interceptors solve cross-cutting concerns, not domain logic.',
-  '`provideHttpClient` registra el cliente HTTP y los interceptors funcionales forman una cadena alrededor de cada request. Los servicios o repositorios de feature encapsulan URLs, DTOs y reglas de acceso para que los componentes dependan del dominio.':
-    '`provideHttpClient` registers the HTTP client and functional interceptors form a chain around each request. Services or feature repositories encapsulate URLs, DTOs and access rules so that components depend on the domain.',
-  'Los tipos de TypeScript desaparecen al compilar y no validan el JSON recibido. Un schema runtime comprueba datos externos antes de usarlos; un mapper traduce el DTO del servidor a un modelo interno estable.':
-    'TypeScript types disappear on compile and do not validate the received JSON. A schema runtime checks external data before using it; a mapper translates the server DTO into a stable internal model.',
-  'Un interceptor puede agregar autenticación, correlation IDs y telemetría, o normalizar errores. Un loader global necesita contar requests concurrentes: un booleano se apaga cuando termina la primera aunque otras sigan activas.':
-    'An interceptor can add authentication, correlation IDs and telemetry, or normalize errors. A global loader needs to count concurrent requests: a boolean is turned off when the first one finishes even if others are still active.',
-  'Un retry repite una operación que falló. Los métodos idempotentes pueden repetirse sin cambiar el resultado; una escritura necesita una clave de idempotencia si existe riesgo de duplicación. Backoff, jitter y un límite evitan amplificar una caída, y los errores funcionales 4xx requieren otra acción.':
-    'A retry repeats an operation that failed. Idempotent methods can be repeated without changing the result; a write needs an idempotence key if there is a risk of duplication. Backoff, jitter, and a limit prevent amplifying a crash, and 4xx functional errors require further action.',
-  'Timeout, cancelación, offline, fallo de red, 401/403, 404, validación y 5xx representan estados distintos. La interfaz puede ofrecer reintento para red o timeout, login para 401, corrección de campos para validación y un fallback ante errores del servidor.':
-    'Timeout, cancellation, offline, network failure, 401/403, 404, validation and 5xx represent different states. The interface can offer retry for network or timeout, login for 401, correction of fields for validation and a fallback for server errors.',
-  '`httpResource` conecta `HttpClient` con una API de signals para request, valor, loading y error. En dominios grandes, la estrategia todavía necesita claves de caché, invalidación, aislamiento por usuario y coordinación con otras escrituras.':
-    '`httpResource` connects `HttpClient` with a signals API for request, value, loading and error. On large domains, the strategy still requires caching keys, invalidation, per-user isolation, and coordination with other writes.',
-  'Una caché se define por su clave, vida útil, política de invalidación y aislamiento. La deduplicación comparte una petición en curso; stale-while-revalidate entrega el valor anterior mientras actualiza. Incluir el usuario o tenant en la clave evita mezclar datos privados.':
-    'A cache is defined by its key, lifetime, invalidation policy, and isolation. Deduplication shares an ongoing petition; stale-while-revalidate returns the old value while updating. Including the user or tenant in the key avoids mixing private data.',
-  '¿Dónde refrescarías un token?': 'Where would you refresh a token?',
-  'En una capa de autenticación coordinada por interceptor, con una sola renovación en vuelo y cola controlada. Evito loops y limpio sesión si falla el refresh.':
-    'In an authentication layer coordinated by interceptor, with a single renewal in flight and controlled queue. I avoid loops and clean the session if the refresh fails.',
-  '¿Cómo tipar una respuesta HTTP?': 'How to type an HTTP response?',
-  'El generic de HttpClient expresa la expectativa, no valida el servidor. En una frontera crítica valido y transformo el DTO antes de exponerlo.':
-    'The HttpClient generic expresses the expectation, it does not validate the server. At a critical boundary I validate and transform the DTO before exposing it.',
-  '¿Por qué importa el orden de los interceptors?':
-    'Why does the order of interceptors matter?',
-  'Cada interceptor envuelve al siguiente. El request avanza en el orden registrado y la respuesta vuelve en orden inverso. Autenticación, retry, caché y logging pueden cambiar su comportamiento según esa composición.':
-    'Each interceptor envelops the next. The request proceeds in the recorded order and the response returns in reverse order. Authentication, retry, cache and logging can change their behavior depending on that composition.',
-  '¿Cómo invalidás una caché después de una mutación?':
-    'How do you invalidate a cache after a mutation?',
-  'Relaciono cada escritura con las keys afectadas. Puedo invalidar, actualizar de forma optimista o reemplazar con la respuesta del servidor. La política incluye rollback y evita borrar datos de dominios no relacionados.':
-    "I relate each writing to the affected keys. I can override, update optimistically, or replace with the server's response. The policy includes rollback and avoids deleting data from unrelated domains.",
-  'Browser internals, DOM, storage y red':
-    'Browser internals, DOM, storage and network',
-  'Angular corre sobre la plataforma web. Un Senior entiende el costo de DOM, layout, almacenamiento, navegación y protocolos.':
-    'Angular runs on the web platform. A Senior understands the cost of DOM, layout, storage, navigation and protocols.',
-  'DOM representa el documento; BOM agrupa APIs del navegador como `window`, history, location, navigator y screen. Angular abstrae parte del DOM, pero no reemplaza la plataforma.':
-    'DOM represents the document; BOM groups browser APIs such as `window`, history, location, navigator and screen. Angular abstracts part of DOM, but does not replace the platform.',
-  'Selección: `querySelector`, `querySelectorAll`, `getElementById`. Eventos atraviesan capture, target y bubble. Delegation aprovecha bubbling para manejar listas dinámicas.':
-    'Selection: `querySelector`, `querySelectorAll`, `getElementById`. Events go through capture, target and bubble. Delegation takes advantage of bubbling to handle dynamic lists.',
-  '`preventDefault` evita la acción por defecto; `stopPropagation` detiene propagación. Usarlos sin entender semántica rompe formularios, enlaces y accesibilidad.':
-    '`preventDefault` avoids the default action; `stopPropagation` stops propagation. Using them without understanding semantics breaks forms, links and accessibility.',
-  'El navegador parsea HTML y CSS, construye DOM y CSSOM, calcula estilos y layout, pinta y compone capas. Leer layout después de escribir estilos puede forzar reflow.':
-    'The browser parses HTML and CSS, builds DOM and CSSOM, calculates styles and layout, paints and composes layers. Reading layout after writing styles can force reflow.',
-  '`localStorage` persiste por origin y ofrece API síncrona; `sessionStorage` vive por pestaña; IndexedDB almacena datos estructurados de forma asíncrona. Cookies viajan según sus atributos y reglas de request.':
-    '`localStorage` persists by origin and offers synchronous API; `sessionStorage` lives by tab; IndexedDB stores structured data asynchronously. Cookies travel according to their attributes and request rules.',
-  'Same-origin combina scheme, host y port. CORS permite que un servidor autorice lecturas cross-origin; la preflight OPTIONS valida ciertos métodos y headers.':
-    'Same-origin combines scheme, host and port. CORS allows a server to authorize cross-origin reads; The OPTIONS preflight validates certain methods and headers.',
-  'HTTP cache usa `Cache-Control`, validators como ETag y claves que pueden variar. Service Worker puede interceptar requests y agrega otra capa de cache e invalidación.':
-    'HTTP cache uses `Cache-Control`, validators such as ETag and keys that may vary. Service Worker can intercept requests and adds another layer of caching and invalidation.',
-  'DNS resuelve host; TLS autentica y cifra; HTTP transporta requests. HTTP/2 multiplexa streams; HTTP/3 usa QUIC sobre UDP.':
-    'DNS resolves host; TLS authenticates and encrypts; HTTP transports requests. HTTP/2 multiplexes streams; HTTP/3 uses QUIC over UDP.',
-  'SPA actualiza vistas sin recargar documento. History API mantiene URL; el servidor debe redirigir rutas de app al HTML o renderizarlas.':
-    'SPA updates views without reloading document. History API maintains URLs; the server must redirect app paths to HTML or render them.',
-  'Web Worker ejecuta JavaScript fuera del main thread y se comunica por mensajes. No accede al DOM. Service Worker opera como proxy de red y ciclo separado.':
-    'Web Worker executes JavaScript outside the main thread and communicates via messages. Does not access DOM. Service Worker operates as a separate loop and network proxy.',
-  '¿DOM y BOM?': 'DOM and BOM?',
-  'DOM modela el documento. BOM reúne objetos y APIs del entorno del navegador, como history, location y navigator.':
-    'DOM models the document. BOM brings together objects and APIs from the browser environment, such as history, location, and navigator.',
-  '¿localStorage, sessionStorage o IndexedDB?':
-    'localStorage, sessionStorage or IndexedDB?',
-  'Elijo localStorage para pocas preferencias no sensibles, sessionStorage para vida de pestaña e IndexedDB para volumen, queries y trabajo asíncrono.':
-    'I choose localStorage for few non-responsive preferences, sessionStorage for tab life and IndexedDB for volume, queries and asynchronous work.',
-  '¿Qué es CORS?': 'What is CORS?',
-  'Una política del navegador que permite al servidor declarar qué origins pueden leer una respuesta. No protege endpoints de clientes no navegador ni reemplaza autorización.':
-    'A browser policy that allows the server to declare which origins can read a response. It does not protect endpoints from non-browser clients nor does it replace authorization.',
-  '¿Reflow y repaint?': 'Reflow and repaint?',
-  'Layout recalcula geometría; paint genera píxeles; compositing combina capas. Cambios y lecturas intercaladas pueden forzar trabajo síncrono.':
-    'Layout recalculates geometry; paint generates pixels; compositing combines layers. Changes and interleaved reads can force synchronous work.',
-  '¿Qué produce un forced synchronous layout?':
-    'What does a forced synchronous layout produce?',
-  'Una escritura invalida estilos o layout y una lectura geométrica posterior, como `getBoundingClientRect`, obliga al navegador a calcular el resultado en ese momento. Agrupo lecturas y escrituras para evitar repetir ese trabajo dentro de un loop.':
-    'A write invalidates styles or layout and a subsequent geometric read, such as `getBoundingClientRect`, forces the browser to calculate the result at that time. I group reads and writes to avoid repeating that work within a loop.',
-  '¿CORS protege una API contra clientes no autorizados?':
-    'Does CORS protect an API against unauthorized clients?',
-  'No. CORS controla qué respuestas puede leer JavaScript desde otro origin en un navegador. Un script de servidor puede llamar al endpoint. La API todavía necesita autenticación, autorización y validación.':
-    'No. CORS controls which responses JavaScript can read from another origin in a browser. A server script can call the endpoint. The API still needs authentication, authorization and validation.',
-  'Arquitectura de aplicaciones Angular': 'Angular Application Architecture',
-  'Una arquitectura útil reduce acoplamiento y hace visibles los límites del dominio.':
-    'A useful architecture reduces coupling and makes domain boundaries visible.',
-  'La organización por feature agrupa UI, acceso a datos, modelos y rutas que cambian por la misma capacidad de producto. Una organización global por tipo técnico dispersa una modificación entre carpetas distantes y debilita los límites de dominio.':
-    'The organization by feature groups UI, data access, models and routes that change for the same product capacity. A global organization by technical type disperses a modification across distant folders and weakens domain boundaries.',
-  'Un componente presentacional recibe datos y emite eventos; un orquestador coordina estado, navegación y servicios. La separación reduce dependencias cuando varias vistas reutilizan la presentación, pero añade capas vacías si ambas piezas cambian siempre juntas.':
-    'A presentational component receives data and emits events; an orchestrator coordinates state, navigation, and services. Separation reduces dependencies when multiple views reuse the presentation, but adds empty layers if both pieces always change together.',
-  'Dependency inversion hace que el dominio dependa de un contrato estable y que el detalle implemente ese contrato. En Angular, un `InjectionToken` más un adapter permite cambiar analytics, storage, pagos o una API externa sin modificar consumidores.':
-    'Dependency inversion makes the domain depend on a stable contract and the detail implements that contract. In Angular, a `InjectionToken` plus an adapter allows changing analytics, storage, payments or an external API without modifying consumers.',
-  'La public API de una librería o feature declara qué símbolos pueden consumir otros módulos. Los imports profundos atraviesan ese límite, acoplan al árbol interno de archivos y convierten un refactor local en un cambio global.':
-    'The public API of a library or feature declares which symbols other modules can consume. Deep imports cross that boundary, dock to the internal file tree, and turn a local refactor into a global change.',
-  'Un monorepo mejora sharing y refactors coordinados; agrega costo de tooling y ownership. Nx puede imponer boundaries y cachear tareas.':
-    'A monorepo improves sharing and coordinated refactors; adds tooling and ownership cost. Nx can enforce boundaries and cache tasks.',
-  'Micro-frontends sirven para despliegue y ownership independientes. Aumentan duplicación, integración, observabilidad y consistencia visual.':
-    'Micro-frontends serve for independent deployment and ownership. They increase duplication, integration, observability and visual consistency.',
-  'Un Architecture Decision Record conserva el contexto, las alternativas evaluadas, la decisión, sus consecuencias y una fecha de revisión. El registro explica por qué existe una restricción cuando cambia el equipo o el contexto original.':
-    'An Architecture Decision Record preserves the context, the alternatives evaluated, the decision, its consequences, and a review date. The log explains why a restriction exists when the original team or context changes.',
-  '¿Clean Architecture en frontend?': 'Clean Architecture in frontend?',
-  'Uso sus límites y dependency inversion donde protegen reglas de negocio. Evito copiar capas backend si solo agregan archivos y mapeos.':
-    'I use their limits and dependency inversion where they protect business rules. I avoid copying backend layers if they only add files and mappings.',
-  '¿Cuándo extraer una librería?': 'When to extract a library?',
-  'Cuando existe un contrato estable y más de un consumidor real, o cuando el límite necesita ownership y tests propios. Extraer por anticipación congela APIs inmaduras.':
-    'When there is a stable contract and more than one real consumer, or when the limit requires ownership and own tests. Pull ahead freezes immature APIs.',
-  '¿Cómo detectás una frontera de feature incorrecta?':
-    'How do you detect an incorrect feature boundary?',
-  'Aparecen imports circulares, cambios coordinados entre carpetas supuestamente independientes y servicios compartidos que conocen todos los dominios. Reubico el comportamiento según ownership y expongo una API pequeña por frontera.':
-    'Circular imports appear, coordinated changes between supposedly independent folders and shared services that know all domains. I relocate the behavior according to ownership and expose a small API per border.',
-  '¿Qué problema genera una carpeta `shared` sin reglas?':
-    'What problem does a `shared` folder without rules cause?',
-  'Recibe componentes, modelos y servicios de dominios distintos hasta convertirse en una dependencia global. Separo primitives reutilizables de contratos de negocio y dejo cada modelo cerca de la feature que lo posee.':
-    'It receives components, models and services from different domains until it becomes a global dependency. I separate reusable primitives from business contracts and leave each model close to the feature that owns it.',
-  'Patrones, SOLID y calidad de diseño': 'Patterns, SOLID and design quality',
-  'Los patrones nombran soluciones recurrentes. Una entrevista Senior espera contexto y costo, no una lista memorizada.':
-    'Patterns name recurring solutions. A Senior interview expects context and cost, not a memorized list.',
-  'Strategy para políticas intercambiables; Adapter para integrar contratos externos; Facade para reducir superficie; Factory para construcción variable.':
-    'Strategy for interchangeable policies; Adapter to integrate external contracts; Facade to reduce surface area; Factory for variable construction.',
-  'Observer aparece en RxJS; Decorator en metadata e interceptors; Command y event patterns aparecen en stores. Singleton depende del injector.':
-    'Observer appears in RxJS; Decorator in metadata and interceptors; Command and event patterns appear in stores. Singleton depends on the injector.',
-  'SRP separa motivos de cambio. OCP favorece extensión por contratos. LSP exige sustitución válida. ISP mantiene contratos pequeños. DIP invierte dependencias hacia abstracciones.':
-    'SRP separates reasons for change. OCP favors extension by contracts. LSP requires valid substitution. ISP maintains small contracts. DIP inverts dependencies towards abstractions.',
-  'Composition over inheritance evita jerarquías rígidas. Las directivas, providers y content projection forman mecanismos de composición.':
-    'Composition over inheritance avoids rigid hierarchies. The directives, providers and content projection form composition mechanisms.',
-  'Un god service acumula motivos de cambio; un shared module masivo crea dependencias implícitas; los barrel cycles ocultan ciclos; los boolean flags multiplican estados; las subscriptions anidadas pierden control de concurrencia y la lógica de negocio en templates se repite y resulta difícil de probar.':
-    'A god service accumulates reasons for change; a massive shared module creates implicit dependencies; barrel cycles hide cycles; boolean flags multiply states; Nested subscriptions lose concurrency control and the business logic in templates is repeated and difficult to test.',
-  '¿Cómo implementar Singleton?': 'How to implement Singleton?',
-  'En Angular proveo el servicio en un injector compartido. La garantía vale dentro de ese scope; providers locales o múltiples aplicaciones crean otras instancias.':
-    'In Angular I provide the service on a shared injector. The guarantee is valid within that scope; local providers or multiple applications create other instances.',
-  '¿Facade sobre NgRx?': 'Facade over NgRx?',
-  'Puede estabilizar la API de la feature y ocultar detalles del store. También puede esconder capacidades y duplicar nombres. La uso cuando protege un límite real.':
-    "You can stabilize the feature's API and hide store details. You can also hide capabilities and duplicate names. I use it when protecting a real boundary.",
-  '¿Cómo aplicás Dependency Inversion en Angular?':
-    'How do you apply Dependency Inversion in Angular?',
-  'El consumidor depende de un contrato expresado por una clase abstracta o `InjectionToken`. La configuración conecta ese contrato con una implementación. Puedo cambiar la frontera en tests o por entorno sin enseñar detalles al consumidor.':
-    'The consumer depends on a contract expressed by an abstract class or `InjectionToken`. The configuration connects that contract to an implementation. I can change the border in tests or by environment without showing details to the consumer.',
-  '¿Cuándo una facade empeora el diseño?':
-    'When does a facade worsen the design?',
-  'Una facade que sólo renombra cada método añade navegación sin reducir acoplamiento. La uso cuando concentra un caso de uso, oculta coordinación entre dependencias o protege a la UI de cambios del subsistema.':
-    'A facade that only renames each method adds navigation without reducing coupling. I use it when concentrating a use case, hiding coordination between dependencies, or protecting the UI from subsystem changes.',
-  'Rendimiento y Core Web Vitals': 'Performance and Core Web Vitals',
-  'Optimizar sin medir cambia complejidad por intuición. Un Senior identifica la métrica, captura un perfil y verifica el resultado.':
-    'Optimizing without measuring trades complexity for intuition. A Senior identifies the metric, captures a profile and verifies the result.',
-  'LCP mide cuándo aparece el mayor elemento visible, INP observa la latencia de las interacciones y CLS acumula desplazamientos inesperados. Bundle size, long tasks, memoria y frecuencia de renders explican sus causas. Lighthouse usa un entorno sintético; RUM registra dispositivos y redes reales.':
-    'LCP measures when the largest visible element appears, INP observes the latency of interactions, and CLS accumulates unexpected displacements. Bundle size, long tasks, memory and render frequency explain their causes. Lighthouse uses a synthetic environment; RUM registers real devices and networks.',
-  'Lazy routes y `@defer` sacan JavaScript del bundle inicial. El beneficio depende del waterfall de chunks, preloading, prefetch y caché HTTP: demasiadas fronteras pequeñas pueden intercambiar bytes iniciales por latencia de red.':
-    'Lazy routes and `@defer` remove JavaScript from the initial bundle. The benefit depends on chunk waterfall, preloading, prefetch and HTTP caching: too many small borders can trade initial bytes for network latency.',
-  '`OnPush` permite saltar subárboles sin notificaciones, signals marcan consumidores precisos y un `track` estable conserva nodos de una lista. Virtual scroll limita el DOM visible; la paginación reduce además datos transferidos y trabajo del servidor.':
-    '`OnPush` allows subtree jumping without notifications, signals marks precise consumers, and a stable `track` preserves nodes from a list. Virtual scroll limits the visible DOM; Paging also reduces transferred data and server work.',
-  'Una pipe impura y una función costosa en template pueden ejecutarse en cada check. Listeners globales sin cleanup retienen vistas, las imágenes sin dimensiones causan CLS y una dependencia grande aumenta parse, compile y ejecución además de transferencia.':
-    'An impure pipe and an expensive template function can be executed on each check. Global listeners without cleanup retain views, dimensionless images cause CLS, and a large dependency increases parse, compile, and run in addition to transfer.',
-  'AOT, tree shaking, budgets y source-map analysis detectan regresiones. Un import pequeño puede arrastrar una dependencia grande.':
-    'AOT, tree shaking, budgets and source-map analysis detect regressions. A small import can drag a large dependency.',
-  'Las escrituras DOM invalidan estilos y las lecturas geométricas pueden forzar su cálculo. Agrupar ambas fases evita layout thrashing. Debounce reduce eventos de alta frecuencia; un Web Worker descarga CPU cuando el costo de serializar mensajes resulta menor que bloquear el main thread.':
-    'DOM writes invalidate styles and geometric reads can force their calculation. Grouping both phases avoids layout thrashing. Debounce reduces high frequency events; A Web Worker offloads CPU when the cost of serializing messages is less than blocking the main thread.',
-  'La app está lenta, ¿por dónde empezás?':
-    'The app is slow, where do you start?',
-  'Defino la interacción lenta, reproduzco con datos reales y grabo performance. Identifico red, scripting, layout o memoria; cambio una causa y vuelvo a medir.':
-    'I define slow interaction, reproduce with real data and record performance. I identify network, scripting, layout or memory; I change a cause and measure again.',
-  '¿`trackBy` sigue existiendo?': 'Does `trackBy` still exist?',
-  'En `*ngFor` sí. El control flow moderno usa `track`. Ambos preservan identidad DOM; una clave inestable anula el beneficio.':
-    'In `*ngFor` yes. Modern control flow uses `track`. Both preserve DOM identity; an unstable key voids the benefit.',
-  '¿Cómo empezás una investigación de rendimiento?':
-    'How do you start a performance investigation?',
-  'Defino una interacción y una métrica, reproduzco con una build de producción y capturo un perfil. Después separo red, scripting, render y memoria. Optimizo el cuello medido y vuelvo a comparar bajo las mismas condiciones.':
-    'I define an interaction and a metric, reproduce with a production build and capture a profile. Then I separate network, scripting, rendering and memory. I optimize the measured neck and compare again under the same conditions.',
-  '¿OnPush corrige una tarea larga de JavaScript?':
-    'Does OnPush fix a long JavaScript task?',
-  'No. OnPush puede reducir verificaciones de vistas, pero una función que ocupa el main thread sigue bloqueando input y render. Divido el trabajo, reduzco su complejidad o lo muevo a un Worker si el costo de mensajes lo permite.':
-    'No. OnPush may reduce view checks, but a function that occupies the main thread still blocks input and render. I split the job, reduce its complexity or move it to a Worker if the message cost allows it.',
-  'SSR, SSG, hidratación y rendering híbrido':
-    'SSR, SSG, hydration and hybrid rendering',
-  'Elegí estrategia por ruta. SEO, personalización, costo de servidor y tiempo de interacción empujan decisiones distintas.':
-    'I chose route strategy. SEO, personalization, server cost and interaction time drive different decisions.',
-  'CSR simplifica aplicaciones privadas. SSG sirve contenido estable. SSR sirve HTML fresco y SEO. Hybrid combina estrategias por ruta.':
-    'CSR simplifies private applications. SSG serves stable content. SSR serves fresh HTML and SEO. Hybrid combines strategies per route.',
-  'Hydration reutiliza el HTML del servidor. El cliente debe producir una estructura compatible; DOM inválido o manipulación directa rompe el proceso.':
-    'Hydration reuses the HTML from the server. The client must produce a compatible structure; Invalid DOM or direct manipulation breaks the process.',
-  'Incremental hydration activa sectores cuando se necesitan y trabaja con `@defer`. Event replay conserva interacciones previas a la hidratación.':
-    'Incremental hydration activates sectors when needed and works with `@defer`. Event replay preserves interactions prior to hydration.',
-  '`window`, `document`, storage y otras APIs del navegador no existen durante SSR. Platform checks, tokens inyectables y render hooks aíslan ese código para que el servidor pueda construir el HTML sin acceder al entorno cliente.':
-    '`window`, `document`, storage and other browser APIs do not exist during SSR. Platform checks, injectable tokens, and render hooks isolate that code so that the server can build the HTML without accessing the client environment.',
-  'Transfer cache reutiliza en el cliente ciertas respuestas obtenidas durante SSR y evita una segunda petición inmediata. La clave y el HTML generado deben aislar datos por usuario para impedir que una respuesta privada termine en otra sesión.':
-    'Transfer cache reuses certain responses obtained during SSR on the client and avoids a second immediate request. The key and the generated HTML must isolate data on a per-user basis to prevent a private response from terminating in another session.',
-  'Un placeholder con las mismas dimensiones que el contenido final reserva espacio y reduce CLS. El contenido above-the-fold participa en LCP y suele cargarse antes; los bloques secundarios admiten lazy loading o hidratación diferida.':
-    'A placeholder with the same dimensions as the final content reserves space and reduces CLS. Above-the-fold content participates in LCP and typically loads first; child blocks support lazy loading or lazy hydration.',
-  '¿SSR mejora todo el rendimiento?': 'Does SSR improve all performance?',
-  'Mejora entrega de HTML y SEO, pero agrega servidor e hidratación. Puede empeorar TTFB o interacción si el backend y el bundle no acompañan.':
-    'Improves HTML delivery and SEO, but adds server and hydration. TTFB or interaction can worsen if the backend and the bundle do not match.',
-  '¿Qué causa hydration mismatch?': 'What causes hydration mismatch?',
-  'HTML diferente entre servidor y cliente, fechas o random no deterministas, DOM manipulado antes de hidratar y markup inválido.':
-    'HTML different between server and client, non-deterministic dates or random, DOM manipulated before hydrating and invalid markup.',
-  '¿Cómo elegís estrategia de rendering por ruta?':
-    'How do you choose rendering strategy per route?',
-  'Uso SSG para contenido estable, SSR para HTML dependiente de la request y CSR para áreas privadas donde el shell aporta poco al servidor. Evalúo SEO, personalización, latencia, caché y costo operativo por ruta.':
-    'I use SSG for stable content, SSR for request-dependent HTML, and CSR for private areas where the shell contributes little to the server. I evaluate SEO, personalization, latency, cache and operational cost per route.',
-  '¿Qué causa un hydration mismatch?': 'What causes a hydration mismatch?',
-  'El cliente produce un árbol distinto al HTML del servidor por datos no deterministas, acceso al navegador o markup condicional. Comparto el estado inicial, aíslo APIs del browser y mantengo estable la estructura hasta hidratar.':
-    "The client produces a different tree than the server's HTML due to non-deterministic data, browser access, or conditional markup. I share the initial state, isolate APIs from the browser and keep the structure stable until hydrated.",
-  'Testing y estrategia de calidad': 'Testing and quality strategy',
-  'Una suite Senior protege comportamiento y contratos. Evitá tests que copian la implementación.':
-    'A Senior Suite protects behavior and contracts. Avoid tests that copy the implementation.',
-  'Pirámide práctica: muchas pruebas de lógica, componentes para comportamiento DOM, integración en fronteras y pocos E2E de journeys críticos.':
-    'Practical pyramid: many logic tests, components for DOM behavior, border integration and few E2Es of critical journeys.',
-  'Angular moderno documenta Vitest junto con TestBed. Bases existentes pueden usar Jasmine/Jest; la estrategia importa más que la sintaxis.':
-    'Modern Angular documents Vitest together with TestBed. Existing databases can use Jasmine/Jest; Strategy matters more than syntax.',
-  'Un test de componente interactúa con el DOM mediante roles, labels y eventos, y comprueba el resultado visible. Los métodos privados y la estructura interna son detalles de implementación; afirmar sobre ellos vuelve frágil el test ante refactors sin cambio de comportamiento.':
-    'A component test interacts with the DOM through roles, labels and events, and checks the visible result. Private methods and internal structure are implementation details; affirming about them makes the test fragile in the face of refactors without behavioral change.',
-  '`HttpTestingController` intercepta requests de `HttpClient` y permite afirmar método, URL, body y headers antes de responder con éxito o error. `verify()` comprueba al final que ninguna petición haya quedado pendiente.':
-    '`HttpTestingController` intercepts requests from `HttpClient` and allows method, URL, body and headers to be asserted before responding with success or error. `verify()` finally checks that no request has been left pending.',
-  '`RouterTestingHarness` simplifica navegación. Los component harnesses crean APIs de prueba estables para UI reutilizable.':
-    '`RouterTestingHarness` simplifies navigation. Component harnesses create stable test APIs for reusable UI.',
-  'Fake timers controlan el reloj de debounce, retry y delays sin esperar tiempo real. Los marble tests representan emisiones RxJS sobre una línea temporal virtual y sirven cuando el orden y la concurrencia forman parte del contrato.':
-    'Fake timers control the debounce clock, retry and delays without waiting for real time. Marble tests represent RxJS emissions on a virtual timeline and are useful when order and concurrency are part of the contract.',
-  'Un mock reemplaza una frontera y permite aislar la unidad, pero demasiados mocks pueden describir una integración que ningún proveedor real soporta. Los contract tests verifican que DTOs, adapters y clientes respeten el mismo contrato.':
-    'A mock replaces a boundary and allows the unit to be isolated, but too many mocks can describe an integration that no real vendor supports. Contract tests verify that DTOs, adapters and clients respect the same contract.',
-  '¿Qué test escribirías primero?': 'Which test would you write first?',
-  'El riesgo más caro: regla de dominio, permiso, pago, migración o interacción que ya falló. La cobertura porcentual no reemplaza esa priorización.':
-    'The most expensive risk: domain rule, permission, payment, migration or interaction that has already failed. Percentage coverage does not replace that prioritization.',
-  '¿Unit test de un componente con servicio?':
-    'Unit test of a component with a service?',
-  'Sustituyo la frontera del servicio, ejecuto la interacción por el DOM y verifico el resultado visible y la llamada relevante. No pruebo Angular.':
-    "I replace the service border, execute the interaction with the DOM and check the visible result and the relevant call. I don't test Angular.",
-  '¿Qué probás en una unidad y qué dejás para integración?':
-    'What do you test in a unit and what do you leave for integration?',
-  'Una unidad cubre reglas puras y estados con pocas fronteras. Un test de integración comprueba template, DI, router o HTTP cuando su composición forma parte del comportamiento. Elijo el nivel más bajo que todavía puede detectar el fallo real.':
-    'One unit covers pure rules and states with few borders. An integration test checks template, DI, router or HTTP when its composition is part of the behavior. I choose the lowest level that can still detect the actual fault.',
-  '¿Cómo eliminás un test asíncrono flaky?':
-    'How do you eliminate a flaky asynchronous test?',
-  'Controlo reloj, scheduler y respuestas externas. Espero una condición observable en lugar de usar delays arbitrarios, cierro requests pendientes y elimino estado compartido entre casos.':
-    'I control clock, scheduler and external responses. I wait for a observable condition instead of using arbitrary delays, close pending requests, and remove shared state between cases.',
-  'Seguridad web en Angular': 'Web security at Angular',
-  'Angular escapa y sanitiza varios bindings, pero el equipo todavía controla autenticación, autorización, dependencias y datos peligrosos.':
-    'Angular escapes and sanitizes several bindings, but the team still controls authentication, authorization, dependencies, and dangerous data.',
-  'Interpolación y property binding tratan valores como datos. `[innerHTML]` pasa por sanitización; URLs de recursos y bypass APIs requieren revisión estricta.':
-    'Interpolation and property binding treat values as data. `[innerHTML]` goes through sanitation; Resource URLs and bypass APIs require strict review.',
-  '`DomSanitizer.bypassSecurityTrust*` no limpia contenido: crea un valor que omite la sanitización de Angular. Su uso concentra una decisión de confianza y necesita una fuente controlada, revisión y auditoría.':
-    '`DomSanitizer.bypassSecurityTrust*` does not clean content: Creates a value that bypasses sanitization of Angular. Its use concentrates a decision of trust and requires a controlled source, review and audit.',
-  'Content Security Policy limita los orígenes y tipos de recursos que puede ejecutar el navegador. Trusted Types obliga a que sinks DOM peligrosos reciban valores creados por políticas registradas. Juntas reducen el impacto de una inyección que llega al DOM.':
-    'Content Security Policy limits the origins and types of resources that the browser can run. Trusted Types forces dangerous DOM sinks to receive values ​​created by registered policies. Together they reduce the impact of an injection reaching the DOM.',
-  'CSRF aprovecha credenciales que el navegador adjunta de forma automática, como cookies. SameSite, un token XSRF y la validación del servidor prueban que la petición salió de la aplicación esperada. Un bearer token evita ese mecanismo, pero puede ser robado por XSS según dónde se almacene.':
-    'CSRF takes advantage of credentials that the browser automatically attaches, such as cookies. SameSite, an XSRF token, and server validation prove that the request left the expected application. A bearer token prevents that mechanism, but can be stolen by XSS depending on where it is stored.',
-  'Un guard decide navegación en el cliente y mejora la experiencia, pero el usuario puede omitirlo o llamar la API de forma directa. La API debe comprobar permisos y ownership para cada operación.':
-    'A guard decides navigation on the client and improves the experience, but the user can ignore it or call the API directly. The API must check permissions and ownership for each operation.',
-  'El bundle frontend y sus variables de entorno llegan al navegador y cualquier usuario puede inspeccionarlos. Claves privadas, credenciales de servicio y secretos pertenecen al servidor o a un gestor de secretos.':
-    'The frontend bundle and its environment variables reach the browser and any user can inspect them. Private keys, service credentials, and secrets belong to the server or a secrets manager.',
-  'Las versiones soportadas de Angular reciben correcciones; el lockfile fija el grafo instalado. Una auditoría de supply chain revisa vulnerabilidades, paquetes abandonados, scripts de instalación y cambios inesperados de mantenedor.':
-    'Supported versions of Angular receive fixes; The lockfile sets the installed graph. A supply chain audit reviews vulnerabilities, abandoned packages, installation scripts, and unexpected maintainer changes.',
-  '¿Angular evita XSS?': 'Does Angular prevent XSS?',
-  'Reduce XSS al escapar y sanitizar contextos conocidos. DOM APIs directas, bypass, librerías y HTML externo reabren el riesgo.':
-    'Reduces XSS by escaping and sanitizing known contexts. DOM Direct APIs, bypasses, libraries and external HTML reopen the risk.',
-  '¿LocalStorage o cookies para tokens?': 'LocalStorage or cookies for tokens?',
-  'Depende del modelo de amenaza. Cookies HttpOnly reducen lectura por XSS y exigen CSRF controls. LocalStorage simplifica headers pero expone el token a JavaScript comprometido.':
-    'It depends on the threat model. HttpOnly cookies reduce reading by XSS and require CSRF controls. LocalStorage simplifies headers but exposes the token to compromised JavaScript.',
-  '¿Qué implica usar `bypassSecurityTrustHtml`?':
-    'What does using `bypassSecurityTrustHtml` entail?',
-  'La llamada no sanitiza el contenido. Declara que la aplicación confía en esa fuente y evita la protección de Angular para ese sink. La restrinjo a una frontera revisada y prefiero transformar datos antes de producir HTML.':
-    'The call does not sanitize the content. Declares that the application trusts that source and bypasses Angular protection for that sink. I restrict it to a revised boundary and prefer to transform data before producing HTML.',
-  '¿Por qué un route guard no autoriza una operación?':
-    "Why doesn't a route guard authorize an operation?",
-  'El usuario controla el cliente y puede omitir la navegación o llamar la API de forma directa. El guard mejora la experiencia. El servidor verifica identidad, permisos y ownership en cada operación.':
-    'The user controls the client and can skip navigation or call the API directly. The guard improves the experience. The server verifies identity, permissions and ownership in each operation.',
-  'Accesibilidad, HTML y CSS': 'Accessibility, HTML and CSS',
-  'La accesibilidad forma parte del contrato de UI. Un Senior la integra en componentes y Definition of Done.':
-    'Accessibility is part of the UI contract. A Senior integrates it into components and Definition of Done.',
-  'HTML semántico aporta nombre, rol y comportamiento nativo. `button` ejecuta acciones, `a` con `href` navega, los headings forman el índice, `label` nombra controles y los landmarks permiten saltar entre regiones.':
-    'Semantic HTML provides name, role and native behavior. `button` executes actions, `a` navigates with `href`, headings form the index, `label` names controls and landmarks allow jumping between regions.',
-  'La navegación por teclado necesita un orden de foco que siga la lectura y un indicador visible. Un modal mueve el foco a su interior, impide escapar al contenido de fondo, anuncia su nombre y devuelve el foco al elemento que lo abrió.':
-    'Keyboard navigation requires a focus order that follows the reading and a visible indicator. A modal moves focus inside, prevents escaping to background content, announces its name, and returns focus to the element that opened it.',
-  'ARIA añade nombre, rol, estado o relaciones cuando HTML nativo no alcanza. No incorpora por sí sola teclado ni comportamiento; un `div role=button` todavía necesita foco y activación con Enter y Space.':
-    'ARIA adds name, role, status, or relationships when native HTML falls short. It does not incorporate a keyboard or behavior by itself; a `div role=button` still needs focus and activation with Enter and Space.',
-  'Los errores asociados mediante `aria-describedby` se leen junto al control. Una live region anuncia cambios asíncronos que no reciben foco, como el resultado de una operación o una validación remota.':
-    'Errors associated with `aria-describedby` are read along with the control. A live region announces asynchronous changes that do not receive focus, such as the result of a remote operation or validation.',
-  'CSS: cascade, specificity, stacking contexts, box model, Flexbox, Grid, container/media queries y responsive images.':
-    'CSS: cascade, specificity, stacking contexts, box model, Flexbox, Grid, container/media queries and responsive images.',
-  'Zoom, texto largo y localización cambian las dimensiones del contenido; contraste y high contrast cambian su percepción; reduced motion limita animaciones. Un componente flexible conserva lectura, foco y controles sin depender de alturas fijas.':
-    'Zoom, long text and localization change the dimensions of the content; Contrast and high contrast change your perception; reduced motion limits animations. A flexible component retains readout, focus, and controls without relying on fixed heights.',
-  '¿Div con click o button?': 'Div with click or button?',
-  'Button aporta teclado, foco, rol y activación sin recrear comportamiento. Un div exige implementar y mantener todo eso.':
-    'Button provides keyboard, focus, role and activation without recreating behavior. A div requires implementing and maintaining all of that.',
-  '¿Cómo probás accesibilidad?': 'How do you test accessibility?',
-  'Combino lint y axe con teclado real, lector de pantalla en flujos críticos y revisión de foco, contraste y nombres accesibles.':
-    'I combine lint and ax with real keyboard, screen reader in critical flows and review of focus, contrast and accessible names.',
-  '¿Cuándo ARIA empeora un componente?':
-    'When does ARIA make a component worse?',
-  'ARIA puede contradecir la semántica nativa o anunciar un estado que el comportamiento no implementa. Empiezo por el elemento HTML correcto y agrego nombre, estado o relaciones sólo cuando falta información.':
-    'ARIA may contradict native semantics or announce a state that the behavior does not implement. I start with the correct HTML element and add name, status, or relationships only when information is missing.',
-  '¿Cómo manejás el foco de un modal?':
-    'How do you manage the focus of a modal?',
-  'Muevo el foco a un punto útil dentro del diálogo, mantengo la navegación en su contenido, cierro con Escape cuando corresponde y devuelvo el foco al disparador. El diálogo también necesita nombre y fondo inerte.':
-    'I move focus to a useful point within the dialog, keep the navigation on its content, close with Escape when appropriate, and return focus to the trigger. The dialogue also needs a name and an inert background.',
-  'Build, CI/CD, configuración y upgrades':
-    'Build, CI/CD, configuration and upgrades',
-  'El frontend llega a producción mediante una cadena que también necesita diseño y ownership.':
-    'The frontend reaches production through a chain that also requires design and ownership.',
-  'La configuración de build contiene valores públicos que pueden quedar embebidos en los bundles. Los secretos permanecen fuera del frontend. Validar la configuración al arrancar detecta URLs o flags faltantes y evita que cada entorno interprete defaults distintos.':
-    'The build configuration contains public values that can be embedded in bundles. The secrets remain outside the frontend. Validating the configuration at startup detects missing URLs or flags and prevents each environment from interpreting different defaults.',
-  'Un pipeline de CI ejecuta typecheck, lint, unit tests, build con budgets y recorridos críticos antes de publicar. Una caché usa el lockfile y la configuración como parte de su clave para no reutilizar dependencias o resultados incompatibles.':
-    'A CI pipeline runs typecheck, lint, unit tests, build with budgets, and critical walks before publishing. A cache uses the lockfile and configuration as part of its key so as not to reuse incompatible dependencies or results.',
-  'Los assets con hash pueden usar caché larga porque una modificación cambia su URL. El HTML conserva una política corta para descubrir el release nuevo. Un rollback necesita artefactos anteriores y compatibilidad temporal entre el frontend nuevo y la versión previa de la API.':
-    'Hashed assets can use long cache because a modification changes their URL. HTML retains a short policy to discover the new release. A rollback requires previous artifacts and temporal compatibility between the new frontend and the previous version of the API.',
-  'Un feature flag separa despliegue de exposición. Owner, métricas y fecha de retiro controlan su ciclo de vida; un flag permanente mantiene dos caminos de código y duplica combinaciones de prueba.':
-    'A feature flag separates display from exposition. Owner, metrics and retirement date control its life cycle; a permanent flag maintains two code paths and duplicates test combinations.',
-  '`ng update` y los schematics transforman configuración y código para una versión nueva. Actualizar una major por vez reduce combinaciones no soportadas; las deprecations, el bundle y las métricas runtime muestran qué trabajo queda después de compilar.':
-    '`ng update` and schematics transform configuration and code for a new version. Updating one major at a time reduces unsupported combinations; deprecations, bundle, and runtime metrics show what work is left after compiling.',
-  'Los source maps relacionan el bundle minificado con el TypeScript original. En producción requieren acceso restringido porque revelan estructura y código; asociarlos con release, commit y evento permite reconstruir el stack correcto.':
-    'The source maps relate the minified bundle to the original TypeScript. In production they require restricted access because they reveal structure and code; Associating them with release, commit and event allows you to rebuild the correct stack.',
-  '¿Cómo desplegás sin romper usuarios con pestañas abiertas?':
-    'How do you deploy without breaking users with open tabs?',
-  'Mantengo compatibilidad temporal de API, manejo chunk-load errors, uso assets versionados y evito borrar archivos previos antes de que expire su caché.':
-    'I maintain temporary API compatibility, handle chunk-load errors, use versioned assets, and avoid deleting previous files before their cache expires.',
-  '¿Qué mirás después de un upgrade?': 'What do you look at after an upgrade?',
-  'Errores, tests, bundle, Web Vitals, warnings, cambios de browser support y dependencias pares. Después retiro compatibilidad obsoleta.':
-    'Errors, tests, bundles, Web Vitals, warnings, browser support changes and even dependencies. Later I removed obsolete compatibility.',
-  '¿Cómo diseñás un feature flag seguro?':
-    'How do you design a secure feature flag?',
-  'Defino owner, audiencia, fallback, métricas y fecha de retiro. El backend mantiene las reglas de autorización. Los dos caminos permanecen probados mientras el flag exista y retiro el código cuando termina el rollout.':
-    'I define owner, audience, fallback, metrics and retirement date. The backend maintains the authorization rules. Both paths remain tested as long as the flag exists and I remove the code when the rollout ends.',
-  '¿Publicarías source maps en producción?':
-    'Would you publish source maps in production?',
-  'Los genero para relacionar errores minificados con el TypeScript, pero restrinjo su acceso al sistema de observabilidad. Asocio cada mapa con release y commit para simbolizar el stack correcto.':
-    'I generate them to relate minified errors to the TypeScript, but I restrict their access to the observability system. I associate each map with release and commit to symbolize the correct stack.',
-  'Observabilidad, errores y debugging': 'Observability, errors and debugging',
-  'Un Senior diseña cómo detectar y explicar fallos antes de que aparezca el incidente.':
-    'A Senior designs how to detect and explain failures before the incident occurs.',
-  'La frontera global captura errores que ninguna feature manejó. El registro conserva tipo, causa y contexto técnico sin exponer stack traces, tokens ni datos personales en la interfaz.':
-    'The global border captures errors that no feature handled. The log preserves type, cause, and technical context without exposing stack traces, tokens, or personal data in the interface.',
-  'Release, ruta, acción, correlation ID, usuario anonimizado y breadcrumbs permiten reconstruir una falla. El mismo correlation ID propagado por gateway y backend conecta el error del navegador con logs y traces del servidor.':
-    'Release, route, action, correlation ID, anonymized user and breadcrumbs allow a failure to be reconstructed. The same correlation ID propagated by gateway and backend connects the browser error with server logs and traces.',
-  'La tasa de errores indica frecuencia, la latencia por endpoint localiza esperas, Web Vitals describe experiencia de render e interacción y el éxito de journeys mide tareas completas. Un log sin una pregunta operativa ni una acción asociada añade volumen sin diagnóstico.':
-    'Error rate indicates frequency, latency per endpoint locates waits, Web Vitals describes rendering and interaction experience, and journey success measures completed tasks. A log without an operational question or an associated action adds volume without diagnosis.',
-  'Angular DevTools muestra árbol, DI y profiling. Chrome Performance, Network, Memory y Coverage completan el diagnóstico.':
-    'Angular DevTools shows tree, DI and profiling. Chrome Performance, Network, Memory and Coverage complete the diagnosis.',
-  'Un leak se vuelve visible al repetir navegación y comparar heap snapshots. Detached DOM nodes, listeners, timers y caches sin límite muestran qué referencia mantiene viva una vista que Angular ya destruyó.':
-    'A leak becomes visible when repeating navigation and comparing heap snapshots. Detached DOM nodes, listeners, timers and unlimited caches show which reference keeps alive a view that Angular already destroyed.',
-  'Un error boundary de feature contiene el fallo y ofrece una salida: retry, fallback, estado parcial o contacto de soporte. Un toast genérico desaparece y no conserva la operación que el usuario necesita recuperar.':
-    'A feature boundary error contains the fault and provides an output: retry, fallback, partial state, or support contact. A generic toast disappears and does not preserve the operation that the user needs to recover.',
-  '¿Cómo investigás un bug que no reproducís?':
-    "How do you investigate a bug that you don't reproduce?",
-  'Aumento contexto observable, comparo versión, navegador y ruta de datos, y creo una hipótesis verificable. Evito cambios especulativos sin señal.':
-    'I increase observable context, compare version, browser, and data path, and create a testable hypothesis. I avoid speculative changes without a signal.',
-  '¿Qué reportarías en un error HTTP?':
-    'What would you report in an HTTP error?',
-  'Endpoint normalizado, status, duración, correlation ID y operación. Redacto o elimino body, tokens y datos personales.':
-    'Normalized endpoint, status, duration, correlation ID and operation. I redact or delete body, tokens and personal data.',
-  '¿Cómo usás un correlation ID desde el frontend?':
-    'How do you use a correlation ID from the frontend?',
-  'Propago un identificador permitido en requests y lo registro junto con ruta, release y acción. Backend y gateway conservan el mismo valor para unir el fallo visible con logs y traces sin guardar datos personales.':
-    'I propagate an allowed identifier in requests and register it along with route, release and action. Backend and gateway keep the same value to link the visible fault with logs and traces without saving personal data.',
-  '¿Cómo confirmás un memory leak de navegación?':
-    'How do you confirm a browsing memory leak?',
-  'Repito el recorrido, fuerzo garbage collection en un entorno de diagnóstico y comparo heap snapshots. Busco componentes retenidos, detached DOM nodes, listeners, timers y caches que conservan referencias.':
-    'I repeat the traversal, force garbage collection in a diagnostic environment and compare heap snapshots. I look for retained components, detached DOM nodes, listeners, timers and caches that preserve references.',
-  'System design frontend': 'System design frontend',
-  'En una entrevista de diseño, empezá por requisitos y recorré datos, límites, fallos, rendimiento y operación.':
-    'In a design interview, start with requirements and go through data, limits, failures, performance and operation.',
-  'Los usuarios, flujos críticos, SEO, offline, tiempo real, volumen, permisos, localización y objetivos de rendimiento forman las restricciones del diseño. Cada restricción modifica las fronteras, la estrategia de datos o el modo de rendering.':
-    'Users, critical flows, SEO, offline, real-time, volume, permissions, location and performance objectives form the design constraints. Each constraint modifies the boundaries, data strategy, or rendering mode.',
-  'Un diagrama frontend ubica features, router, estado, API layer, componentes compartidos y fronteras de dominio. La propiedad de cada dato determina quién puede escribirlo, quién lo deriva y cuánto tiempo debe vivir.':
-    'A frontend diagram locates features, router, state, API layer, shared components, and domain boundaries. The ownership of each piece of data determines who can write it, who derives it, and how long it should live.',
-  'Una estrategia de caché define key, TTL e invalidación. La consistencia establece cuándo aceptar datos stale, cómo reconciliar optimistic updates, qué hacer ante conflictos y cómo mantener cursores o páginas al cambiar la colección.':
-    'A cache strategy defines key, TTL and invalidation. Consistency establishes when to accept stale data, how to reconcile optimistic updates, what to do about conflicts, and how to maintain cursors or pages when changing the collection.',
-  'WebSocket ofrece comunicación bidireccional persistente, SSE envía un stream unidireccional sobre HTTP y polling repite requests. La solución necesita reconexión, orden, deduplicación y backpressure para no procesar eventos más rápido de lo que la UI puede consumirlos.':
-    'WebSocket offers persistent bidirectional communication, SSE sends a unidirectional stream over HTTP and polls repeats requests. The solution needs reconnection, ordering, deduplication, and backpressure to not process events faster than the UI can consume them.',
-  'Un diseño completo incluye autorización, accesibilidad, telemetría, niveles de prueba, estrategia de despliegue y migración. Esas fronteras determinan si el sistema puede operarse y evolucionar después del primer release.':
-    'A complete design includes authorization, accessibility, telemetry, test levels, deployment strategy, and migration. These boundaries determine whether the system can be operated and evolved after the first release.',
-  'La primera versión cubre la escala y los riesgos conocidos con el menor número de piezas. Umbrales observables, como latencia, volumen o frecuencia de incidentes, indican cuándo una estrategia deja de servir y justifican el siguiente cambio.':
-    'The first version covers the scale and known risks with the fewest parts. Observable thresholds, such as latency, volume, or incident frequency, indicate when a strategy is no longer useful and justify the next change.',
-  'Diseñá un dashboard con datos en vivo': 'Design a dashboard with live data',
-  'Agrupo widgets por frecuencia y ownership, uso un servicio de conexión con multiplexing, normalizo eventos, aplico backpressure y renderizo con signals. Pauso streams invisibles y mido INP.':
-    'I group widgets by frequency and ownership, use a connection service with multiplexing, normalize events, apply backpressure and render with signals. I pause invisible streams and measure INP.',
-  'Diseñá una librería de componentes': 'Design a component library',
-  'Defino tokens de diseño, accesibilidad y APIs pequeñas; publico harnesses, documentación y semver. Pruebo keyboard, themes, SSR y breaking changes.':
-    'I define design tokens, accessibility and small APIs; I publish harnesses, documentation and semver. I try keyboard, themes, SSR and breaking changes.',
-  '¿Cómo elegís entre WebSocket, SSE y polling?':
-    'How do you choose between WebSocket, SSE and polling?',
-  'WebSocket sirve para comunicación bidireccional, SSE para un stream servidor a cliente sobre HTTP y polling para cambios poco frecuentes o infraestructura simple. Comparo reconexión, proxies, orden, volumen y soporte del backend.':
-    'WebSocket is for bidirectional communication, SSE for a server-to-client stream over HTTP and polling for infrequent changes or simple infrastructure. I compare reconnection, proxies, order, volume and backend support.',
-  '¿Qué debe definir una estrategia de caché?':
-    'What should define a caching strategy?',
-  'Define key, TTL, invalidación, deduplicación y comportamiento stale. También explica cómo reconciliar optimistic updates, conflictos y cambios de paginación sin mezclar datos de usuarios o filtros distintos.':
-    'Defines key, TTL, invalidation, deduplication and stale behavior. It also explains how to reconcile optimistic updates, conflicts, and pagination changes without mixing different user data or filters.',
-  'Liderazgo técnico y trabajo en equipo': 'Technical leadership and teamwork',
-  'El nivel Senior incluye decisiones compartidas, mentoring, manejo de incidentes y entrega predecible.':
-    'The Senior level includes shared decisions, mentoring, incident management and predictable delivery.',
-  'Un code review evalúa corrección, seguridad, diseño y tests. Un comentario bloqueante describe un defecto que impide integrar; una sugerencia propone una mejora opcional. Explicar el motivo permite que el autor aplique el criterio en código futuro.':
-    'A code review evaluates correctness, security, design and tests. A blocking comment describes a defect that prevents integration; one suggestion proposes an optional improvement. Explaining why allows the author to apply the criteria in future code.',
-  'Una decisión técnica documentada contiene contexto, alternativas y consecuencias. La fecha de revisión evita tratar como permanente una elección tomada bajo restricciones que pueden cambiar.':
-    'A documented technical decision contains context, alternatives and consequences. The review date avoids treating as permanent a choice made under constraints that may change.',
-  'Mentoring hace visible el modelo mental, aumenta la dificultad de forma gradual y devuelve la decisión a quien aprende. Resolver cada problema por la otra persona concentra conocimiento y convierte al mentor en cuello de botella.':
-    'Mentoring makes the mental model visible, increases the difficulty gradually and returns the decision to the learner. Solving each problem for the other person concentrates knowledge and turns the mentor into a bottleneck.',
-  'Durante un incidente, el equipo primero estabiliza el servicio, comunica impacto, asigna roles y conserva evidencia. El postmortem reconstruye causas y cambia código, alertas o proceso sin buscar culpables.':
-    'During an incident, the team first stabilizes the service, communicates impact, assigns roles, and preserves evidence. The postmortem reconstructs causes and changes code, alerts or processes without looking for culprits.',
-  'La negociación de alcance compara riesgo, dependencias, costo de demora y una entrega incremental. Exponer incertidumbre permite reservar tiempo, instrumentar el resultado o reducir el alcance antes de comprometer una fecha.':
-    'Scope negotiation compares risk, dependencies, cost of delay, and incremental delivery. Exposing uncertainty allows you to reserve time, implement the result or reduce the scope before committing to a date.',
-  'Lead time, defectos, costo de mantenimiento, adopción y carga cognitiva describen salud técnica desde resultados. Líneas de código y cantidad de tickets premian volumen aunque el sistema sea más complejo o menos estable.':
-    'Lead time, defects, maintenance cost, adoption and cognitive load describe technical health from results. Lines of code and number of tickets reward volume even if the system is more complex or less stable.',
-  '¿Cómo resolvés un desacuerdo técnico?':
-    'How do you resolve a technical disagreement?',
-  'Alineo restricciones, comparo opciones con criterios, hago un spike si falta evidencia y documento la decisión. Después apoyo la opción acordada.':
-    'I align constraints, compare options with criteria, spike if evidence is missing, and document the decision. Then I support the agreed option.',
-  '¿Cómo manejaste feedback negativo?': 'How did you handle negative feedback?',
-  'Describí el caso de modularización de formularios: escuchaste, revisaste estándares, refactorizaste por responsabilidad, pediste otra revisión y aplicaste el aprendizaje.':
-    'I described the form modularization case: you listened, reviewed standards, refactored for responsibility, asked for another review, and applied the learning.',
-  '¿Qué convierte un comentario de review en bloqueante?':
-    'What makes a review comment blocking?',
-  'Bloqueo por corrección, seguridad, pérdida de datos, contrato roto o una deuda que impide operar el cambio. Marco preferencias como sugerencias y explico el riesgo para que el autor pueda aplicar el criterio.':
-    'Blocking due to correction, security, data loss, broken contract or a debt that prevents the change from operating. I mark preferences as suggestions and explain the risk so the author can apply the criteria.',
-  '¿Qué incluís en un ADR?': 'What do you include in an ADR?',
-  'Registro contexto, restricciones, opciones consideradas, decisión y consecuencias. Añado owner y fecha de revisión cuando las condiciones pueden cambiar. El documento permite discutir la elección sin depender de memoria oral.':
-    'Record context, restrictions, options considered, decision and consequences. I add owner and review date when conditions may change. The document allows the election to be discussed without depending on oral memory.',
-  'Cómo razonar y responder como Senior':
-    'How to reason and respond as a Senior',
-  'Esta sección convierte conocimiento técnico en respuestas claras. La meta es demostrar qué ocurre, qué decisión tomarías, por qué la tomarías y cómo comprobarías que funcionó.':
-    'This section turns technical knowledge into clear answers. The goal is to demonstrate what happens, what decision you would make, why you would make it, and how you would prove that it worked.',
-  'Respondé primero qué es el concepto en una frase. Después explicá el mecanismo que produce su comportamiento, elegí una aplicación concreta y cerrá con el límite de esa elección. Ejemplo: `switchMap` reemplaza la suscripción interna anterior; lo elegiría en un buscador porque sólo interesa la consulta más reciente, pero no para guardar acciones que deben completarse todas.':
-    'First answer what the concept is in a sentence. Then explain the mechanism that produces its behavior, choose a specific application and close with the limit of that choice. Example: `switchMap` replaces the previous internal subscription; I would choose it in a search engine because only the most recent query is of interest, but not to save actions that must all be completed.',
-  'Separá mecanismo de decisión. «OnPush reduce comprobaciones» describe un efecto. «Uso OnPush con estado inmutable porque los cambios llegan por inputs y signals» explica una decisión. La segunda respuesta permite evaluar si entendés cuándo la herramienta encaja.':
-    'Separate decision mechanism. “OnPush reduces checks” describes an effect. "I use OnPush with immutable state because the changes come through inputs and signals" explains a decision. The second answer allows you to evaluate whether you understand when the tool fits.',
-  'Nombrá las restricciones que cambian la solución: volumen de datos, frecuencia de actualización, SEO, latencia, accesibilidad, seguridad, soporte de navegadores y capacidad del equipo. Si la pregunta no las informa, declaralas como supuestos en vez de inventar un escenario silenciosamente.':
-    "Name the constraints that change the solution: data volume, refresh rate, SEO, latency, accessibility, security, browser support, and device capacity. If the question doesn't report them, state them as assumptions instead of silently making up a scenario.",
-  'Compará alternativas con el mismo criterio. Para cada opción indicá beneficio, costo y modo de falla. Por ejemplo, SSR mejora el HTML inicial y el SEO, pero agrega infraestructura y exige código compatible con servidor; CSR simplifica la operación, pero depende más de JavaScript para el primer contenido.':
-    'Compare alternatives with the same criteria. For each option, indicate benefit, cost and failure mode. For example, SSR improves the initial HTML and improves SEO, but adds infrastructure and requires server-friendly code; CSR simplifies the operation, but relies more on JavaScript for the first content.',
-  'Explicá cómo validarías la decisión. Rendimiento se comprueba con métricas como LCP, INP, tamaño de bundle o tiempo de tarea; una migración se valida con tests, telemetría, despliegue gradual y rollback; una mejora de equipo se valida con lead time, defectos o carga operativa.':
-    'Explain how you would validate the decision. Performance is checked with metrics such as LCP, INP, bundle size or task time; A migration is validated with tests, telemetry, gradual deployment and rollback; An equipment improvement is validated with lead time, defects or operational load.',
-  'Una respuesta débil enumera herramientas: «usaría Signals, OnPush y lazy loading». Una respuesta sólida conecta problema y evidencia: «el perfil mostró demasiadas vistas comprobadas; moví el estado local a Signals, mantuve referencias inmutables y medí menos scripting sin cambiar el comportamiento».':
-    'A weak answer lists tools: "I would use Signals, OnPush and lazy loading." A solid answer connects problem and evidence: “the profile showed too many verified views; "I moved the local state to Signals, kept immutable references, and did less scripting without changing the behavior."',
-  'Si no recordás una API exacta, no inventes. Explicá el modelo que sí conocés, aislá el detalle dudoso y decí cómo lo verificarías en la documentación o con una prueba mínima. El razonamiento correcto es más valioso que una firma memorizada incorrectamente.':
-    "If you don't remember an exact API, don't invent it. Explain the model that you do know, isolate the doubtful detail and say how you would verify it in the documentation or with minimal proof. Correct reasoning is more valuable than an incorrectly memorized signature.",
-  'Para una experiencia real usá Contexto, Decisión, Acción y Resultado. El resultado debe incluir una señal verificable: latencia, errores, conversión, tiempo de entrega, incidentes evitados o feedback del equipo. Si no hubo medición, decí qué observaste y qué medirías hoy.':
-    'For a real experience use Context, Decision, Action and Result. The result must include a verifiable signal: latency, errors, conversion, delivery time, incidents avoided or feedback from the team. If there was no measurement, say what you observed and what you would measure today.',
-  '¿Qué diferencia una respuesta Senior?':
-    'What differentiates a Senior response?',
-  'No es la cantidad de APIs nombradas. Es poder explicar el mecanismo, elegir según restricciones, comparar alternativas y proponer una forma de validar el resultado. Por ejemplo, no basta con decir «uso `switchMap`»: hay que explicar que conserva sólo la operación interna más reciente y por qué esa política coincide con el problema.':
-    'It is not the number of named APIs. It is being able to explain the mechanism, choose according to restrictions, compare alternatives and propose a way to validate the result. For example, it is not enough to say "I use `switchMap`": you must explain that it keeps only the most recent internal operation and why that policy matches the problem.',
-  '¿Qué hacés si no sabés una API exacta?':
-    "What do you do if you don't know an exact API?",
-  'Decí qué parte conocés, razoná desde el modelo de Angular y explicá cómo verificarías el detalle. Inventar una firma daña más que reconocer un borde.':
-    'Say which part you know, reason from the Angular model and explain how you would verify the detail. Inventing a signature is more damaging than recognizing an edge.',
-  '¿Cómo evitás responder «depende» sin tomar una posición?':
-    'How do you avoid answering “it depends” without taking a position?',
-  'Nombrá dos o tres condiciones decisivas, fijá un escenario razonable y elegí. Por ejemplo: «si la página necesita SEO y contenido inicial rápido, elegiría SSR; si es una herramienta interna autenticada, empezaría con CSR». Después explicá qué dato haría cambiar la decisión.':
-    'Name two or three decisive conditions, set a reasonable scenario and choose. For example: “If the page needs SEO and quick initial content, I would choose SSR; “If it is an authenticated internal tool, I would start with CSR.” Then explain what information would change the decision.',
-  '¿Cómo convertís una opinión en una decisión técnica defendible?':
-    'How do you turn an opinion into a defensible technical decision?',
-  'Definí el objetivo, compará alternativas con los mismos criterios y acordá una señal de éxito. «Prefiero Signals» es una opinión; «uso Signals para estado local síncrono porque simplifica derivaciones y verifico el impacto con legibilidad, tests y profiling» es una decisión discutible y medible.':
-    'Define the objective, compare alternatives with the same criteria and agree on a sign of success. "I prefer Signals" is an opinion; "I use Signals for synchronous local state because it simplifies derivations and I verify the impact with readability, tests and profiling" is a debatable and measurable decision.',
-  '¿Cómo estructurás una respuesta técnica extensa?':
-    'How do you structure a long technical response?',
-  'Empiezo con una definición de una frase, explico el mecanismo y tomo una decisión para un escenario concreto. Cierro con el costo, la alternativa y cómo comprobaría el resultado. Si la pregunta es amplia, aviso esa estructura para que el entrevistador pueda profundizar donde le interese.':
-    'I start with a one-sentence definition, explain the mechanism, and make a decision for a specific scenario. I close with the cost, the alternative and how I would check the result. If the question is broad, I point out that structure so that the interviewer can go deeper where they are interested.',
-  '¿Qué hacés cuando la pregunta no incluye suficiente contexto?':
-    "What do you do when the question doesn't include enough context?",
-  'Pido las restricciones que realmente cambian la respuesta: volumen, frecuencia de cambio, SEO, latencia, consistencia, seguridad y capacidad del equipo. Si no están disponibles, declaro un supuesto, elijo bajo ese escenario y digo qué dato me haría cambiar de opción.':
-    'I ask for the constraints that really change the answer: volume, change frequency, SEO, latency, consistency, security, and team capacity. If they are not available, I declare an assumption, choose under that scenario and say what information would make me change my option.',
-  'Preparación personal y respuestas conductuales':
-    'Personal preparation and behavioral responses',
-  'Tu experiencia ofrece material sólido. Convertí cada proyecto en evidencia medible y ajustá la introducción al rol.':
-    'Your experience offers solid material. Turn each project into measurable evidence and tailor the introduction to the role.',
-  'Un pitch de 60 a 90 segundos conecta especialidad, años de experiencia, dominios, dos logros y motivación para el rol. Recorrer cada empleo del CV consume tiempo sin mostrar el criterio que une la trayectoria.':
-    'A 60 to 90 second pitch connects specialty, years of experience, domains, two achievements and motivation for the role. Going through each job on the CV consumes time without showing the criteria that unites the career.',
-  'STAR: situación y tarea breves; acción centrada en tus decisiones; resultado con métrica, aprendizaje o reducción de riesgo.':
-    'STAR: brief situation and task; action focused on your decisions; result with metrics, learning or risk reduction.',
-  'Un banco conductual cubre conflicto, error, feedback, liderazgo, deadlines, incertidumbre, incidentes, rendimiento y arquitectura. Cada historia puede responder varias preguntas si identifica con precisión la decisión y el resultado.':
-    'A behavioral bench covers conflict, error, feedback, leadership, deadlines, uncertainty, incidents, performance and architecture. Each story can answer several questions if it accurately identifies the decision and outcome.',
-  'El caso de formularios dinámicos demuestra arquitectura, Redux o NgRx, escalabilidad y coordinación. Cantidad de formularios, tiempo de entrega y defectos antes y después convierten la historia en evidencia medible.':
-    'The case of dynamic forms demonstrates architecture, Redux or NgRx, scalability and coordination. Number of forms, turnaround time, and before and after defects turn history into measurable evidence.',
-  'La experiencia desde Angular 2 permite comparar cambios del framework a través del tiempo. Una adopción acertada muestra beneficio y migración; una API rechazada muestra restricciones y costo que superaban ese beneficio.':
-    'The experience since Angular 2 allows us to compare changes in the framework over time. A successful adoption shows benefit and migration; a rejected API shows restrictions and cost that outweighed that benefit.',
-  'Las preguntas al entrevistador revelan arquitectura, prácticas de calidad, organización del equipo, roadmap, manejo de incidentes, autonomía y criterio de éxito. Las respuestas permiten evaluar el alcance real del rol.':
-    'The questions to the interviewer reveal architecture, quality practices, team organization, roadmap, incident management, autonomy and success criteria. The answers allow you to evaluate the real scope of the role.',
-  'Contame sobre vos': 'tell me about yourself',
-  'Soy Frontend Developer especializado en Angular, con experiencia desde Angular 2 y equipos distribuidos. He diseñado formularios dinámicos a escala y productos de datos. Busco un rol donde pueda combinar arquitectura, entrega y mentoring.':
-    'I am a Frontend Developer specialized in Angular, with experience since Angular 2 and distributed teams. I have designed dynamic scale forms and data products. I am looking for a role where I can combine architecture, delivery and mentoring.',
-  '¿Por qué querés cambiar?': 'Why do you want to change?',
-  'Enfocá crecimiento, alcance técnico y tipo de producto. Evitá hablar mal del equipo actual o usar una respuesta genérica.':
-    'Focus on growth, technical scope and type of product. Avoid badmouthing the current team or using a generic response.',
-  '¿Cómo evitás que una respuesta STAR se vuelva demasiado larga?':
-    'How do you prevent a STAR response from becoming too long?',
-  'Resumo situación y tarea en pocas frases. Dedico la mayor parte a mis decisiones, alternativas y coordinación. Cierro con un resultado medible y el aprendizaje que cambió mi trabajo posterior.':
-    'I summarize the situation and task in a few sentences. I dedicate most of it to my decisions, alternatives and coordination. I close with a measurable result and the learning that changed my subsequent work.',
-  '¿Cómo contás un error sin debilitar tu perfil?':
-    'How do you tell a mistake without weakening your profile?',
-  'Elijo un error real, explico la decisión que lo produjo y asumo mi parte. Describo cómo limité el impacto, qué señal agregué y qué cambio de código o proceso evitó repetirlo.':
-    'I choose a real mistake, explain the decision that produced it, and take responsibility for my part. I describe how I limited the impact, what signal I added, and what code or process change prevented it from happening again.',
-  '¿Tipos primitivos?': 'Primitive types?',
-  'undefined, null, boolean, number, bigint, string y symbol.':
-    'undefined, null, boolean, number, bigint, string and symbol.',
-  '¿`typeof null`?': '`typeof null`?',
-  'Devuelve `object` por compatibilidad histórica; verificá null de forma explícita.':
-    'Returns `object` for historical compatibility; check for null explicitly.',
-  '¿`NaN === NaN`?': '`NaN === NaN`?',
-  'False. Usá `Number.isNaN` u `Object.is`.':
-    'False. Use `Number.isNaN` or `Object.is`.',
-  '¿`null` y `undefined`?': '`null` and `undefined`?',
-  'Null suele expresar ausencia intencional; undefined expresa falta de valor o propiedad.':
-    'Null usually expresses intentional absence; undefined expresses lack of value or property.',
-  '¿Truthy y falsy?': 'Truthy and false?',
-  'La conversión booleana determina branches; objetos y arrays vacíos son truthy.':
-    'The boolean conversion determines branches; Empty objects and arrays are truthy.',
-  '¿Temporal Dead Zone?': 'Temporary Dead Zone?',
-  'Tramo del scope donde `let` o `const` existen pero no pueden leerse antes de inicializarse.':
-    'Section of the scope where `let` or `const` exist but cannot be read before being initialized.',
-  '¿Hoisting?': 'Hosting?',
-  'El entorno registra declaraciones antes de ejecutar; la disponibilidad depende del tipo de declaración.':
-    'The environment registers statements before executing; Availability depends on the type of declaration.',
-  '¿`this`?': '`this`?',
-  'Receiver de una llamada según call-site, salvo arrow que captura el binding exterior.':
-    'Receiver of a call according to call-site, except arrow that captures the external binding.',
-  '¿`call`, `apply`, `bind`?': '`call`, `apply`, `bind`?',
-  'Call invoca con argumentos; apply con array-like; bind crea otra función con receiver o argumentos fijados.':
-    'Call invokes with arguments; apply with array-like; bind creates another function with receiver or set arguments.',
-  '¿Closure?': 'Closure?',
-  'Una función conserva acceso a bindings de su entorno léxico.':
-    'A function retains access to bindings of its lexical environment.',
-  '¿Spread y rest?': 'Spread and rest?',
-  'Misma sintaxis: spread expande; rest reúne valores restantes.':
-    'Same syntax: spread expands; rest gathers remaining values.',
-  '¿Destructuring default?': 'Destructuring default?',
-  'Se aplica ante undefined, no ante null.': 'Applies to undefined, not null.',
-  '¿Shallow copy?': 'Shallow copy?',
-  'Copia el primer nivel y comparte referencias anidadas.':
-    'Copy the first level and share nested references.',
-  '¿`structuredClone`?': '`structuredClone`?',
-  'Clona estructuras soportadas y ciclos; no clona funciones.':
-    'Clone supported structures and cycles; does not clone functions.',
-  '¿Prototipo?': 'Prototype?',
-  'Objeto delegado que JavaScript consulta cuando una propiedad falta en el receiver.':
-    'Delegate object that JavaScript queries when a property is missing from the receiver.',
-  '¿Own property?': 'Own property?',
-  'Propiedad definida en el objeto, comprobable con Object.hasOwn.':
-    'Property defined on the object, testable with Object.hasOwn.',
-  '¿`for...in` o `for...of`?': '`for...in` or `for...of`?',
-  'In recorre claves enumerables; of recorre valores de un iterable.':
-    'In loops enumerable keys; of loops through values ​​of an iterable.',
-  '¿Métodos de array mutables?': 'Mutable array methods?',
-  'Push, pop, shift, unshift, splice, sort, reverse, fill y copyWithin.':
-    'Push, pop, shift, unshift, splice, sort, reverse, fill and copyWithin.',
-  '¿`find` o `filter`?': '`find` or `filter`?',
-  'Find devuelve el primer match; filter crea un array con todos.':
-    'Find returns the first match; filter creates an array with all of them.',
-  '¿Pure function?': 'Pure function?',
-  'Mismo resultado para mismas entradas y sin efectos observables.':
-    'Same result for same inputs and without observable effects.',
-  '¿Currying?': 'Currying?',
-  'Convierte una función de varios argumentos en una secuencia de funciones.':
-    'Converts a multi-argument function into a sequence of functions.',
-  '¿Debounce o throttle?': 'Debounce or throttle?',
-  'Debounce espera silencio; throttle limita ejecuciones por intervalo.':
-    'Debounce awaits silence; throttle limits executions per interval.',
-  '¿`Promise.all`?': '`Promise.all`?',
-  'Conserva orden y rechaza al primer rechazo observado.':
-    'Maintain order and reject the first rejection observed.',
-  '¿`allSettled`?': '`allSettled`?',
-  'Espera todos y devuelve el estado de cada operación.':
-    'Waits for all and returns the status of each operation.',
-  '¿AbortController?': 'AbortController?',
-  'Emite una señal de cancelación que consumen fetch y otras APIs.':
-    'Issues a cancellation signal that is consumed by fetch and other APIs.',
-  '¿Async bloquea el thread?': 'Does Async block the thread?',
-  'No. Await cede la continuación; CPU síncrono sigue bloqueando.':
-    'No. Await yields the continuation; Synchronous CPU keeps blocking.',
-  '¿Unhandled rejection?': 'Unhandled rejection?',
-  'Promise rechazada sin handler; registrala y corregí la cadena, no la ocultes.':
-    'Promise rejected without handler; register it and correct the chain, do not hide it.',
-  '¿DOM?': 'DOM?',
-  'Árbol de nodos y APIs que representan el documento.':
-    'Tree of nodes and APIs that represent the document.',
-  '¿BOM?': 'BOOM?',
-  'APIs del navegador fuera del documento, como history, location y navigator.':
-    'Outside-of-document browser APIs, such as history, location, and navigator.',
-  '¿Event bubbling?': 'Event bubbling?',
-  'El evento asciende desde el target por ancestros que participan.':
-    'The event ascends from the target by participating ancestors.',
-  '¿Event delegation?': 'Event delegation?',
-  'Listener en un ancestro que decide según el target; reduce listeners y cubre hijos dinámicos.':
-    'Listener in an ancestor that decides according to the target; reduce listeners and cover dynamic children.',
-  '¿preventDefault?': 'preventDefault?',
-  'Evita la acción predeterminada si el evento es cancelable.':
-    'Avoid the default action if the event is cancelable.',
-  '¿localStorage?': 'localStorage?',
-  'Almacenamiento síncrono string por origin y persistente.':
-    'String synchronous storage by origin and persistent.',
-  '¿IndexedDB?': 'IndexedDB?',
-  'Base asíncrona del navegador para datos estructurados y mayor volumen.':
-    'Asynchronous browser base for structured data and higher volume.',
-  '¿Same-origin?': 'Same-origin?',
-  'Coincidencia de scheme, host y port.': 'Matching scheme, host and port.',
-  '¿Preflight?': 'Preflight?',
-  'Request OPTIONS con la que el navegador consulta permiso CORS.':
-    'Request OPTIONS with which the browser queries permission CORS.',
-  '¿ETag?': 'ETag?',
-  'Validador de representación para revalidación condicional.':
-    'Representation validator for conditional revalidation.',
-  '¿Service Worker?': 'Service Worker?',
-  'Worker con lifecycle que intercepta red y habilita offline/push.':
-    'Worker with lifecycle that intercepts network and enables offline/push.',
-  '¿Web Worker?': 'Web Worker?',
-  'Thread para JavaScript sin acceso directo al DOM.':
-    'Thread for JavaScript without direct access to DOM.',
-  '¿Etiqueta semántica?': 'Semantic label?',
-  'Elemento cuyo nombre comunica rol y estructura al navegador y tecnologías asistivas.':
-    'Element whose name communicates the role and structure of the navigator and assistive technologies.',
-  '¿`head`?': '`head`?',
-  'Metadata y recursos del documento, no contenido principal visible.':
-    'Metadata and document resources, not visible main content.',
-  '¿`alt`?': '`alt`?',
-  'Alternativa textual que depende de la función de la imagen; decorativas usan alt vacío.':
-    'Textual alternative that depends on the function of the image; decorative use empty alt.',
-  '¿`iframe sandbox`?': '`iframe sandbox`?',
-  'Restringe capacidades del documento embebido y se abre con tokens explícitos.':
-    'Restricts capabilities of the embedded document and opens with explicit tokens.',
-  '¿GET o POST en form?': 'GET or POST in form?',
-  'GET expresa consulta y deja datos en URL; POST envía body para una operación.':
-    'GET expresses query and leaves data in URL; POST sends body for an operation.',
-  '¿Submit default?': 'Submit default?',
-  'Un button dentro de form usa submit si no declarás type.':
-    "A button inside a form uses submit if you don't declare type.",
-  '¿`defer` o `async` script?': '`defer` or `async` script?',
-  'Defer preserva orden y espera parseo; async ejecuta al descargar.':
-    'Defer preserves order and expects parsing; async runs when downloading.',
-  '¿Box model?': 'Box model?',
-  'Content, padding, border y margin.': 'Content, padding, border and margin.',
-  '¿Specificity?': 'Specificity?',
-  'Peso de un selector dentro de la cascada después de origen, importancia y layer.':
-    'Weight of a selector within the cascade after origin, importance and layer.',
-  '¿`box-sizing:border-box`?': '`box-sizing:border-box`?',
-  'El width declarado incluye padding y border.':
-    'The declared width includes padding and border.',
-  '¿Margin o padding?': 'Margin or padding?',
-  'Margin separa cajas; padding agrega espacio dentro del borde.':
-    'Margin separates boxes; padding adds space inside the border.',
-  '¿Position absolute?': 'Absolute position?',
-  'Sale del flujo y se posiciona respecto de su containing block.':
-    'It leaves the flow and positions itself with respect to its containing block.',
-  '¿Position sticky?': 'Position sticky?',
-  'Participa en flujo y se fija dentro de su scroll container al cruzar un umbral.':
-    'It participates in flow and becomes fixed inside its scroll container when crossing a threshold.',
-  '¿Stacking context?': 'Stacking context?',
-  'Ámbito que limita la comparación de z-index entre descendientes.':
-    'Scope that limits z-index comparison between descendants.',
-  '¿Pseudo-clase o pseudo-elemento?': 'Pseudo-class or pseudo-element?',
-  'Pseudo-clase selecciona estado; pseudo-elemento representa una parte generada o conceptual.':
-    'Pseudo-class selects state; pseudo-element represents a generated or conceptual part.',
-  '¿BEM?': 'BEM?',
-  'Convención Block, Element, Modifier para nombres de clases.':
-    'Block, Element, Modifier convention for class names.',
-  '¿Preprocesador o framework?': 'Preprocessor or framework?',
-  'Preprocesador extiende sintaxis; framework aporta reglas, utilidades o componentes.':
-    'Preprocessor extends syntax; framework provides rules, utilities or components.',
-  '¿Media o container query?': 'Media or container query?',
-  'Media consulta viewport/dispositivo; container consulta tamaño o estilo del contenedor.':
-    'Half query viewport/device; container queries container size or style.',
-  '¿Reflow?': 'Reflow?',
-  'Recalculo de geometría provocado por cambios o lecturas que requieren layout.':
-    'Geometry recalculation caused by changes or readings that require layout.',
-  '¿CLS?': 'CLS?',
-  'Movimiento inesperado de contenido; reservá espacio para imágenes y contenido asíncrono.':
-    'Unexpected movement of content; Reserve space for images and asynchronous content.',
-  '¿Componente o directiva?': 'Component or directive?',
-  'El componente posee vista; la directiva agrega comportamiento a un host.':
-    'The component has a view; The directive adds behavior to a host.',
-  '¿Pipe pura?': 'Pure pipe?',
-  'Angular puede reutilizar el resultado mientras no cambien las referencias de entrada.':
-    'Angular can reuse the result as long as the input references do not change.',
-  '¿`@for track`?': '`@for track`?',
-  'Asocia identidad de datos con nodos DOM para minimizar creación y conservar estado.':
-    'Associate data identity with DOM nodes to minimize creation and preserve state.',
-  '¿`computed` o `effect`?': '`computed` or `effect`?',
-  '`computed` deriva estado; `effect` sincroniza con una API externa.':
-    '`computed` derive state; `effect` synchronizes with an external API.',
-  '¿Signal o BehaviorSubject?': 'Signal or BehaviorSubject?',
-  'Signal para estado síncrono de UI; BehaviorSubject cuando necesitás semántica y operadores RxJS.':
-    'Signal for UI synchronous state; BehaviorSubject when you need semantics and RxJS operators.',
-  '¿`switchMap`?': '`switchMap`?',
-  'Cancela el inner anterior al llegar una nueva emisión.':
-    'Cancels the previous inner when a new issue arrives.',
-  '¿`concatMap`?': '`concatMap`?',
-  'Encola inner observables y conserva orden.':
-    'Enqueue inner observables and preserve order.',
-  '¿`exhaustMap`?': '`exhaustMap`?',
-  'Ignora nuevos disparos mientras el inner sigue activo.':
-    'Ignores new shots while the inner is still active.',
-  '¿`mergeMap`?': '`mergeMap`?',
-  'Ejecuta inner observables en paralelo con concurrencia configurable.':
-    'Runs inner observables in parallel with configurable concurrency.',
-  '¿`forkJoin`?': '`forkJoin`?',
-  'Emite una vez cuando todos completan; falla si alguno falla y no sirve para streams infinitos.':
-    'Issue once when everyone completes; fails if any fails and is not useful for infinite streams.',
-  '¿Cold observable?': 'Cold observable?',
-  'Cada subscription crea su propio productor.':
-    'Each subscription creates its own producer.',
-  '¿`shareReplay`?': '`shareReplay`?',
-  'Comparte y reproduce valores; necesita política de refCount, error e invalidación.':
-    'Share and reproduce values; needs refCount, error and override policy.',
-  '¿`providedIn: root`?': '`providedIn: root`?',
-  'Provider tree-shakeable en el root EnvironmentInjector.':
-    'Provider tree-shakeable in the root EnvironmentInjector.',
-  '¿`providers` local?': '`providers` local?',
-  'Nueva instancia en el ElementInjector del componente y sus descendientes visibles.':
-    "New instance in the component's ElementInjector and its visible descendants.",
-  '¿`viewProviders`?': '`viewProviders`?',
-  'Oculta esos providers al contenido proyectado.':
-    'Hides those providers from the projected content.',
-  '¿InjectionToken?': 'InjectionToken?',
-  'Token runtime tipado para valores, funciones o interfaces.':
-    'Typed runtime token for values, functions, or interfaces.',
-  '¿OnPush?': 'OnPush?',
-  'Permite saltar subárboles hasta que una notificación relevante marca la vista.':
-    'Allows you to skip subtrees until a relevant notification marks the view.',
-  '¿Zoneless?': 'Zoneless?',
-  'Angular recibe notificaciones explícitas y evita usar ZoneJS para inferir cambios.':
-    'Angular receives explicit notifications and avoids using ZoneJS to infer changes.',
-  '¿`markForCheck`?': '`markForCheck`?',
-  'Marca la vista para una próxima verificación.':
-    'Mark the view for future verification.',
-  '¿`detectChanges`?': '`detectChanges`?',
-  'Ejecuta verificación local; su uso frecuente suele indicar un flujo defectuoso.':
-    'Run local verification; Frequent use usually indicates faulty flow.',
-  '¿Standalone?': 'Standalone?',
-  'Componente que declara dependencias en imports y no necesita declaración en NgModule.':
-    'Component that declares dependencies in imports and does not need a declaration in NgModule.',
-  '¿Lazy route?': 'Lazy route?',
-  'Carga código al navegar a la feature, reduciendo el bundle inicial.':
-    'Load code when navigating to the feature, reducing the initial bundle.',
-  '¿Guard?': 'Guard?',
-  'Control de navegación en cliente; no reemplaza autorización del servidor.':
-    'Navigation control in client; it does not replace server authorization.',
-  '¿Resolver?': 'Solve?',
-  'Obtiene datos antes de activar la ruta.':
-    'Gets data before activating the route.',
-  '¿Reactive Form?': 'Reactivate Form?',
-  'Modelo explícito y observable en TypeScript, apto para composición y validación compleja.':
-    'Explicit model and observable in TypeScript, suitable for complex composition and validation.',
-  '¿CVA?': 'CVA?',
-  'Contrato que conecta un control custom con Angular Forms.':
-    'Contract that connects a custom control with Angular Forms.',
-  '¿Async validator?': 'Async validator?',
-  'Validador que completa con errores o null; controlá cancelación y frecuencia.':
-    'Validator that completes with errors or null; Control cancellation and frequency.',
-  '¿Interceptor?': 'Interceptor?',
-  'Middleware de requests y responses para preocupaciones transversales.':
-    'Requests and responses middleware for transversal concerns.',
-  '¿Retry?': 'Retry?',
-  'Solo con política, límite y seguridad de idempotencia.':
-    'Only with policy, limit and idempotence security.',
-  '¿XSS?': 'XSS?',
-  'Ejecución de script no confiable; evitá sinks peligrosos y mantené sanitización y CSP.':
-    'Untrusted script execution; Avoid dangerous sinks and maintain sanitation and CSP.',
-  '¿CSRF?': 'CSRF?',
-  'Petición autenticada inducida desde otro origen; afecta sobre todo credenciales automáticas como cookies.':
-    'Induced authenticated request from another source; It mainly affects automatic credentials such as cookies.',
-  '¿CSP?': 'CSP?',
-  'Política del navegador que limita fuentes de scripts, estilos y otros recursos.':
-    'Browser policy that limits script fonts, styles, and other resources.',
-  '¿Trusted Types?': 'Trusted Types?',
-  'Restringe asignaciones a sinks DOM peligrosos a valores creados por políticas confiables.':
-    'Restrict assignments to dangerous DOM sinks to values created by trusted policies.',
-  '¿SSR?': 'SSR?',
-  'Render por request en servidor; ayuda SEO y HTML inicial, agrega costo operativo.':
-    'Render by request on server; helps SEO and initial HTML, adds operational cost.',
-  '¿SSG?': 'SSG?',
-  'HTML generado en build para contenido estable.':
-    'HTML generated in build for stable content.',
-  '¿Hydration?': 'Hydration?',
-  'Angular reutiliza HTML de servidor y conecta comportamiento cliente.':
-    'Angular reuses HTML from server and connect client behavior.',
-  '¿`@defer`?': '`@defer`?',
-  'Divide dependencias y carga una vista según trigger o condición.':
-    'Split dependencies and load a view based on trigger or condition.',
-  '¿LCP?': 'LCP?',
-  'Tiempo hasta renderizar el mayor elemento visible.':
-    'Time to render the largest visible element.',
-  '¿INP?': 'INP?',
-  'Latencia observada de interacciones durante la sesión.':
-    'Observed latency of interactions during the session.',
-  'Suma de cambios inesperados de layout.': 'Sum of unexpected layout changes.',
-  '¿Tree shaking?': 'Tree shaking?',
-  'El bundler elimina código no alcanzable cuando el formato y las dependencias lo permiten.':
-    'The bundler removes unreachable code when the format and dependencies allow it.',
-  '¿AOT?': 'AOT?',
-  'Compila templates en build, reduce trabajo runtime y detecta errores antes.':
-    'Compile templates in build, reduce runtime work and detect errors earlier.',
-  '¿NgRx reducer?': 'NgRx reducer?',
-  'Función pura que calcula nuevo estado desde estado y action.':
-    'Pure function that calculates new state from state and action.',
-  '¿NgRx effect?': 'NgRx effect?',
-  'Reacciona a eventos y coordina I/O u otros efectos.':
-    'Reacts to events and coordinates I/O or other effects.',
-  '¿Selector?': 'Selector?',
-  'Consulta derivada y memorizada sobre el store.':
-    'Derived and memorized query about the store.',
-  '¿Optimistic update?': 'Optimistic update?',
-  'Actualiza UI antes de confirmar y define rollback o reconciliación.':
-    'Update UI before committing and define rollback or reconciliation.',
-  '¿Facade?': 'Facade?',
-  'API estable que reduce superficie de un subsistema; puede ocultar demasiado si no protege un límite.':
-    "Stable API that reduces the surface area of a subsystem; You can hide too much if you don't protect a boundary.",
-  '¿Adapter?': 'Adapter?',
-  'Traduce un contrato externo al modelo interno.':
-    'Translate an external contract to the internal model.',
-  '¿Strategy?': 'Strategy?',
-  'Encapsula políticas intercambiables detrás de un contrato.':
-    'Encapsulates interchangeable policies behind a contract.',
-  '¿SRP?': 'SRP?',
-  'Una unidad concentra responsabilidades que cambian por el mismo motivo.':
-    'A unit concentrates responsibilities that change for the same reason.',
-  '¿DIP?': 'DIP?',
-  'El código de alto nivel depende de abstracciones, no de detalles concretos.':
-    'High-level code depends on abstractions, not concrete details.',
-  '¿`unknown`?': '`unknown`?',
-  'Tipo seguro para valor no validado; obliga a estrechar antes de usar.':
-    'Safe type for value not validated; Forces to shake before use.',
-  '¿`never`?': '`never`?',
-  'Representa estados imposibles y permite checks exhaustivos.':
-    'It represents impossible states and allows exhaustive checks.',
-  '¿Microtask?': 'Microtask?',
-  'Cola de promesas que se drena antes de la siguiente macrotask.':
-    'Promise queue that is drained before the next macrotask.',
-  'Función que conserva acceso al entorno léxico donde se creó.':
-    'Function that preserves access to the lexical environment where it was created.',
-  '¿Inmutabilidad?': 'Immutability?',
-  'Crear nuevas referencias en lugar de mutar estado compartido; mejora previsibilidad y detección.':
-    'Create new references instead of mutating shared state; improves predictability and detection.',
-  '¿`Object.freeze`?': '`Object.freeze`?',
-  'Congelación superficial; no protege objetos anidados sin trabajo adicional.':
-    'Superficial freezing; it does not protect nested objects without additional work.',
-  '¿Unit test?': 'Unit test?',
-  'Prueba una unidad con fronteras controladas y feedback rápido.':
-    'Try a unit with controlled boundaries and quick feedback.',
-  '¿Integration test?': 'Integration test?',
-  'Verifica colaboración entre varias unidades o una frontera real.':
-    'Verify collaboration between several units or a real border.',
-  '¿E2E?': 'E2E?',
-  'Prueba un recorrido del usuario a través del sistema desplegado o equivalente.':
-    'Test a user journey through the deployed system or equivalent.',
-  '¿Harness?': 'Harness?',
-  'API estable para interactuar con un componente en tests sin depender de su DOM interno.':
-    'Stable API to interact with a component in tests without depending on its internal DOM.',
-  '¿Memory leak típico?': 'Typical memory leak?',
-  'Subscription, listener, timer, observer o cache que conserva una vista destruida.':
-    'Subscription, listener, timer, observer or cache that preserves a destroyed view.',
-  '¿Correlation ID?': 'Correlation ID?',
-  'Identificador que conecta eventos frontend, gateway y backend de una operación.':
-    'Identifier that connects frontend, gateway, and backend events of an operation.',
-  '¿Feature flag?': 'Feature flag?',
-  'Control temporal de exposición con owner, métricas y plan de retiro.':
-    'Temporary exposure control with owner, metrics and retirement plan.',
-  '¿Micro-frontend?': 'Micro-frontend?',
-  'Unidad de frontend con ownership y despliegue independiente, a cambio de integración y duplicación.':
-    'Frontend unit with independent ownership and deployment, in exchange for integration and duplication.',
-  '¿ADR?': 'ADR?',
-  'Registro corto de una decisión, alternativas y consecuencias.':
-    'Short record of a decision, alternatives and consequences.',
-  'Buscador cancelable': 'Cancelable search engine',
-  'Construí un buscador con debounce, cancelación, estados loading/error/empty, caché por query y tests con tiempo controlado. Explicá por qué elegiste switchMap y qué cambia si el endpoint no soporta cancelación.':
-    'I built a search engine with debounce, cancellation, loading/error/empty states, query cache and time-controlled tests. Explain why you chose switchMap and what changes if the endpoint does not support cancellation.',
-  'Motor de formularios dinámicos': 'Dynamic forms engine',
-  'Diseñá un schema para tipos, validación, layout, visibilidad y permisos. Sumá un CVA, validación asíncrona, persistencia parcial y una estrategia de versionado del schema.':
-    'Design a schema for types, validation, layout, visibility and permissions. Add a CVA, asynchronous validation, partial persistence and a schema versioning strategy.',
-  'Dashboard en tiempo real': 'Real-time dashboard',
-  'Diseñá seis widgets con frecuencias distintas. Incluí WebSocket o SSE, reconexión, backpressure, pausa fuera del viewport, caché, permisos y métricas de INP.':
-    'Design six widgets with different frequencies. I included WebSocket or SSE, reconnect, backpressure, pause outside viewport, cache, permissions and metrics from INP.',
-  'Migración entre cinco versiones mayores':
-    'Migration between five major versions',
-  'Proponé etapas para actualizar majors, convertir features a standalone, introducir control flow, Signals y zoneless. Definí pruebas, métricas, feature flags y rollback.':
-    'I proposed stages to update majors, convert features to standalone, introduce control flow, Signals and zoneless. I defined tests, metrics, feature flags and rollback.',
-  'Lista de 100.000 filas': 'List of 100,000 rows',
-  'Compará paginación server-side, virtual scroll, filtros remotos y caché. Medí memoria, scripting, layout e interacción sin perder navegación por teclado ni soporte de lector de pantalla.':
-    'Compare server-side paging, virtual scroll, remote filters and caching. I measured memory, scripting, layout and interaction without losing keyboard navigation or screen reader support.',
-  'Carrera de refresh de autenticación': 'Authentication refresh race',
-  'Varias requests reciben 401 al mismo tiempo. Diseñá un refresh único, cola, cancelación, logout seguro, telemetría y tests deterministas de concurrencia.':
-    'Several requests receive 401 at the same time. Design a single refresh, queue, cancellation, secure logout, telemetry and deterministic concurrency tests.',
-  'Event loop': 'event loop',
-  'Predecí el orden de logs que mezclen Promises, queueMicrotask, timers, async/await y eventos. Verificá el resultado en navegador y justificá cada transición entre colas.':
-    'I predicted the order of logs that mix Promises, queueMicrotask, timers, async/await and events. Check the result in the browser and justify each transition between queues.',
-  'Tabla accesible': 'Accessible table',
-  'Construí una tabla ordenable y paginada con caption, headers, estados de orden, teclado, foco, loading y empty state. Validala con lector de pantalla.':
-    'I built a sortable and paginated table with caption, headers, order states, keyboard, focus, loading and empty state. Validate it with a screen reader.',
-  'Layout responsive sin CLS': 'Responsive layout without CLS',
-  'Implementá una card que cambie con container queries, respete reduced motion y no produzca saltos. Explicá cascade, stacking contexts, overflow y containment.':
-    'Implement a card that changes with container queries, respects reduced motion and does not produce jumps. Explain cascade, stacking contexts, overflow and containment.',
-  'Caché offline': 'Offline cache',
-  'Diseñá caché HTTP, IndexedDB y Service Worker para una pantalla de lectura. Definí invalidación, conflictos, cuotas, logout y tratamiento de datos sensibles.':
-    'Design HTTP cache, IndexedDB and Service Worker for a reading screen. I defined invalidation, conflicts, quotas, logout and processing of sensitive data.',
-  'Angular · Releases': 'Angular · Releases',
-  'Angular · Signals': 'Angular · Signals',
-  'Angular · Zoneless': 'Angular · Zoneless',
-  'Angular · Control flow': 'Angular Control flow',
-  'Angular · Rendering strategies': 'Angular · Rendering strategies',
-  'Angular · Testing': 'Angular · Testing',
-  'Angular · Security': 'Angular · Security',
-  'MDN · Web platform': 'MDN · Web platform',
+  "Ir al contenido": "Go to content",
+  "Ir al portfolio de Adrian Cabello": "Go to Adrian Cabello's portfolio",
+  "Portfolio · Perfil": "Portfolio · Profile",
+  "Enlaces de Adrian Cabello": "Links to Adrian Cabello",
+  "Progreso": "Progress",
+  "Progreso de módulos": "Module Progress",
+  "Guía de entrevista · Edición 2026": "Interview Guide · 2026 Edition",
+  "HTML, CSS, JavaScript, TypeScript, Angular moderno, RxJS, browser, arquitectura, performance, testing, seguridad, system design y liderazgo técnico.": "HTML, CSS, JavaScript, TypeScript, modern Angular, RxJS, browser, architecture, performance, testing, security, system design and technical leadership.",
+  "Módulos": "Modules",
+  "Conceptos": "Concepts",
+  "Preguntas": "Questions",
+  "Autor de la guía": "Guide author",
+  "Full-Stack Product Engineer y Tech Lead con más de 9 años creando productos web y mobile, liderando arquitectura Angular y migraciones de aplicaciones empresariales. Armé esta guía para convertir experiencia real en teoría precisa, respuestas concretas y decisiones técnicas con sus trade-offs.": "Full-Stack Product Engineer and Tech Lead with more than 9 years creating web and mobile products, leading Angular architecture and business application migrations. I put together this guide to convert real experience into precise theory, concrete answers and technical decisions with their trade-offs.",
+  "Adrian Cabello, Full-Stack Product Engineer y Tech Lead": "Adrian Cabello, Full-Stack Product Engineer and Tech Lead",
+  "Experiencia destacada": "Outstanding experience",
+  "9+ años": "9+ years",
+  "Ver experiencia": "See experience",
+  "Buscar en la guía": "Search in the guide",
+  "Secciones de estudio": "Study sections",
+  "Contenido completo": "Complete content",
+  "Ver bloque completo": "See full block",
+  "Banco rápido": "fast bank",
+  "Casos prácticos": "Practical cases",
+  "Estudiado": "studied",
+  "Marcar listo": "Mark ready",
+  "Listo": "Ready",
+  "Teoría": "Theory",
+  "Ejemplo": "Example",
+  "Preguntas y respuestas": "Questions and answers",
+  "Ver respuesta": "See answer",
+  "Ocultar": "Hide",
+  "Definiciones breves para responder con precisión antes de ampliar con mecanismo, caso y trade-off.": "Brief definitions to answer precisely before expanding with mechanism, case and trade-off.",
+  "Respuesta": "Answer",
+  "Sin coincidencias": "No matches",
+  "Probá con otro término": "Try another term",
+  "Limpiar búsqueda": "Clear search",
+  "Referencias oficiales": "Official references",
+  "Fuentes del tema": "Theme sources",
+  "¿Cómo te sentís con este tema?": "How do you feel about this topic?",
+  "Último repaso": "Last review",
+  "Repasar": "Review",
+  "Practicando": "Practicing",
+  "Seguro": "Insurance",
+  "Índice": "Index",
+  "temas": "themes",
+  "tema": "theme",
+  "Bloque": "Block",
+  "Fundamentos web": "Web Fundamentals",
+  "HTML, CSS, JavaScript y TypeScript, desde la base hasta preguntas avanzadas.": "HTML, CSS, JavaScript and TypeScript, from basic to advanced questions.",
+  "Angular moderno": "Angular modern",
+  "Componentes, reactividad, DI, RxJS, routing, forms y HTTP.": "Components, reactivity, DI, RxJS, routing, forms and HTTP.",
+  "Plataforma y arquitectura": "Platform and architecture",
+  "Browser, DOM, red, límites, patrones, SOLID y evolución del código.": "Browser, DOM, network, limits, patterns, SOLID and code evolution.",
+  "Calidad y operación": "Quality and operation",
+  "Performance, rendering, testing, seguridad, CI/CD y observabilidad.": "Performance, rendering, testing, security, CI/CD and observability.",
+  "Criterio Senior": "Senior Criterion",
+  "System design, liderazgo y conversaciones de entrevista.": "System design, leadership and interview conversations.",
+  "HTML completo: semántica, formularios, medios y SEO": "HTML complete: semantics, forms, media and SEO",
+  "HTML define significado, navegación por teclado, formularios y la base que consumen buscadores y tecnologías asistivas.": "HTML defines meaning, keyboard navigation, forms and the basis that search engines and assistive technologies consume.",
+  "`head` contiene metadata, title, links, preload y scripts. `body` contiene el documento visible. Un title y description claros mejoran navegación y presentación en resultados.": "`head` contains metadata, title, links, preload and scripts. `body` contains the visible document. A clear title and description improve navigation and presentation in results.",
+  "`header`, `nav`, `main`, `article`, `section`, `aside` y `footer` describen la función de cada región. Navegadores y tecnologías asistivas usan esa estructura para crear landmarks. `div` y `span` agrupan contenido sin añadir significado.": "`header`, `nav`, `main`, `article`, `section`, `aside`, and `footer` describe the function of each region. Navigators and assistive technologies use that structure to create landmarks. `div` and `span` group content without adding meaning.",
+  "Block e inline describen comportamiento de formatting context, que CSS puede cambiar. La semántica del elemento no cambia al modificar `display`.": "Block and inline describe formatting context behavior, which CSS can change. The semantics of the element do not change when modifying `display`.",
+  "`a` navega y necesita `href`; `button` ejecuta una acción. `target=_blank` requiere una política de `rel` apropiada para reducir acceso a opener.": "`a` browse and need `href`; `button` executes an action. `target=_blank` requires an appropriate `rel` policy to reduce opener access.",
+  "Imágenes necesitan `alt` según función. `picture`, `srcset` y `sizes` permiten formatos y resoluciones. Width y height reservan espacio y reducen CLS.": "Images need `alt` depending on function. `picture`, `srcset` and `sizes` allow formats and resolutions. Width and height reserve space and reduce CLS.",
+  "Video y audio admiten múltiples `source`, `track` para subtítulos y controles. Un iframe crea otro contexto; restringilo con `sandbox`, permisos y origen confiable.": "Video and audio support multiple `source`, `track` for subtitles and controls. An iframe creates another context; restrict it with `sandbox`, permissions and trusted origin.",
+  "Form asocia `label` con control, usa `name` para submission y aprovecha tipos nativos. GET codifica en URL; POST envía body. El servidor valida todos los campos.": "Form associates `label` with control, uses `name` for submission, and takes advantage of native types. GET encodes to URL; POST sends body. The server validates all fields.",
+  "Un `button` dentro de un formulario tiene tipo `submit` por defecto. `type=button` representa una acción auxiliar y evita envíos accidentales. La semántica de submit también permite enviar con Enter y ejecutar la validación nativa.": "A `button` within a form has type `submit` by default. `type=button` represents an auxiliary action and prevents accidental sending. The submit semantics also allow you to submit with Enter and run native validation.",
+  "Una tabla de datos se compone con `caption`, `thead`, `tbody`, celdas `th` y relaciones `scope`. Esa estructura permite asociar cada dato con sus encabezados. Las tablas usadas para layout comunican relaciones inexistentes y dificultan el responsive design.": "A data table is composed of `caption`, `thead`, `tbody`, `th` cells, and `scope` relationships. This structure allows each data to be associated with its headers. The tables used for layout communicate non-existent relationships and make responsive design difficult.",
+  "`br` introduce un salto dentro del mismo contenido, como una dirección o un poema. `hr` marca un cambio temático entre bloques. El espacio visual entre elementos pertenece a margin, padding o gap en CSS.": "`br` introduces a break within the same content, such as an address or a poem. `hr` marks a thematic shift between blocks. The visual space between elements belongs to margin, padding or gap in CSS.",
+  "Scripts con `defer` descargan en paralelo y ejecutan tras parsear, en orden. `async` ejecuta cuando descarga y no conserva orden. Modules difieren y usan defer por defecto.": "Scripts with `defer` download in parallel and execute after parsing, in order. `async` runs when downloading and does not preserve order. Modules differ and use defer by default.",
+  "SEO técnico incluye HTML rastreable, canonical, robots, structured data, status correctos, sitemap y rendering compatible con el contenido.": "Technical SEO includes HTML crawlable, canonical, robots, structured data, correct status, sitemap and rendering compatible with the content.",
+  "Documento y semántica": "Document and semantics",
+  "Formularios y contenido": "Forms and content",
+  "Carga, SEO y accesibilidad": "Loading, SEO and accessibility",
+  "¿Etiqueta y atributo?": "Label and attribute?",
+  "La etiqueta define el elemento; el atributo configura información o comportamiento en su start tag. Una property DOM representa el estado vivo y puede diferir del atributo inicial.": "The tag defines the element; The attribute configures information or behavior in its start tag. A property DOM represents the live state and may differ from the initial attribute.",
+  "¿`id` o `class`?": "`id` or `class`?",
+  "`id` identifica un elemento dentro del documento y sirve para relaciones, fragmentos y labels. `class` agrupa elementos para estilos o comportamiento.": "`id` identifies an element within the document and is used for relationships, fragments and labels. `class` groups elements for styles or behavior.",
+  "¿Cómo crear un formulario accesible?": "How to create an accessible form?",
+  "Asocio labels, agrupo opciones con fieldset/legend, uso tipos y autocomplete, explico errores y muevo foco cuando el flujo lo requiere.": "I associate labels, group options with fieldset/legend, use types and autocomplete, explain errors and move focus when the flow requires it.",
+  "¿`ol` o `ul`?": "`ol` or `ul`?",
+  "`ol` comunica que el orden modifica el significado; `ul` agrupa elementos sin secuencia semántica.": "`ol` communicates that the order modifies the meaning; `ul` groups elements without semantic sequence.",
+  "¿Cuándo usás un enlace y cuándo un botón?": "When do you use a link and when do you use a button?",
+  "Un enlace con `href` cambia ubicación y conserva acciones nativas como abrir en otra pestaña. Un botón ejecuta una acción en la interfaz. Elegir el elemento correcto aporta teclado, rol y expectativas sin recrearlos con JavaScript.": "A link with `href` changes location and preserves native actions such as opening in another tab. A button executes an action in the interface. Choosing the right element brings keyboard, role and expectations without recreating them with JavaScript.",
+  "¿Qué aporta la validación nativa de formularios?": "What does native form validation provide?",
+  "Atributos como `required`, `type`, `min`, `max` y `pattern` expresan restricciones y permiten feedback del navegador. La aplicación puede personalizar mensajes, pero el servidor debe repetir la validación porque el cliente se puede modificar.": "Attributes such as `required`, `type`, `min`, `max` and `pattern` express constraints and allow feedback from the browser. The application can customize messages, but the server must repeat the validation because the client can modify it.",
+  "MDN · HTML": "MDN · HTML",
+  "CSS completo: cascade, layout, responsive y rendimiento": "CSS complete: cascade, layout, responsive and performance",
+  "CSS resuelve una cascada antes de calcular layout y paint. Las preguntas clásicas empiezan con selectores; las Senior llegan a stacking contexts, containment y estabilidad visual.": "CSS resolves a waterfall before calculating layout and paint. Classic questions start with selectors; Seniors reach stacking contexts, containment and visual stability.",
+  "La cascada considera origen, importancia, layers, specificity, scope y orden. `!important` altera el orden dentro del origen y crea costo de mantenimiento.": "The cascade considers origin, importance, layers, specificity, scope and order. `!important` alters the order within the origin and creates maintenance cost.",
+  "Specificity cuenta IDs, clases/atributos/pseudo-clases y tipos/pseudo-elementos. `:where()` aporta especificidad cero; `:is()` y `:not()` toman la del argumento más específico.": "Specificity counts IDs, classes/attributes/pseudo-classes and types/pseudo-elements. `:where()` provides zero specificity; `:is()` and `:not()` take the most specific argument.",
+  "Box model suma content, padding, border y margin. `box-sizing: border-box` incluye padding y border dentro del tamaño declarado.": "Box model adds content, padding, border and margin. `box-sizing: border-box` includes padding and border within the declared size.",
+  "Margin separa cajas; padding amplía el interior y el área de fondo. Márgenes verticales pueden colapsar en block formatting context.": "Margin separates boxes; padding expands the interior and background area. Vertical margins can collapse in block formatting context.",
+  "`display: none` quita la caja y el árbol de accesibilidad; `visibility: hidden` conserva espacio y oculta; `opacity: 0` conserva layout y puede conservar interacción si no la controlás.": "`display: none` removes the accessibility box and tree; `visibility: hidden` conserves space and hides; `opacity: 0` preserves layout and can preserve interaction if you do not control it.",
+  "Position static sigue flujo; relative conserva espacio y crea referencia; absolute sale del flujo y usa containing block; fixed se relaciona con viewport salvo transform ancestors; sticky cambia según scroll container.": "Position static follows flow; relative conserves space and creates reference; absolute exits the stream and uses containing block; fixed relates to viewport except transform ancestors; sticky changes depending on scroll container.",
+  "Flexbox organiza una dimensión y distribuye espacio; Grid controla filas y columnas. `min-width: 0` suele resolver overflow de hijos flex.": "Flexbox organizes a dimension and distributes space; Grid controls rows and columns. `min-width: 0` usually resolves overflow of flex children.",
+  "Responsive design combina tamaños fluidos, media queries, container queries, imágenes adaptativas y límites de ancho. Los breakpoints basados en el punto donde el contenido deja de funcionar resisten mejor cambios de dispositivos y layout.": "Responsive design combines fluid sizes, media queries, container queries, adaptive images and width limits. Breakpoints based on the point where the content stops working better resist device and layout changes.",
+  "Overflow puede clippear, scrollear o crear formatting context. `text-overflow: ellipsis` necesita restricciones de overflow y white-space.": "Overflow can clip, scroll or create formatting context. `text-overflow: ellipsis` needs overflow and white-space restrictions.",
+  "`z-index` solo compara dentro del mismo stacking context. Transform, opacity, positioned elements y isolation pueden crear contextos nuevos.": "`z-index` only compares within the same stacking context. Transform, opacity, positioned elements and isolation can create new contexts.",
+  "Una transition interpola el cambio entre dos estados; una animation recorre keyframes aunque no cambie una propiedad por interacción. `transform` y `opacity` suelen ejecutarse en composición y evitan layout, mientras `prefers-reduced-motion` permite reducir movimiento no esencial.": "A transition interpolates the change between two states; An animation cycles through keyframes even if it does not change a property by interaction. `transform` and `opacity` are usually executed in composition and avoid layout, while `prefers-reduced-motion` allows reducing non-essential movement.",
+  "BEM nombra Block, Element y Modifier; CSS Modules, Shadow DOM y Angular encapsulation resuelven scopes con modelos distintos.": "BEM names Block, Element and Modifier; CSS Modules, Shadow DOM and Angular encapsulation resolve scopes with different models.",
+  "Preprocesadores agregan sintaxis en build; frameworks entregan utilidades o componentes. Ninguno reemplaza cascade, layout ni accesibilidad.": "Preprocessors add syntax in build; Frameworks deliver utilities or components. None replaces cascade, layout or accessibility.",
+  "`contain` limita qué partes del árbol pueden afectar layout, paint o style fuera de un elemento. `content-visibility: auto` permite omitir el render de contenido fuera del viewport. Ambas herramientas reducen trabajo, pero cambian mediciones, foco y accesibilidad si se aplican sin comprobar el resultado.": "`contain` limits which parts of the tree can affect layout, paint, or style outside of an element. `content-visibility: auto` allows you to skip rendering content outside the viewport. Both tools reduce work, but change measurements, focus and accessibility if they are applied without checking the result.",
+  "Cascada y box model": "Waterfall and box model",
+  "Layout y responsive": "Layout and responsive",
+  "Composición y rendimiento": "Composition and performance",
+  "¿Flexbox o Grid?": "Flexbox or Grid?",
+  "Flexbox distribuye elementos a lo largo de un eje y permite wrapping. Grid define una estructura bidimensional. Una interfaz puede usar ambos en niveles distintos.": "Flexbox distributes elements along an axis and allows wrapping. Grid defines a two-dimensional structure. An interface can use both at different levels.",
+  "¿Por qué `z-index: 9999` no funciona?": "Why is `z-index: 9999` not working?",
+  "El elemento puede vivir dentro de un stacking context que queda debajo de otro. Comparo contextos ancestros antes de subir el número.": "The element can live within a stacking context that is below another. I compare ancestral contexts before uploading the number.",
+  "¿`display:none` o `visibility:hidden`?": "`display:none` or `visibility:hidden`?",
+  "`display:none` elimina la caja; `visibility:hidden` conserva su espacio. Si necesitás ocultar solo visualmente y mantener lectura, uso un patrón visually-hidden probado.": "`display:none` removes box; `visibility:hidden` conserves its space. If you need to only visually hide and maintain readability, I use a proven visually-hidden pattern.",
+  "¿Cómo evitás CSS frágil?": "How do you avoid brittle CSS?",
+  "Reduzco especificidad, defino tokens y layers, limito alcance, documento variantes y pruebo estados, tamaños, temas y contenido real.": "I reduce specificity, define tokens and layers, limit scope, document variants and test states, sizes, themes and actual content.",
+  "¿Cómo diagnosticás un problema de `z-index`?": "How do you diagnose a `z-index` problem?",
+  "Identifico los stacking contexts de ambos elementos y comparo sus ancestros, no sólo sus números. `transform`, `opacity`, `isolation` y ciertos elementos posicionados crean contextos que limitan dónde compite un descendiente.": "I identify the stacking contexts of both elements and compare their ancestors, not just their numbers. `transform`, `opacity`, `isolation`, and certain positioned elements create contexts that limit where a descendant competes.",
+  "¿Media query o container query?": "Media query or container query?",
+  "Una media query responde al viewport o a preferencias del usuario. Una container query responde al espacio disponible para el componente. La segunda permite reutilizar la misma pieza en layouts distintos sin conocer la página que la contiene.": "A media query responds to the viewport or user preferences. A container query responds to the space available for the component. The second allows you to reuse the same piece in different layouts without knowing the page that contains it.",
+  "MDN · CSS": "MDN CSS",
+  "JavaScript: tipos, coerción, scope y funciones": "JavaScript: types, coercion, scope and functions",
+  "Estas preguntas aparecen en entrevistas frontend de cualquier nivel. Una respuesta Senior explica la regla del lenguaje, muestra un caso que falla y propone una forma de escribir código predecible.": "These questions appear in frontend interviews of any level. A Senior answer explains the language rule, shows a failing case, and proposes a way to write predictable code.",
+  "JavaScript tiene tipos primitivos `undefined`, `null`, `boolean`, `number`, `bigint`, `string` y `symbol`. Los objetos se comparan por referencia. `typeof null` devuelve `object` por una decisión histórica.": "JavaScript has primitive types `undefined`, `null`, `boolean`, `number`, `bigint`, `string`, and `symbol`. Objects are compared by reference. `typeof null` returns `object` for a historical decision.",
+  "`var` posee function scope, permite redeclaración y su declaración se eleva. `let` y `const` poseen block scope y permanecen en temporal dead zone hasta la inicialización. `const` fija la referencia, no vuelve inmutable el objeto.": "`var` has function scope, allows redeclaration and its declaration is raised. `let` and `const` have block scope and remain in the temporary dead zone until initialization. `const` sets the reference, it does not make the object immutable.",
+  "La coerción es la conversión de un valor de un tipo a otro. Es explícita cuando el código llama a `Number(value)`, `String(value)` o `Boolean(value)`, e implícita cuando el lenguaje convierte porque un operador o contexto necesita otro tipo. Formularios, query params, atributos DOM y storage entregan strings aunque representen números o booleanos; convertir y validar en esa frontera evita que la coerción se propague al dominio.": "Coercion is the conversion of a value from one type to another. It is explicit when the code calls `Number(value)`, `String(value)`, or `Boolean(value)`, and implicit when the language converts because an operator or context needs another type. Forms, query params, DOM attributes and storage deliver strings even if they represent numbers or booleans; converting and validating at that boundary prevents coercion from propagating to the domain.",
+  "Cuando un operador necesita convertir un objeto a primitivo, JavaScript ejecuta la operación abstracta `ToPrimitive`. Primero respeta `Symbol.toPrimitive` y, según el hint, consulta `valueOf` y `toString` hasta obtener un primitivo. Por eso `[]` se convierte en `''`, `[1, 2]` en `'1,2'` y un objeto común suele producir `'[object Object]'`; después el operador continúa con la conversión numérica o textual que corresponda.": "When an operator needs to convert an object to a primitive, JavaScript executes the `ToPrimitive` abstract operation. First respect `Symbol.toPrimitive` and, according to the hint, query `valueOf` and `toString` until you obtain a primitive. That's why `[]` becomes `''`, `[1, 2]` becomes `'1,2'`, and a common object usually produces `'[object Object]'`; then the operator continues with the corresponding numerical or textual conversion.",
+  "El operador `+` es especial: después de convertir objetos a primitivos, concatena si alguno de los operandos es string; si no, realiza suma numérica. `1 + '2'` produce `'12'`, mientras `'5' - 2`, `'5' * 2` y `'5' / 2` convierten a número. Los template literals fuerzan string y los contextos de `if`, `!`, `&&` y `||` usan conversión booleana.": "The `+` operator is special: after converting objects to primitives, it concatenates whether any of the operands are strings; If not, perform numerical addition. `1 + '2'` produces `'12'`, while `'5' - 2`, `'5' * 2` and `'5' / 2` convert to number. The template literals force string and the `if`, `!`, `&&` and `||` contexts use boolean conversion.",
+  "Las conversiones tienen bordes que conviene conocer: `Number('')` y `Number(null)` producen `0`, `Number(undefined)` produce `NaN`, y `Boolean('false')` es `true` porque cualquier string no vacío es truthy. `Number` exige que toda la cadena represente un número; `parseInt('10px', 10)` acepta el prefijo numérico. Ninguna de las dos reemplaza validar rango, formato y finitud con `Number.isFinite`.": "The conversions have edges that are worth knowing: `Number('')` and `Number(null)` produce `0`, `Number(undefined)` produces `NaN`, and `Boolean('false')` is `true` because any non-empty string is truthy. `Number` requires that the entire string represent a number; `parseInt('10px', 10)` accepts the numeric prefix. Neither replaces validating range, format, and finiteness with `Number.isFinite`.",
+  "`===` compara tipo y valor sin coerción. `Object.is` difiere en `NaN` y `-0`. `==` tiene casos útiles, como `value == null`, pero exige conocer su tabla de coerción.": "`===` compares type and value without coercion. `Object.is` differs in `NaN` and `-0`. `==` has useful cases, like `value == null`, but requires knowing its coercion table.",
+  "Falsy incluye `false`, `0`, `-0`, `0n`, cadena vacía, `null`, `undefined` y `NaN`. Un array u objeto vacío es truthy.": "Falsy includes `false`, `0`, `-0`, `0n`, empty string, `null`, `undefined`, and `NaN`. An empty array or object is truthy.",
+  "Una declaración de función se eleva con su cuerpo. Una function expression sigue las reglas de su variable. Las arrow functions capturan `this`, `arguments` y `super` del entorno; no sirven como constructor.": "A function declaration is raised with its body. A function expression follows the rules of its variable. The arrow functions capture `this`, `arguments`, and `super` from the environment; They do not serve as a constructor.",
+  "`this` depende de cómo se invoca una función: method call, `call/apply/bind`, constructor con `new` o binding léxico de arrow. Extraer un método puede perder el receiver.": "`this` depends on how a function is invoked: method call, `call/apply/bind`, constructor with `new` or arrow lexical binding. Extracting a method may lose the receiver.",
+  "Un closure es la combinación de una función con el entorno léxico donde fue creada. La función puede ejecutarse después de que terminó la llamada exterior y seguir resolviendo parámetros y variables de ese entorno. `makeCounter` puede declarar `let count = 0` y devolver una función que incrementa `count`; cada llamada a `makeCounter()` crea un binding privado e independiente.": "A closure is the combination of a function with the lexical environment where it was created. The function can be executed after the outer call has finished and continue resolving parameters and variables from that environment. `makeCounter` can declare `let count = 0` and return a function that increments `count`; each call to `makeCounter()` creates a private, independent binding.",
+  "El closure conserva bindings, no una fotografía de sus valores. Si el binding cambia, las funciones que lo cerraron observan el valor actual. Esto permite estado privado y callbacks coordinados, pero también explica bugs cuando varias funciones comparten accidentalmente una misma variable mutable.": "The closure preserves bindings, not a snapshot of their values. If the binding changes, the functions that closed it observe the current value. This allows private state and coordinated callbacks, but also explains bugs when several functions accidentally share the same mutable variable.",
+  "En un loop, `var` crea un único binding con scope de función, por lo que callbacks diferidos suelen leer el valor final. `let` crea un binding nuevo por iteración. Antes de `let`, una IIFE o una factory recibía el valor de cada vuelta y creaba un entorno distinto.": "In a loop, `var` creates a single function-scoped binding, so deferred callbacks usually read the final value. `let` creates a new binding per iteration. Before `let`, an IIFE or a factory received the value of each turn and created a different environment.",
+  "Closures sostienen factories, currying, memoization, event handlers y callbacks asíncronos. El entorno permanece vivo mientras una función alcanzable lo necesite: no es una fuga por sí mismo, pero puede retener DOM, caches o respuestas grandes. El cleanup debe remover listeners, cancelar timers o suscripciones y evitar capturar objetos completos cuando alcanza con un identificador o un dato pequeño.": "Closures support factories, currying, memoization, event handlers and asynchronous callbacks. The environment remains alive as long as a reachable function needs it: it is not a leak per se, but it may retain DOM, caches, or large responses. The cleanup must remove listeners, cancel timers or subscriptions and avoid capturing complete objects when it reaches an identifier or a small piece of data.",
+  "El spread copia un nivel y enumera propiedades. `structuredClone` cubre muchos valores y ciclos, pero no funciones ni todos los objetos host. Un JSON round-trip pierde fechas, `undefined`, `BigInt` y prototipos.": "The spread copies a level and lists properties. `structuredClone` covers many values ​​and cycles, but not functions or all host objects. A JSON round-trip misses dates, `undefined`, `BigInt`, and prototypes.",
+  "Destructuring extrae valores y admite defaults. El default corre solo para `undefined`, no para `null`. Rest agrupa el remanente y debe ocupar la última posición.": "Destructuring extracts values and supports defaults. The default runs only for `undefined`, not for `null`. Rest groups the remainder and should occupy the last position.",
+  "Tipos y conversiones": "Types and conversions",
+  "Scope, hoisting y closures": "Scope, hoisting and closures",
+  "Funciones, this y decisiones": "Functions, this and decisions",
+  "¿Cuál es la diferencia entre `var`, `let` y `const`?": "What is the difference between `var`, `let` and `const`?",
+  "`var` usa scope de función y permite redeclaración. `let` y `const` usan scope de bloque y temporal dead zone. `const` impide reasignar la variable, pero el valor referenciado puede mutar.": "`var` uses function scope and allows redeclaration. `let` and `const` use block scope and temporary dead zone. `const` prevents reassigning the variable, but the referenced value may mutate.",
+  "¿Por qué `[] == false` da true?": "Why does `[] == false` give true?",
+  "La igualdad abstracta no compara directamente array y boolean. Primero convierte `false` a número: `0`. Después aplica `ToPrimitive` al array: `[].toString()` produce `''`. Como ahora compara string con number, convierte `''` a `0`; el resultado final es `0 == 0`, que es `true`. En cambio, `[] === false` es `false` porque los tipos son distintos y no existe coerción. No memorizaría solamente este resultado: seguir los pasos boolean → number, object → primitive y string → number permite explicar también casos como `[0] == false`. En código de producto uso `===` y conversiones explícitas para que esa secuencia no quede escondida.": "Abstract equality does not directly compare array and boolean. First convert `false` to number: `0`. Then apply `ToPrimitive` to the array: `[].toString()` produces `''`. Since it now compares string with number, it converts `''` to `0`; the final result is `0 == 0`, which is `true`. Instead, `[] === false` is `false` because the types are different and there is no coercion. I would not only memorize this result: following the steps boolean → number, object → primitive and string → number also allows to explain cases like `[0] == false`. In product code I use `===` and explicit conversions so that this sequence is not hidden.",
+  "¿Arrow function o función normal?": "Arrow function or normal function?",
+  "Uso arrow para callbacks que necesitan el `this` exterior. Uso función normal para métodos dinámicos, constructores o APIs que asignan receiver.": "I use arrow for callbacks that need the outer `this`. Use normal function for dynamic methods, constructors or APIs that assign receiver.",
+  "¿Shallow copy o deep copy?": "Shallow copy or deep copy?",
+  "Una shallow copy crea un objeto o array nuevo, pero copia por referencia los valores anidados. Por ejemplo, con `const original = { user: { name: 'Ana' } }; const copy = { ...original };`, se cumple `copy !== original`, pero `copy.user === original.user`; por eso `copy.user.name = 'Luis'` también modifica `original.user.name`. Spread, `Object.assign`, `Array.from` y `slice` hacen copias superficiales. Una deep copy duplica recursivamente la estructura para que los objetos anidados no compartan identidad. `structuredClone(original)` sirve para muchos datos nativos y ciclos, pero no clona funciones, elementos DOM ni conserva el comportamiento de todas las instancias de clases. No hago una copia profunda por defecto: cuesta CPU y memoria, y puede romper identidades que la aplicación necesita. Para actualizar estado prefiero copiar sólo el camino modificado, por ejemplo `{ ...state, user: { ...state.user, name: 'Luis' } }`; así mantengo inmutabilidad y structural sharing sin duplicar todo el grafo.": "A shallow copy creates a new object or array, but copies the nested values by reference. For example, with `const original = { user: { name: 'Ana' } }; const copy = { ...original };`, `copy !== original` is satisfied, but `copy.user === original.user`; that's why `copy.user.name = 'Luis'` also modifies `original.user.name`. Spread, `Object.assign`, `Array.from`, and `slice` make shallow copies. A deep copy recursively duplicates the structure so that nested objects do not share an identity. `structuredClone(original)` serves many native data and cycles, but it does not clone functions, DOM elements, or preserve the behavior of all class instances. I don't do a deep copy by default: it costs CPU and memory, and can break identities that the application needs. To update status I prefer to copy only the modified path, for example `{ ...state, user: { ...state.user, name: 'Luis' } }`; This way I maintain immutability and structural sharing without duplicating the entire graph.",
+  "¿Qué es un closure y cuándo se crea?": "What is a closure and when is it created?",
+  "Un closure es una función junto con las referencias a los bindings de su entorno léxico. Se determina cuando la función se crea, no cuando se invoca. Por ejemplo, `function makeCounter() { let count = 0; return () => ++count; }` devuelve una función que sigue accediendo a `count` después de que `makeCounter` terminó. `const a = makeCounter(); const b = makeCounter();` crea dos entornos: `a()` devuelve `1`, luego `2`, mientras `b()` comienza en `1`. El runtime conserva sólo los entornos que todavía son alcanzables; por eso un closure permite estado privado sin convertir `count` en una variable global.": "A closure is a function together with references to the bindings of its lexical environment. It is determined when the function is created, not when it is invoked. For example, `function makeCounter() { let count = 0; return () => ++count; }` returns a function that continues accessing `count` after `makeCounter` has finished. `const a = makeCounter(); const b = makeCounter();` creates two environments: `a()` returns `1`, then `2`, while `b()` starts at `1`. The runtime preserves only the environments that are still reachable; That's why a closure allows private state without turning `count` into a global variable.",
+  "¿Un closure captura el valor o el binding?": "Does a closure capture the value or the binding?",
+  "Captura el binding, es decir, la celda donde vive el valor, no una fotografía inmutable. Con `let rate = 1; const price = value => value * rate; rate = 2;`, `price(10)` devuelve `20` porque lee el valor actual de `rate`. Varias funciones pueden compartir el mismo binding y observar sus cambios. Si necesito congelar el valor de un momento, creo otro binding pasando el dato a una factory: `const withRate = rate => value => value * rate`. Cada llamada recibe su propio parámetro `rate`.": "Captures the binding, that is, the cell where the value lives, not an immutable photograph. With `let rate = 1; const price = value => value * rate; rate = 2;`, `price(10)` returns `20` because it reads the current value of `rate`. Several functions can share the same binding and observe its changes. If I need to freeze the value of a moment, I create another binding passing the data to a factory: `const withRate = rate => value => value * rate`. Each call receives its own parameter `rate`.",
+  "¿Por qué un loop con `var` y callbacks suele imprimir el valor final?": "Why does a loop with `var` and callbacks usually print the final value?",
+  "`var` tiene scope de función, así que todas las callbacks cierran sobre un único binding `i`. Cuando ejecuta el timer, el loop ya terminó y ese binding vale `3`: `for (var i = 0; i < 3; i++) setTimeout(() => console.log(i));` imprime `3, 3, 3`. Con `let`, la especificación crea un binding nuevo en cada iteración y el resultado es `0, 1, 2`. Otra solución es una factory o IIFE que reciba `i` y genere un parámetro distinto por vuelta. El punto importante no es el timer: es cuántos bindings existen y cuál captura cada función.": "`var` has function scope, so all callbacks close on a single `i` binding. When you execute the timer, the loop has already ended and that binding is `3`: `for (var i = 0; i < 3; i++) setTimeout(() => console.log(i));` prints `3, 3, 3`. With `let`, the specification creates a new binding on each iteration and the result is `0, 1, 2`. Another solution is a factory or IIFE that receives `i` and generates a different parameter per turn. The important point is not the timer: it is how many bindings there are and which one captures each function.",
+  "¿Cómo puede un closure retener memoria innecesariamente?": "How can a closure retain memory unnecessarily?",
+  "Mientras una función sea alcanzable, también permanecen alcanzables los valores de su entorno que necesita. Un listener global que captura el componente, un timer que captura una respuesta grande o una cache sin límite pueden mantener vivo ese grafo después de retirar la vista. No todo closure es un leak: se vuelve problema cuando la vida de la referencia supera la vida útil del dato. Remuevo listeners, limpio timers y suscripciones, limito caches y capturo sólo el identificador o valor pequeño necesario. En Angular asocio el cleanup a `DestroyRef` o `takeUntilDestroyed` cuando corresponde.": "As long as a function is reachable, the values in its environment that it needs also remain reachable. A global listener that captures the component, a timer that captures a large response, or an unbounded cache can keep that graph alive after the view is removed. Not every closure is a leak: it becomes a problem when the life of the reference exceeds the useful life of the data. I remove listeners, clean timers and subscriptions, limit caches and capture only the necessary identifier or small value. In Angular I associate the cleanup with `DestroyRef` or `takeUntilDestroyed` when appropriate.",
+  "¿Qué diferencia hay entre coerción implícita y conversión explícita?": "What is the difference between implicit coercion and explicit conversion?",
+  "En una conversión explícita el código declara la intención: `Number(input.value)`, `String(id)` o `Boolean(flag)`. La coerción implícita ocurre dentro de un operador o contexto: `'5' - 1` produce `4`, `1 + '2'` produce `'12'` y `if ('false')` entra porque el string no está vacío. La coerción no es automáticamente un error; templates, comparaciones y operadores dependen de ella. El riesgo aparece cuando oculta un contrato. En fronteras externas convierto, valido y conservo desde allí un tipo estable.": "In an explicit conversion the code declares the intent: `Number(input.value)`, `String(id)` or `Boolean(flag)`. Implicit coercion occurs within an operator or context: `'5' - 1` produces `4`, `1 + '2'` produces `'12'`, and `if ('false')` enters because the string is not empty. Coercion is not automatically wrong; templates, comparisons and operators depend on it. The risk appears when you hide a contract. At external borders I convert, validate and preserve from there a stable type.",
+  "¿Qué es `ToPrimitive` y por qué importa?": "What is `ToPrimitive` and why does it matter?",
+  "`ToPrimitive` es la operación abstracta que convierte un objeto en un valor primitivo antes de que otro algoritmo continúe. Si existe, llama a `Symbol.toPrimitive`; en caso contrario prueba `valueOf` y `toString` en un orden que depende del hint. Deben devolver un primitivo o la conversión falla con `TypeError`. Por eso `[] + 1` produce `'1'`: el array se vuelve `''` y `+` concatena. Un objeto puede personalizar el resultado con `[Symbol.toPrimitive](hint)`, pero hacerlo de forma sorprendente vuelve los operadores difíciles de razonar; normalmente prefiero métodos explícitos de dominio.": "`ToPrimitive` is the abstract operation that converts an object to a primitive value before another algorithm continues. If it exists, call `Symbol.toPrimitive`; Otherwise it tries `valueOf` and `toString` in an order that depends on the hint. They must return a primitive or the conversion fails with `TypeError`. That's why `[] + 1` produces `'1'`: the array becomes `''` and `+` concatenates. An object can customize the result with `[Symbol.toPrimitive](hint)`, but doing so in a surprising way makes the operators difficult to reason with; I usually prefer domain explicit methods.",
+  "¿Por qué existe la Temporal Dead Zone?": "Why does the Temporal Dead Zone exist?",
+  "Al entrar en un bloque, JavaScript crea los bindings de `let`, `const` y `class`, pero los deja sin inicializar hasta ejecutar su declaración. Ese intervalo es la Temporal Dead Zone. Leer el binding durante ese tramo lanza `ReferenceError`: `console.log(total); let total = 1;`. Incluso `typeof total` falla si `total` está en la TDZ, a diferencia de una variable que no existe. Con `var`, en cambio, el binding se inicializa con `undefined`, por lo que el acceso prematuro no falla y puede ocultar un error de orden. La TDZ existe para que una variable con scope de bloque no se use antes de tener el valor que su declaración promete. No significa que `let` y `const` no tengan hoisting: sus bindings se crean al entrar al scope, pero todavía no son accesibles.": "Upon entering a block, JavaScript creates the bindings for `let`, `const` and `class`, but leaves them uninitialized until its statement is executed. That interval is the Temporal Dead Zone. Reading the binding during that leg launches `ReferenceError`: `console.log(total); let total = 1;`. Even `typeof total` fails if `total` is in the TDZ, as opposed to a variable that does not exist. With `var`, however, the binding is initialized with `undefined`, so premature access does not fail and can hide a command error. The TDZ exists so that a block-scoped variable is not used before it has the value its declaration promises. It does not mean that `let` and `const` are not hoisted: their bindings are created when entering the scope, but they are not yet accessible.",
+  "¿Usarías alguna vez `==`?": "Would you ever use `==`?",
+  "Sí, pero sólo usaría deliberadamente `value == null` cuando quiero aceptar exactamente `null` o `undefined`. La comparación es verdadera para esos dos valores y falsa para `0`, `false`, `''` y `NaN`; por ejemplo, `if (response.middleName == null)` detecta que el campo opcional no llegó sin rechazar una cadena vacía válida. Es una excepción conocida de Abstract Equality y conviene permitirla explícitamente con una regla como `eqeqeq: ['error', 'always', { null: 'ignore' }]`. En el resto del código uso `===` y `!==`, porque `==` aplica coerciones difíciles de leer: `'' == 0`, `'0' == false` y `[] == false` son verdaderas. Si el equipo prioriza máxima explicitud, escribo `value === null || value === undefined`; comunica el mismo contrato sin depender de conocer la excepción.": "Yes, but I would only deliberately use `value == null` when I want to accept exactly `null` or `undefined`. The comparison is true for those two values ​​and false for `0`, `false`, `''`, and `NaN`; for example, `if (response.middleName == null)` detects that the optional field did not arrive without rejecting a valid empty string. This is a known exception to Abstract Equality and should be allowed explicitly with a rule like `eqeqeq: ['error', 'always', { null: 'ignore' }]`. In the rest of the code I use `===` and `!==`, because `==` applies hard-to-read constraints: `'' == 0`, `'0' == false`, and `[] == false` are true. If the team prioritizes maximum explicitness, I type `value === null || value === undefined`; communicates the same contract without depending on knowing the exception.",
+  "MDN · JavaScript": "MDN JavaScript",
+  "JavaScript: objetos, prototipos, arrays y programación funcional": "JavaScript: objects, prototypes, arrays and functional programming",
+  "JavaScript usa delegación prototípica. Las clases ofrecen sintaxis, pero los objetos todavía resuelven propiedades a través de una cadena de prototipos.": "JavaScript uses prototypical delegation. Classes offer syntax, but objects still resolve properties through a chain of prototypes.",
+  "`Object.create(proto)` fija el prototipo. `new C()` crea un objeto, enlaza `C.prototype`, ejecuta `C` con ese `this` y devuelve el objeto salvo retorno explícito de otro objeto.": "`Object.create(proto)` fixes the prototype. `new C()` creates an object, binds `C.prototype`, executes `C` with that `this`, and returns the object unless another object is explicitly returned.",
+  "Una propiedad puede ser own o heredada. `Object.hasOwn` comprueba ownership; `in` recorre la cadena. `Object.keys` devuelve claves enumerables propias.": "A property can be owned or inherited. `Object.hasOwn` checks ownership; `in` loops through the chain. `Object.keys` returns own enumerable keys.",
+  "Los property descriptors controlan `writable`, `enumerable` y `configurable`; getters y setters forman accessors. Cambiar descriptores afecta serialización y copia.": "The property descriptors control `writable`, `enumerable` and `configurable`; getters and setters form accessors. Changing descriptors affects serialization and copying.",
+  "Arrays son objetos con índices y `length`. `for...of` recorre valores de un iterable; `for...in` recorre claves enumerables y no conviene para arrays.": "Arrays are objects with indexes and `length`. `for...of` loops through values ​​of an iterable; `for...in` loops through enumerable keys and is not suitable for arrays.",
+  "`map` crea una colección transformada, `filter` conserva elementos, `reduce` acumula, `find` devuelve la primera coincidencia y `some` o `every` evalúan predicados. Cada método comunica una intención distinta y evita acumular efectos dentro de un loop genérico.": "`map` creates a transformed collection, `filter` persists elements, `reduce` accumulates, `find` returns the first match, and `some` or `every` evaluates predicates. Each method communicates a different intention and avoids accumulating effects within a generic loop.",
+  "`sort` muta y convierte a string sin comparator. `toSorted`, `toReversed`, `toSpliced` y `with` devuelven copias en runtimes modernos.": "`sort` mutates and converts to string without comparator. `toSorted`, `toReversed`, `toSpliced`, and `with` return copies in modern runtimes.",
+  "Una pure function depende de sus argumentos y no produce efectos observables. La pureza mejora tests y composición, pero una aplicación necesita efectos en fronteras controladas.": "A pure function depends on its arguments and produces no observable effects. Purity improves tests and composition, but an application needs effects at controlled boundaries.",
+  "Currying transforma una función de varios argumentos en una secuencia de funciones. Partial application fija algunos argumentos; no son conceptos idénticos.": "Currying transforms a multi-argument function into a sequence of functions. Partial application sets some arguments; They are not identical concepts.",
+  "Memoization guarda resultados asociados a sus argumentos. La estrategia necesita una regla de igualdad, un límite de tamaño y una política de invalidación; sin esos límites, la caché puede devolver datos obsoletos o retener memoria sin control.": "Memoization saves results associated with its arguments. The strategy needs an equality rule, a size limit, and an override policy; Without those limits, the cache can return stale data or retain memory uncontrollably.",
+  "Big O describe crecimiento. Acceso por índice de array suele ser O(1); búsqueda lineal O(n); sort comparativo O(n log n); acceso promedio a Map O(1). Las constantes todavía afectan al usuario.": "Big O describes growth. Access by array index is usually O(1); linear search O(n); sort comparative O(n log n); average access to Map O(1). The constants still affect the user.",
+  "Fundamentos": "Basics",
+  "Mecanismo y aplicación": "Mechanism and application",
+  "Decisiones y límites": "Decisions and limits",
+  "¿Clase o prototipo?": "Class or prototype?",
+  "`class` organiza herencia y métodos con sintaxis más clara; el runtime resuelve métodos mediante prototipos. Conocer el modelo explica `instanceof`, shadowing y métodos compartidos.": "`class` organizes inheritance and methods with clearer syntax; the runtime resolves methods through prototypes. Knowing the model explains `instanceof`, shadowing and shared methods.",
+  "¿`map` o `forEach`?": "`map` or `forEach`?",
+  "`map` crea una colección transformada y exige usar el retorno. `forEach` expresa un efecto por elemento y devuelve `undefined`.": "`map` creates a transformed collection and requires using the return. `forEach` expresses one effect per element and returns `undefined`.",
+  "¿`Map` o objeto?": "`Map` or object?",
+  "`Map` acepta cualquier clave, preserva orden de inserción y ofrece size e iteración directa. Un objeto encaja en records con claves string/symbol y serialización JSON.": "`Map` accepts any key, preserves insertion order, and offers size and direct iteration. An object fits into records with string/symbol keys and JSON serialization.",
+  "¿Qué muta un array?": "What mutates an array?",
+  "`push`, `pop`, `shift`, `unshift`, `splice`, `sort`, `reverse`, `fill` y `copyWithin`. `map`, `filter`, `slice`, `concat` y los métodos `to*` crean otro array.": "`push`, `pop`, `shift`, `unshift`, `splice`, `sort`, `reverse`, `fill` and `copyWithin`. `map`, `filter`, `slice`, `concat` and the `to*` methods create another array.",
+  "¿Qué pierde una copia con spread?": "What does a spread copy lose?",
+  "Spread copia propiedades enumerables propias del primer nivel. Las referencias anidadas siguen compartidas y la copia no conserva descriptores completos ni comportamiento interno de todos los objetos. Primero defino qué parte del modelo necesita una nueva identidad.": "Spread copies enumerable properties from the first level. Nested references remain shared and the copy does not preserve complete descriptors or internal behavior of all objects. First I define which part of the model needs a new identity.",
+  "¿Cuándo evitás `map`, `filter` y `reduce` encadenados?": "When do you avoid chained `map`, `filter` and `reduce`?",
+  "Cada operador puede recorrer y asignar otra colección. En una ruta caliente o una lista grande, un solo loop puede reducir memoria y trabajo. Mantengo la cadena cuando su claridad pesa más que ese costo medido.": "Each operator can loop through and assign another collection. On a hot route or a large list, a single loop can reduce memory and work. I keep the chain when its clarity outweighs that measured cost.",
+  "MDN · JavaScript objects": "MDN · JavaScript objects",
+  "JavaScript asíncrono: event loop, Promises y errores": "JavaScript asynchronous: event loop, Promises and errors",
+  "JavaScript ejecuta código en un solo call stack y delega timers, red y eventos al entorno. Promises, async/await y el event loop permiten coordinar cuándo continúa cada operación sin bloquear la interfaz.": "JavaScript executes code in a single call stack and delegates timers, network and events to the environment. Promises, async/await, and the event loop allow you to coordinate when each operation continues without blocking the interface.",
+  "El código síncrono termina una instrucción antes de comenzar la siguiente. JavaScript usa un solo call stack para ejecutar ese código en el main thread del navegador. Una función lenta ocupa el stack y retrasa clicks, input, layout y paint.": "Synchronous code finishes one instruction before starting the next. JavaScript uses a single call stack to execute that code in the browser's main thread. A slow function occupies the stack and delays clicks, input, layout and paint.",
+  "Una operación asíncrona inicia un trabajo cuyo resultado llegará después. El navegador puede encargarse de un timer, una petición de red o un evento mientras el stack continúa con otras instrucciones. Asincronía describe coordinación en el tiempo; no significa que dos fragmentos de JavaScript se ejecuten al mismo tiempo en el mismo thread.": "An asynchronous operation starts a job whose result will arrive later. The browser can handle a timer, network request, or event while the stack continues with other instructions. Asynchrony describes coordination over time; It does not mean that two fragments of JavaScript are executed at the same time in the same thread.",
+  "El event loop coordina el call stack con el entorno del navegador y sus colas. Toma una task, ejecuta su callback hasta vaciar el stack, drena todas las microtasks pendientes, permite que el navegador renderice y después avanza a otra task. `setTimeout`, eventos y mensajes generan tasks; continuaciones de Promises y `queueMicrotask` generan microtasks.": "The event loop coordinates the call stack with the browser environment and its queues. Takes a task, executes its callback until the stack is empty, drains all pending microtasks, allows the browser to render, and then advances to another task. `setTimeout`, events and messages generate tasks; Continuations of Promises and `queueMicrotask` generate microtasks.",
+  "Una `Promise` es un objeto que representa el resultado futuro de una sola operación. Nace en estado `pending` y termina como `fulfilled` con un valor o `rejected` con una razón. `fulfilled` y `rejected` forman el estado `settled`. Una Promise settled no puede cambiar de estado ni volver a emitir otro resultado.": "A `Promise` is an object that represents the future result of a single operation. It is born in state `pending` and ends as `fulfilled` with a value or `rejected` with a reason. `fulfilled` and `rejected` form state `settled`. A settled Promise cannot change state or reissue another result.",
+  "El constructor `new Promise(executor)` ejecuta el executor de inmediato y de forma síncrona. Las funciones `resolve` y `reject` fijan el resultado eventual; no vuelven asíncrono el trabajo que se ejecuta dentro del executor. La asincronía proviene de la API usada, como `fetch`, un timer o IndexedDB. Si una API ya devuelve una Promise, envolverla en otra suele agregar código y errores sin aportar control.": "The `new Promise(executor)` constructor runs the executor immediately and synchronously. The functions `resolve` and `reject` set the eventual result; they do not make the job running inside the executor asynchronous. The asynchrony comes from the API used, such as `fetch`, a timer or IndexedDB. If an API already returns a Promise, wrapping it in another usually adds code and errors without providing control.",
+  "`then` registra el camino de éxito, `catch` registra el de rechazo y `finally` ejecuta cleanup sin recibir ni reemplazar el resultado salvo que lance un error. Cada método devuelve una Promise nueva. Por eso una cadena no modifica la Promise anterior: cada eslabón describe cómo obtener el resultado siguiente.": "`then` records the success path, `catch` records the rejection path, and `finally` executes cleanup without receiving or replacing the result unless it throws an error. Each method returns a new Promise. That's why a chain does not modify the previous Promise: each link describes how to obtain the next result.",
+  "El valor que retorna un callback decide el siguiente eslabón. Un valor común cumple la Promise siguiente con ese valor; una Promise o thenable hace que la siguiente adopte su estado; un `throw` la rechaza. Omitir `return` entrega `undefined` y deja fuera de la cadena cualquier operación iniciada dentro del callback.": "The value returned by a callback decides the next link. A common value meets the following Promise with that value; a Promise or thenable causes the next one to adopt its state; a `throw` rejects it. Skipping `return` delivers `undefined` and leaves any operations initiated within the callback out of the chain.",
+  "Los handlers de `then`, `catch` y `finally` no corren durante el stack actual, aunque la Promise ya esté settled. JavaScript los encola como microtasks. El navegador drena esa cola antes de tomar otra task, por eso una cadena que crea microtasks sin terminar puede retrasar timers, eventos y render.": "The `then`, `catch` and `finally` handlers do not run during the current stack, even though Promise is already settled. JavaScript queues them as microtasks. The browser drains that queue before taking on another task, so a chain that creates unfinished microtasks can delay timers, events, and renders.",
+  "Una función declarada con `async` devuelve una Promise. Un `return value` produce una Promise fulfilled con `value`; un `throw error` produce una Promise rejected. `await promise` pausa sólo la ejecución de esa función, libera el stack y reanuda su continuación como microtask cuando la Promise termina. `await` no bloquea el thread ni mueve trabajo de CPU a otro thread.": "A function declared with `async` returns a Promise. A `return value` produces a Promise fulfilled with `value`; a `throw error` produces a Promise rejected. `await promise` pauses only the execution of that function, frees the stack and resumes its continuation as a microtask when Promise finishes. `await` does not block the thread or move CPU work to another thread.",
+  "Dos `await` consecutivos suelen ejecutar operaciones en secuencia cuando la segunda comienza después de resolver la primera. Si ambas son independientes, iniciarlas antes y esperar `Promise.all` reduce el tiempo total. La concurrencia empieza al crear o invocar las operaciones, no al escribir `Promise.all`.": "Two consecutive `await` typically execute operations in sequence when the second begins after the first is resolved. If both are independent, starting them earlier and waiting for `Promise.all` reduces the total time. Concurrency begins when you create or invoke operations, not when you type `Promise.all`.",
+  "Los combinadores expresan políticas distintas. `Promise.all` cumple cuando todas cumplen, conserva el orden de entrada y rechaza ante el primer rechazo observado. `Promise.allSettled` espera todos los resultados. `Promise.race` adopta el primer settlement. `Promise.any` toma el primer fulfillment y, si todos rechazan, devuelve un `AggregateError`.": "The combinators express different policies. `Promise.all` complies when all comply, preserves the input order and rejects upon the first observed rejection. `Promise.allSettled` awaits all results. `Promise.race` adopts the first settlement. `Promise.any` takes the first fulfillment and, if everyone rejects, returns a `AggregateError`.",
+  "Un `Observable` representa una fuente que puede enviar cero, uno o varios valores a lo largo del tiempo. Una suscripción conecta un observer con esa fuente. El observer puede recibir notificaciones `next`, una única notificación terminal `error` o una única notificación terminal `complete`. Después de `error` o `complete` no llegan más valores.": "A `Observable` represents a source that can send zero, one, or multiple values over time. A subscription connects an observer to that source. The observer can receive `next` notifications, a single `error` terminal notification, or a single `complete` terminal notification. After `error` or `complete` no more values ​​arrive.",
+  "La mayoría de los Observables de RxJS son lazy: el producer comienza para cada `subscribe`. Un Observable cold crea una ejecución independiente por suscriptor, como una request HTTP. Un Observable hot comparte una fuente que ya produce, como eventos del usuario o un Subject. Operadores como `map`, `filter`, `switchMap` y `catchError` crean Observables nuevos y describen el flujo sin mutar la fuente.": "Most RxJS Observables are lazy: the producer starts for every `subscribe`. A cold Observable creates a separate execution per subscriber, like an HTTP request. A Observable hot shares a source that it already produces, such as user events or a Subject. Operators such as `map`, `filter`, `switchMap`, and `catchError` create new Observables and describe the stream without mutating the source.",
+  "`unsubscribe` ejecuta el teardown registrado por el Observable y deja de entregar notificaciones a ese suscriptor. Detener el trabajo subyacente depende de que el producer implemente ese teardown. Angular `HttpClient` aborta la request al desuscribirse; un Observable propio que inicia un timer debe cancelarlo en su función de cleanup. Desuscribirse no deshace efectos que ya ocurrieron.": "`unsubscribe` executes the teardown recorded by Observable and stops delivering notifications to that subscriber. Stopping the underlying work depends on the producer implementing that teardown. Angular `HttpClient` aborts request upon unsubscribing; A Observable of its own that starts a timer must cancel it in its cleanup function. Unsubscribing does not undo effects that have already occurred.",
+  "Promise y Observable modelan contratos distintos. Una Promise comparte un único resultado settled y se consume con `then` o `await`. Un Observable modela una secuencia, puede ser lazy, permite composición temporal y ofrece teardown por suscripción. Convertir entre ambos puede perder información: `firstValueFrom` toma el primer valor y necesita que la fuente emita o termine; convertir una Promise a Observable no vuelve cancelable la operación original.": "Promise and Observable model different contracts. A Promise shares a single settled result and is consumed with `then` or `await`. A Observable models a sequence, can be lazy, allows temporal compositing, and offers subscription teardown. Converting between the two can lose information: `firstValueFrom` takes the first value and needs the source to emit or terminate; converting a Promise to Observable does not make the original operation cancelable.",
+  "`try/catch` captura errores síncronos del bloque y rechazos que atraviesan un `await`. No captura un error lanzado más tarde por un callback desconectado, como un `setTimeout`. Ese callback necesita su propio manejo o debe formar parte de una Promise que el flujo retorne y espere.": "`try/catch` captures synchronous block errors and rejections that traverse a `await`. It does not catch an error thrown later by a disconnected callback, such as a `setTimeout`. That callback needs its own handling or should be part of a Promise that the flow returns and waits for.",
+  "Una Promise no define cancelación. `AbortController` permite pedirle a `fetch` y a otras APIs compatibles que detengan su trabajo mediante una `signal`. Cancelar el cliente evita procesar una respuesta innecesaria, aunque el servidor puede continuar si ya recibió y empezó la operación.": "A Promise does not define cancellation. `AbortController` allows you to ask `fetch` and other supported APIs to stop their work using a `signal`. Canceling the client avoids processing an unnecessary response, although the server can continue if it has already received and started the operation.",
+  "Una race condition aparece cuando varias operaciones compiten por actualizar el mismo estado y terminan en otro orden. Un buscador puede mostrar una respuesta vieja si la primera petición tarda más que la última. Abortá la anterior, asigná una versión a cada solicitud o aceptá el resultado sólo si todavía corresponde a la consulta vigente.": "A race condition appears when several operations compete to update the same state and finish in a different order. A search engine may return an old response if the first request takes longer than the last. Abort the previous one, assign a version to each request or accept the result only if it still corresponds to the current query.",
+  "Debounce espera un período sin eventos antes de ejecutar; sirve para búsquedas mientras el usuario escribe. Throttle impone una frecuencia máxima; sirve para scroll o resize. Ambos necesitan cleanup para cancelar timers o trabajo pendiente cuando se destruye el consumidor.": "Debounce waits a period of no events before executing; It is used for searches while the user writes. Throttle imposes a maximum frequency; It is used to scroll or resize. Both need cleanup to cancel timers or pending work when the consumer is destroyed.",
+  "`async/await` organiza espera de I/O, pero no reduce el costo del código síncrono. Dividí CPU intenso en tareas pequeñas cuando necesitás devolver control al navegador. Usá un Web Worker cuando el cálculo merece otro thread y el costo de copiar datos y enviar mensajes resulta aceptable.": "`async/await` organizes I/O waiting, but does not reduce the cost of synchronous code. I split CPU-intensive tasks into small tasks when you need to give control back to the browser. Use a Web Worker when the calculation deserves another thread and the cost of copying data and sending messages is acceptable.",
+  "Modelo de ejecución": "Execution model",
+  "Promise y async/await": "Promise and async/await",
+  "Observable y streams": "Observable and streams",
+  "Cancelación, errores y rendimiento": "Cancellation, errors and performance",
+  "¿Qué es una Promise?": "What is a Promise?",
+  "Una Promise representa un único resultado que todavía puede no estar disponible. Empieza `pending` y termina `fulfilled` con un valor o `rejected` con un error. Por ejemplo, `fetch('/users')` devuelve de inmediato una Promise; el objeto permite registrar qué hacer cuando lleguen la respuesta o el fallo. La Promise no contiene un thread ni ejecuta dos resultados: modela la finalización de una operación.": "A Promise represents a single result that may not yet be available. Starts `pending` and ends `fulfilled` with a value or `rejected` with an error. For example, `fetch('/users')` immediately returns a Promise; The object allows you to record what to do when the response or failure arrives. Promise does not contain a thread nor does it execute two results: it models the completion of an operation.",
+  "¿El executor de `new Promise` es asíncrono?": "Is `new Promise` executor asynchronous?",
+  "No. `new Promise((resolve) => { console.log('executor'); resolve(1); })` imprime `executor` durante el stack actual. Lo que corre después como microtask es el callback registrado con `then`. Poner un loop pesado dentro del executor bloquea la interfaz igual que cualquier otro código síncrono.": "No. `new Promise((resolve) => { console.log('executor'); resolve(1); })` prints `executor` during the current stack. What runs next as a microtask is the callback registered with `then`. Putting a heavy loop inside the executor blocks the interface just like any other synchronous code.",
+  "¿Qué devuelve `then`?": "What does `then` return?",
+  "`then` devuelve una Promise nueva. Si el callback retorna `42`, la nueva Promise cumple con `42`; si retorna `fetch(...)`, adopta el estado de esa Promise; si lanza un error, queda rechazada. Este contrato permite encadenar transformaciones y propagar errores hasta un `catch`.": "`then` returns a new Promise. If the callback returns `42`, the new Promise satisfies `42`; if `fetch(...)` returns, it adopts the state of that Promise; If it throws an error, it is rejected. This contract allows chaining transformations and propagating errors up to a `catch`.",
+  "¿Qué pasa si olvidás `return` dentro de un `then`?": "What happens if you forget `return` inside a `then`?",
+  "El callback retorna `undefined`, así que el siguiente `then` continúa sin esperar la operación interna. En `loadUser().then(user => { saveUser(user); }).then(showSuccess)`, `showSuccess` puede ejecutarse antes de que termine `saveUser`. La corrección es `return saveUser(user)` o usar `await saveUser(user)` dentro de una función `async`.": "The callback returns `undefined`, so the next `then` continues without waiting for the internal operation. On `loadUser().then(user => { saveUser(user); }).then(showSuccess)`, `showSuccess` may execute before `saveUser` terminates. The fix is ​​`return saveUser(user)` or use `await saveUser(user)` inside a `async` function.",
+  "¿En qué orden imprime el ejemplo?": "In what order do you print the example?",
+  "Primero corre el stack síncrono: `A` y `E`. Después se procesan las microtasks en el orden en que fueron encoladas: `C` y `D`. Al final corre la task del timer y aparece `B`. El resultado es `A, E, C, D, B`. Un timer con demora cero indica una demora mínima; no salta por delante del stack ni de las microtasks.": "First run the synchronous stack: `A` and `E`. The microtasks are then processed in the order in which they were queued: `C` and `D`. At the end the timer task runs and `B` appears. The result is `A, E, C, D, B`. A timer with zero delay indicates a minimum delay; it doesn't jump ahead of the stack or microtasks.",
+  "¿`await` bloquea JavaScript?": "Does `await` block JavaScript?",
+  "`await` pausa la función `async` que lo contiene y devuelve el control al caller. El main thread puede procesar otras tareas. Cuando la Promise termina, JavaScript encola la continuación de la función como microtask. Un cálculo pesado antes o después del `await` sigue bloqueando porque `await` no crea otro thread.": "`await` pauses the containing function `async` and returns control to the caller. The main thread can process other tasks. When Promise finishes, JavaScript enqueues the continuation of the function as a microtask. A heavy calculation before or after `await` still blocks because `await` does not create another thread.",
+  "¿Cuándo usar ejecución secuencial y cuándo concurrente?": "When to use sequential execution and when to use concurrent?",
+  "Usá secuencia cuando una operación depende del resultado anterior, como cargar un usuario y después consultar sus permisos. Para trabajos independientes, iniciá ambos antes: `const userRequest = loadUser(); const settingsRequest = loadSettings(); const [user, settings] = await Promise.all([userRequest, settingsRequest]);`. Así el tiempo total se aproxima a la operación más lenta en lugar de sumar ambas esperas.": "Use sequence when an operation depends on the previous result, such as loading a user and then querying their permissions. For independent jobs, start both before: `const userRequest = loadUser(); const settingsRequest = loadSettings(); const [user, settings] = await Promise.all([userRequest, settingsRequest]);`. Thus the total time approximates the slower operation instead of adding both waits.",
+  "¿Promise u Observable?": "Promise or Observable?",
+  "Una Promise entrega un único resultado y no incorpora cancelación. Empieza cuando la operación que la creó ya fue iniciada. Un Observable puede emitir cero, uno o varios valores; suele comenzar al suscribirse, permite `unsubscribe` y compone tiempo, cancelación y concurrencia mediante operadores. Para una request HTTP aislada una Promise puede alcanzar; para eventos, streams o flujos cancelables, un Observable expresa mejor el contrato.": "A Promise delivers a single result and does not incorporate cancellation. It starts when the operation that created it has already been started. A Observable can output zero, one, or multiple values; It usually starts when you subscribe, allows `unsubscribe`, and composes time, cancellation, and concurrency using operators. For an isolated HTTP request a Promise can be achieved; for cancelable events, streams, or flows, a Observable better expresses the contract.",
+  "¿Qué es un Observable y qué hace `subscribe`?": "What is a Observable and what does `subscribe` do?",
+  "Un Observable describe cómo producir y entregar una secuencia de notificaciones. `subscribe` inicia o conecta esa producción y devuelve una `Subscription`. El observer recibe `next(value)` mientras hay datos y después puede recibir `complete()` o `error(reason)` como final excluyente. Ejemplo: `interval(1000)` emite valores hasta que el consumidor se desuscribe; `http.get()` suele emitir una respuesta y completar.": "A Observable describes how to produce and deliver a sequence of notifications. `subscribe` starts or connects that production and returns a `Subscription`. The observer receives `next(value)` while there is data and can then receive `complete()` or `error(reason)` as an exclusive end. Example: `interval(1000)` emits values ​​until the consumer unsubscribes; `http.get()` usually issues a response and completes.",
+  "¿Observable cold u hot?": "Observable cold or hot?",
+  "Un cold Observable crea una ejecución por suscriptor. Dos suscripciones a `http.get('/users')` suelen crear dos requests. Un hot Observable comparte una fuente externa o una ejecución entre suscriptores, como clicks o un Subject. `share` y `shareReplay` pueden compartir una fuente cold, pero requieren definir replay, refCount y reset para no conservar datos o conexiones más tiempo del previsto.": "A cold Observable creates one execution per subscriber. Two subscriptions to `http.get('/users')` usually create two requests. A hot Observable shares an external source or execution between subscribers, such as clicks or a Subject. `share` and `shareReplay` can share a cold source, but require defining replay, refCount and reset to not retain data or connections longer than expected.",
+  "¿`unsubscribe` siempre cancela el trabajo?": "Does `unsubscribe` always cancel the job?",
+  "`unsubscribe` deja de entregar valores y ejecuta el teardown del producer. Cancela el trabajo sólo si ese teardown sabe detenerlo. `HttpClient` puede abortar la request; un Observable creado con `new Observable` debe retornar cleanup, por ejemplo `return () => clearInterval(id)`. Una Promise convertida con `from(promise)` seguirá resolviéndose porque la Promise original no conoce la suscripción.": "`unsubscribe` stops delivering values ​​and executes the teardown of the producer. It cancels the job only if that teardown knows how to stop it. `HttpClient` may abort the request; a Observable created with `new Observable` should return cleanup, for example `return () => clearInterval(id)`. A Promise converted with `from(promise)` will still resolve because the original Promise does not know about the subscription.",
+  "¿Cuándo convertir una Promise a Observable o un Observable a Promise?": "When to convert a Promise to Observable or a Observable to Promise?",
+  "`from(promise)` integra un resultado único en un pipeline RxJS, pero no agrega cancelación a la Promise. `firstValueFrom(source$)` resuelve con la primera emisión y se desuscribe; `lastValueFrom(source$)` espera que la fuente complete y usa la última. Si la fuente no emite o no completa, la Promise puede rechazar o quedar pendiente, por lo que la conversión necesita un contrato de finalización claro.": "`from(promise)` integrates a single result into a RxJS pipeline, but does not add cancellation to Promise. `firstValueFrom(source$)` resolves with the first issue and unsubscribes; `lastValueFrom(source$)` waits for the source to complete and uses the latest one. If the source is non-emitting or incomplete, the Promise may reject or be left pending, so the conversion needs a clear completion contract.",
+  "¿Cómo cancelás `fetch`?": "How do you cancel `fetch`?",
+  "Creo `const controller = new AbortController()`, paso `controller.signal` a `fetch` y llamo `controller.abort()` cuando la respuesta deja de ser útil. El rechazo resultante representa cancelación y no un error funcional. También limpio el controller al destruir el componente o al iniciar una solicitud que reemplaza la anterior.": "I create `const controller = new AbortController()`, pass `controller.signal` to `fetch`, and call `controller.abort()` when the response is no longer useful. The resulting rejection represents cancellation and not a functional error. I also clear the controller by destroying the component or by starting a request that replaces the previous one.",
+  "¿Por qué `try/catch` no captura un error de `setTimeout`?": "Why doesn't `try/catch` catch an error from `setTimeout`?",
+  "El callback del timer corre en otra task, después de que el bloque `try` terminó. `try { setTimeout(() => { throw new Error('boom'); }); } catch {}` no lo captura. El callback necesita manejar su error o la API debe envolver el resultado en una Promise que el caller pueda retornar y esperar.": "The timer callback runs in another task, after the `try` block has finished. `try { setTimeout(() => { throw new Error('boom'); }); } catch {}` does not capture it. The callback needs to handle its error or the API needs to wrap the result in a Promise that the caller can return and wait for.",
+  "¿Cómo evitás que una respuesta vieja reemplace una nueva?": "How do you prevent an old answer from replacing a new one?",
+  "Guardo la identidad de la solicitud vigente, cancelo la anterior o comparo una versión antes de escribir estado. En un buscador, la consulta `ang` puede responder después de `angular`; sin esa protección, la UI muestra resultados que ya no coinciden con el input. En RxJS, `switchMap` expresa la política de conservar sólo la operación más reciente.": "I save the identity of the current request, cancel the previous one, or compare a version before writing status. In a search engine, the query `ang` may answer after `angular`; Without that protection, the UI displays results that no longer match the input. In RxJS, `switchMap` expresses the policy of keeping only the most recent operation.",
+  "¿Cómo puede una cadena de microtasks bloquear la interfaz?": "How can a chain of microtasks block the interface?",
+  "El navegador vacía la cola de microtasks antes de avanzar al siguiente task y al render. Una cadena que agenda otra microtask puede retrasar input y pintura. Divido el trabajo y cedo al scheduler cuando necesito que el navegador procese otra tarea.": "The browser empties the microtask queue before advancing to the next task and rendering. A chain that schedules another microtask can delay input and painting. I split the work and defer to the scheduler when I need the browser to process another task.",
+  "¿Qué ocurre si falla una promesa dentro de `Promise.all`?": "What happens if a promise inside `Promise.all` fails?",
+  "`Promise.all` rechaza al recibir el primer rechazo observable, pero las operaciones restantes continúan salvo que su API admita cancelación. Uso `allSettled` cuando necesito el resultado de cada operación y `AbortController` cuando debo detener I/O compatible.": "`Promise.all` rejects upon receipt of the first observable rejection, but remaining operations continue unless its API supports cancellation. I use `allSettled` when I need the result of each operation and `AbortController` when I need to stop compatible I/O.",
+  "MDN · Asynchronous JavaScript": "MDN Asynchronous JavaScript",
+  "RxJS · Observable": "RxJS · Observable",
+  "TypeScript avanzado": "TypeScript advanced",
+  "Angular amplifica TypeScript. Una base débil en el lenguaje produce templates inseguros, estado mutable y RxJS difícil de mantener.": "Angular amplifies TypeScript. A weak foundation in the language produces unsafe templates, mutable state, and RxJS that are difficult to maintain.",
+  "TypeScript agrega un sistema de tipos estático sobre JavaScript. El compilador comprueba el programa y elimina los tipos al emitir JavaScript; por eso un tipo no valida datos que llegan en runtime.": "TypeScript adds a static type system over JavaScript. The compiler checks the program and removes the types by issuing JavaScript; That is why a type does not validate data that arrives in runtime.",
+  "La inferencia deduce tipos a partir de valores y contexto. El tipado estructural considera compatibles dos valores cuando su forma satisface el contrato, aunque no compartan una clase o declaración nominal.": "Inference deduces types from values and context. Structural typing considers two values ​​compatible when their form satisfies the contract, even if they do not share a class or nominal declaration.",
+  "Una unión expresa alternativas y el narrowing descarta posibilidades mediante `typeof`, `in`, `instanceof`, discriminantes o type guards. Un `switch` que entrega el caso restante a `never` detecta variantes nuevas durante la compilación.": "A union expresses alternatives and narrowing rules out possibilities through `typeof`, `in`, `instanceof`, discriminants or type guards. A `switch` that delivers the remaining case to `never` detects new variants during compilation.",
+  "`interface` describe contratos extensibles y admite declaration merging. `type` también representa unions, tuplas, primitivas y tipos calculados. La capacidad que necesita el modelo decide la elección.": "`interface` describes extensible contracts and supports declaration merging. `type` also represents unions, tuples, primitives, and computed types. The capacity needed by the model decides the choice.",
+  "TypeScript extiende JavaScript con un sistema de tipos estático. El compilador comprueba el programa y elimina los tipos al emitir JavaScript; por eso una anotación no valida por sí sola los datos que llegan en runtime.": "TypeScript extends JavaScript with a static type system. The compiler checks the program and removes the types by issuing JavaScript; That is why an annotation does not by itself validate the data that arrives in runtime.",
+  "La inferencia obtiene un tipo desde el valor y su contexto. Una anotación fija el contrato de forma explícita. `as const` conserva literales y vuelve readonly la estructura inferida, mientras una anotación amplia puede convertir un literal como `'open'` en `string`.": "Inference obtains a type from the value and its context. An annotation establishes the contract explicitly. `as const` preserves literals and makes the inferred structure readonly, while a broad annotation can convert a literal such as `'open'` to `string`.",
+  "TypeScript usa tipado estructural: dos valores son compatibles cuando su forma cumple las propiedades requeridas, aunque sus clases o nombres sean distintos. El exceso de propiedades se comprueba con más rigor en object literals que en variables intermedias.": "TypeScript uses structural typing: two values are compatible when their form meets the required properties, even if their classes or names are different. Excess properties are checked more rigorously in object literals than in intermediate variables.",
+  "Una `interface` describe contratos de objetos y admite declaration merging. Un `type` también puede representar unions, intersections, primitivas, tuplas y transformaciones calculadas. Ambos pueden expresar muchos contratos de objetos.": "A `interface` describes object contracts and supports declaration merging. A `type` can also represent unions, intersections, primitives, tuples, and computed transformations. Both can express many object contracts.",
+  "Una union `A | B` acepta cualquiera de sus miembros y sólo permite operaciones comunes hasta estrechar el tipo. Una intersection `A & B` exige que el valor cumpla ambos contratos al mismo tiempo.": "A `A | B` union accepts any of its members and only allows common operations until the type is narrowed. A `A & B` intersection requires that the security satisfy both contracts at the same time.",
+  "Las firmas de funciones tipan parámetros y retorno. Los overloads publican varias formas válidas de llamada sobre una implementación, mientras los parámetros opcionales, rest y valores por defecto modelan variaciones dentro de una misma firma.": "Function signatures type parameters and returns. Overloads publish several valid forms of calls on an implementation, while optional parameters, rest and default values ​​model variations within the same signature.",
+  "`any` desactiva la comprobación para el valor y permite que el hueco de tipos se propague. `unknown` acepta cualquier valor, pero exige comprobar su tipo antes de operar con él.": "`any` disables checking for the value and allows the type gap to propagate. `unknown` accepts any value, but requires checking its type before trading on it.",
+  "`never` representa un valor que no puede existir. Aparece en funciones que no retornan y en ramas exhaustivas de una unión, donde permite detectar variantes sin manejar durante la compilación.": "`never` represents a value that cannot exist. It appears in non-returning functions and in exhaustive branches of a union, where it allows detecting unhandled variants during compilation.",
+  "Un generic introduce parámetros de tipo. La relación entre entrada y salida se conserva sin reemplazarla por `any`; por ejemplo, una función `identity<T>(value: T): T` devuelve el mismo tipo que recibió.": "A generic introduces type parameters. The relationship between input and output is preserved without being replaced by `any`; for example, a function `identity<T>(value: T): T` returns the same type as it received.",
+  "Una discriminated union reúne variantes que comparten una propiedad literal, como `kind`. Al comprobar esa propiedad, TypeScript estrecha el tipo y habilita únicamente los campos de la variante activa. Un caso `default` asignado a `never` detecta estados nuevos que todavía no tienen manejo.": "A discriminated union brings together variants that share a literal property, such as `kind`. When checking that property, TypeScript narrows the type and enables only the fields of the active variant. A case `default` assigned to `never` detects new states that are not yet handled.",
+  "El operador `satisfies` comprueba que una expresión cumple un tipo sin reemplazar el tipo inferido de la expresión. Una anotación puede ensanchar el valor y un type assertion sólo le pide al compilador que confíe en el programador.": "The `satisfies` operator checks that an expression conforms to a type without replacing the inferred type of the expression. An annotation can widen the value and a type assertion only asks the compiler to trust the programmer.",
+  "Los utility types transforman tipos existentes. `Partial` vuelve opcionales sus propiedades, `Required` hace lo contrario, `Pick` y `Omit` seleccionan claves, y `Record` modela un mapa de claves a valores.": "Utility types transform existing types. `Partial` makes its properties optional, `Required` does the opposite, `Pick` and `Omit` select keys, and `Record` models a key-to-value map.",
+  "Un type guard estrecha un tipo dentro de una rama. `typeof`, `instanceof`, el operador `in`, predicados `value is T` y funciones de assertion permiten demostrarle al compilador qué variante existe en runtime.": "A type guard narrows a type within a branch. `typeof`, `instanceof`, the `in` operator, `value is T` predicates and assertion functions allow you to show the compiler which variant exists at runtime.",
+  "Optional chaining (`?.`) corta una cadena sólo ante `null` o `undefined`. Nullish coalescing (`??`) usa el valor alternativo únicamente para esos dos casos, mientras que `||` también reemplaza `0`, `false` y la cadena vacía.": "Optional chaining (`?.`) cuts a chain only before `null` or `undefined`. Nullish coalescing (`??`) uses the alternative value only for those two cases, while `||` also replaces `0`, `false`, and the empty string.",
+  "Los decorators reciben metadata sobre clases o miembros y pueden reemplazar o complementar su definición según la propuesta y configuración usada. Angular los emplea para registrar componentes, directivas, pipes e inyectables.": "Decorators receive metadata about classes or members and can replace or complement their definition depending on the proposal and configuration used. Angular uses them to register components, directives, pipes and injectables.",
+  "La configuración `strict` activa un conjunto de comprobaciones, entre ellas nullability, parámetros de funciones y propiedades inicializadas. El compilador encuentra estados inválidos antes de que lleguen al template o al runtime.": "The `strict` setting enables a set of checks, including nullability, function parameters, and initialized properties. The compiler finds invalid states before they reach the template or runtime.",
+  "Sistema de tipos": "type system",
+  "Narrowing y modelado": "Narrowing and modeling",
+  "Tipos calculados y generics": "Calculated and generic types",
+  "Runtime y configuración": "Runtime and configuration",
+  "¿Por qué `unknown` supera a `any`?": "Why does `unknown` outperform `any`?",
+  "`unknown` obliga a validar o estrechar el tipo antes de usarlo. `any` permite operaciones inválidas y propaga huecos por toda la aplicación.": "`unknown` forces you to validate or narrow the type before using it. `any` allows invalid operations and propagates holes throughout the application.",
+  "¿`interface` o `type`?": "`interface` or `type`?",
+  "Ambos describen formas de objetos. `interface` admite declaration merging y extensión orientada a contratos; `type` también representa unions, intersections, tuplas y tipos calculados. La consistencia del código y la capacidad necesaria deciden la elección.": "Both describe shapes of objects. `interface` supports declaration merging and contract-oriented extension; `type` also represents unions, intersections, tuples, and computed types. The consistency of the code and the capacity needed decide the choice.",
+  "¿Qué diferencia existe entre `satisfies` y `as`?": "What is the difference between `satisfies` and `as`?",
+  "`satisfies` comprueba que el valor cumple un contrato y conserva su inferencia. `as` fuerza una interpretación del tipo y puede ocultar una incompatibilidad. Uso assertions sólo cuando el runtime aporta una garantía que el compilador no puede demostrar.": "`satisfies` checks that the value satisfies a contract and preserves its inference. `as` forces an interpretation of the type and may hide an incompatibility. I use assertions only when the runtime provides a guarantee that the compiler cannot prove.",
+  "¿Cómo diseñás un generic útil?": "How do you design a useful generic?",
+  "El generic debe conservar una relación entre valores, por ejemplo entre entrada y salida o entre una key y su propiedad. Si el parámetro de tipo aparece una sola vez, quizá una unión o un tipo concreto comunique mejor el contrato.": "The generic must preserve a relationship between values, for example between input and output or between a key and its property. If the type parameter appears only once, perhaps a union or a specific type better communicates the contract.",
+  "¿TypeScript valida una respuesta HTTP?": "Does TypeScript validate an HTTP response?",
+  "No. Los tipos desaparecen al compilar y una assertion sólo cambia lo que cree el compilador. Valido el JSON con un schema o type guard en la frontera y recién entonces lo convierto al modelo interno.": "No. Types disappear upon compilation and an assertion only changes what the compiler believes. I validate the JSON with a schema or type guard at the border and only then convert it to the internal model.",
+  "¿Qué significa que TypeScript sea estructural?": "What does it mean for TypeScript to be structural?",
+  "La compatibilidad depende de la forma del valor. Si un objeto posee las propiedades requeridas con tipos compatibles, puede satisfacer el contrato aunque provenga de otra declaración. Esto facilita composición, pero exige cuidado con exceso de propiedades y tipos demasiado amplios.": "Compatibility depends on the form of the value. If an object has the required properties with compatible types, it can satisfy the contract even if it comes from another declaration. This facilitates composition, but requires caution with excessive properties and overly broad types.",
+  "¿Cómo funciona un conditional type con `infer`?": "How does a conditional type work with `infer`?",
+  "Un conditional type elige un resultado según una relación `T extends U`. `infer` declara una variable de tipo dentro del patrón: `type Result<T> = T extends Promise<infer R> ? R : T` extrae el valor resuelto de una Promise.": "A conditional type chooses a result according to a `T extends U` relationship. `infer` declares a type variable within the pattern: `type Result<T> = T extends Promise<infer R> ? R : T` extracts the resolved value of a Promise.",
+  "¿Cuándo usarías un mapped type?": "When would you use a mapped type?",
+  "Cuando un contrato deriva de otro de forma mecánica. `type Flags<T> = { [K in keyof T]: boolean }` conserva las keys y cambia sus valores. Esto evita duplicar modelos que luego divergen.": "When one contract derives from another mechanically. `type Flags<T> = { [K in keyof T]: boolean }` preserves the keys and changes their values. This avoids duplicating models that later diverge.",
+  "TypeScript · Handbook": "TypeScript · Handbook",
+  "Angular: fundamentos, renderizado y versiones": "Angular: Basics, Rendering and Versions",
+  "Angular organiza la aplicación como un árbol de componentes, compila templates, inyecta dependencias y actualiza el DOM mediante change detection. Desde esa base se entienden standalone, Signals, zoneless y las migraciones entre versiones.": "Angular organizes the application as a tree of components, compiles templates, injects dependencies and updates the DOM using change detection. From that base, standalone, Signals, zoneless and migrations between versions are understood.",
+  "Angular es un framework para construir aplicaciones web a partir de un árbol de componentes. Cada componente une una clase TypeScript, una plantilla, estilos y un host element. El router, la inyección de dependencias, forms y HttpClient completan la plataforma.": "Angular is a framework for building web applications from a tree of components. Each component brings together a TypeScript class, a template, styles, and a host element. router, dependency injection, forms and HttpClient complete the platform.",
+  "`bootstrapApplication` crea el environment injector, instancia el componente raíz y conecta su host view al DOM. Desde esa raíz Angular recorre views, evalúa bindings y actualiza sólo las propiedades del DOM cuyo valor cambió.": "`bootstrapApplication` creates the environment injector, instantiates the root component and connects its host view to DOM. From that root Angular cycles through views, evaluates bindings and updates only the properties of DOM whose value changed.",
+  "Una plantilla combina HTML con expresiones y bindings. `{{ value }}` interpola texto, `[property]` escribe una propiedad, `[attr.name]` escribe un atributo, `(event)` escucha un evento y `[(value)]` combina entrada y salida bajo un contrato de two-way binding.": "A template combines HTML with expressions and bindings. `{{ value }}` interpolates text, `[property]` writes a property, `[attr.name]` writes an attribute, `(event)` listens for an event, and `[(value)]` combines input and output under a two-way binding contract.",
+  "Angular compila las plantillas y conoce de antemano qué nodos y bindings debe crear. Change detection vuelve a evaluar esos bindings cuando una notificación marca una vista para comprobar; Signals permiten registrar dependencias reactivas precisas.": "Angular compiles the templates and knows in advance which nodes and bindings to create. Change detection re-evaluates those bindings when a notification flags a view for testing; Signals allow you to register precise reactive dependencies.",
+  "Angular publica las versiones mayores de core y CLI de forma alineada. Cada versión admite rangos concretos de Node.js, TypeScript y RxJS; `ng version`, la tabla de compatibilidad y el Update Guide permiten comprobarlos antes de una migración.": "Angular releases major core and CLI versions in an aligned manner. Each version supports specific ranges of Node.js, TypeScript, and RxJS; `ng version`, the compatibility table and the Update Guide allow you to check them before a migration.",
+  "Las aplicaciones nuevas usan componentes standalone. NgModules siguen siendo relevantes en bases antiguas y bibliotecas, pero ya no deben dirigir un diseño nuevo sin motivo.": "New applications use standalone components. NgModules are still relevant in older databases and libraries, but should no longer drive a new design for no reason.",
+  "Angular 21+ usa change detection zoneless por defecto. El código debe notificar cambios mediante signals, listeners, `AsyncPipe`, `setInput` o `markForCheck`.": "Angular 21+ uses change detection zoneless by default. The code must report changes using signals, listeners, `AsyncPipe`, `setInput`, or `markForCheck`.",
+  "El control flow moderno usa `@if`, `@for`, `@switch` y `@empty`. `track` necesita una identidad estable; usar el índice en listas mutables crea errores visuales y trabajo DOM.": "Modern control flow uses `@if`, `@for`, `@switch` and `@empty`. `track` needs a stable identity; using index on mutable lists creates visual bugs and DOM job.",
+  "`@defer` separa las dependencias de una vista en otro chunk y las carga mediante triggers como viewport, idle o interaction. LCP y CLS muestran si diferir contenido visible empeora la carga principal o provoca saltos de layout.": "`@defer` separates the dependencies of a view in another chunk and loads them using triggers such as viewport, idle or interaction. LCP and CLS show whether deferring visible content worsens main loading or causes layout breaks.",
+  "La adopción de una API nueva depende de su estabilidad, soporte, capacidad del equipo y costo de fallback. APIs como `resource`, `httpResource` o Signal Forms requieren revisar su estado antes de incorporarlas a una base de producción.": "Adoption of a new API depends on its stability, support, team capacity, and fallback cost. APIs such as `resource`, `httpResource` or Signal Forms require their status to be reviewed before being incorporated into a production base.",
+  "Modelo de Angular": "Model Angular",
+  "Templates y actualización del DOM": "Templates and DOM update",
+  "Versiones y migraciones": "Versions and migrations",
+  "¿Migrarías todo a la última versión?": "Would you migrate everything to the latest version?",
+  "Migraría por incrementos soportados, con tests, presupuestos de bundle y observabilidad. Priorizo seguridad, compatibilidad y APIs deprecadas; después adopto sintaxis nueva.": "I would migrate by supported increments, with tests, bundle budgets and observability. I prioritize security, compatibility and deprecated APIs; then I adopt new syntax.",
+  "¿Standalone elimina los módulos?": "Does Standalone remove modules?",
+  "Elimina la necesidad de NgModules para declarar componentes. Los módulos todavía pueden agrupar APIs heredadas o librerías. Standalone simplifica dependencias y lazy loading.": "Eliminates the need for NgModules to declare components. Modules can still bundle legacy APIs or libraries. Standalone simplifies dependencies and lazy loading.",
+  "¿Qué revisarías antes de activar zoneless?": "What would you check before activating zoneless?",
+  "Busco mutaciones que dependen de ZoneJS, librerías que actualizan campos sin notificar y usos directos de APIs externas. Migro el estado visible a signals, `AsyncPipe` o marcas explícitas y comparo tests y métricas antes de retirar ZoneJS.": "I look for mutations that depend on ZoneJS, libraries that update fields without notifying and direct uses of external APIs. I migrate the visible state to signals, `AsyncPipe` or explicit flags and compare tests and metrics before removing ZoneJS.",
+  "¿Cómo decidís qué contenido cargar con `@defer`?": "How do you decide what content to upload with `@defer`?",
+  "Difiero contenido costoso que no participa del primer objetivo visual. Elijo trigger y prefetch según la probabilidad de uso, reservo espacio para evitar CLS y mido LCP, transferencia e interacción en una build de producción.": "I differentiate expensive content that does not participate in the first visual objective. I choose trigger and prefetch based on the probability of use, reserve space to avoid CLS and measure LCP, transfer and interaction in a production build.",
+  "¿Qué ocurre desde `bootstrapApplication` hasta ver el primer componente?": "What happens from `bootstrapApplication` until seeing the first component?",
+  "Angular crea el environment injector con los providers de la aplicación, instancia el componente raíz, crea su host view y ejecuta el primer render. La plantilla compilada crea nodos, evalúa bindings y conecta listeners antes de que los cambios posteriores entren en change detection.": "Angular creates the environment injector with the application providers, instantiates the root component, creates its host view and executes the first render. The compiled template creates nodes, evaluates bindings, and connects listeners before subsequent changes go into change detection.",
+  "¿Interpolación, property binding o attribute binding?": "Interpolation, property binding or attribute binding?",
+  "Interpolación produce texto. Property binding escribe una propiedad runtime del elemento o componente. Attribute binding escribe el atributo, por ejemplo ARIA o SVG. Elijo según el destino real del valor, no según una preferencia de sintaxis.": "Interpolation produces text. Property binding writes a runtime property of the element or component. Attribute binding writes the attribute, for example ARIA or SVG. I choose based on the actual destination of the value, not based on a syntax preference.",
+  "¿Cómo actualiza Angular el DOM?": "How does Angular update DOM?",
+  "La plantilla compilada contiene instrucciones para cada binding. Durante change detection Angular evalúa la expresión, compara el resultado con el valor anterior y escribe sólo el destino que cambió. No vuelve a construir todo el HTML del componente.": "The compiled template contains instructions for each binding. During change detection Angular evaluates the expression, compares the result with the previous value and writes only the destination that changed. It does not rebuild the entire HTML component.",
+  "¿Qué adoptarías primero al modernizar una aplicación antigua?": "What would you adopt first when modernizing an old application?",
+  "Actualizo majors soportadas y estabilizo tests. Después reduzco NgModules con standalone, migro control flow y recién introduzco Signals o zoneless donde el modelo de estado lo justifique. Cada etapa conserva una forma de medir y revertir.": "I update supported majors and stabilize tests. Then I reduce NgModules with standalone, migrate control flow and just introduce Signals or zoneless where the state model justifies it. Each stage preserves a way of measuring and reversing.",
+  "Angular · Essentials": "Angular · Essentials",
+  "Angular · Releases": "Angular · Releases",
+  "Componentes, templates y composición": "Components, templates and composition",
+  "Un componente Senior mantiene una API pequeña, estado local explícito y un template legible. La composición supera a la herencia para reutilizar UI.": "A Senior component maintains a small API, explicit local state, and a readable template. Composition beats inheritance for UI reuse.",
+  "Cada componente renderiza dentro de un host element. La propiedad `host` de la metadata declara clases, atributos, propiedades y listeners del host en un solo lugar; una binding del consumidor puede colisionar con una binding del componente y Angular resuelve la prioridad según cuál sea estática o dinámica.": "Each component renders within a host element. The `host` metadata property declares host classes, attributes, properties, and listeners in one place; a consumer binding can collide with a component binding and Angular resolves the priority depending on whether it is static or dynamic.",
+  "`@let` declara un valor local que Angular mantiene actualizado. Una template reference variable como `#input` referencia un elemento, componente, directiva exportada o `TemplateRef`, y sólo existe dentro del scope de la view donde se declaró.": "`@let` declares a local value that Angular keeps up to date. A template reference variable such as `#input` references an element, component, exported directive, or `TemplateRef`, and only exists within the scope of the view where it was declared.",
+  "`ng-container` agrupa bindings sin crear un nodo DOM. `ng-template` declara un fragmento que no se renderiza por sí solo; Angular lo representa con `TemplateRef` y puede instanciarlo mediante `NgTemplateOutlet` o `ViewContainerRef.createEmbeddedView`.": "`ng-container` groups bindings without creating a DOM node. `ng-template` declares a fragment that does not render itself; Angular represents it with `TemplateRef` and you can instantiate it using `NgTemplateOutlet` or `ViewContainerRef.createEmbeddedView`.",
+  "`NgComponentOutlet` y `ViewContainerRef.createComponent` crean componentes conocidos en runtime. Los helpers `inputBinding`, `outputBinding` y `twoWayBinding` conectan su API al crearlos y evitan asignaciones o subscriptions manuales dispersas.": "`NgComponentOutlet` and `ViewContainerRef.createComponent` create known components in runtime. The `inputBinding`, `outputBinding` and `twoWayBinding` helpers connect their API when they are created and avoid scattered manual assignments or subscriptions.",
+  "La metadata de un componente conecta una clase con su selector, template, estilos, estrategia de encapsulación, change detection, imports y providers. Los host bindings aplican propiedades, atributos o listeners al elemento anfitrión del componente.": "The metadata of a component connects a class with its selector, template, styles, encapsulation strategy, change detection, imports and providers. Host bindings apply properties, attributes or listeners to the host element of the component.",
+  "`input()` declara un signal de entrada y `output()` crea un emisor tipado hacia el padre. `model()` combina una entrada con su salida `nombreChange`, lo que habilita two-way binding para controles cuyo valor forma parte de su contrato público.": "`input()` declares an input signal and `output()` creates an emitter typed towards the parent. `model()` combines an input with its output `nombreChange`, which enables two-way binding for controls whose value is part of their public contract.",
+  "La proyección con `ng-content` define slots estáticos. `TemplateRef`, `ng-template`, `ViewContainerRef` y creación dinámica cubren composición avanzada.": "Projection with `ng-content` defines static slots. `TemplateRef`, `ng-template`, `ViewContainerRef` and dynamic creation cover advanced composition.",
+  "`viewChild` y `viewChildren` consultan la vista propia; `contentChild` y `contentChildren` consultan contenido proyectado. Las queries basadas en signals cambian cuando cambia el árbol. Una query `required` falla si el contrato no encuentra el hijo esperado.": "`viewChild` and `viewChildren` query the self view; `contentChild` and `contentChildren` query projected content. Queries based on signals change when the tree changes. A `required` query fails if the contract does not find the expected child.",
+  "Una directiva añade comportamiento; un componente añade comportamiento y vista. Una pipe pura debe transformar sin efectos y devolver el mismo resultado para las mismas entradas.": "A directive adds behavior; a component adds behavior and view. A pure pipe should transform without effects and return the same result for the same inputs.",
+  "Angular puede evaluar una expresión de template durante cada comprobación de la vista. Una función costosa invocada desde el template repite ese trabajo. `computed` memoriza una derivación y sólo la recalcula cuando cambia alguno de los signals leídos.": "Angular can evaluate a template expression during each view check. An expensive function called from the template repeats that work. `computed` memorizes a derivation and only recalculates it when one of the signals read changes.",
+  "Contrato del componente": "Component contract",
+  "Templates y fragmentos": "Templates and fragments",
+  "Composición y render dinámico": "Composition and dynamic rendering",
+  "Rendimiento del template": "Template performance",
+  "¿Input o servicio de estado?": "Input or state service?",
+  "Un input expresa dependencia del padre y mantiene el componente reutilizable. Un servicio sirve para estado compartido por ramas distantes o un dominio. No ocultes datos de presentación globalizando todo.": "An input expresses dependency on the parent and keeps the component reusable. A service serves state shared by distant branches or a domain. Do not hide presentation data by globalizing everything.",
+  "¿Content projection o input TemplateRef?": "Content projection or input TemplateRef?",
+  "`ng-content` funciona para slots fijos y ergonomía declarativa. `TemplateRef` permite repetir, parametrizar o elegir plantillas en tiempo de ejecución.": "`ng-content` works for fixed slots and declarative ergonomics. `TemplateRef` allows you to repeat, parameterize, or choose templates at runtime.",
+  "¿Qué debería formar parte de la API pública de un componente?": "What should be part of a component's public API?",
+  "Sólo inputs, outputs y slots que representan variaciones reales del producto. Si una opción expone detalles internos o combina estados inválidos, prefiero dividir responsabilidades o modelar una unión más precisa.": "Only inputs, outputs and slots that represent real variations of the product. If an option exposes internal details or joins invalid states, I prefer to split responsibilities or model a more precise join.",
+  "¿Cuándo crearías una directiva en lugar de un componente?": "When would you create a directive instead of a component?",
+  "Creo una directiva cuando necesito añadir comportamiento a un elemento existente sin imponer markup. Creo un componente cuando la unidad posee estructura visual, estado y una API que deben evolucionar juntos.": "I create a directive when I need to add behavior to an existing element without imposing markup. I create a component when the unit has visual structure, state, and an API that must evolve together.",
+  "¿Property binding o attribute binding?": "Property binding or attribute binding?",
+  "Una property binding escribe en la propiedad runtime del elemento o componente, por ejemplo `[disabled]`. Una attribute binding escribe el atributo HTML con `[attr.aria-expanded]`. Uso atributos para ARIA, SVG o metadata sin una propiedad DOM equivalente.": "A property binding writes to the runtime property of the element or component, for example `[disabled]`. An attribute binding writes the attribute HTML with `[attr.aria-expanded]`. I use attributes for ARIA, SVG or metadata without an equivalent DOM property.",
+  "¿Qué representa una template reference variable?": "What does a template reference variable represent?",
+  "Depende del nodo: en un elemento nativo referencia el HTMLElement, en un componente su instancia, con `exportAs` una directiva y sobre `ng-template` un TemplateRef. Su scope pertenece a la view que la declara.": "It depends on the node: in a native element it references the HTMLElement, in a component its instance, with `exportAs` a directive and on `ng-template` a TemplateRef. Its scope belongs to the view that declares it.",
+  "¿Por qué `ng-template` no aparece en el DOM?": "Why doesn't `ng-template` appear in DOM?",
+  "Declara una receta de view. Angular sólo crea sus nodos cuando una directiva, `NgTemplateOutlet` o `ViewContainerRef` instancia su TemplateRef. Esto permite repetir el fragmento y pasarle contexto.": "Declare a view recipe. Angular only creates its nodes when a directive, `NgTemplateOutlet` or `ViewContainerRef` instantiates its TemplateRef. This allows you to repeat the fragment and pass context to it.",
+  "¿Cómo crearías un componente dinámico con bindings?": "How would you create a dynamic component with bindings?",
+  "Uso `ViewContainerRef.createComponent` si debe formar parte de esa view y paso `bindings` con `inputBinding`, `outputBinding` o `twoWayBinding`. Para un caso declarativo puedo usar `NgComponentOutlet`; para lazy loading visual prefiero evaluar `@defer`.": "I use `ViewContainerRef.createComponent` if it must be part of that view and pass `bindings` with `inputBinding`, `outputBinding` or `twoWayBinding`. For a declarative case I can use `NgComponentOutlet`; for lazy loading visual I prefer to evaluate `@defer`.",
+  "Angular · Templates": "Angular · Templates",
+  "Angular · Programmatic rendering": "Angular · Programmatic rendering",
+  "Ciclo de vida y render hooks": "Lifecycle and render hooks",
+  "El orden importa cuando un componente coordina inputs, queries, DOM y recursos externos.": "Order matters when a component coordinates inputs, queries, DOM and external resources.",
+  "Angular crea una instancia, asigna inputs, ejecuta el primer change detection, inicializa contenido y vista, y luego repite los hooks de check en cada recorrido. Cada hook corresponde a un punto concreto de ese proceso y no funciona como un evento genérico.": "Angular creates an instance, assigns inputs, runs the first change detection, initializes content and view, and then repeats the check hooks on each traversal. Each hook corresponds to a specific point in that process and does not work as a generic event.",
+  "Los hooks de render no se ejecutan durante SSR. `afterNextRender` sirve para una operación DOM posterior al próximo render y `afterEveryRender` para una integración que debe acompañar renders sucesivos; ambos requieren cleanup si crean recursos persistentes.": "Render hooks are not executed during SSR. `afterNextRender` serves for an operation DOM after the next render and `afterEveryRender` for an integration that must accompany successive renders; both require cleanup if they create persistent resources.",
+  "El constructor configura dependencias y estado barato. `ngOnInit` usa inputs inicializados. `ngOnChanges` reacciona a cambios de inputs y corre antes de `ngOnInit` en la primera pasada.": "The builder sets up dependencies and cheap state. `ngOnInit` uses initialized inputs. `ngOnChanges` reacts to input changes and runs before `ngOnInit` on the first pass.",
+  "`ngAfterContentInit/Checked` se relacionan con contenido proyectado. `ngAfterViewInit/Checked` se relacionan con la vista propia y queries.": "`ngAfterContentInit/Checked` relate to projected content. `ngAfterViewInit/Checked` are related to the view itself and queries.",
+  "`afterNextRender` ejecuta un callback después del siguiente render completo; `afterEveryRender` lo hace tras cada render. Agrupar escrituras DOM antes de lecturas geométricas evita alternar style recalculation y layout forzado.": "`afterNextRender` executes a callback after the next complete render; `afterEveryRender` does it after each render. Grouping DOM writes before geometric reads avoids alternating style recalculation and forced layout.",
+  "`DestroyRef` registra cleanup en el mismo contexto donde nace un recurso. `takeUntilDestroyed` completa una suscripción cuando ese contexto se destruye. Observers, timers y listeners creados fuera de Angular requieren también su función explícita de limpieza.": "`DestroyRef` registers cleanup in the same context where a resource is born. `takeUntilDestroyed` completes a subscription when that context is destroyed. Observers, timers and listeners created outside of Angular also require their explicit cleanup function.",
+  "`ExpressionChangedAfterItHasBeenCheckedError` aparece en desarrollo cuando una expresión cambia después de que Angular ya verificó esa vista dentro del mismo ciclo. La causa suele ser un flujo de datos que escribe hacia un ancestro o modifica estado durante un hook tardío; diferir con un timer oculta la inconsistencia.": "`ExpressionChangedAfterItHasBeenCheckedError` appears in development when an expression changes after Angular has already checked that view within the same loop. The cause is usually a data flow that writes to an ancestor or modifies state during a late hook; deferring with a timer hides the inconsistency.",
+  "Modelo mental": "mental model",
+  "Funcionamiento y APIs": "Operation and APIs",
+  "Decisiones, riesgos y verificación": "Decisions, risks and verification",
+  "¿Constructor o `ngOnInit`?": "Builder or `ngOnInit`?",
+  "El constructor pertenece a TypeScript y DI. `ngOnInit` pertenece al ciclo de Angular y recibe inputs listos. Evitá I/O en ambos si un resolver, store o recurso expresa mejor la carga.": "The constructor belongs to TypeScript and DI. `ngOnInit` belongs to the Angular loop and receives ready inputs. Avoid I/O on both if a resolver, store or resource expresses the load better.",
+  "¿Cómo evitás leaks?": "How do you avoid leaks?",
+  "Uso `AsyncPipe`, signals o `takeUntilDestroyed`; limpio APIs externas con `DestroyRef.onDestroy`. Después verifico navegación repetida con profiler y tests.": "Use `AsyncPipe`, signals or `takeUntilDestroyed`; clean external APIs with `DestroyRef.onDestroy`. Then I verify repeated navigation with profiler and tests.",
+  "¿`ngAfterViewInit` o `afterNextRender` para medir DOM?": "`ngAfterViewInit` or `afterNextRender` to measure DOM?",
+  "`ngAfterViewInit` confirma que Angular inicializó la vista, pero una medición puede depender de un render posterior. `afterNextRender` ejecuta trabajo después del siguiente render del árbol y permite separar fases de escritura y lectura.": "`ngAfterViewInit` confirms that Angular initialized the view, but a measurement may depend on a later render. `afterNextRender` executes work after the next render of the tree and allows separating write and read phases.",
+  "¿Qué ventaja aporta `DestroyRef`?": "What advantage does `DestroyRef` provide?",
+  "Coloca la limpieza junto al recurso que la necesita y evita concentrar teardown sin contexto en `ngOnDestroy`. Lo uso con listeners, observers y `takeUntilDestroyed` para vincular su vida al contexto de inyección.": "Place the cleanup next to the resource that needs it and avoid concentrating contextless teardown on `ngOnDestroy`. I use it with listeners, observers and `takeUntilDestroyed` to bind their life to the injection context.",
+  "¿En qué orden corre la primera inicialización?": "In what order does the first initialization run?",
+  "Angular asigna inputs, ejecuta `ngOnChanges`, `ngOnInit`, hooks de content, hooks de view y completa el render. Los hooks `Checked` vuelven a correr en recorridos posteriores; los `Init` corren una vez.": "Angular assigns inputs, executes `ngOnChanges`, `ngOnInit`, content hooks, view hooks and completes the render. The `Checked` hooks run again on subsequent traversals; `Init` run once.",
+  "¿`afterNextRender` funciona durante SSR?": "Does `afterNextRender` work during SSR?",
+  "No. Los render callbacks dependen del navegador. Los uso para medir o integrar DOM después del render y mantengo el camino SSR libre de esa API.": "No. Render callbacks are browser dependent. I use them to measure or integrate DOM after rendering and keep the SSR path free of that API.",
+  "¿Cuándo usarías `ngOnChanges` frente a `computed`?": "When would you use `ngOnChanges` vs `computed`?",
+  "`ngOnChanges` sirve cuando necesito comparar cambios de inputs o ejecutar una adaptación imperativa. Un `computed` expresa mejor una derivación pura de signal inputs porque mantiene la relación sin sincronización manual.": "`ngOnChanges` is useful when I need to compare input changes or execute an imperative adaptation. A `computed` best expresses a pure derivation of signal inputs because it maintains the relationship without manual synchronization.",
+  "¿Por qué un `setTimeout` puede esconder un ExpressionChanged?": "Why can a `setTimeout` hide an ExpressionChanged?",
+  "Mueve la mutación a otra task y evita la comprobación actual, pero conserva un flujo de datos mal ubicado. Corrijo quién posee el estado o muevo el trabajo al hook y fase adecuados.": "Moves the mutation to another task and avoids the current check, but preserves a misplaced data stream. I correct who owns the state or move the job to the appropriate hook and phase.",
+  "Angular · Lifecycle": "Angular · Lifecycle",
+  "Change detection, Signals y zoneless": "Change detection, Signals and zoneless",
+  "Esta sección suele separar experiencia reciente de conocimiento heredado. Explicá quién notifica a Angular, qué vista queda dirty y cuándo se recalcula una derivación.": "This section usually separates recent experience from inherited knowledge. Explain who notifies Angular, which view becomes dirty, and when a derivation is recalculated.",
+  "Change detection recorre las views que Angular considera necesarias, evalúa sus bindings y compara el resultado con el valor anterior. Una notificación marca una view y sus ancestros para que el próximo recorrido incluya esa rama.": "Change detection runs through the views that Angular considers necessary, evaluates their bindings and compares the result with the previous value. A notification marks a view and its ancestors so that the next traversal includes that branch.",
+  "OnPush puede saltar un subárbol limpio. Un input con referencia nueva, un evento manejado en la view, una lectura de signal que cambia, `AsyncPipe`, `setInput` o `markForCheck` vuelven a marcar trabajo.": "OnPush can skip a clean subtree. An input with a new reference, an event handled in the view, a reading of signal that changes, `AsyncPipe`, `setInput` or `markForCheck` flag work again.",
+  "`linkedSignal` conserva un estado editable que se reinicia o adapta cuando cambia una dependencia. `resource` y `httpResource` modelan carga asíncrona reactiva; su conveniencia no reemplaza una política explícita de caché, invalidación y errores.": "`linkedSignal` maintains an editable state that resets or adapts when a dependency changes. `resource` and `httpResource` model reactive asynchronous loading; Its convenience is no substitute for an explicit cache, invalidation, and error policy.",
+  "Default verifica un subárbol con mayor frecuencia. OnPush permite saltar subárboles cuando no reciben nuevos inputs ni notificaciones.": "Default checks a subtree more frequently. OnPush allows skipping subtrees when they do not receive new inputs or notifications.",
+  "Un signal writable usa `set` o `update`; `computed` deriva estado, memoriza y rastrea dependencias dinámicas; `effect` conecta estado reactivo con una API no reactiva.": "A writable signal uses `set` or `update`; `computed` derives state, memorizes and tracks dynamic dependencies; `effect` connects reactive state with a non-reactive API.",
+  "`computed` representa estado derivado: lee otros signals, memoriza el resultado y permanece libre de efectos. `effect` ejecuta una operación cuando cambian sus dependencias. Copiar una derivación mediante `effect` crea dos fuentes de verdad y puede producir ciclos o escrituras redundantes.": "`computed` represents derived state: it reads other signals, memorizes the result and remains free of effects. `effect` executes an operation when its dependencies change. Copying a derivation using `effect` creates two sources of truth and can cause redundant cycles or writes.",
+  "Signals comparan por `Object.is` salvo función de igualdad. Una mutación profunda conserva la referencia y puede ocultar el cambio.": "Signals compare by `Object.is` except equality function. A deep mutation preserves the reference and can hide the change.",
+  "`untracked` lee un signal sin registrar dependencia. Usalo cuando la lectura sea incidental, no para tapar un grafo mal diseñado.": "`untracked` reads a signal without registering a dependency. Use it when reading is incidental, not to cover up a poorly designed graph.",
+  "Zoneless reduce parches y checks innecesarios. Requiere que las actualizaciones lleguen mediante APIs que notifican a Angular.": "Zoneless reduces unnecessary patches and checks. Requires updates to arrive via APIs that notify Angular.",
+  "Signals y RxJS se complementan: signals para estado síncrono leído por la vista; RxJS para flujos asíncronos, cancelación, concurrencia y eventos.": "Signals and RxJS complement each other: signals for synchronous state read by the view; RxJS for asynchronous streams, cancellation, concurrency, and events.",
+  "Recorrido y notificaciones": "Tour and notifications",
+  "Signals y estado derivado": "Signals and derived state",
+  "OnPush y zoneless": "OnPush and zoneless",
+  "Diagnóstico y rendimiento": "Diagnostics and performance",
+  "¿OnPush vuelve inmutable la app?": "Does OnPush make the app immutable?",
+  "No. OnPush cambia cuándo Angular verifica la vista. La inmutabilidad facilita detectar cambios por referencia y evita estado compartido corrupto.": "No. OnPush changes when Angular checks the view. Immutability makes it easier to detect changes by reference and avoids corrupt shared state.",
+  "¿Cuándo usar `effect`?": "When to use `effect`?",
+  "Para logging, almacenamiento, canvas, APIs del navegador o integración externa. Las derivaciones de UI pertenecen a `computed`.": "For logging, storage, canvas, browser APIs or external integration. UI derivations belong to `computed`.",
+  "¿Qué rompe al quitar ZoneJS?": "What breaks when removing ZoneJS?",
+  "Código que muta campos sin emitir una notificación compatible, además de dependencias en eventos de `NgZone`. Migraría estado a signals o marcaría la vista.": "Code that mutates fields without issuing a supported notification, as well as dependencies on `NgZone` events. I would migrate state to signals or flag the view.",
+  "¿Por qué una mutación profunda puede no actualizar la vista?": "Why might a deep mutation not update the view?",
+  "Un signal compara el valor nuevo con el anterior mediante `Object.is` por defecto. Mutar una propiedad conserva la referencia y no publica otro valor. Creo una nueva referencia o modelo el campo como un signal independiente.": "A signal compares the new value with the old one using `Object.is` by default. Mutating a property preserves the reference and does not publish another value. I create a new reference or model field as a separate signal.",
+  "¿Cómo elegís entre `computed` y `effect`?": "How do you choose between `computed` and `effect`?",
+  "`computed` calcula estado derivado y sólo depende de otros signals. `effect` sincroniza el grafo reactivo con una frontera externa como storage, logging o canvas. No copio estado derivado mediante efectos.": "`computed` calculates derived state and only depends on other signals. `effect` synchronizes the reactive graph with an external boundary such as storage, logging, or canvas. I do not copy derived state through effects.",
+  "¿Qué marca una view OnPush como dirty?": "What marks a OnPush view as dirty?",
+  "Una referencia nueva en un input, un evento manejado dentro de la view, un signal leído por la plantilla que cambia, AsyncPipe, `setInput` o `markForCheck`. Una mutación interna de un objeto sin notificación conserva la misma referencia y puede dejar la UI vieja.": "A new reference in an input, an event handled within the view, a signal read by the changing template, AsyncPipe, `setInput` or `markForCheck`. An internal mutation of an object without notification preserves the same reference and may leave the UI old.",
+  "¿`markForCheck` o `detectChanges`?": "`markForCheck` or `detectChanges`?",
+  "`markForCheck` agenda la view para el próximo recorrido y mantiene el flujo normal. `detectChanges` ejecuta una comprobación inmediata de esa view y sus hijos; lo reservo para integraciones controladas porque puede introducir trabajo y orden inesperados.": "`markForCheck` schedules the view for the next tour and maintains the normal flow. `detectChanges` runs an immediate check of that view and its children; I reserve it for controlled integrations because it can introduce unexpected work and order.",
+  "¿Qué resuelve `linkedSignal`?": "What does `linkedSignal` solve?",
+  "Modela un estado editable que depende de otra señal y necesita reajustarse cuando cambia esa fuente, como una selección que debe seguir siendo válida al reemplazar la lista. Evita un effect dedicado a copiar y corregir estado.": "Models an editable state that depends on another signal and needs to be readjusted when that source changes, such as a selection that must remain valid when replacing the list. Avoid an effect dedicated to copying and correcting state.",
+  "¿Cómo investigás demasiados renders?": "How do you research too many renders?",
+  "Grabo una interacción con Angular DevTools y el Performance panel, identifico qué notificación marcó la rama y reviso referencias, funciones de template y efectos. Cambio una causa y vuelvo a medir scripting e INP.": "I record an interaction with Angular DevTools and the Performance panel, identify which notification marked the branch, and review references, template functions, and effects. I change a cause and measure scripting and INP again.",
+  "Angular · Signals": "Angular · Signals",
+  "Angular · Zoneless": "Angular · Zoneless",
+  "Dependency Injection en profundidad": "Dependency Injection in depth",
+  "Angular resuelve dependencias en jerarquías. La ubicación del provider define vida útil, visibilidad y aislamiento.": "Angular resolves dependencies in hierarchies. The location of the provider defines lifetime, visibility and isolation.",
+  "Dependency Injection separa la creación de una dependencia de su consumo. Angular busca un provider para un token, ejecuta su factory cuando corresponde y conserva la instancia según el injector que la posee.": "Dependency Injection separates the creation of a dependency from its consumption. Angular looks for a provider for a token, runs its factory when appropriate, and maintains the instance based on the injector that owns it.",
+  "La resolución comienza en el injector asociado al nodo o environment actual y asciende por la jerarquía. Un provider de componente crea una instancia por subárbol; uno de ruta vive con ese entorno lazy; `providedIn: 'root'` comparte la instancia en la aplicación.": "Resolution starts at the injector associated with the current node or environment and moves up the hierarchy. A component provider creates one instance per subtree; one on the road lives with that lazy environment; `providedIn: 'root'` shares the instance in the application.",
+  "`useClass`, `useValue`, `useFactory` y `useExisting` expresan distintas formas de producir un token. Los multi providers acumulan varios valores bajo el mismo token y sirven para pipelines extensibles.": "`useClass`, `useValue`, `useFactory` and `useExisting` express different ways of producing a token. Multi providers accumulate several values ​​under the same token and are used for extensible pipelines.",
+  "`providedIn: 'root'` crea un singleton por root EnvironmentInjector y permite tree shaking. Un provider de componente crea una instancia por componente.": "`providedIn: 'root'` creates a singleton per root EnvironmentInjector and allows tree shaking. A component provider creates one instance per component.",
+  "La resolución busca primero ElementInjectors y después EnvironmentInjectors. Lazy routes pueden crear contextos e instancias separadas.": "The resolver looks for ElementInjectors first and then EnvironmentInjectors. Lazy routes can create separate contexts and instances.",
+  "`useClass` crea una clase para un token; `useValue` entrega un valor existente; `useExisting` crea un alias; `useFactory` calcula la dependencia con otras inyecciones. Los multi providers acumulan varios valores bajo un token e `InjectionToken` representa contratos que no existen como clase en runtime.": "`useClass` creates a class for a token; `useValue` returns an existing value; `useExisting` creates an alias; `useFactory` calculates the dependency on other injections. Multi providers accumulate several values ​​under a token and `InjectionToken` represents contracts that do not exist as a class in runtime.",
+  "`providers` es visible para vista y contenido descendiente; `viewProviders` oculta el provider al contenido proyectado.": "`providers` is visible to view and descendant content; `viewProviders` hides the provider from the projected content.",
+  "`self`, `skipSelf`, `host` y `optional` limitan la búsqueda. Usalos para contratos intencionales, no como parche.": "`self`, `skipSelf`, `host` and `optional` limit the search. Use them for intentional contracts, not as a patch.",
+  "`inject()` necesita injection context: inicializador, constructor administrado por DI, factory o `runInInjectionContext`.": "`inject()` needs injection context: initializer, DI-managed constructor, factory, or `runInInjectionContext`.",
+  "¿Un servicio Angular es siempre singleton?": "Is a Angular service always singleton?",
+  "Es singleton dentro del injector que lo provee. Dos injectors pueden crear dos instancias. La frase 'singleton global' omite el scope.": "It is a singleton within the injector that provides it. Two injectors can create two instances. The phrase 'singleton global' omits the scope.",
+  "¿Por qué usar InjectionToken?": "Why use InjectionToken?",
+  "Permite inyectar configuración, funciones o interfaces borradas en runtime. El token conserva identidad y puede definir factory y tipo.": "Allows you to inject deleted configuration, functions or interfaces into runtime. The token preserves identity and can define factory and type.",
+  "¿Qué diferencia hay entre `useClass` y `useExisting`?": "What is the difference between `useClass` and `useExisting`?",
+  "`useClass` pide al injector que construya otra instancia de la clase indicada. `useExisting` crea un alias hacia una instancia registrada. Uso el alias cuando dos tokens deben compartir identidad y estado.": "`useClass` asks the injector to construct another instance of the indicated class. `useExisting` creates an alias to a registered instance. I use aliasing when two tokens must share identity and state.",
+  "¿Cómo afecta el lugar del provider a una feature?": "How does the location of the provider affect a feature?",
+  "El injector que registra el provider define su alcance y vida útil. Un provider de componente aísla instancias por subárbol; uno de ruta puede vivir con la feature lazy; root comparte la instancia en la aplicación.": "The injector that registers the provider defines its scope and lifetime. A component provider isolates instances per subtree; one route can live with the lazy feature; root shares the instance in the application.",
+  "¿Cómo busca Angular un provider?": "How does Angular search for a provider?",
+  "Empieza en el injector del contexto actual, consulta providers del nodo y environment, y asciende hasta encontrar el token. Los modificadores de resolución cambian ese recorrido; si ningún provider existe y no es optional, Angular lanza un error.": "It starts at the injector of the current context, queries the node's providers and environment, and works its way up until it finds the token. Resolution modifiers change that path; if no provider exists and is not optional, Angular throws an error.",
+  "¿Provider de componente o de ruta?": "Component or route provider?",
+  "El provider de componente crea una instancia asociada a ese subárbol y se destruye con él. El provider de ruta comparte estado entre componentes de la feature lazy y vive con su environment injector.": "The component provider creates an instance associated with that subtree and is destroyed with it. The route provider shares state between lazy feature components and lives with its environment injector.",
+  "¿Para qué sirve un multi provider?": "What is a multi provider for?",
+  "Permite que varias partes registren valores bajo el mismo token y que el consumidor reciba un array. Lo uso para plugins, validadores o pipelines extensibles donde cada feature aporta una implementación.": "It allows multiple parties to register values under the same token and for the consumer to receive an array. I use it for plugins, validators or extensible pipelines where each feature provides an implementation.",
+  "¿Qué riesgo tiene `providedIn: 'root'`?": "How risky is `providedIn: 'root'`?",
+  "Convierte el servicio en singleton de aplicación. Si guarda estado de pantalla o usuario sin una política de reset, puede mezclar ciclos de navegación y sesiones. El scope debe coincidir con la vida útil del dato.": "Converts the service to an application singleton. If you save screen or user state without a reset policy, you can mix navigation cycles and sessions. The scope must match the useful life of the data.",
+  "Angular · Dependency Injection": "Angular Dependency Injection",
+  "RxJS y concurrencia": "RxJS and concurrency",
+  "La entrevista Senior suele plantear búsquedas, guardado, polling o eventos concurrentes. Elegí el operador a partir de la política de concurrencia.": "The Senior interview usually involves searches, saving, polling or concurrent events. I chose the operator based on the concurrency policy.",
+  "Una subscription representa la ejecución y su teardown. `complete` y `error` cierran el contrato; `unsubscribe` lo termina desde el consumidor. El producer debe registrar cleanup para liberar timers, listeners, sockets o requests cancelables.": "A subscription represents the execution and its teardown. `complete` and `error` close the contract; `unsubscribe` terminates it from the consumer. The producer must register cleanup to release timers, listeners, sockets or cancelable requests.",
+  "La ubicación de `catchError` cambia el alcance del fallo. Dentro de un flattening operator recupera una operación interna y mantiene viva la fuente; afuera termina o reemplaza el flujo completo.": "The location of `catchError` changes the scope of the fault. Within a flattening operator it recovers an internal operation and keeps the source alive; outside terminates or replaces the entire flow.",
+  "`shareReplay` comparte una subscription y conserva emisiones para suscriptores tardíos. Antes de usarlo como caché hay que decidir tamaño de buffer, refCount, reset, errores, vida útil y aislamiento por usuario.": "`shareReplay` shares a subscription and preserves broadcasts for late subscribers. Before using it as a cache, you must decide buffer size, refCount, reset, errors, useful life and isolation per user.",
+  "Cold observables crean el productor por subscription; hot observables comparten un productor externo. `share` y `shareReplay` cambian esa relación.": "Cold observables create the producer by subscription; hot observables share an external producer. `share` and `shareReplay` change that relationship.",
+  "`switchMap` cancela el inner anterior; sirve para búsqueda. `concatMap` serializa; sirve para preservar orden. `mergeMap` permite concurrencia. `exhaustMap` ignora disparos mientras uno está activo.": "`switchMap` cancels the previous inner; It is used for search. `concatMap` serialize; serves to preserve order. `mergeMap` allows concurrency. `exhaustMap` ignores triggers while one is active.",
+  "`map` transforma valores; `tap` ejecuta efectos; `filter` decide emisiones; `scan` acumula; `catchError` define el límite del error.": "`map` transforms values; `tap` runs effects; `filter` decides emissions; `scan` accumulate; `catchError` defines the error limit.",
+  "La ubicación de `catchError` define qué stream termina. Dentro de `switchMap` o de otro flattening operator, el error se reemplaza sólo para esa petición y el stream exterior puede seguir escuchando. Fuera del operador, el error finaliza la cadena completa salvo que se retorne otro observable.": "The location of `catchError` defines which stream ends. Within `switchMap` or another flattening operator, the error is replaced only for that request and the outside stream can continue listening. Outside the operator, the error terminates the entire string unless another observable is returned.",
+  "`combineLatest` reacciona a últimos valores; `forkJoin` espera que todos completen; `withLatestFrom` toma contexto cuando la fuente emite.": "`combineLatest` reacts to latest values; `forkJoin` expects everyone to complete; `withLatestFrom` takes context when the source emits.",
+  "`Subject` no conserva un valor, `BehaviorSubject` guarda el último y exige uno inicial, y `ReplaySubject` reproduce una cantidad o ventana de emisiones. Exponer sólo `asObservable()` impide que consumidores externos escriban en el estado del productor.": "`Subject` does not keep a value, `BehaviorSubject` keeps the last one and requires an initial one, and `ReplaySubject` plays a number or window of emissions. Exposing only `asObservable()` prevents external consumers from writing to the producer state.",
+  "`shareReplay({bufferSize: 1, refCount: true})` puede cachear, pero necesitás invalidación, manejo de error y semántica de vida útil.": "`shareReplay({bufferSize: 1, refCount: true})` can cache, but you need invalidation, error handling, and lifetime semantics.",
+  "Contrato Observable": "Contract Observable",
+  "Operadores y concurrencia": "Operators and attendance",
+  "Errores y teardown": "Bugs and teardown",
+  "Sharing y caché": "Sharing and cache",
+  "¿Por qué no subscribirse dentro de subscribe?": "Why not subscribe within subscribe?",
+  "Anida ciclos de vida y errores, complica cancelación y crea carreras. Un operador de flattening expresa la política y devuelve una sola subscription.": "It nests life cycles and errors, complicates cancellation and creates races. A flattening operator expresses the policy and returns a single subscription.",
+  "¿Cómo cancelás una búsqueda anterior?": "How do you cancel a previous search?",
+  "Debounceo, elimino duplicados y uso `switchMap`. El unsubscribe cancela la petición XHR/fetch cuando el backend y el cliente lo permiten.": "I debounce, remove duplicates and use `switchMap`. unsubscribe cancels the XHR/fetch request when the backend and client allow it.",
+  "¿`switchMap` cancela el trabajo en el servidor?": "Does `switchMap` cancel job on server?",
+  "Unsubscribe detiene la observación y puede abortar el request si la fuente integra cancelación, como `HttpClient`. El servidor puede haber iniciado el trabajo. Las operaciones con efectos necesitan idempotencia o un protocolo de cancelación propio.": "Unsubscribe stops the observation and may abort the request if the source integrates cancellation, such as `HttpClient`. The server may have started the job. Effects operations require idempotence or their own cancellation protocol.",
+  "¿Qué riesgo tiene `shareReplay`?": "How risky is `shareReplay`?",
+  "Puede retener el último valor y mantener viva la suscripción más tiempo del esperado. Defino buffer, `refCount` y política de reset según el ciclo de vida. También decido cómo invalidar errores y datos stale.": "You can retain the last value and keep the subscription alive longer than expected. I define buffer, `refCount` and reset policy according to the life cycle. I also decide how to invalidate errors and stale data.",
+  "¿Dónde colocás `catchError` dentro de `switchMap`?": "Where do you put `catchError` inside `switchMap`?",
+  "Dentro si cada request puede fallar y la fuente debe seguir escuchando búsquedas. Fuera si cualquier error termina o reemplaza el flujo completo. La posición determina qué subscription se cierra.": "Inside if each request can fail and the source must continue listening for lookups. Out if any error terminates or replaces the entire flow. The position determines which subscription is closed.",
+  "¿Qué debe hacer el teardown de un Observable?": "What should teardown a Observable do?",
+  "Detiene el recurso creado por esa suscripción: remueve listeners, limpia timers, cierra sockets o aborta I/O compatible. También debe tolerar llamadas repetidas sin producir efectos inválidos.": "Stops the resource created by that subscription: removes listeners, clears timers, closes sockets or aborts compatible I/O. It must also tolerate repeated calls without producing invalid effects.",
+  "¿Cuándo `shareReplay(1)` puede producir un leak?": "When can `shareReplay(1)` produce a leak?",
+  "Cuando mantiene la fuente suscripta después de irse el último consumidor o conserva un valor pesado sin política de reset. Configuro `refCount` y resets según si necesito una caché persistente o sólo compartir consumidores simultáneos.": "When you keep the source subscribed after the last consumer leaves or keep a heavy value without a reset policy. I configure `refCount` and resets depending on whether I need a persistent cache or just sharing concurrent consumers.",
+  "¿Cómo elegir entre los cuatro flattening operators?": "How to choose between the four flattening operators?",
+  "Elijo la política de concurrencia: `switchMap` reemplaza, `concatMap` encola, `mergeMap` permite paralelismo y `exhaustMap` ignora nuevas entradas mientras una sigue activa. La semántica del negocio decide cuál pérdida u orden resulta válido.": "I choose the concurrency policy: `switchMap` replaces, `concatMap` enqueues, `mergeMap` allows parallelism, and `exhaustMap` ignores new entries while one is still active. The semantics of the business decide which loss or order is valid.",
+  "RxJS · Operator decision tree": "RxJS · Operator decision tree",
+  "Estado: local, servicios, Signals y NgRx": "Status: local, services, Signals and NgRx",
+  "No existe una herramienta única. Un Senior reduce el alcance del estado y aumenta la estructura cuando la complejidad lo exige.": "There is no single tool. A Senior reduces the scope of the state and increases the structure when complexity demands it.",
+  "El estado pertenece al dueño más cercano que necesita escribirlo. Un componente resuelve estado efímero; un servicio de feature coordina varias vistas; un store formaliza eventos y efectos cuando muchas partes modifican el mismo dominio.": "The status belongs to the closest owner who needs to write it. A component resolves ephemeral state; a feature service coordinates several views; A store formalizes events and effects when many parties modify the same domain.",
+  "Estado fuente y estado derivado deben estar separados. Signals `computed` y selectors calculan vistas del mismo dato; copiar el resultado a otra variable exige sincronización y permite inconsistencias.": "Source state and derived state must be separated. Signals `computed` and selectors compute views of the same data; Copying the result to another variable requires synchronization and allows inconsistencies.",
+  "Estado local de componente: UI efímera. Servicio de feature: coordinación de una rama. Store global: datos compartidos, flujos complejos, auditoría o herramientas de desarrollo.": "Component local state: Ephemeral UI. Feature service: coordination of a branch. Global store: shared data, complex flows, auditing or development tools.",
+  "Server state es una copia local de datos remotos y necesita caché, stale time, invalidación, deduplicación y reintentos. Client state nace en la interfaz, como selección, filtros o un wizard, y su ciclo de vida depende de la navegación y del alcance de la feature.": "Server state is a local copy of remote data and requires caching, stale time, invalidation, deduplication, and retries. Client state is born in the interface, as selection, filters or a wizard, and its life cycle depends on the navigation and the scope of the feature.",
+  "En NgRx, una action describe un evento, un reducer calcula el siguiente estado sin efectos, un selector deriva y memoriza consultas, y un effect conecta eventos con I/O. Entity normaliza colecciones como un diccionario de ids más una lista ordenada.": "In NgRx, an action describes an event, a reducer computes the next state without effects, a selector derives and memorizes queries, and an effect connects events to I/O. Entity normalizes collections as a dictionary of ids plus an ordered list.",
+  "El estado derivado se calcula desde la fuente mediante selectors o `computed`; almacenarlo por separado exige sincronizar copias. Las actions expresadas como hechos de dominio, por ejemplo `invoiceSubmitted`, permiten que varios efectos reaccionen sin acoplarse al botón que originó el evento.": "The derived state is calculated from the source using selectors or `computed`; Storing it separately requires synchronizing copies. Actions expressed as domain events, for example `invoiceSubmitted`, allow various effects to react without being attached to the button that caused the event.",
+  "ComponentStore y SignalStore encapsulan estado de una feature sin crear un store global. La elección depende de la estabilidad de la API, el ecosistema disponible y la experiencia del equipo con el modelo reactivo.": "ComponentStore and SignalStore encapsulate state of a feature without creating a global store. The choice depends on the stability of the API, the available ecosystem, and the team's experience with the reactive model.",
+  "Una actualización optimista modifica la UI antes de recibir confirmación. El diseño necesita rollback o reconciliación cuando falla, una clave idempotente para evitar duplicados y una regla para conflictos entre la versión local y la remota.": "An optimistic update modifies the UI before receiving confirmation. The design needs rollback or reconciliation when it fails, an idempotent key to avoid duplicates, and a rule for conflicts between the local and remote versions.",
+  "¿Cuándo elegir NgRx?": "When to choose NgRx?",
+  "Cuando varios flujos comparten estado, necesitás trazabilidad, efectos coordinados o reglas complejas. Para un formulario aislado, un store global aumenta costo sin beneficio.": "When several flows share state, you need traceability, coordinated effects or complex rules. For an isolated form, a global store increases cost without benefit.",
+  "¿Qué nunca guardarías en el store?": "What would you never keep in the store?",
+  "Derivaciones recalculables, objetos no serializables sin necesidad y estado DOM efímero. Guardaría la fuente mínima de verdad.": "Recalculatable derivations, unnecessarily non-serializable objects, and ephemeral DOM state. I would save the minimal source of truth.",
+  "¿Cómo separás server state de client state?": "How do you separate server state from client state?",
+  "Server state es una copia de datos remotos y requiere stale time, caché e invalidación. Client state nace en la interacción, por ejemplo filtros o pasos de un wizard. Separarlos evita que un store trate ambos ciclos de vida con la misma política.": "Server state is a copy of remote data and requires stale time, caching, and invalidation. Client state is born in the interaction, for example filters or steps of a wizard. Separating them prevents a store from treating both lifecycles with the same policy.",
+  "¿Qué señales justifican introducir NgRx?": "What signals justify introducing NgRx?",
+  "Lo considero cuando varios flujos escriben el mismo dominio, necesito trazabilidad de eventos, efectos coordinados o reglas de actualización compartidas. Un formulario local o una pantalla aislada no justifican ese costo por sí solos.": "I consider it when multiple flows write the same domain, I need event traceability, coordinated effects or shared update rules. A local form or isolated display does not justify that cost alone.",
+  "¿Cuándo un servicio con Signals deja de alcanzar?": "When does a service with Signals stop reaching?",
+  "Cuando varias features escriben el mismo dominio, necesito historial claro de eventos, efectos coordinados, herramientas de inspección o reglas consistentes de actualización. En ese punto un store formal reduce caminos implícitos.": "When multiple features write to the same domain, I need clear event history, coordinated effects, inspection tools, or consistent update rules. At that point a formal store reduces implicit paths.",
+  "¿Qué es estado derivado?": "What is derived state?",
+  "Es un valor calculable desde estado fuente, como el total de un carrito. Lo expreso con `computed` o un selector y no lo guardo por separado, porque dos copias pueden divergir.": "It is a value that can be calculated from the source state, like the total of a cart. I express it with `computed` or a selector and don't save it separately, because two copies can diverge.",
+  "¿Cómo modelás una optimistic update?": "How do you model an optimistic update?",
+  "Aplico un cambio local con un identificador de operación, envío la request y confirmo o revierto según el resultado. Resuelvo concurrencia, duplicados y mensajes de error sin perder una edición posterior.": "I apply a local change with an operation ID, send the request, and commit or rollback depending on the result. I resolve concurrency, duplicates and error messages without losing a later edit.",
+  "¿Qué pondrías en el store global?": "What would you put in the global store?",
+  "Estado de dominio compartido cuya vida cruza rutas y necesita coordinación. Estados de foco, accordion o formulario temporal permanecen cerca del componente salvo que otra parte de la aplicación deba controlarlos.": "Shared domain state whose life crosses paths and requires coordination. Focus, accordion, or temporary form states remain close to the component unless another part of the application needs to control them.",
+  "NgRx · Guide": "NgRx Guide",
+  "Routing y navegación": "Routing and navigation",
+  "El router define fronteras de carga, autorización y datos. Diseñá rutas como parte de la arquitectura.": "The router defines upload, authorization and data boundaries. Design routes as part of the architecture.",
+  "El Router compara la URL con un árbol de rutas, ejecuta redirects, guards y resolvers, activa componentes en outlets y conserva snapshots más streams de cambios. La navegación puede cancelarse o redirigirse antes de crear la vista.": "Router compares the URL with a route tree, executes redirects, guards and resolvers, activates components in outlets and preserves snapshots plus change streams. Navigation can be canceled or redirected before the view is created.",
+  "`loadComponent` y `loadChildren` crean fronteras lazy. Los providers declarados en una ruta pertenecen a su environment injector y permiten aislar servicios por feature.": "`loadComponent` and `loadChildren` create lazy borders. The providers declared in a route belong to its environment injector and allow services to be isolated by feature.",
+  "Component input binding puede llevar params, query params, datos estáticos y resolvers a inputs del componente. Esa API reduce subscriptions manuales, pero el nombre y la ausencia de cada valor siguen formando parte del contrato de ruta.": "Component input binding can bring params, query params, static data, and resolvers to component inputs. That API reduces manual subscriptions, but the name and absence of each value is still part of the route contract.",
+  "`loadComponent` y `loadChildren` crean fronteras de lazy loading que descargan una feature al navegar. Un chunk por componente pequeño aumenta requests y overhead; una frontera por capacidad de producto suele equilibrar carga inicial y reutilización.": "`loadComponent` and `loadChildren` create lazy loading borders that download a feature when browsing. A small chunk per component increases requests and overhead; A product capacity frontier usually balances initial loading and reuse.",
+  "Guards controlan navegación en el cliente; el servidor debe repetir autorización. `CanMatch` evita seleccionar rutas; `CanActivate` decide activación.": "Guards control navigation on the client; The server must repeat authorization. `CanMatch` avoids selecting routes; `CanActivate` decides activation.",
+  "Resolvers reducen estados intermedios cuando la ruta necesita datos antes de mostrar. Para pantallas tolerantes al loading, una carga dentro de la feature mejora percepción.": "Resolvers reduce intermediate states when the route needs data before displaying. For load-tolerant displays, a load within the feature improves perception.",
+  "Los path params identifican recursos dentro de la ruta; los query params representan filtros o estado compartible; el fragment apunta a una sección del documento. Rutas hijas componen layouts, outlets muestran árboles paralelos, redirects normalizan URLs y route data aporta metadata estática.": "Path params identify resources within the path; query params represent filters or shareable state; the fragment points to a section of the document. Child routes make up layouts, outlets show parallel trees, redirects normalize URLs and route data provides static metadata.",
+  "Una `RouteReuseStrategy` puede conservar la instancia y el DOM de una ruta al navegar. También conserva memoria, estado y suscripciones; una política de invalidación decide cuándo destruir ese snapshot.": "A `RouteReuseStrategy` can preserve the instance and the DOM of a route when navigating. It also preserves memory, state and subscriptions; an invalidation policy decides when to destroy that snapshot.",
+  "`RouterTestingHarness` crea un router de prueba, navega por URL y expone el componente activado. Permite comprobar parámetros inválidos, redirects, guards rechazados y errores de resolvers desde el comportamiento observable.": "`RouterTestingHarness` creates a test router, navigates by URL, and exposes the activated component. Allows checking for invalid parameters, redirects, rejected guards and resolving errors from the observable behavior.",
+  "¿Guard equivale a seguridad?": "Does Guard equal security?",
+  "No. Un usuario controla el cliente. El guard mejora UX y evita navegación accidental; la API autoriza cada operación.": "No. A user controls the client. The guard improves UX and prevents accidental navigation; the API authorizes each operation.",
+  "¿Resolver o carga en componente?": "Resolve or load into component?",
+  "Resolver cuando la vista no tiene sentido sin el dato o necesitás coherencia antes de activar. Carga en componente para streaming, skeletons o contenido parcial.": "Resolve when the view does not make sense without the data or you need consistency before activating. Component loading for streaming, skeletons or partial content.",
+  "¿Qué diferencia hay entre `CanMatch` y `CanActivate`?": "What is the difference between `CanMatch` and `CanActivate`?",
+  "`CanMatch` decide si una configuración de ruta puede participar del matching y permite probar otra ruta. `CanActivate` actúa después de elegirla y decide si se activa. Ninguno reemplaza la autorización del servidor.": "`CanMatch` decides if a route configuration can participate in matching and allows another route to be tested. `CanActivate` acts after choosing it and decides whether to activate it. None replace server authorization.",
+  "¿Cuándo evitarías un resolver?": "When would you avoid a resolve?",
+  "Evito bloquear navegación para datos secundarios o lentos. La pantalla puede mostrar estructura, loading y recuperación parcial. Uso resolver cuando el dato define si la ruta tiene sentido o cuando entrar sin él produciría un estado inválido.": "I avoid blocking navigation for secondary or slow data. The screen can show structure, loading and partial recovery. I use resolve when the data defines whether the route makes sense or when entering without it would produce an invalid state.",
+  "¿En qué orden intervienen guards y resolvers?": "In what order do guards and resolvers intervene?",
+  "Angular reconoce la ruta, evalúa guards y, si permiten continuar, ejecuta resolvers antes de activar el componente. Un redirect o cancelación corta la navegación; los errores necesitan una política de navegación o error handler.": "Angular recognizes the path, evaluates guards and, if allowed to continue, executes resolvers before activating the component. A redirect or cancellation cuts off navigation; Errors need a navigation policy or error handler.",
+  "¿Un guard protege datos?": "Does a guard protect data?",
+  "No. Controla la navegación del cliente y mejora la experiencia. La API debe autenticar y autorizar cada operación porque un usuario puede llamar el endpoint sin pasar por el Router.": "No. Control customer navigation and improve the experience. The API must authenticate and authorize each operation because a user can call the endpoint without going through the Router.",
+  "¿Cuándo usarías un resolver?": "When would you use a resolver?",
+  "Cuando la ruta no tiene sentido sin un dato pequeño y crítico o necesito decidir antes de activarla. Para contenido secundario prefiero cargar dentro de la vista y mostrar estados parciales, porque un resolver largo retrasa toda la navegación.": "When the route doesn't make sense without a small, critical piece of information or I need to decide before activating it. For secondary content I prefer to load inside the view and show partial states, because a long resolve delays all navigation.",
+  "¿Cómo probás el Router?": "How do you test the Router?",
+  "Uso RouterTestingHarness con rutas reales, navego una URL y compruebo componente, redirects y estado visible. Tests aislados cubren la lógica de guards o resolvers y los de integración cubren el orden de navegación.": "I use RouterTestingHarness with real routes, navigate a URL and check component, redirects and visible status. Isolated tests cover the logic of guards or resolvers and integration tests cover the navigation order.",
+  "Angular · Routing": "Angular · Routing",
+  "Formularios complejos": "Complex forms",
+  "Los formularios Senior incluyen tipado, composición, validación asíncrona, accesibilidad y rendimiento.": "Senior forms include typing, composition, asynchronous validation, accessibility, and performance.",
+  "Reactive Forms crea un árbol de controles en TypeScript. Cada control conserva valor, estado de validación, interacción y disabled; el grupo agrega los estados de sus hijos y emite cuando cambia el modelo.": "Reactive Forms creates a tree of controls in TypeScript. Each control retains value, validation, interaction, and disabled status; the group adds the states of its children and emits when the model changes.",
+  "`updateOn: 'blur'` o `'submit'` reduce validaciones y requests durante escritura. Un validador de grupo compara campos relacionados y devuelve el error en el nivel que posee la regla.": "`updateOn: 'blur'` or `'submit'` reduces validations and requests during writing. A group validator compares related fields and returns the error at the level that owns the rule.",
+  "Un validador asíncrono debe completar y resolver carreras. Debounce, `switchMap` y una caché corta evitan requests innecesarias; la UI distingue `PENDING`, error de red y valor inválido.": "An asynchronous validator must complete and resolve races. Debounce, `switchMap` and a short cache avoid unnecessary requests; the UI distinguishes `PENDING`, network error and invalid value.",
+  "Reactive Forms modela el formulario en TypeScript; template-driven sirve para casos pequeños. Typed Forms reduce casts y errores.": "Reactive Forms models the form in TypeScript; template-driven is for small cases. Typed Forms reduce casts and errors.",
+  "`FormControl`, `FormGroup`, `FormArray` y `FormRecord` cubren formas fijas, listas y claves dinámicas.": "`FormControl`, `FormGroup`, `FormArray` and `FormRecord` cover fixed forms, lists and dynamic keys.",
+  "Un validador síncrono devuelve `ValidationErrors | null`; uno asíncrono devuelve Promise u Observable y necesita cancelación o debounce según el caso.": "A synchronous validator returns `ValidationErrors | null`; an asynchronous one returns Promise or Observable and needs cancellation or debounce depending on the case.",
+  "`ControlValueAccessor` conecta un control propio con Angular Forms mediante cuatro operaciones: escribir un valor, registrar cambios, registrar touched y aplicar disabled. El control no debe volver a emitir como cambio el valor que Forms acaba de escribirle, porque eso crea un loop.": "`ControlValueAccessor` connects your own control to Angular Forms using four operations: writing a value, recording changes, recording touched, and applying disabled. The control should not re-emit the value that Forms just wrote to it as a change, because that creates a loop.",
+  "Copiar cada emisión de `valueChanges` a otro objeto crea dos representaciones del formulario que pueden divergir. El `FormGroup` puede ser la fuente de verdad durante la edición y el submit puede mapear su valor a un comando o DTO.": "Copying each utterance of `valueChanges` to another object creates two representations of the form that can diverge. The `FormGroup` can be the source of truth during editing and the submit can map its value to a command or DTO.",
+  "Los errores se muestran después de interacción o submit para evitar ruido antes de que el usuario actúe. `aria-describedby` asocia el mensaje con el control; el foco debe llegar al primer campo inválido cuando un submit no puede continuar.": "Errors are displayed after interaction or submit to avoid noise before the user acts. `aria-describedby` associates the message with the control; focus should reach the first invalid field when a submit cannot continue.",
+  "Signal Forms ofrece un modelo nuevo en versiones recientes. Presentalo como opción a evaluar, no como reemplazo automático de Reactive Forms.": "Signal Forms offers a new model in recent versions. Present it as an option to evaluate, not as an automatic replacement for Reactive Forms.",
+  "¿Cómo diseñarías 60 formularios dinámicos?": "How would you design 60 dynamic forms?",
+  "Defino un schema tipado, componentes por tipo de campo, reglas de visibilidad derivadas y validadores registrables. Separo datos, layout y comportamiento; pruebo el motor con casos de contrato.": "I define a typed schema, components by field type, derived visibility rules and registrable validators. I separate data, layout and behavior; I test the engine with contract cases.",
+  "¿Qué falla en un CVA?": "What's wrong with a CVA?",
+  "Emitir durante `writeValue`, olvidar estado disabled o no marcar touched. Eso crea loops y rompe la semántica del formulario.": "Issue during `writeValue`, forget disabled state or do not check touched. That creates loops and breaks the semantics of the form.",
+  "¿Qué contrato debe cumplir un `ControlValueAccessor`?": "What contract must a `ControlValueAccessor` fulfill?",
+  "Debe escribir el valor externo sin emitir un cambio de usuario, registrar callbacks de cambio y touched, y respetar el estado disabled. También necesita una representación clara para null y valores parciales.": "You must write the external value without issuing a user change, register change and touched callbacks, and honor the disabled state. You also need a clear representation for null and partial values.",
+  "¿Cómo evitás carreras en validación asíncrona?": "How do you avoid races in asynchronous validation?",
+  "Modelo la validación como un flujo que cancela la consulta anterior al cambiar el valor. Aplico debounce cuando corresponde y distingo error de transporte, valor inválido y estado pendiente en la interfaz.": "I model validation as a flow that cancels the previous query upon changing the value. I apply debounce when appropriate and distinguish transport error, invalid value and pending status on the interface.",
+  "¿Dónde ubicarías una validación entre dos campos?": "Where would you place a validation between two fields?",
+  "En el FormGroup que posee ambos controles. El validador devuelve un error del grupo y la presentación decide en qué campos anunciarlo sin mutar errores ajenos.": "In the FormGroup that owns both controls. The validator returns an error from the group and the presentation decides in which fields to announce it without mutating foreign errors.",
+  "¿Qué cambia con `updateOn: 'blur'`?": "What changes with `updateOn: 'blur'`?",
+  "El control actualiza valor y validación al perder foco. Reduce trabajo y requests mientras se escribe, pero cambia cuándo valueChanges emite y cuándo la UI puede mostrar el resultado.": "The control updates value and validation when it loses focus. It reduces work and requests while typing, but changes when valueChanges emits and when the UI can display the result.",
+  "¿Cómo tipás un FormArray?": "How do you type a FormArray?",
+  "Declaro el tipo del control repetido, por ejemplo `FormArray<FormGroup<AddressControls>>`. El tipo describe controles, mientras `getRawValue` produce el valor incluyendo controles disabled.": "I declare the type of the repeated control, for example `FormArray<FormGroup<AddressControls>>`. The type describes controls, while `getRawValue` produces the value including disabled controls.",
+  "¿Cómo enfocás el primer error al enviar?": "How do you approach the first error when sending?",
+  "Marco controles como touched, localizo el primer elemento inválido siguiendo el orden visual, lo enfoco y conecto el mensaje con `aria-describedby`. Un resumen de errores puede enlazar cada campo en formularios largos.": "I mark controls as touched, locate the first invalid element following the visual order, focus it, and connect the message with `aria-describedby`. An error summary can link each field in long forms.",
+  "Angular · Forms": "Angular · Forms",
+  "HTTP, APIs, errores y caché": "HTTP, APIs, errors and cache",
+  "El cliente debe modelar contratos, cancelación y fallos. Los interceptors resuelven preocupaciones transversales, no lógica de dominio.": "The client must model contracts, cancellation and failures. Interceptors solve cross-cutting concerns, not domain logic.",
+  "`HttpRequest` y `HttpHeaders` son inmutables. Un interceptor usa `request.clone` para cambiar URL, headers, params o body y luego entrega la request al siguiente handler.": "`HttpRequest` and `HttpHeaders` are immutable. An interceptor uses `request.clone` to change URLs, headers, params or body and then passes the request to the next handler.",
+  "Los interceptors funcionales se ejecutan en el orden de registro para la request y en orden inverso para la response. `HttpContextToken` permite activar políticas por request sin convertirlas en headers de red.": "Functional interceptors are executed in the order of registration for the request and in reverse order for the response. `HttpContextToken` allows you to activate policies per request without converting them into network headers.",
+  "`observe: 'events'` expone progreso, headers y respuesta final. El progreso de upload requiere un backend que lo soporte; fetch no informa progreso de subida del mismo modo que XHR.": "`observe: 'events'` exposes progress, headers and final response. The upload progress requires a backend to support it; fetch does not report upload progress in the same way as XHR.",
+  "`provideHttpClient` registra el cliente HTTP y los interceptors funcionales forman una cadena alrededor de cada request. Los servicios o repositorios de feature encapsulan URLs, DTOs y reglas de acceso para que los componentes dependan del dominio.": "`provideHttpClient` registers the HTTP client and functional interceptors form a chain around each request. Services or feature repositories encapsulate URLs, DTOs and access rules so that components depend on the domain.",
+  "Los tipos de TypeScript desaparecen al compilar y no validan el JSON recibido. Un schema runtime comprueba datos externos antes de usarlos; un mapper traduce el DTO del servidor a un modelo interno estable.": "TypeScript types disappear on compile and do not validate the received JSON. A schema runtime checks external data before using it; a mapper translates the server DTO into a stable internal model.",
+  "Un interceptor puede agregar autenticación, correlation IDs y telemetría, o normalizar errores. Un loader global necesita contar requests concurrentes: un booleano se apaga cuando termina la primera aunque otras sigan activas.": "An interceptor can add authentication, correlation IDs and telemetry, or normalize errors. A global loader needs to count concurrent requests: a boolean is turned off when the first one finishes even if others are still active.",
+  "Un retry repite una operación que falló. Los métodos idempotentes pueden repetirse sin cambiar el resultado; una escritura necesita una clave de idempotencia si existe riesgo de duplicación. Backoff, jitter y un límite evitan amplificar una caída, y los errores funcionales 4xx requieren otra acción.": "A retry repeats an operation that failed. Idempotent methods can be repeated without changing the result; a write needs an idempotence key if there is a risk of duplication. Backoff, jitter, and a limit prevent amplifying a crash, and 4xx functional errors require further action.",
+  "Timeout, cancelación, offline, fallo de red, 401/403, 404, validación y 5xx representan estados distintos. La interfaz puede ofrecer reintento para red o timeout, login para 401, corrección de campos para validación y un fallback ante errores del servidor.": "Timeout, cancellation, offline, network failure, 401/403, 404, validation and 5xx represent different states. The interface can offer retry for network or timeout, login for 401, correction of fields for validation and a fallback for server errors.",
+  "`httpResource` conecta `HttpClient` con una API de signals para request, valor, loading y error. En dominios grandes, la estrategia todavía necesita claves de caché, invalidación, aislamiento por usuario y coordinación con otras escrituras.": "`httpResource` connects `HttpClient` with a signals API for request, value, loading and error. On large domains, the strategy still requires caching keys, invalidation, per-user isolation, and coordination with other writes.",
+  "Una caché se define por su clave, vida útil, política de invalidación y aislamiento. La deduplicación comparte una petición en curso; stale-while-revalidate entrega el valor anterior mientras actualiza. Incluir el usuario o tenant en la clave evita mezclar datos privados.": "A cache is defined by its key, lifetime, invalidation policy, and isolation. Deduplication shares an ongoing petition; stale-while-revalidate returns the old value while updating. Including the user or tenant in the key avoids mixing private data.",
+  "¿Dónde refrescarías un token?": "Where would you refresh a token?",
+  "En una capa de autenticación coordinada por interceptor, con una sola renovación en vuelo y cola controlada. Evito loops y limpio sesión si falla el refresh.": "In an authentication layer coordinated by interceptor, with a single renewal in flight and controlled queue. I avoid loops and clean the session if the refresh fails.",
+  "¿Cómo tipar una respuesta HTTP?": "How to type an HTTP response?",
+  "El generic de HttpClient expresa la expectativa, no valida el servidor. En una frontera crítica valido y transformo el DTO antes de exponerlo.": "The HttpClient generic expresses the expectation, it does not validate the server. At a critical boundary I validate and transform the DTO before exposing it.",
+  "¿Por qué importa el orden de los interceptors?": "Why does the order of interceptors matter?",
+  "Cada interceptor envuelve al siguiente. El request avanza en el orden registrado y la respuesta vuelve en orden inverso. Autenticación, retry, caché y logging pueden cambiar su comportamiento según esa composición.": "Each interceptor envelops the next. The request proceeds in the recorded order and the response returns in reverse order. Authentication, retry, cache and logging can change their behavior depending on that composition.",
+  "¿Cómo invalidás una caché después de una mutación?": "How do you invalidate a cache after a mutation?",
+  "Relaciono cada escritura con las keys afectadas. Puedo invalidar, actualizar de forma optimista o reemplazar con la respuesta del servidor. La política incluye rollback y evita borrar datos de dominios no relacionados.": "I relate each writing to the affected keys. I can override, update optimistically, or replace with the server's response. The policy includes rollback and avoids deleting data from unrelated domains.",
+  "¿Por qué una request de HttpClient se clona?": "Why is a HttpClient request cloned?",
+  "HttpRequest es inmutable. `clone` crea una request con los cambios y conserva el objeto original para que la cadena de interceptors pueda razonar sin mutaciones compartidas.": "HttpRequest is immutable. `clone` creates a request with the changes and preserves the original object so that the interceptor chain can reason without shared mutations.",
+  "¿En qué orden corren los interceptors?": "What order do the interceptors run in?",
+  "La request atraviesa la lista en el orden de registro. La response vuelve por la cadena en orden inverso, como capas anidadas. El orden afecta auth, cache, retry, loaders y telemetría.": "The request traverses the list in the order of registration. The response returns down the chain in reverse order, as nested layers. The order affects auth, cache, retry, loaders and telemetry.",
+  "¿Para qué sirve HttpContext?": "What is HttpContext for?",
+  "Transporta configuración local dentro del pipeline sin enviarla al servidor. Un interceptor puede leer un HttpContextToken para omitir auth, activar cache o cambiar tratamiento de errores para una request concreta.": "Transports local configuration within the pipeline without sending it to the server. An interceptor can read an HttpContextToken to bypass auth, activate caching, or change error handling for a specific request.",
+  "¿Cómo evitás dos refresh de token simultáneos?": "How do you avoid two simultaneous token refreshes?",
+  "Comparto una única operación de refresh mientras esté activa, encolo o reintento las requests originales después del nuevo token y limpio el estado al terminar. Si el refresh falla, cierro sesión una sola vez.": "I share a single refresh operation while it is active, queue or retry the original requests after the new token and clear the state when finished. If the refresh fails, I log out only once.",
+  "Angular · HTTP": "Angular · HTTP",
+  "Browser internals, DOM, storage y red": "Browser internals, DOM, storage and network",
+  "Angular corre sobre la plataforma web. Un Senior entiende el costo de DOM, layout, almacenamiento, navegación y protocolos.": "Angular runs on the web platform. A Senior understands the cost of DOM, layout, storage, navigation and protocols.",
+  "DOM representa el documento; BOM agrupa APIs del navegador como `window`, history, location, navigator y screen. Angular abstrae parte del DOM, pero no reemplaza la plataforma.": "DOM represents the document; BOM groups browser APIs such as `window`, history, location, navigator and screen. Angular abstracts part of DOM, but does not replace the platform.",
+  "Selección: `querySelector`, `querySelectorAll`, `getElementById`. Eventos atraviesan capture, target y bubble. Delegation aprovecha bubbling para manejar listas dinámicas.": "Selection: `querySelector`, `querySelectorAll`, `getElementById`. Events go through capture, target and bubble. Delegation takes advantage of bubbling to handle dynamic lists.",
+  "`preventDefault` evita la acción por defecto; `stopPropagation` detiene propagación. Usarlos sin entender semántica rompe formularios, enlaces y accesibilidad.": "`preventDefault` avoids the default action; `stopPropagation` stops propagation. Using them without understanding semantics breaks forms, links and accessibility.",
+  "El navegador parsea HTML y CSS, construye DOM y CSSOM, calcula estilos y layout, pinta y compone capas. Leer layout después de escribir estilos puede forzar reflow.": "The browser parses HTML and CSS, builds DOM and CSSOM, calculates styles and layout, paints and composes layers. Reading layout after writing styles can force reflow.",
+  "`localStorage` persiste por origin y ofrece API síncrona; `sessionStorage` vive por pestaña; IndexedDB almacena datos estructurados de forma asíncrona. Cookies viajan según sus atributos y reglas de request.": "`localStorage` persists by origin and offers synchronous API; `sessionStorage` lives by tab; IndexedDB stores structured data asynchronously. Cookies travel according to their attributes and request rules.",
+  "Same-origin combina scheme, host y port. CORS permite que un servidor autorice lecturas cross-origin; la preflight OPTIONS valida ciertos métodos y headers.": "Same-origin combines scheme, host and port. CORS allows a server to authorize cross-origin reads; The OPTIONS preflight validates certain methods and headers.",
+  "HTTP cache usa `Cache-Control`, validators como ETag y claves que pueden variar. Service Worker puede interceptar requests y agrega otra capa de cache e invalidación.": "HTTP cache uses `Cache-Control`, validators such as ETag and keys that may vary. Service Worker can intercept requests and adds another layer of caching and invalidation.",
+  "DNS resuelve host; TLS autentica y cifra; HTTP transporta requests. HTTP/2 multiplexa streams; HTTP/3 usa QUIC sobre UDP.": "DNS resolves host; TLS authenticates and encrypts; HTTP transports requests. HTTP/2 multiplexes streams; HTTP/3 uses QUIC over UDP.",
+  "SPA actualiza vistas sin recargar documento. History API mantiene URL; el servidor debe redirigir rutas de app al HTML o renderizarlas.": "SPA updates views without reloading document. History API maintains URLs; the server must redirect app paths to HTML or render them.",
+  "Web Worker ejecuta JavaScript fuera del main thread y se comunica por mensajes. No accede al DOM. Service Worker opera como proxy de red y ciclo separado.": "Web Worker executes JavaScript outside the main thread and communicates via messages. Does not access DOM. Service Worker operates as a separate loop and network proxy.",
+  "¿DOM y BOM?": "DOM and BOM?",
+  "DOM modela el documento. BOM reúne objetos y APIs del entorno del navegador, como history, location y navigator.": "DOM models the document. BOM brings together objects and APIs from the browser environment, such as history, location, and navigator.",
+  "¿localStorage, sessionStorage o IndexedDB?": "localStorage, sessionStorage or IndexedDB?",
+  "Elijo localStorage para pocas preferencias no sensibles, sessionStorage para vida de pestaña e IndexedDB para volumen, queries y trabajo asíncrono.": "I choose localStorage for few non-responsive preferences, sessionStorage for tab life and IndexedDB for volume, queries and asynchronous work.",
+  "¿Qué es CORS?": "What is CORS?",
+  "Una política del navegador que permite al servidor declarar qué origins pueden leer una respuesta. No protege endpoints de clientes no navegador ni reemplaza autorización.": "A browser policy that allows the server to declare which origins can read a response. It does not protect endpoints from non-browser clients nor does it replace authorization.",
+  "¿Reflow y repaint?": "Reflow and repaint?",
+  "Layout recalcula geometría; paint genera píxeles; compositing combina capas. Cambios y lecturas intercaladas pueden forzar trabajo síncrono.": "Layout recalculates geometry; paint generates pixels; compositing combines layers. Changes and interleaved reads can force synchronous work.",
+  "¿Qué produce un forced synchronous layout?": "What does a forced synchronous layout produce?",
+  "Una escritura invalida estilos o layout y una lectura geométrica posterior, como `getBoundingClientRect`, obliga al navegador a calcular el resultado en ese momento. Agrupo lecturas y escrituras para evitar repetir ese trabajo dentro de un loop.": "A write invalidates styles or layout and a subsequent geometric read, such as `getBoundingClientRect`, forces the browser to calculate the result at that time. I group reads and writes to avoid repeating that work within a loop.",
+  "¿CORS protege una API contra clientes no autorizados?": "Does CORS protect an API against unauthorized clients?",
+  "No. CORS controla qué respuestas puede leer JavaScript desde otro origin en un navegador. Un script de servidor puede llamar al endpoint. La API todavía necesita autenticación, autorización y validación.": "No. CORS controls which responses JavaScript can read from another origin in a browser. A server script can call the endpoint. The API still needs authentication, authorization and validation.",
+  "Angular · Style guide": "Angular · Style guide",
+  "Arquitectura de aplicaciones Angular": "Angular Application Architecture",
+  "Una arquitectura útil reduce acoplamiento y hace visibles los límites del dominio.": "A useful architecture reduces coupling and makes domain boundaries visible.",
+  "La organización por feature agrupa UI, acceso a datos, modelos y rutas que cambian por la misma capacidad de producto. Una organización global por tipo técnico dispersa una modificación entre carpetas distantes y debilita los límites de dominio.": "The organization by feature groups UI, data access, models and routes that change for the same product capacity. A global organization by technical type disperses a modification across distant folders and weakens domain boundaries.",
+  "Un componente presentacional recibe datos y emite eventos; un orquestador coordina estado, navegación y servicios. La separación reduce dependencias cuando varias vistas reutilizan la presentación, pero añade capas vacías si ambas piezas cambian siempre juntas.": "A presentational component receives data and emits events; an orchestrator coordinates state, navigation, and services. Separation reduces dependencies when multiple views reuse the presentation, but adds empty layers if both pieces always change together.",
+  "Dependency inversion hace que el dominio dependa de un contrato estable y que el detalle implemente ese contrato. En Angular, un `InjectionToken` más un adapter permite cambiar analytics, storage, pagos o una API externa sin modificar consumidores.": "Dependency inversion makes the domain depend on a stable contract and the detail implements that contract. In Angular, a `InjectionToken` plus an adapter allows changing analytics, storage, payments or an external API without modifying consumers.",
+  "La public API de una librería o feature declara qué símbolos pueden consumir otros módulos. Los imports profundos atraviesan ese límite, acoplan al árbol interno de archivos y convierten un refactor local en un cambio global.": "The public API of a library or feature declares which symbols other modules can consume. Deep imports cross that boundary, dock to the internal file tree, and turn a local refactor into a global change.",
+  "Un monorepo mejora sharing y refactors coordinados; agrega costo de tooling y ownership. Nx puede imponer boundaries y cachear tareas.": "A monorepo improves sharing and coordinated refactors; adds tooling and ownership cost. Nx can enforce boundaries and cache tasks.",
+  "Micro-frontends sirven para despliegue y ownership independientes. Aumentan duplicación, integración, observabilidad y consistencia visual.": "Micro-frontends serve for independent deployment and ownership. They increase duplication, integration, observability and visual consistency.",
+  "Un Architecture Decision Record conserva el contexto, las alternativas evaluadas, la decisión, sus consecuencias y una fecha de revisión. El registro explica por qué existe una restricción cuando cambia el equipo o el contexto original.": "An Architecture Decision Record preserves the context, the alternatives evaluated, the decision, its consequences, and a review date. The log explains why a restriction exists when the original team or context changes.",
+  "¿Clean Architecture en frontend?": "Clean Architecture in frontend?",
+  "Uso sus límites y dependency inversion donde protegen reglas de negocio. Evito copiar capas backend si solo agregan archivos y mapeos.": "I use their limits and dependency inversion where they protect business rules. I avoid copying backend layers if they only add files and mappings.",
+  "¿Cuándo extraer una librería?": "When to extract a library?",
+  "Cuando existe un contrato estable y más de un consumidor real, o cuando el límite necesita ownership y tests propios. Extraer por anticipación congela APIs inmaduras.": "When there is a stable contract and more than one real consumer, or when the limit requires ownership and own tests. Pull ahead freezes immature APIs.",
+  "¿Cómo detectás una frontera de feature incorrecta?": "How do you detect an incorrect feature boundary?",
+  "Aparecen imports circulares, cambios coordinados entre carpetas supuestamente independientes y servicios compartidos que conocen todos los dominios. Reubico el comportamiento según ownership y expongo una API pequeña por frontera.": "Circular imports appear, coordinated changes between supposedly independent folders and shared services that know all domains. I relocate the behavior according to ownership and expose a small API per border.",
+  "¿Qué problema genera una carpeta `shared` sin reglas?": "What problem does a `shared` folder without rules cause?",
+  "Recibe componentes, modelos y servicios de dominios distintos hasta convertirse en una dependencia global. Separo primitives reutilizables de contratos de negocio y dejo cada modelo cerca de la feature que lo posee.": "It receives components, models and services from different domains until it becomes a global dependency. I separate reusable primitives from business contracts and leave each model close to the feature that owns it.",
+  "¿Cómo evitás que una feature dependa de detalles de otra?": "How do you prevent one feature from depending on details of another?",
+  "Expongo una public API pequeña y contratos de dominio. La feature consumidora no importa componentes internos, stores privados ni rutas de archivos profundas; se comunica mediante servicios, eventos o modelos publicados.": "I expose a small public API and domain contracts. The consuming feature does not import internal components, private stores, or deep file paths; communicates through published services, events or models.",
+  "¿Cuándo una capa facade agrega valor?": "When does a facade layer add value?",
+  "Cuando concentra varios stores o servicios, traduce modelos y ofrece casos de uso estables a la UI. Si sólo reenvía cada método con el mismo nombre y tipo, agrega navegación sin reducir acoplamiento.": "When you concentrate several stores or services, you translate models and offer stable use cases to the UI. If you just forward each method with the same name and type, you add navigation without reducing coupling.",
+  "Patrones, SOLID y calidad de diseño": "Patterns, SOLID and design quality",
+  "Los patrones nombran soluciones recurrentes. Una entrevista Senior espera contexto y costo, no una lista memorizada.": "Patterns name recurring solutions. A Senior interview expects context and cost, not a memorized list.",
+  "Strategy para políticas intercambiables; Adapter para integrar contratos externos; Facade para reducir superficie; Factory para construcción variable.": "Strategy for interchangeable policies; Adapter to integrate external contracts; Facade to reduce surface area; Factory for variable construction.",
+  "Observer aparece en RxJS; Decorator en metadata e interceptors; Command y event patterns aparecen en stores. Singleton depende del injector.": "Observer appears in RxJS; Decorator in metadata and interceptors; Command and event patterns appear in stores. Singleton depends on the injector.",
+  "SRP separa motivos de cambio. OCP favorece extensión por contratos. LSP exige sustitución válida. ISP mantiene contratos pequeños. DIP invierte dependencias hacia abstracciones.": "SRP separates reasons for change. OCP favors extension by contracts. LSP requires valid substitution. ISP maintains small contracts. DIP inverts dependencies towards abstractions.",
+  "Composition over inheritance evita jerarquías rígidas. Las directivas, providers y content projection forman mecanismos de composición.": "Composition over inheritance avoids rigid hierarchies. The directives, providers and content projection form composition mechanisms.",
+  "Un god service acumula motivos de cambio; un shared module masivo crea dependencias implícitas; los barrel cycles ocultan ciclos; los boolean flags multiplican estados; las subscriptions anidadas pierden control de concurrencia y la lógica de negocio en templates se repite y resulta difícil de probar.": "A god service accumulates reasons for change; a massive shared module creates implicit dependencies; barrel cycles hide cycles; boolean flags multiply states; Nested subscriptions lose concurrency control and the business logic in templates is repeated and difficult to test.",
+  "¿Cómo implementar Singleton?": "How to implement Singleton?",
+  "En Angular proveo el servicio en un injector compartido. La garantía vale dentro de ese scope; providers locales o múltiples aplicaciones crean otras instancias.": "In Angular I provide the service on a shared injector. The guarantee is valid within that scope; local providers or multiple applications create other instances.",
+  "¿Facade sobre NgRx?": "Facade over NgRx?",
+  "Puede estabilizar la API de la feature y ocultar detalles del store. También puede esconder capacidades y duplicar nombres. La uso cuando protege un límite real.": "You can stabilize the feature's API and hide store details. You can also hide capabilities and duplicate names. I use it when protecting a real boundary.",
+  "¿Cómo aplicás Dependency Inversion en Angular?": "How do you apply Dependency Inversion in Angular?",
+  "El consumidor depende de un contrato expresado por una clase abstracta o `InjectionToken`. La configuración conecta ese contrato con una implementación. Puedo cambiar la frontera en tests o por entorno sin enseñar detalles al consumidor.": "The consumer depends on a contract expressed by an abstract class or `InjectionToken`. The configuration connects that contract to an implementation. I can change the border in tests or by environment without showing details to the consumer.",
+  "¿Cuándo una facade empeora el diseño?": "When does a facade worsen the design?",
+  "Una facade que sólo renombra cada método añade navegación sin reducir acoplamiento. La uso cuando concentra un caso de uso, oculta coordinación entre dependencias o protege a la UI de cambios del subsistema.": "A facade that only renames each method adds navigation without reducing coupling. I use it when concentrating a use case, hiding coordination between dependencies, or protecting the UI from subsystem changes.",
+  "¿Cómo aplicarías Strategy en Angular?": "How would you apply Strategy in Angular?",
+  "Defino un contrato para la operación, registro implementaciones mediante DI y selecciono la estrategia por configuración o contexto. El consumidor conoce la capacidad, mientras cada algoritmo conserva tests y dependencias propias.": "I define a contract for the operation, register implementations using DI and select the strategy by configuration or context. The consumer knows the capacity, while each algorithm maintains its own tests and dependencies.",
+  "¿Qué señal indica que una abstracción llegó demasiado pronto?": "What sign indicates that an abstraction arrived too soon?",
+  "La interfaz tiene una sola implementación, replica todos sus métodos y cambia junto con el detalle. Espero casos de variación concretos y extraigo la frontera que esos casos comparten.": "The interface has a single implementation, it replicates all its methods and changes along with the detail. I wait for concrete cases of variation and extract the boundary that those cases share.",
+  "Rendimiento y Core Web Vitals": "Performance and Core Web Vitals",
+  "Optimizar sin medir cambia complejidad por intuición. Un Senior identifica la métrica, captura un perfil y verifica el resultado.": "Optimizing without measuring trades complexity for intuition. A Senior identifies the metric, captures a profile and verifies the result.",
+  "LCP mide cuándo aparece el mayor elemento visible, INP observa la latencia de las interacciones y CLS acumula desplazamientos inesperados. Bundle size, long tasks, memoria y frecuencia de renders explican sus causas. Lighthouse usa un entorno sintético; RUM registra dispositivos y redes reales.": "LCP measures when the largest visible element appears, INP observes the latency of interactions, and CLS accumulates unexpected displacements. Bundle size, long tasks, memory and render frequency explain their causes. Lighthouse uses a synthetic environment; RUM registers real devices and networks.",
+  "Lazy routes y `@defer` sacan JavaScript del bundle inicial. El beneficio depende del waterfall de chunks, preloading, prefetch y caché HTTP: demasiadas fronteras pequeñas pueden intercambiar bytes iniciales por latencia de red.": "Lazy routes and `@defer` remove JavaScript from the initial bundle. The benefit depends on chunk waterfall, preloading, prefetch and HTTP caching: too many small borders can trade initial bytes for network latency.",
+  "`OnPush` permite saltar subárboles sin notificaciones, signals marcan consumidores precisos y un `track` estable conserva nodos de una lista. Virtual scroll limita el DOM visible; la paginación reduce además datos transferidos y trabajo del servidor.": "`OnPush` allows subtree jumping without notifications, signals marks precise consumers, and a stable `track` preserves nodes from a list. Virtual scroll limits the visible DOM; Paging also reduces transferred data and server work.",
+  "Una pipe impura y una función costosa en template pueden ejecutarse en cada check. Listeners globales sin cleanup retienen vistas, las imágenes sin dimensiones causan CLS y una dependencia grande aumenta parse, compile y ejecución además de transferencia.": "An impure pipe and an expensive template function can be executed on each check. Global listeners without cleanup retain views, dimensionless images cause CLS, and a large dependency increases parse, compile, and run in addition to transfer.",
+  "AOT, tree shaking, budgets y source-map analysis detectan regresiones. Un import pequeño puede arrastrar una dependencia grande.": "AOT, tree shaking, budgets and source-map analysis detect regressions. A small import can drag a large dependency.",
+  "Las escrituras DOM invalidan estilos y las lecturas geométricas pueden forzar su cálculo. Agrupar ambas fases evita layout thrashing. Debounce reduce eventos de alta frecuencia; un Web Worker descarga CPU cuando el costo de serializar mensajes resulta menor que bloquear el main thread.": "DOM writes invalidate styles and geometric reads can force their calculation. Grouping both phases avoids layout thrashing. Debounce reduces high frequency events; A Web Worker offloads CPU when the cost of serializing messages is less than blocking the main thread.",
+  "La app está lenta, ¿por dónde empezás?": "The app is slow, where do you start?",
+  "Defino la interacción lenta, reproduzco con datos reales y grabo performance. Identifico red, scripting, layout o memoria; cambio una causa y vuelvo a medir.": "I define slow interaction, reproduce with real data and record performance. I identify network, scripting, layout or memory; I change a cause and measure again.",
+  "¿`trackBy` sigue existiendo?": "Does `trackBy` still exist?",
+  "En `*ngFor` sí. El control flow moderno usa `track`. Ambos preservan identidad DOM; una clave inestable anula el beneficio.": "In `*ngFor` yes. Modern control flow uses `track`. Both preserve DOM identity; an unstable key voids the benefit.",
+  "¿Cómo empezás una investigación de rendimiento?": "How do you start a performance investigation?",
+  "Defino una interacción y una métrica, reproduzco con una build de producción y capturo un perfil. Después separo red, scripting, render y memoria. Optimizo el cuello medido y vuelvo a comparar bajo las mismas condiciones.": "I define an interaction and a metric, reproduce with a production build and capture a profile. Then I separate network, scripting, rendering and memory. I optimize the measured neck and compare again under the same conditions.",
+  "¿OnPush corrige una tarea larga de JavaScript?": "Does OnPush fix a long JavaScript task?",
+  "No. OnPush puede reducir verificaciones de vistas, pero una función que ocupa el main thread sigue bloqueando input y render. Divido el trabajo, reduzco su complejidad o lo muevo a un Worker si el costo de mensajes lo permite.": "No. OnPush may reduce view checks, but a function that occupies the main thread still blocks input and render. I split the job, reduce its complexity or move it to a Worker if the message cost allows it.",
+  "¿Cómo investigarías un INP alto?": "How would you investigate a high INP?",
+  "Reproduzco la interacción con Performance panel y RUM, localizo long tasks y separo scripting, style, layout y paint. Después reduzco trabajo de la ruta crítica, divido CPU o limita renders y vuelvo a medir en dispositivos reales.": "I reproduce the interaction with Performance panel and RUM, locate long tasks and separate scripting, style, layout and paint. Then I reduce work from the critical path, split CPUs or limit renders and measure again on real devices.",
+  "¿Cuándo virtual scroll no alcanza?": "When is virtual scroll not enough?",
+  "Virtual scroll reduce nodos DOM, pero no reduce datos descargados, filtros costosos ni memoria del modelo completo. Con cientos de miles de filas combino paginación server-side, consultas remotas y una ventana visible accesible.": "Virtual scroll reduces DOM nodes, but does not reduce downloaded data, expensive filters, or entire model memory. With hundreds of thousands of rows I combine server-side pagination, remote queries and an accessible visible window.",
+  "web.dev · Web Vitals": "web.dev · Web Vitals",
+  "SSR, SSG, hidratación y rendering híbrido": "SSR, SSG, hydration and hybrid rendering",
+  "Elegí estrategia por ruta. SEO, personalización, costo de servidor y tiempo de interacción empujan decisiones distintas.": "I chose route strategy. SEO, personalization, server cost and interaction time drive different decisions.",
+  "La hidratación reutiliza el DOM producido por el servidor y conecta las views del cliente sin reconstruir la página. El HTML del servidor y el primer render del cliente deben producir la misma estructura.": "Hydration reuses the DOM produced by the server and connects the client views without rebuilding the page. The server's HTML and the client's first render should produce the same structure.",
+  "`Date.now`, `Math.random`, locale, datos privados y condiciones distintas entre servidor y navegador pueden crear mismatches. El servidor debe transferir el dato determinista o el cliente debe calcularlo después de hidratar.": "`Date.now`, `Math.random`, locale, private data and different conditions between server and browser can create mismatches. The server must transfer the deterministic data or the client must calculate it after hydrating.",
+  "Incremental hydration conserva bloques `@defer` deshidratados hasta un trigger `hydrate on ...`. Event replay registra interacciones previas y las reproduce cuando la sección ya puede responder.": "Incremental hydration keeps `@defer` blocks dehydrated up to a `hydrate on ...` trigger. Event replay records previous interactions and plays them when the section can respond.",
+  "CSR simplifica aplicaciones privadas. SSG sirve contenido estable. SSR sirve HTML fresco y SEO. Hybrid combina estrategias por ruta.": "CSR simplifies private applications. SSG serves stable content. SSR serves fresh HTML and SEO. Hybrid combines strategies per route.",
+  "Hydration reutiliza el HTML del servidor. El cliente debe producir una estructura compatible; DOM inválido o manipulación directa rompe el proceso.": "Hydration reuses the HTML from the server. The client must produce a compatible structure; Invalid DOM or direct manipulation breaks the process.",
+  "Incremental hydration activa sectores cuando se necesitan y trabaja con `@defer`. Event replay conserva interacciones previas a la hidratación.": "Incremental hydration activates sectors when needed and works with `@defer`. Event replay preserves interactions prior to hydration.",
+  "`window`, `document`, storage y otras APIs del navegador no existen durante SSR. Platform checks, tokens inyectables y render hooks aíslan ese código para que el servidor pueda construir el HTML sin acceder al entorno cliente.": "`window`, `document`, storage and other browser APIs do not exist during SSR. Platform checks, injectable tokens, and render hooks isolate that code so that the server can build the HTML without accessing the client environment.",
+  "Transfer cache reutiliza en el cliente ciertas respuestas obtenidas durante SSR y evita una segunda petición inmediata. La clave y el HTML generado deben aislar datos por usuario para impedir que una respuesta privada termine en otra sesión.": "Transfer cache reuses certain responses obtained during SSR on the client and avoids a second immediate request. The key and the generated HTML must isolate data on a per-user basis to prevent a private response from terminating in another session.",
+  "Un placeholder con las mismas dimensiones que el contenido final reserva espacio y reduce CLS. El contenido above-the-fold participa en LCP y suele cargarse antes; los bloques secundarios admiten lazy loading o hidratación diferida.": "A placeholder with the same dimensions as the final content reserves space and reduces CLS. Above-the-fold content participates in LCP and typically loads first; child blocks support lazy loading or lazy hydration.",
+  "¿SSR mejora todo el rendimiento?": "Does SSR improve all performance?",
+  "Mejora entrega de HTML y SEO, pero agrega servidor e hidratación. Puede empeorar TTFB o interacción si el backend y el bundle no acompañan.": "Improves HTML delivery and SEO, but adds server and hydration. TTFB or interaction can worsen if the backend and the bundle do not match.",
+  "¿Qué causa hydration mismatch?": "What causes hydration mismatch?",
+  "HTML diferente entre servidor y cliente, fechas o random no deterministas, DOM manipulado antes de hidratar y markup inválido.": "HTML different between server and client, non-deterministic dates or random, DOM manipulated before hydrating and invalid markup.",
+  "¿Cómo elegís estrategia de rendering por ruta?": "How do you choose rendering strategy per route?",
+  "Uso SSG para contenido estable, SSR para HTML dependiente de la request y CSR para áreas privadas donde el shell aporta poco al servidor. Evalúo SEO, personalización, latencia, caché y costo operativo por ruta.": "I use SSG for stable content, SSR for request-dependent HTML, and CSR for private areas where the shell contributes little to the server. I evaluate SEO, personalization, latency, cache and operational cost per route.",
+  "¿Qué causa un hydration mismatch?": "What causes a hydration mismatch?",
+  "El cliente produce un árbol distinto al HTML del servidor por datos no deterministas, acceso al navegador o markup condicional. Comparto el estado inicial, aíslo APIs del browser y mantengo estable la estructura hasta hidratar.": "The client produces a different tree than the server's HTML due to non-deterministic data, browser access, or conditional markup. I share the initial state, isolate APIs from the browser and keep the structure stable until hydrated.",
+  "¿Qué produce un hydration mismatch?": "What produces a hydration mismatch?",
+  "El servidor y el primer render del cliente generan estructuras diferentes. Fechas, random, locale, acceso temprano al DOM o condiciones browser-only son causas comunes. Transfiero datos deterministas y pospongo efectos de navegador hasta después de hidratar.": "The server and the client's first render generate different structures. Dates, random, locale, early access to DOM or browser-only conditions are common causes. I transfer deterministic data and postpone browser effects until after hydrating.",
+  "¿Qué hace event replay?": "What does event replay do?",
+  "Captura interacciones que ocurren sobre HTML SSR antes de que Angular conecte listeners y las reproduce al terminar la hidratación correspondiente. Evita que un click temprano parezca perdido.": "Captures interactions that occur on HTML SSR before Angular connects listeners and plays them upon completion of the corresponding hydration. Prevents an early click from appearing lost.",
+  "¿Qué diferencia full e incremental hydration?": "What is the difference between full and incremental hydration?",
+  "Full hydration activa la aplicación completa. Incremental hydration conserva límites `@defer` deshidratados y los activa por triggers como viewport o interaction, reduciendo JavaScript inicial a cambio de más estados y decisiones de carga.": "Full hydration activates the full application. Incremental hydration preserves dehydrated `@defer` limits and activates them by triggers such as viewport or interaction, reducing initial JavaScript in exchange for more states and loading decisions.",
+  "¿Por qué evitarías cambiar el árbol con `isPlatformBrowser`?": "Why would you avoid changing the tree with `isPlatformBrowser`?",
+  "La condición puede hacer que servidor y cliente creen nodos distintos durante la hidratación. Mantengo la misma estructura y ejecuto sólo la integración browser después del render, o excluyo de hidratación un caso aislado como último recurso.": "The condition may cause server and client to create different nodes during hydration. I keep the same structure and run only the browser integration after the render, or exclude an isolated case from hydration as a last resort.",
+  "Angular · SSR": "Angular · SSR",
+  "Angular · Hydration": "Angular · Hydration",
+  "Testing y estrategia de calidad": "Testing and quality strategy",
+  "Una suite Senior protege comportamiento y contratos. Evitá tests que copian la implementación.": "A Senior Suite protects behavior and contracts. Avoid tests that copy the implementation.",
+  "Un test útil prepara estado, ejecuta una acción observable y comprueba el resultado. Vitest aporta runner, assertions, spies y fake timers; TestBed agrega el entorno de inyección, compilación y render de Angular.": "A useful test prepares state, executes a observable action, and checks the result. Vitest provides runner, assertions, spies and fake timers; TestBed adds the Angular injection, compilation and rendering environment.",
+  "Los component harnesses encapsulan la forma de operar un componente y permiten que los tests usen una API estable. RouterTestingHarness navega rutas reales dentro del test y verifica guards, params, resolvers y componentes activados.": "Component harnesses encapsulate how a component operates and allow tests to use a stable API. RouterTestingHarness navigates real routes within the test and checks guards, params, resolvers and activated components.",
+  "Pirámide práctica: muchas pruebas de lógica, componentes para comportamiento DOM, integración en fronteras y pocos E2E de journeys críticos.": "Practical pyramid: many logic tests, components for DOM behavior, border integration and few E2Es of critical journeys.",
+  "Angular moderno documenta Vitest junto con TestBed. Bases existentes pueden usar Jasmine/Jest; la estrategia importa más que la sintaxis.": "Modern Angular documents Vitest together with TestBed. Existing databases can use Jasmine/Jest; Strategy matters more than syntax.",
+  "Un test de componente interactúa con el DOM mediante roles, labels y eventos, y comprueba el resultado visible. Los métodos privados y la estructura interna son detalles de implementación; afirmar sobre ellos vuelve frágil el test ante refactors sin cambio de comportamiento.": "A component test interacts with the DOM through roles, labels and events, and checks the visible result. Private methods and internal structure are implementation details; affirming about them makes the test fragile in the face of refactors without behavioral change.",
+  "`HttpTestingController` intercepta requests de `HttpClient` y permite afirmar método, URL, body y headers antes de responder con éxito o error. `verify()` comprueba al final que ninguna petición haya quedado pendiente.": "`HttpTestingController` intercepts requests from `HttpClient` and allows method, URL, body and headers to be asserted before responding with success or error. `verify()` finally checks that no request has been left pending.",
+  "`RouterTestingHarness` simplifica navegación. Los component harnesses crean APIs de prueba estables para UI reutilizable.": "`RouterTestingHarness` simplifies navigation. Component harnesses create stable test APIs for reusable UI.",
+  "Fake timers controlan el reloj de debounce, retry y delays sin esperar tiempo real. Los marble tests representan emisiones RxJS sobre una línea temporal virtual y sirven cuando el orden y la concurrencia forman parte del contrato.": "Fake timers control the debounce clock, retry and delays without waiting for real time. Marble tests represent RxJS emissions on a virtual timeline and are useful when order and concurrency are part of the contract.",
+  "Un mock reemplaza una frontera y permite aislar la unidad, pero demasiados mocks pueden describir una integración que ningún proveedor real soporta. Los contract tests verifican que DTOs, adapters y clientes respeten el mismo contrato.": "A mock replaces a boundary and allows the unit to be isolated, but too many mocks can describe an integration that no real vendor supports. Contract tests verify that DTOs, adapters and clients respect the same contract.",
+  "¿Qué test escribirías primero?": "Which test would you write first?",
+  "El riesgo más caro: regla de dominio, permiso, pago, migración o interacción que ya falló. La cobertura porcentual no reemplaza esa priorización.": "The most expensive risk: domain rule, permission, payment, migration or interaction that has already failed. Percentage coverage does not replace that prioritization.",
+  "¿Unit test de un componente con servicio?": "Unit test of a component with a service?",
+  "Sustituyo la frontera del servicio, ejecuto la interacción por el DOM y verifico el resultado visible y la llamada relevante. No pruebo Angular.": "I replace the service border, execute the interaction with the DOM and check the visible result and the relevant call. I don't test Angular.",
+  "¿Qué probás en una unidad y qué dejás para integración?": "What do you test in a unit and what do you leave for integration?",
+  "Una unidad cubre reglas puras y estados con pocas fronteras. Un test de integración comprueba template, DI, router o HTTP cuando su composición forma parte del comportamiento. Elijo el nivel más bajo que todavía puede detectar el fallo real.": "One unit covers pure rules and states with few borders. An integration test checks template, DI, router or HTTP when their composition is part of the behavior. I choose the lowest level that can still detect the actual fault.",
+  "¿Cómo eliminás un test asíncrono flaky?": "How do you eliminate a flaky asynchronous test?",
+  "Controlo reloj, scheduler y respuestas externas. Espero una condición observable en lugar de usar delays arbitrarios, cierro requests pendientes y elimino estado compartido entre casos.": "I control clock, scheduler and external responses. I wait for a observable condition instead of using arbitrary delays, close pending requests, and remove shared state between cases.",
+  "¿Qué aporta Vitest y qué aporta TestBed?": "What does Vitest provide and what does TestBed provide?",
+  "Vitest ejecuta suites, assertions, spies y timers. TestBed crea el entorno Angular de providers, componentes y change detection. Un servicio puro puede no necesitar TestBed; un componente con DI y template sí suele beneficiarse.": "Vitest runs suites, assertions, spies and timers. TestBed creates the Angular environment of providers, components and change detection. A pure service may not need TestBed; a component with DI and template usually benefits.",
+  "¿Cuándo usarías un component harness?": "When would you use a component harness?",
+  "Cuando varias pruebas o consumidores necesitan operar un componente complejo sin depender de su DOM interno. El harness ofrece acciones y consultas estables y reduce roturas por cambios de markup.": "When multiple tests or consumers need to operate a complex component without relying on its internal DOM. The harness offers stable actions and queries and reduces breakages due to markup changes.",
+  "¿Cómo probás debounce y retry?": "How do you test debounce and retry?",
+  "Uso fake timers o el scheduler virtual, avanzo el reloj de forma explícita y compruebo emisiones, cancelaciones y número de intentos. El test no espera tiempo real ni depende de la velocidad de la máquina.": "I use fake timers or the virtual scheduler, I advance the clock explicitly and check broadcasts, cancellations and number of attempts. The test does not wait real time nor does it depend on the speed of the machine.",
+  "¿Qué debe verificar un test de HttpClient?": "What should a HttpClient test verify?",
+  "Método, URL, params, headers y body que forman parte del contrato; luego responde con éxito o error y comprueba el resultado visible. `verify()` asegura que no quedaron requests sin resolver.": "Method, URL, params, headers and body that are part of the contract; then respond with success or error and check the visible result. `verify()` ensures that there were no unresolved requests left.",
+  "Angular · Testing": "Angular · Testing",
+  "Seguridad web en Angular": "Web security at Angular",
+  "Angular escapa y sanitiza varios bindings, pero el equipo todavía controla autenticación, autorización, dependencias y datos peligrosos.": "Angular escapes and sanitizes several bindings, but the team still controls authentication, authorization, dependencies, and dangerous data.",
+  "Interpolación y property binding tratan valores como datos. `[innerHTML]` pasa por sanitización; URLs de recursos y bypass APIs requieren revisión estricta.": "Interpolation and property binding treat values as data. `[innerHTML]` goes through sanitation; Resource URLs and bypass APIs require strict review.",
+  "`DomSanitizer.bypassSecurityTrust*` no limpia contenido: crea un valor que omite la sanitización de Angular. Su uso concentra una decisión de confianza y necesita una fuente controlada, revisión y auditoría.": "`DomSanitizer.bypassSecurityTrust*` does not clean content: Creates a value that bypasses sanitization of Angular. Its use concentrates a decision of trust and requires a controlled source, review and audit.",
+  "Content Security Policy limita los orígenes y tipos de recursos que puede ejecutar el navegador. Trusted Types obliga a que sinks DOM peligrosos reciban valores creados por políticas registradas. Juntas reducen el impacto de una inyección que llega al DOM.": "Content Security Policy limits the origins and types of resources that the browser can run. Trusted Types forces dangerous DOM sinks to receive values ​​created by registered policies. Together they reduce the impact of an injection reaching the DOM.",
+  "CSRF aprovecha credenciales que el navegador adjunta de forma automática, como cookies. SameSite, un token XSRF y la validación del servidor prueban que la petición salió de la aplicación esperada. Un bearer token evita ese mecanismo, pero puede ser robado por XSS según dónde se almacene.": "CSRF takes advantage of credentials that the browser automatically attaches, such as cookies. SameSite, an XSRF token, and server validation prove that the request left the expected application. A bearer token prevents that mechanism, but can be stolen by XSS depending on where it is stored.",
+  "Un guard decide navegación en el cliente y mejora la experiencia, pero el usuario puede omitirlo o llamar la API de forma directa. La API debe comprobar permisos y ownership para cada operación.": "A guard decides navigation on the client and improves the experience, but the user can ignore it or call the API directly. The API must check permissions and ownership for each operation.",
+  "El bundle frontend y sus variables de entorno llegan al navegador y cualquier usuario puede inspeccionarlos. Claves privadas, credenciales de servicio y secretos pertenecen al servidor o a un gestor de secretos.": "The frontend bundle and its environment variables reach the browser and any user can inspect them. Private keys, service credentials, and secrets belong to the server or a secrets manager.",
+  "Las versiones soportadas de Angular reciben correcciones; el lockfile fija el grafo instalado. Una auditoría de supply chain revisa vulnerabilidades, paquetes abandonados, scripts de instalación y cambios inesperados de mantenedor.": "Supported versions of Angular receive fixes; The lockfile sets the installed graph. A supply chain audit reviews vulnerabilities, abandoned packages, installation scripts, and unexpected maintainer changes.",
+  "¿Angular evita XSS?": "Does Angular prevent XSS?",
+  "Reduce XSS al escapar y sanitizar contextos conocidos. DOM APIs directas, bypass, librerías y HTML externo reabren el riesgo.": "Reduces XSS by escaping and sanitizing known contexts. DOM Direct APIs, bypasses, libraries and external HTML reopen the risk.",
+  "¿LocalStorage o cookies para tokens?": "LocalStorage or cookies for tokens?",
+  "Depende del modelo de amenaza. Cookies HttpOnly reducen lectura por XSS y exigen CSRF controls. LocalStorage simplifica headers pero expone el token a JavaScript comprometido.": "It depends on the threat model. HttpOnly cookies reduce reading by XSS and require CSRF controls. LocalStorage simplifies headers but exposes the token to compromised JavaScript.",
+  "¿Qué implica usar `bypassSecurityTrustHtml`?": "What does using `bypassSecurityTrustHtml` entail?",
+  "La llamada no sanitiza el contenido. Declara que la aplicación confía en esa fuente y evita la protección de Angular para ese sink. La restrinjo a una frontera revisada y prefiero transformar datos antes de producir HTML.": "The call does not sanitize the content. Declares that the application trusts that source and bypasses Angular protection for that sink. I restrict it to a revised boundary and prefer to transform data before producing HTML.",
+  "¿Por qué un route guard no autoriza una operación?": "Why doesn't a route guard authorize an operation?",
+  "El usuario controla el cliente y puede omitir la navegación o llamar la API de forma directa. El guard mejora la experiencia. El servidor verifica identidad, permisos y ownership en cada operación.": "The user controls the client and can skip navigation or call the API directly. The guard improves the experience. The server verifies identity, permissions and ownership in each operation.",
+  "¿Cómo mostrarías HTML proporcionado por usuarios?": "How would you display HTML provided by users?",
+  "Lo sanitizo con una política y librería adecuada en el servidor o una frontera auditada, conservo CSP y evito `bypassSecurityTrustHtml`. Si el producto admite un subconjunto, permito sólo tags y atributos explícitos.": "I sanitize it with an appropriate policy and library on the server or an audited border, keep CSP and avoid `bypassSecurityTrustHtml`. If the product supports a subset, I allow only explicit tags and attributes.",
+  "¿Dónde guardarías un token de sesión?": "Where would you store a session token?",
+  "Depende del modelo de amenazas. Una cookie HttpOnly reduce robo directo por XSS y requiere protección CSRF; memoria evita persistencia pero se pierde al recargar. No presento localStorage como opción segura por defecto para credenciales de larga vida.": "It depends on the threat model. An HttpOnly cookie reduces direct theft by XSS and requires CSRF protection; Memory prevents persistence but is lost on reload. I do not introduce localStorage as the default secure option for long-lived credentials.",
+  "Angular · Security": "Angular · Security",
+  "OWASP · Cheat sheets": "OWASP · Cheat sheets",
+  "Accesibilidad, HTML y CSS": "Accessibility, HTML and CSS",
+  "La accesibilidad forma parte del contrato de UI. Un Senior la integra en componentes y Definition of Done.": "Accessibility is part of the UI contract. A Senior integrates it into components and Definition of Done.",
+  "HTML semántico aporta nombre, rol y comportamiento nativo. `button` ejecuta acciones, `a` con `href` navega, los headings forman el índice, `label` nombra controles y los landmarks permiten saltar entre regiones.": "Semantic HTML provides name, role and native behavior. `button` executes actions, `a` navigates with `href`, headings form the index, `label` names controls and landmarks allow jumping between regions.",
+  "La navegación por teclado necesita un orden de foco que siga la lectura y un indicador visible. Un modal mueve el foco a su interior, impide escapar al contenido de fondo, anuncia su nombre y devuelve el foco al elemento que lo abrió.": "Keyboard navigation requires a focus order that follows the reading and a visible indicator. A modal moves focus inside, prevents escaping to background content, announces its name, and returns focus to the element that opened it.",
+  "ARIA añade nombre, rol, estado o relaciones cuando HTML nativo no alcanza. No incorpora por sí sola teclado ni comportamiento; un `div role=button` todavía necesita foco y activación con Enter y Space.": "ARIA adds name, role, status, or relationships when native HTML falls short. It does not incorporate a keyboard or behavior by itself; a `div role=button` still needs focus and activation with Enter and Space.",
+  "Los errores asociados mediante `aria-describedby` se leen junto al control. Una live region anuncia cambios asíncronos que no reciben foco, como el resultado de una operación o una validación remota.": "Errors associated with `aria-describedby` are read along with the control. A live region announces asynchronous changes that do not receive focus, such as the result of a remote operation or validation.",
+  "CSS: cascade, specificity, stacking contexts, box model, Flexbox, Grid, container/media queries y responsive images.": "CSS: cascade, specificity, stacking contexts, box model, Flexbox, Grid, container/media queries and responsive images.",
+  "Zoom, texto largo y localización cambian las dimensiones del contenido; contraste y high contrast cambian su percepción; reduced motion limita animaciones. Un componente flexible conserva lectura, foco y controles sin depender de alturas fijas.": "Zoom, long text and localization change the dimensions of the content; Contrast and high contrast change your perception; reduced motion limits animations. A flexible component retains readout, focus, and controls without relying on fixed heights.",
+  "¿Div con click o button?": "Div with click or button?",
+  "Button aporta teclado, foco, rol y activación sin recrear comportamiento. Un div exige implementar y mantener todo eso.": "Button provides keyboard, focus, role and activation without recreating behavior. A div requires implementing and maintaining all of that.",
+  "¿Cómo probás accesibilidad?": "How do you test accessibility?",
+  "Combino lint y axe con teclado real, lector de pantalla en flujos críticos y revisión de foco, contraste y nombres accesibles.": "I combine lint and ax with real keyboard, screen reader in critical flows and review of focus, contrast and accessible names.",
+  "¿Cuándo ARIA empeora un componente?": "When does ARIA make a component worse?",
+  "ARIA puede contradecir la semántica nativa o anunciar un estado que el comportamiento no implementa. Empiezo por el elemento HTML correcto y agrego nombre, estado o relaciones sólo cuando falta información.": "ARIA may contradict native semantics or announce a state that the behavior does not implement. I start with the correct HTML element and add name, status, or relationships only when information is missing.",
+  "¿Cómo manejás el foco de un modal?": "How do you manage the focus of a modal?",
+  "Muevo el foco a un punto útil dentro del diálogo, mantengo la navegación en su contenido, cierro con Escape cuando corresponde y devuelvo el foco al disparador. El diálogo también necesita nombre y fondo inerte.": "I move focus to a useful point within the dialog, keep the navigation on its content, close with Escape when appropriate, and return focus to the trigger. The dialogue also needs a name and an inert background.",
+  "¿Cómo probarías un modal accesible?": "How would you test an accessible modal?",
+  "Lo abro sólo con teclado, compruebo nombre accesible, foco inicial, ciclo de Tab, Escape y retorno del foco. Después valido el fondo inerte y escucho el flujo con VoiceOver o NVDA.": "I open it only with the keyboard, I check accessible name, initial focus, Tab cycle, Escape and return of focus. Then I validate the inert background and listen to the flow with VoiceOver or NVDA.",
+  "¿Cuándo usarías una live region?": "When would you use a live region?",
+  "Para anunciar un cambio asíncrono relevante que no recibe foco, como un resultado guardado o un error remoto. Evito anunciar cada pulsación o cambio visual porque interrumpe y satura al lector de pantalla.": "To announce a relevant asynchronous change that does not receive focus, such as a saved result or a remote error. I avoid announcing every press or visual change because it interrupts and overwhelms the screen reader.",
+  "WAI · ARIA Practices": "WAI ARIA Practices",
+  "Build, CI/CD, configuración y upgrades": "Build, CI/CD, configuration and upgrades",
+  "El frontend llega a producción mediante una cadena que también necesita diseño y ownership.": "The frontend reaches production through a chain that also requires design and ownership.",
+  "La configuración de build contiene valores públicos que pueden quedar embebidos en los bundles. Los secretos permanecen fuera del frontend. Validar la configuración al arrancar detecta URLs o flags faltantes y evita que cada entorno interprete defaults distintos.": "The build configuration contains public values that can be embedded in bundles. The secrets remain outside the frontend. Validating the configuration at startup detects missing URLs or flags and prevents each environment from interpreting different defaults.",
+  "Un pipeline de CI ejecuta typecheck, lint, unit tests, build con budgets y recorridos críticos antes de publicar. Una caché usa el lockfile y la configuración como parte de su clave para no reutilizar dependencias o resultados incompatibles.": "A CI pipeline runs typecheck, lint, unit tests, build with budgets, and critical walks before publishing. A cache uses the lockfile and configuration as part of its key so as not to reuse incompatible dependencies or results.",
+  "Los assets con hash pueden usar caché larga porque una modificación cambia su URL. El HTML conserva una política corta para descubrir el release nuevo. Un rollback necesita artefactos anteriores y compatibilidad temporal entre el frontend nuevo y la versión previa de la API.": "Hashed assets can use long cache because a modification changes their URL. HTML retains a short policy to discover the new release. A rollback requires previous artifacts and temporal compatibility between the new frontend and the previous version of the API.",
+  "Un feature flag separa despliegue de exposición. Owner, métricas y fecha de retiro controlan su ciclo de vida; un flag permanente mantiene dos caminos de código y duplica combinaciones de prueba.": "A feature flag separates display from exposition. Owner, metrics and retirement date control its life cycle; a permanent flag maintains two code paths and duplicates test combinations.",
+  "`ng update` y los schematics transforman configuración y código para una versión nueva. Actualizar una major por vez reduce combinaciones no soportadas; las deprecations, el bundle y las métricas runtime muestran qué trabajo queda después de compilar.": "`ng update` and schematics transform configuration and code for a new version. Updating one major at a time reduces unsupported combinations; deprecations, bundle, and runtime metrics show what work is left after compiling.",
+  "Los source maps relacionan el bundle minificado con el TypeScript original. En producción requieren acceso restringido porque revelan estructura y código; asociarlos con release, commit y evento permite reconstruir el stack correcto.": "The source maps relate the minified bundle to the original TypeScript. In production they require restricted access because they reveal structure and code; Associating them with release, commit and event allows you to rebuild the correct stack.",
+  "¿Cómo desplegás sin romper usuarios con pestañas abiertas?": "How do you deploy without breaking users with open tabs?",
+  "Mantengo compatibilidad temporal de API, manejo chunk-load errors, uso assets versionados y evito borrar archivos previos antes de que expire su caché.": "I maintain temporary API compatibility, handle chunk-load errors, use versioned assets, and avoid deleting previous files before their cache expires.",
+  "¿Qué mirás después de un upgrade?": "What do you look at after an upgrade?",
+  "Errores, tests, bundle, Web Vitals, warnings, cambios de browser support y dependencias pares. Después retiro compatibilidad obsoleta.": "Errors, tests, bundles, Web Vitals, warnings, browser support changes and even dependencies. Later I removed obsolete compatibility.",
+  "¿Cómo diseñás un feature flag seguro?": "How do you design a secure feature flag?",
+  "Defino owner, audiencia, fallback, métricas y fecha de retiro. El backend mantiene las reglas de autorización. Los dos caminos permanecen probados mientras el flag exista y retiro el código cuando termina el rollout.": "I define owner, audience, fallback, metrics and retirement date. The backend maintains the authorization rules. Both paths remain tested as long as the flag exists and I remove the code when the rollout ends.",
+  "¿Publicarías source maps en producción?": "Would you publish source maps in production?",
+  "Los genero para relacionar errores minificados con el TypeScript, pero restrinjo su acceso al sistema de observabilidad. Asocio cada mapa con release y commit para simbolizar el stack correcto.": "I generate them to relate minified errors to the TypeScript, but I restrict their access to the observability system. I associate each map with release and commit to symbolize the correct stack.",
+  "¿Cómo diseñás un rollback de frontend?": "How do you design a frontend rollback?",
+  "Conservo artefactos inmutables por release, mantengo compatibilidad temporal con la API y puedo volver a apuntar el hosting al build anterior. Base de datos y contratos nuevos necesitan una estrategia forward-compatible para que el bundle viejo siga funcionando.": "I keep artifacts immutable per release, maintain temporary API compatibility, and can point hosting back to the previous build. New databases and contracts need a forward-compatible strategy for the old bundle to continue working.",
+  "¿Qué presupuesto pondrías en CI?": "What budget would you put in CI?",
+  "Límites de bundle inicial y chunks críticos, typecheck, tests y métricas del recorrido principal. Un presupuesto debe fallar cerca de la causa y tener owner; una cifra ignorada en cada pipeline no protege rendimiento.": "Initial bundle limits and critical chunks, typecheck, tests and main path metrics. A budget must fail close to the cause and have owner; an ignored figure in each pipeline does not protect performance.",
+  "web.dev · Learn performance": "web.dev · Learn performance",
+  "Observabilidad, errores y debugging": "Observability, errors and debugging",
+  "Un Senior diseña cómo detectar y explicar fallos antes de que aparezca el incidente.": "A Senior designs how to detect and explain failures before the incident occurs.",
+  "La frontera global captura errores que ninguna feature manejó. El registro conserva tipo, causa y contexto técnico sin exponer stack traces, tokens ni datos personales en la interfaz.": "The global border captures errors that no feature handled. The log preserves type, cause, and technical context without exposing stack traces, tokens, or personal data in the interface.",
+  "Release, ruta, acción, correlation ID, usuario anonimizado y breadcrumbs permiten reconstruir una falla. El mismo correlation ID propagado por gateway y backend conecta el error del navegador con logs y traces del servidor.": "Release, route, action, correlation ID, anonymized user and breadcrumbs allow a failure to be reconstructed. The same correlation ID propagated by gateway and backend connects the browser error with server logs and traces.",
+  "La tasa de errores indica frecuencia, la latencia por endpoint localiza esperas, Web Vitals describe experiencia de render e interacción y el éxito de journeys mide tareas completas. Un log sin una pregunta operativa ni una acción asociada añade volumen sin diagnóstico.": "Error rate indicates frequency, latency per endpoint locates waits, Web Vitals describes rendering and interaction experience, and journey success measures completed tasks. A log without an operational question or an associated action adds volume without diagnosis.",
+  "Angular DevTools muestra árbol, DI y profiling. Chrome Performance, Network, Memory y Coverage completan el diagnóstico.": "Angular DevTools shows tree, DI and profiling. Chrome Performance, Network, Memory and Coverage complete the diagnosis.",
+  "Un leak se vuelve visible al repetir navegación y comparar heap snapshots. Detached DOM nodes, listeners, timers y caches sin límite muestran qué referencia mantiene viva una vista que Angular ya destruyó.": "A leak becomes visible when repeating navigation and comparing heap snapshots. Detached DOM nodes, listeners, timers and unlimited caches show which reference keeps alive a view that Angular already destroyed.",
+  "Un error boundary de feature contiene el fallo y ofrece una salida: retry, fallback, estado parcial o contacto de soporte. Un toast genérico desaparece y no conserva la operación que el usuario necesita recuperar.": "A feature boundary error contains the fault and provides an output: retry, fallback, partial state, or support contact. A generic toast disappears and does not preserve the operation that the user needs to recover.",
+  "¿Cómo investigás un bug que no reproducís?": "How do you investigate a bug that you don't reproduce?",
+  "Aumento contexto observable, comparo versión, navegador y ruta de datos, y creo una hipótesis verificable. Evito cambios especulativos sin señal.": "I increase observable context, compare version, browser and data path, and create a testable hypothesis. I avoid speculative changes without a signal.",
+  "¿Qué reportarías en un error HTTP?": "What would you report in an HTTP error?",
+  "Endpoint normalizado, status, duración, correlation ID y operación. Redacto o elimino body, tokens y datos personales.": "Normalized endpoint, status, duration, correlation ID and operation. I redact or delete body, tokens and personal data.",
+  "¿Cómo usás un correlation ID desde el frontend?": "How do you use a correlation ID from the frontend?",
+  "Propago un identificador permitido en requests y lo registro junto con ruta, release y acción. Backend y gateway conservan el mismo valor para unir el fallo visible con logs y traces sin guardar datos personales.": "I propagate an allowed identifier in requests and register it along with route, release and action. Backend and gateway keep the same value to link the visible fault with logs and traces without saving personal data.",
+  "¿Cómo confirmás un memory leak de navegación?": "How do you confirm a browsing memory leak?",
+  "Repito el recorrido, fuerzo garbage collection en un entorno de diagnóstico y comparo heap snapshots. Busco componentes retenidos, detached DOM nodes, listeners, timers y caches que conservan referencias.": "I repeat the traversal, force garbage collection in a diagnostic environment and compare heap snapshots. I look for retained components, detached DOM nodes, listeners, timers and caches that preserve references.",
+  "¿Cómo distinguís un error del frontend de uno de API?": "How do you distinguish a frontend error from an API error?",
+  "Relaciono el evento del navegador con request, status, correlation ID y trace del backend. Si la API respondió bien, reviso parsing y render; si falló, el mismo identificador permite seguir la operación por gateway y servicio.": "I relate the browser event to the backend's request, status, correlation ID and trace. If the API responded well, I check parsing and rendering; If it failed, the same identifier allows the operation to be followed by gateway and service.",
+  "¿Qué datos evitarías enviar a telemetría?": "What data would you avoid sending to telemetry?",
+  "Tokens, passwords, bodies sensibles, datos personales sin necesidad y HTML completo. Defino una allowlist, anonimizo identificadores y aplico sampling y retención según el propósito operativo.": "Tokens, passwords, sensitive bodies, unnecessary personal data and complete HTML. I define an allowlist, anonymize identifiers, and apply sampling and retention based on the operational purpose.",
+  "System design frontend": "System design frontend",
+  "En una entrevista de diseño, empezá por requisitos y recorré datos, límites, fallos, rendimiento y operación.": "In a design interview, start with requirements and go through data, limits, failures, performance and operation.",
+  "Los usuarios, flujos críticos, SEO, offline, tiempo real, volumen, permisos, localización y objetivos de rendimiento forman las restricciones del diseño. Cada restricción modifica las fronteras, la estrategia de datos o el modo de rendering.": "Users, critical flows, SEO, offline, real-time, volume, permissions, location and performance objectives form the design constraints. Each constraint modifies the boundaries, data strategy, or rendering mode.",
+  "Un diagrama frontend ubica features, router, estado, API layer, componentes compartidos y fronteras de dominio. La propiedad de cada dato determina quién puede escribirlo, quién lo deriva y cuánto tiempo debe vivir.": "A frontend diagram locates features, router, state, API layer, shared components, and domain boundaries. The ownership of each piece of data determines who can write it, who derives it, and how long it should live.",
+  "Una estrategia de caché define key, TTL e invalidación. La consistencia establece cuándo aceptar datos stale, cómo reconciliar optimistic updates, qué hacer ante conflictos y cómo mantener cursores o páginas al cambiar la colección.": "A cache strategy defines key, TTL and invalidation. Consistency establishes when to accept stale data, how to reconcile optimistic updates, what to do about conflicts, and how to maintain cursors or pages when changing the collection.",
+  "WebSocket ofrece comunicación bidireccional persistente, SSE envía un stream unidireccional sobre HTTP y polling repite requests. La solución necesita reconexión, orden, deduplicación y backpressure para no procesar eventos más rápido de lo que la UI puede consumirlos.": "WebSocket offers persistent bidirectional communication, SSE sends a unidirectional stream over HTTP and polls repeat requests. The solution needs reconnection, ordering, deduplication, and backpressure to not process events faster than the UI can consume them.",
+  "Un diseño completo incluye autorización, accesibilidad, telemetría, niveles de prueba, estrategia de despliegue y migración. Esas fronteras determinan si el sistema puede operarse y evolucionar después del primer release.": "A complete design includes authorization, accessibility, telemetry, test levels, deployment strategy, and migration. These boundaries determine whether the system can be operated and evolved after the first release.",
+  "La primera versión cubre la escala y los riesgos conocidos con el menor número de piezas. Umbrales observables, como latencia, volumen o frecuencia de incidentes, indican cuándo una estrategia deja de servir y justifican el siguiente cambio.": "The first version covers the scale and known risks with the fewest parts. Observable thresholds, such as latency, volume, or incident frequency, indicate when a strategy is no longer useful and justify the next change.",
+  "Diseñá un dashboard con datos en vivo": "Design a dashboard with live data",
+  "Agrupo widgets por frecuencia y ownership, uso un servicio de conexión con multiplexing, normalizo eventos, aplico backpressure y renderizo con signals. Pauso streams invisibles y mido INP.": "I group widgets by frequency and ownership, use a connection service with multiplexing, normalize events, apply backpressure and render with signals. I pause invisible streams and measure INP.",
+  "Diseñá una librería de componentes": "Design a component library",
+  "Defino tokens de diseño, accesibilidad y APIs pequeñas; publico harnesses, documentación y semver. Pruebo keyboard, themes, SSR y breaking changes.": "I define design tokens, accessibility and small APIs; I publish harnesses, documentation and semver. I try keyboard, themes, SSR and breaking changes.",
+  "¿Cómo elegís entre WebSocket, SSE y polling?": "How do you choose between WebSocket, SSE and polling?",
+  "WebSocket sirve para comunicación bidireccional, SSE para un stream servidor a cliente sobre HTTP y polling para cambios poco frecuentes o infraestructura simple. Comparo reconexión, proxies, orden, volumen y soporte del backend.": "WebSocket is for bidirectional communication, SSE for a server-to-client stream over HTTP and polling for infrequent changes or simple infrastructure. I compare reconnection, proxies, order, volume and backend support.",
+  "¿Qué debe definir una estrategia de caché?": "What should define a caching strategy?",
+  "Define key, TTL, invalidación, deduplicación y comportamiento stale. También explica cómo reconciliar optimistic updates, conflictos y cambios de paginación sin mezclar datos de usuarios o filtros distintos.": "Defines key, TTL, invalidation, deduplication and stale behavior. It also explains how to reconcile optimistic updates, conflicts, and pagination changes without mixing different user data or filters.",
+  "¿Cómo diseñarías datos en tiempo real sin saturar la UI?": "How would you style real-time data without cluttering the UI?",
+  "Defino frecuencia útil por widget, agrupo eventos, deduplico por versión y aplico backpressure. Pauso consumidores fuera del viewport y separo el ritmo de recepción del ritmo de render.": "I define useful frequency per widget, group events, deduplicate by version and apply backpressure. I pause consumers out of the viewport and separate the receive rate from the render rate.",
+  "¿Qué incluirías en una propuesta de system design además del diagrama?": "What would you include in a system design proposal in addition to the diagram?",
+  "Contratos de datos, ownership, estrategia de caché, errores, seguridad, accesibilidad, métricas y rollout. También dejo umbrales que indiquen cuándo la primera solución necesita otra arquitectura.": "Data contracts, ownership, cache strategy, errors, security, accessibility, metrics and rollout. I also leave thresholds that indicate when the first solution needs another architecture.",
+  "Google · Engineering practices": "Google · Engineering practices",
+  "Liderazgo técnico y trabajo en equipo": "Technical leadership and teamwork",
+  "El nivel Senior incluye decisiones compartidas, mentoring, manejo de incidentes y entrega predecible.": "The Senior level includes shared decisions, mentoring, incident management and predictable delivery.",
+  "Un code review evalúa corrección, seguridad, diseño y tests. Un comentario bloqueante describe un defecto que impide integrar; una sugerencia propone una mejora opcional. Explicar el motivo permite que el autor aplique el criterio en código futuro.": "A code review evaluates correctness, security, design and tests. A blocking comment describes a defect that prevents integration; one suggestion proposes an optional improvement. Explaining why allows the author to apply the criteria in future code.",
+  "Una decisión técnica documentada contiene contexto, alternativas y consecuencias. La fecha de revisión evita tratar como permanente una elección tomada bajo restricciones que pueden cambiar.": "A documented technical decision contains context, alternatives and consequences. The review date avoids treating as permanent a choice made under constraints that may change.",
+  "Mentoring hace visible el modelo mental, aumenta la dificultad de forma gradual y devuelve la decisión a quien aprende. Resolver cada problema por la otra persona concentra conocimiento y convierte al mentor en cuello de botella.": "Mentoring makes the mental model visible, increases the difficulty gradually and returns the decision to the learner. Solving each problem for the other person concentrates knowledge and turns the mentor into a bottleneck.",
+  "Durante un incidente, el equipo primero estabiliza el servicio, comunica impacto, asigna roles y conserva evidencia. El postmortem reconstruye causas y cambia código, alertas o proceso sin buscar culpables.": "During an incident, the team first stabilizes the service, communicates impact, assigns roles, and preserves evidence. The postmortem reconstructs causes and changes code, alerts or processes without looking for culprits.",
+  "La negociación de alcance compara riesgo, dependencias, costo de demora y una entrega incremental. Exponer incertidumbre permite reservar tiempo, instrumentar el resultado o reducir el alcance antes de comprometer una fecha.": "Scope negotiation compares risk, dependencies, cost of delay, and incremental delivery. Exposing uncertainty allows you to reserve time, implement the result or reduce the scope before committing to a date.",
+  "Lead time, defectos, costo de mantenimiento, adopción y carga cognitiva describen salud técnica desde resultados. Líneas de código y cantidad de tickets premian volumen aunque el sistema sea más complejo o menos estable.": "Lead time, defects, maintenance cost, adoption and cognitive load describe technical health from results. Lines of code and number of tickets reward volume even if the system is more complex or less stable.",
+  "¿Cómo resolvés un desacuerdo técnico?": "How do you resolve a technical disagreement?",
+  "Alineo restricciones, comparo opciones con criterios, hago un spike si falta evidencia y documento la decisión. Después apoyo la opción acordada.": "I align constraints, compare options with criteria, spike if evidence is missing, and document the decision. Then I support the agreed option.",
+  "¿Cómo manejaste feedback negativo?": "How did you handle negative feedback?",
+  "Describí el caso de modularización de formularios: escuchaste, revisaste estándares, refactorizaste por responsabilidad, pediste otra revisión y aplicaste el aprendizaje.": "I described the form modularization case: you listened, reviewed standards, refactored for responsibility, asked for another review, and applied the learning.",
+  "¿Qué convierte un comentario de review en bloqueante?": "What makes a review comment blocking?",
+  "Bloqueo por corrección, seguridad, pérdida de datos, contrato roto o una deuda que impide operar el cambio. Marco preferencias como sugerencias y explico el riesgo para que el autor pueda aplicar el criterio.": "Blocking due to correction, security, data loss, broken contract or a debt that prevents the change from operating. I mark preferences as suggestions and explain the risk so the author can apply the criteria.",
+  "¿Qué incluís en un ADR?": "What do you include in an ADR?",
+  "Registro contexto, restricciones, opciones consideradas, decisión y consecuencias. Añado owner y fecha de revisión cuando las condiciones pueden cambiar. El documento permite discutir la elección sin depender de memoria oral.": "Record context, restrictions, options considered, decision and consequences. I add owner and review date when conditions may change. The document allows the election to be discussed without depending on oral memory.",
+  "¿Cómo resolvés un desacuerdo de arquitectura?": "How do you resolve an architectural disagreement?",
+  "Acordamos objetivo y restricciones, escribimos alternativas con el mismo criterio y ejecutamos un spike si la incertidumbre lo requiere. La decisión queda registrada con consecuencias y fecha de revisión.": "We agree on the objective and restrictions, we write alternatives with the same criteria and we execute a spike if the uncertainty requires it. The decision is recorded with consequences and review date.",
+  "¿Cómo elevás la calidad sin convertirte en cuello de botella?": "How do you raise quality without becoming a bottleneck?",
+  "Automatizo reglas repetibles, documento ejemplos y distribuyo ownership. En reviews explico el criterio y permito que otras personas tomen decisiones con límites claros.": "I automate repeatable rules, document examples and distribute ownership. In reviews I explain the criteria and allow other people to make decisions with clear limits.",
+  "Cómo razonar y responder como Senior": "How to reason and respond as a Senior",
+  "Esta sección convierte conocimiento técnico en respuestas claras. La meta es demostrar qué ocurre, qué decisión tomarías, por qué la tomarías y cómo comprobarías que funcionó.": "This section turns technical knowledge into clear answers. The goal is to demonstrate what happens, what decision you would make, why you would make it, and how you would prove that it worked.",
+  "Respondé primero qué es el concepto en una frase. Después explicá el mecanismo que produce su comportamiento, elegí una aplicación concreta y cerrá con el límite de esa elección. Ejemplo: `switchMap` reemplaza la suscripción interna anterior; lo elegiría en un buscador porque sólo interesa la consulta más reciente, pero no para guardar acciones que deben completarse todas.": "First answer what the concept is in a sentence. Then explain the mechanism that produces its behavior, choose a specific application and close with the limit of that choice. Example: `switchMap` replaces the previous internal subscription; I would choose it in a search engine because only the most recent query is of interest, but not to save actions that must all be completed.",
+  "Separá mecanismo de decisión. «OnPush reduce comprobaciones» describe un efecto. «Uso OnPush con estado inmutable porque los cambios llegan por inputs y signals» explica una decisión. La segunda respuesta permite evaluar si entendés cuándo la herramienta encaja.": "Separate decision mechanism. “OnPush reduces checks” describes an effect. \"I use OnPush with immutable state because the changes come through inputs and signals\" explains a decision. The second answer allows you to evaluate whether you understand when the tool fits.",
+  "Nombrá las restricciones que cambian la solución: volumen de datos, frecuencia de actualización, SEO, latencia, accesibilidad, seguridad, soporte de navegadores y capacidad del equipo. Si la pregunta no las informa, declaralas como supuestos en vez de inventar un escenario silenciosamente.": "Name the constraints that change the solution: data volume, refresh rate, SEO, latency, accessibility, security, browser support, and device capacity. If the question doesn't report them, state them as assumptions instead of silently making up a scenario.",
+  "Compará alternativas con el mismo criterio. Para cada opción indicá beneficio, costo y modo de falla. Por ejemplo, SSR mejora el HTML inicial y el SEO, pero agrega infraestructura y exige código compatible con servidor; CSR simplifica la operación, pero depende más de JavaScript para el primer contenido.": "Compare alternatives with the same criteria. For each option, indicate benefit, cost and failure mode. For example, SSR improves the initial HTML and improves SEO, but adds infrastructure and requires server-friendly code; CSR simplifies the operation, but relies more on JavaScript for the first content.",
+  "Explicá cómo validarías la decisión. Rendimiento se comprueba con métricas como LCP, INP, tamaño de bundle o tiempo de tarea; una migración se valida con tests, telemetría, despliegue gradual y rollback; una mejora de equipo se valida con lead time, defectos o carga operativa.": "Explain how you would validate the decision. Performance is checked with metrics such as LCP, INP, bundle size or task time; A migration is validated with tests, telemetry, gradual deployment and rollback; An equipment improvement is validated with lead time, defects or operational load.",
+  "Una respuesta débil enumera herramientas: «usaría Signals, OnPush y lazy loading». Una respuesta sólida conecta problema y evidencia: «el perfil mostró demasiadas vistas comprobadas; moví el estado local a Signals, mantuve referencias inmutables y medí menos scripting sin cambiar el comportamiento».": "A weak answer lists tools: \"I would use Signals, OnPush and lazy loading.\" A solid answer connects problem and evidence: “the profile showed too many verified views; I moved the local state to Signals, kept immutable references, and did less scripting without changing the behavior.”",
+  "Si no recordás una API exacta, no inventes. Explicá el modelo que sí conocés, aislá el detalle dudoso y decí cómo lo verificarías en la documentación o con una prueba mínima. El razonamiento correcto es más valioso que una firma memorizada incorrectamente.": "If you don't remember an exact API, don't invent it. Explain the model that you do know, isolate the doubtful detail and say how you would verify it in the documentation or with minimal proof. Correct reasoning is more valuable than an incorrectly memorized signature.",
+  "Para una experiencia real usá Contexto, Decisión, Acción y Resultado. El resultado debe incluir una señal verificable: latencia, errores, conversión, tiempo de entrega, incidentes evitados o feedback del equipo. Si no hubo medición, decí qué observaste y qué medirías hoy.": "For a real experience use Context, Decision, Action and Result. The result must include a verifiable signal: latency, errors, conversion, delivery time, incidents avoided or feedback from the team. If there was no measurement, say what you observed and what you would measure today.",
+  "¿Qué diferencia una respuesta Senior?": "What differentiates a Senior response?",
+  "No es la cantidad de APIs nombradas. Es poder explicar el mecanismo, elegir según restricciones, comparar alternativas y proponer una forma de validar el resultado. Por ejemplo, no basta con decir «uso `switchMap`»: hay que explicar que conserva sólo la operación interna más reciente y por qué esa política coincide con el problema.": "It is not the number of named APIs. It is being able to explain the mechanism, choose according to restrictions, compare alternatives and propose a way to validate the result. For example, it is not enough to say \"I use `switchMap`\": you must explain that it keeps only the most recent internal operation and why that policy matches the problem.",
+  "¿Qué hacés si no sabés una API exacta?": "What do you do if you don't know an exact API?",
+  "Decí qué parte conocés, razoná desde el modelo de Angular y explicá cómo verificarías el detalle. Inventar una firma daña más que reconocer un borde.": "Say which part you know, reason from the Angular model and explain how you would verify the detail. Inventing a signature is more damaging than recognizing an edge.",
+  "¿Cómo evitás responder «depende» sin tomar una posición?": "How do you avoid answering “it depends” without taking a position?",
+  "Nombrá dos o tres condiciones decisivas, fijá un escenario razonable y elegí. Por ejemplo: «si la página necesita SEO y contenido inicial rápido, elegiría SSR; si es una herramienta interna autenticada, empezaría con CSR». Después explicá qué dato haría cambiar la decisión.": "Name two or three decisive conditions, set a reasonable scenario and choose. For example: “If the page needs SEO and quick initial content, I would choose SSR; “If it is an authenticated internal tool, I would start with CSR.” Then explain what information would change the decision.",
+  "¿Cómo convertís una opinión en una decisión técnica defendible?": "How do you turn an opinion into a defensible technical decision?",
+  "Definí el objetivo, compará alternativas con los mismos criterios y acordá una señal de éxito. «Prefiero Signals» es una opinión; «uso Signals para estado local síncrono porque simplifica derivaciones y verifico el impacto con legibilidad, tests y profiling» es una decisión discutible y medible.": "Define the objective, compare alternatives with the same criteria and agree on a sign of success. \"I prefer Signals\" is an opinion; \"I use Signals for synchronous local state because it simplifies derivations and I verify the impact with readability, tests and profiling\" is a debatable and measurable decision.",
+  "¿Cómo estructurás una respuesta técnica extensa?": "How do you structure a long technical response?",
+  "Empiezo con una definición de una frase, explico el mecanismo y tomo una decisión para un escenario concreto. Cierro con el costo, la alternativa y cómo comprobaría el resultado. Si la pregunta es amplia, aviso esa estructura para que el entrevistador pueda profundizar donde le interese.": "I start with a one-sentence definition, explain the mechanism, and make a decision for a specific scenario. I close with the cost, the alternative and how I would check the result. If the question is broad, I point out that structure so that the interviewer can go deeper where they are interested.",
+  "¿Qué hacés cuando la pregunta no incluye suficiente contexto?": "What do you do when the question doesn't include enough context?",
+  "Pido las restricciones que realmente cambian la respuesta: volumen, frecuencia de cambio, SEO, latencia, consistencia, seguridad y capacidad del equipo. Si no están disponibles, declaro un supuesto, elijo bajo ese escenario y digo qué dato me haría cambiar de opción.": "I ask for the constraints that really change the answer: volume, change frequency, SEO, latency, consistency, security, and team capacity. If they are not available, I declare an assumption, choose under that scenario and say what information would make me change my option.",
+  "Preparación personal y respuestas conductuales": "Personal preparation and behavioral responses",
+  "Tu experiencia ofrece material sólido. Convertí cada proyecto en evidencia medible y ajustá la introducción al rol.": "Your experience offers solid material. Turn each project into measurable evidence and tailor the introduction to the role.",
+  "Un pitch de 60 a 90 segundos conecta especialidad, años de experiencia, dominios, dos logros y motivación para el rol. Recorrer cada empleo del CV consume tiempo sin mostrar el criterio que une la trayectoria.": "A 60 to 90 second pitch connects specialty, years of experience, domains, two achievements and motivation for the role. Going through each job on the CV consumes time without showing the criteria that unites the career.",
+  "STAR: situación y tarea breves; acción centrada en tus decisiones; resultado con métrica, aprendizaje o reducción de riesgo.": "STAR: brief situation and task; action focused on your decisions; result with metrics, learning or risk reduction.",
+  "Un banco conductual cubre conflicto, error, feedback, liderazgo, deadlines, incertidumbre, incidentes, rendimiento y arquitectura. Cada historia puede responder varias preguntas si identifica con precisión la decisión y el resultado.": "A behavioral bench covers conflict, error, feedback, leadership, deadlines, uncertainty, incidents, performance and architecture. Each story can answer several questions if it accurately identifies the decision and outcome.",
+  "El caso de formularios dinámicos demuestra arquitectura, Redux o NgRx, escalabilidad y coordinación. Cantidad de formularios, tiempo de entrega y defectos antes y después convierten la historia en evidencia medible.": "The case of dynamic forms demonstrates architecture, Redux or NgRx, scalability and coordination. Number of forms, turnaround time, and before and after defects turn history into measurable evidence.",
+  "La experiencia desde Angular 2 permite comparar cambios del framework a través del tiempo. Una adopción acertada muestra beneficio y migración; una API rechazada muestra restricciones y costo que superaban ese beneficio.": "The experience since Angular 2 allows us to compare changes in the framework over time. A successful adoption shows benefit and migration; a rejected API shows restrictions and cost that outweighed that benefit.",
+  "Las preguntas al entrevistador revelan arquitectura, prácticas de calidad, organización del equipo, roadmap, manejo de incidentes, autonomía y criterio de éxito. Las respuestas permiten evaluar el alcance real del rol.": "The questions to the interviewer reveal architecture, quality practices, team organization, roadmap, incident management, autonomy and success criteria. The answers allow you to evaluate the real scope of the role.",
+  "Contame sobre vos": "tell me about yourself",
+  "Soy Frontend Developer especializado en Angular, con experiencia desde Angular 2 y equipos distribuidos. He diseñado formularios dinámicos a escala y productos de datos. Busco un rol donde pueda combinar arquitectura, entrega y mentoring.": "I am a Frontend Developer specialized in Angular, with experience since Angular 2 and distributed teams. I have designed dynamic scale forms and data products. I am looking for a role where I can combine architecture, delivery and mentoring.",
+  "¿Por qué querés cambiar?": "Why do you want to change?",
+  "Enfocá crecimiento, alcance técnico y tipo de producto. Evitá hablar mal del equipo actual o usar una respuesta genérica.": "Focus on growth, technical scope and type of product. Avoid badmouthing the current team or using a generic response.",
+  "¿Cómo evitás que una respuesta STAR se vuelva demasiado larga?": "How do you prevent a STAR response from becoming too long?",
+  "Resumo situación y tarea en pocas frases. Dedico la mayor parte a mis decisiones, alternativas y coordinación. Cierro con un resultado medible y el aprendizaje que cambió mi trabajo posterior.": "I summarize the situation and task in a few sentences. I dedicate most of it to my decisions, alternatives and coordination. I close with a measurable result and the learning that changed my subsequent work.",
+  "¿Cómo contás un error sin debilitar tu perfil?": "How do you tell a mistake without weakening your profile?",
+  "Elijo un error real, explico la decisión que lo produjo y asumo mi parte. Describo cómo limité el impacto, qué señal agregué y qué cambio de código o proceso evitó repetirlo.": "I choose a real mistake, explain the decision that produced it, and take responsibility for my part. I describe how I limited the impact, what signal I added, and what code or process change prevented it from happening again.",
+  "¿Cómo respondés sobre un conflicto técnico?": "How do you respond to a technical conflict?",
+  "Describo la restricción, la posición de cada parte y cómo llevé la discusión a evidencia. Explico la decisión final, mi contribución y qué cambió en el producto o en la forma de trabajar.": "I describe the restriction, each party's position, and how I brought the discussion into evidence. I explain the final decision, my contribution and what changed in the product or the way of working.",
+  "¿Cómo hablás de un proyecto sin métricas históricas?": "How do you talk about a project without historical metrics?",
+  "Uso señales verificables como incidentes, tiempo de entrega, defectos o feedback, y aclaro qué no se midió. Cierro con la métrica que instrumentaría hoy en lugar de inventar un número.": "I use verifiable signals such as incidents, delivery time, defects or feedback, and clarify what was not measured. I close with the metric I would implement today instead of making up a number.",
+  "¿Tipos primitivos?": "Primitive types?",
+  "undefined, null, boolean, number, bigint, string y symbol.": "undefined, null, boolean, number, bigint, string and symbol.",
+  "¿`typeof null`?": "`typeof null`?",
+  "Devuelve `object` por compatibilidad histórica; verificá null de forma explícita.": "Returns `object` for historical compatibility; check for null explicitly.",
+  "¿`NaN === NaN`?": "`NaN === NaN`?",
+  "False. Usá `Number.isNaN` u `Object.is`.": "False. Use `Number.isNaN` or `Object.is`.",
+  "¿`null` y `undefined`?": "`null` and `undefined`?",
+  "Null suele expresar ausencia intencional; undefined expresa falta de valor o propiedad.": "Null usually expresses intentional absence; undefined expresses lack of value or property.",
+  "¿Truthy y falsy?": "Truthy and false?",
+  "La conversión booleana determina branches; objetos y arrays vacíos son truthy.": "The boolean conversion determines branches; Empty objects and arrays are truthy.",
+  "¿Temporal Dead Zone?": "Temporary Dead Zone?",
+  "Es el tramo entre la entrada al bloque y la inicialización de un binding `let`, `const` o `class`. El binding ya pertenece al scope, pero leerlo lanza `ReferenceError`; por ejemplo, `console.log(total); let total = 1;`.": "It is the stretch between the entry to the block and the initialization of a `let`, `const` or `class` binding. The binding already belongs to the scope, but reading it throws `ReferenceError`; for example, `console.log(total); let total = 1;`.",
+  "¿Hoisting?": "Hosting?",
+  "El entorno registra declaraciones antes de ejecutar; la disponibilidad depende del tipo de declaración.": "The environment registers statements before executing; Availability depends on the type of declaration.",
+  "¿`this`?": "`this`?",
+  "Receiver de una llamada según call-site, salvo arrow que captura el binding exterior.": "Receiver of a call according to call-site, except arrow that captures the external binding.",
+  "¿`call`, `apply`, `bind`?": "`call`, `apply`, `bind`?",
+  "Call invoca con argumentos; apply con array-like; bind crea otra función con receiver o argumentos fijados.": "Call invokes with arguments; apply with array-like; bind creates another function with receiver or set arguments.",
+  "¿Coerción?": "Coercion?",
+  "Conversión entre tipos. Puede ser explícita con `Number`, `String` o `Boolean`, o implícita cuando un operador o contexto necesita otro tipo.": "Conversion between types. It can be explicit with `Number`, `String`, or `Boolean`, or implicit when an operator or context requires another type.",
+  "¿Closure?": "Closure?",
+  "Una función conserva los bindings del entorno léxico donde fue creada, incluso si se ejecuta después de que terminó la función exterior. Conserva bindings vivos, no una copia congelada de sus valores.": "A function preserves the bindings of the lexical environment where it was created, even if it is executed after the outer function has finished. It preserves live bindings, not a frozen copy of their values.",
+  "¿Spread y rest?": "Spread and rest?",
+  "Misma sintaxis: spread expande; rest reúne valores restantes.": "Same syntax: spread expands; rest gathers remaining values.",
+  "¿Destructuring default?": "Destructuring default?",
+  "Se aplica ante undefined, no ante null.": "Applies to undefined, not null.",
+  "¿Shallow copy?": "Shallow copy?",
+  "Crea un contenedor nuevo y conserva las mismas referencias anidadas. Con `const copy = { ...original }`, `copy !== original`, pero `copy.user === original.user` si `user` es un objeto.": "Create a new container and keep the same nested references. With `const copy = { ...original }`, `copy !== original`, but `copy.user === original.user` if `user` is an object.",
+  "¿`structuredClone`?": "`structuredClone`?",
+  "Clona estructuras soportadas y ciclos; no clona funciones.": "Clone supported structures and cycles; does not clone functions.",
+  "¿Prototipo?": "Prototype?",
+  "Objeto delegado que JavaScript consulta cuando una propiedad falta en el receiver.": "Delegate object that JavaScript consults when a property is missing from the receiver.",
+  "¿Own property?": "Own property?",
+  "Propiedad definida en el objeto, comprobable con Object.hasOwn.": "Property defined on the object, testable with Object.hasOwn.",
+  "¿`for...in` o `for...of`?": "`for...in` or `for...of`?",
+  "In recorre claves enumerables; of recorre valores de un iterable.": "In loops enumerable keys; of loops through values ​​of an iterable.",
+  "¿Métodos de array mutables?": "Mutable array methods?",
+  "Push, pop, shift, unshift, splice, sort, reverse, fill y copyWithin.": "Push, pop, shift, unshift, splice, sort, reverse, fill and copyWithin.",
+  "¿`find` o `filter`?": "`find` or `filter`?",
+  "Find devuelve el primer match; filter crea un array con todos.": "Find returns the first match; filter creates an array with all of them.",
+  "¿Pure function?": "Pure function?",
+  "Mismo resultado para mismas entradas y sin efectos observables.": "Same result for same inputs and without observable effects.",
+  "¿Currying?": "Currying?",
+  "Convierte una función de varios argumentos en una secuencia de funciones.": "Converts a multi-argument function into a sequence of functions.",
+  "¿Debounce o throttle?": "Debounce or throttle?",
+  "Debounce espera silencio; throttle limita ejecuciones por intervalo.": "Debounce awaits silence; throttle limits executions per interval.",
+  "¿`Promise.all`?": "`Promise.all`?",
+  "Conserva orden y rechaza al primer rechazo observado.": "Maintain order and reject the first rejection observed.",
+  "¿`allSettled`?": "`allSettled`?",
+  "Espera todos y devuelve el estado de cada operación.": "Waits for all and returns the status of each operation.",
+  "¿AbortController?": "AbortController?",
+  "Emite una señal de cancelación que consumen fetch y otras APIs.": "Issues a cancellation signal that is consumed by fetch and other APIs.",
+  "¿Async bloquea el thread?": "Does Async block the thread?",
+  "No. Await cede la continuación; CPU síncrono sigue bloqueando.": "No. Await yields the continuation; Synchronous CPU keeps blocking.",
+  "¿Unhandled rejection?": "Unhandled rejection?",
+  "Promise rechazada sin handler; registrala y corregí la cadena, no la ocultes.": "Promise rejected without handler; register it and correct the chain, do not hide it.",
+  "¿DOM?": "DOM?",
+  "Árbol de nodos y APIs que representan el documento.": "Tree of nodes and APIs that represent the document.",
+  "¿BOM?": "BOOM?",
+  "APIs del navegador fuera del documento, como history, location y navigator.": "Outside-of-document browser APIs, such as history, location, and navigator.",
+  "¿Event bubbling?": "Event bubbling?",
+  "El evento asciende desde el target por ancestros que participan.": "The event ascends from the target by participating ancestors.",
+  "¿Event delegation?": "Event delegation?",
+  "Listener en un ancestro que decide según el target; reduce listeners y cubre hijos dinámicos.": "Listener in an ancestor that decides according to the target; reduce listeners and cover dynamic children.",
+  "¿preventDefault?": "preventDefault?",
+  "Evita la acción predeterminada si el evento es cancelable.": "Avoid the default action if the event is cancelable.",
+  "¿localStorage?": "localStorage?",
+  "Almacenamiento síncrono string por origin y persistente.": "String synchronous storage by origin and persistent.",
+  "¿IndexedDB?": "IndexedDB?",
+  "Base asíncrona del navegador para datos estructurados y mayor volumen.": "Asynchronous browser base for structured data and higher volume.",
+  "¿Same-origin?": "Same-origin?",
+  "Coincidencia de scheme, host y port.": "Matching scheme, host and port.",
+  "¿Preflight?": "Preflight?",
+  "Request OPTIONS con la que el navegador consulta permiso CORS.": "Request OPTIONS with which the browser queries permission CORS.",
+  "¿ETag?": "ETag?",
+  "Validador de representación para revalidación condicional.": "Representation validator for conditional revalidation.",
+  "¿Service Worker?": "Service Worker?",
+  "Worker con lifecycle que intercepta red y habilita offline/push.": "Worker with lifecycle that intercepts network and enables offline/push.",
+  "¿Web Worker?": "Web Worker?",
+  "Thread para JavaScript sin acceso directo al DOM.": "Thread for JavaScript without direct access to DOM.",
+  "¿Etiqueta semántica?": "Semantic label?",
+  "Elemento cuyo nombre comunica rol y estructura al navegador y tecnologías asistivas.": "Element whose name communicates the role and structure of the navigator and assistive technologies.",
+  "¿`head`?": "`head`?",
+  "Metadata y recursos del documento, no contenido principal visible.": "Metadata and document resources, not visible main content.",
+  "¿`alt`?": "`alt`?",
+  "Alternativa textual que depende de la función de la imagen; decorativas usan alt vacío.": "Textual alternative that depends on the function of the image; decorative use empty alt.",
+  "¿`iframe sandbox`?": "`iframe sandbox`?",
+  "Restringe capacidades del documento embebido y se abre con tokens explícitos.": "Restricts capabilities of the embedded document and opens with explicit tokens.",
+  "¿GET o POST en form?": "GET or POST in form?",
+  "GET expresa consulta y deja datos en URL; POST envía body para una operación.": "GET expresses query and leaves data in URL; POST sends body for an operation.",
+  "¿Submit default?": "Submit default?",
+  "Un button dentro de form usa submit si no declarás type.": "A button inside a form uses submit if you don't declare type.",
+  "¿`defer` o `async` script?": "`defer` or `async` script?",
+  "Defer preserva orden y espera parseo; async ejecuta al descargar.": "Defer preserves order and expects parsing; async runs when downloading.",
+  "¿Box model?": "Box model?",
+  "Content, padding, border y margin.": "Content, padding, border and margin.",
+  "¿Specificity?": "Specificity?",
+  "Peso de un selector dentro de la cascada después de origen, importancia y layer.": "Weight of a selector within the cascade after origin, importance and layer.",
+  "¿`box-sizing:border-box`?": "`box-sizing:border-box`?",
+  "El width declarado incluye padding y border.": "The declared width includes padding and border.",
+  "¿Margin o padding?": "Margin or padding?",
+  "Margin separa cajas; padding agrega espacio dentro del borde.": "Margin separates boxes; padding adds space inside the border.",
+  "¿Position absolute?": "Absolute position?",
+  "Sale del flujo y se posiciona respecto de su containing block.": "It leaves the flow and positions itself with respect to its containing block.",
+  "¿Position sticky?": "Position sticky?",
+  "Participa en flujo y se fija dentro de su scroll container al cruzar un umbral.": "It participates in flow and becomes fixed inside its scroll container when crossing a threshold.",
+  "¿Stacking context?": "Stacking context?",
+  "Ámbito que limita la comparación de z-index entre descendientes.": "Scope that limits z-index comparison between descendants.",
+  "¿Pseudo-clase o pseudo-elemento?": "Pseudo-class or pseudo-element?",
+  "Pseudo-clase selecciona estado; pseudo-elemento representa una parte generada o conceptual.": "Pseudo-class selects state; pseudo-element represents a generated or conceptual part.",
+  "¿BEM?": "BEM?",
+  "Convención Block, Element, Modifier para nombres de clases.": "Block, Element, Modifier convention for class names.",
+  "¿Preprocesador o framework?": "Preprocessor or framework?",
+  "Preprocesador extiende sintaxis; framework aporta reglas, utilidades o componentes.": "Preprocessor extends syntax; framework provides rules, utilities or components.",
+  "¿Media o container query?": "Media or container query?",
+  "Media consulta viewport/dispositivo; container consulta tamaño o estilo del contenedor.": "Half query viewport/device; container queries container size or style.",
+  "¿Reflow?": "Reflow?",
+  "Recalculo de geometría provocado por cambios o lecturas que requieren layout.": "Geometry recalculation caused by changes or readings that require layout.",
+  "¿CLS?": "CLS?",
+  "Movimiento inesperado de contenido; reservá espacio para imágenes y contenido asíncrono.": "Unexpected movement of content; Reserve space for images and asynchronous content.",
+  "¿Componente o directiva?": "Component or directive?",
+  "El componente posee vista; la directiva agrega comportamiento a un host.": "The component has a view; The directive adds behavior to a host.",
+  "¿Pipe pura?": "Pure pipe?",
+  "Angular puede reutilizar el resultado mientras no cambien las referencias de entrada.": "Angular can reuse the result as long as the input references do not change.",
+  "¿`@for track`?": "`@for track`?",
+  "Asocia identidad de datos con nodos DOM para minimizar creación y conservar estado.": "Associate data identity with DOM nodes to minimize creation and preserve state.",
+  "¿`computed` o `effect`?": "`computed` or `effect`?",
+  "`computed` deriva estado; `effect` sincroniza con una API externa.": "`computed` derive state; `effect` synchronizes with an external API.",
+  "¿Signal o BehaviorSubject?": "Signal or BehaviorSubject?",
+  "Signal para estado síncrono de UI; BehaviorSubject cuando necesitás semántica y operadores RxJS.": "Signal for UI synchronous state; BehaviorSubject when you need semantics and RxJS operators.",
+  "¿`switchMap`?": "`switchMap`?",
+  "Cancela el inner anterior al llegar una nueva emisión.": "Cancels the previous inner when a new issue arrives.",
+  "¿`concatMap`?": "`concatMap`?",
+  "Encola inner observables y conserva orden.": "Enqueue inner observables and preserve order.",
+  "¿`exhaustMap`?": "`exhaustMap`?",
+  "Ignora nuevos disparos mientras el inner sigue activo.": "Ignores new shots while the inner is still active.",
+  "¿`mergeMap`?": "`mergeMap`?",
+  "Ejecuta inner observables en paralelo con concurrencia configurable.": "Runs inner observables in parallel with configurable concurrency.",
+  "¿`forkJoin`?": "`forkJoin`?",
+  "Emite una vez cuando todos completan; falla si alguno falla y no sirve para streams infinitos.": "Issue once when everyone completes; fails if any fails and is not useful for infinite streams.",
+  "¿Cold observable?": "Cold observable?",
+  "Cada subscription crea su propio productor.": "Each subscription creates its own producer.",
+  "¿`shareReplay`?": "`shareReplay`?",
+  "Comparte y reproduce valores; necesita política de refCount, error e invalidación.": "Share and reproduce values; needs refCount, error and override policy.",
+  "¿`providedIn: root`?": "`providedIn: root`?",
+  "Provider tree-shakeable en el root EnvironmentInjector.": "Provider tree-shakeable in the root EnvironmentInjector.",
+  "¿`providers` local?": "`providers` local?",
+  "Nueva instancia en el ElementInjector del componente y sus descendientes visibles.": "New instance in the component's ElementInjector and its visible descendants.",
+  "¿`viewProviders`?": "`viewProviders`?",
+  "Oculta esos providers al contenido proyectado.": "Hides those providers from the projected content.",
+  "¿InjectionToken?": "InjectionToken?",
+  "Token runtime tipado para valores, funciones o interfaces.": "Typed runtime token for values, functions, or interfaces.",
+  "¿OnPush?": "OnPush?",
+  "Permite saltar subárboles hasta que una notificación relevante marca la vista.": "Allows you to skip subtrees until a relevant notification marks the view.",
+  "¿Zoneless?": "Zoneless?",
+  "Angular recibe notificaciones explícitas y evita usar ZoneJS para inferir cambios.": "Angular receives explicit notifications and avoids using ZoneJS to infer changes.",
+  "¿`markForCheck`?": "`markForCheck`?",
+  "Marca la vista para una próxima verificación.": "Mark the view for future verification.",
+  "¿`detectChanges`?": "`detectChanges`?",
+  "Ejecuta verificación local; su uso frecuente suele indicar un flujo defectuoso.": "Run local verification; Frequent use usually indicates faulty flow.",
+  "¿Standalone?": "Standalone?",
+  "Componente que declara dependencias en imports y no necesita declaración en NgModule.": "Component that declares dependencies in imports and does not need a declaration in NgModule.",
+  "¿Lazy route?": "Lazy route?",
+  "Carga código al navegar a la feature, reduciendo el bundle inicial.": "Load code when navigating to the feature, reducing the initial bundle.",
+  "¿Guard?": "Guard?",
+  "Control de navegación en cliente; no reemplaza autorización del servidor.": "Navigation control in client; it does not replace server authorization.",
+  "¿Resolver?": "Solve?",
+  "Obtiene datos antes de activar la ruta.": "Gets data before activating the route.",
+  "¿Reactive Form?": "Reactivate Form?",
+  "Modelo explícito y observable en TypeScript, apto para composición y validación compleja.": "Explicit model and observable in TypeScript, suitable for complex composition and validation.",
+  "¿CVA?": "CVA?",
+  "Contrato que conecta un control custom con Angular Forms.": "Contract that connects a custom control with Angular Forms.",
+  "¿Async validator?": "Async validator?",
+  "Validador que completa con errores o null; controlá cancelación y frecuencia.": "Validator that completes with errors or null; Control cancellation and frequency.",
+  "¿Interceptor?": "Interceptor?",
+  "Middleware de requests y responses para preocupaciones transversales.": "Requests and responses middleware for transversal concerns.",
+  "¿Retry?": "Retry?",
+  "Solo con política, límite y seguridad de idempotencia.": "Only with policy, limit and idempotence security.",
+  "¿XSS?": "XSS?",
+  "Ejecución de script no confiable; evitá sinks peligrosos y mantené sanitización y CSP.": "Untrusted script execution; Avoid dangerous sinks and maintain sanitation and CSP.",
+  "¿CSRF?": "CSRF?",
+  "Petición autenticada inducida desde otro origen; afecta sobre todo credenciales automáticas como cookies.": "Induced authenticated request from another source; It mainly affects automatic credentials such as cookies.",
+  "¿CSP?": "CSP?",
+  "Política del navegador que limita fuentes de scripts, estilos y otros recursos.": "Browser policy that limits script fonts, styles, and other resources.",
+  "¿Trusted Types?": "Trusted Types?",
+  "Restringe asignaciones a sinks DOM peligrosos a valores creados por políticas confiables.": "Restrict assignments to dangerous DOM sinks to values created by trusted policies.",
+  "¿SSR?": "SSR?",
+  "Render por request en servidor; ayuda SEO y HTML inicial, agrega costo operativo.": "Render by request on server; helps SEO and initial HTML, adds operational cost.",
+  "¿SSG?": "SSG?",
+  "HTML generado en build para contenido estable.": "HTML generated in build for stable content.",
+  "¿Hydration?": "Hydration?",
+  "Angular reutiliza HTML de servidor y conecta comportamiento cliente.": "Angular reuses HTML from server and connect client behavior.",
+  "¿`@defer`?": "`@defer`?",
+  "Divide dependencias y carga una vista según trigger o condición.": "Split dependencies and load a view based on trigger or condition.",
+  "¿LCP?": "LCP?",
+  "Tiempo hasta renderizar el mayor elemento visible.": "Time to render the largest visible element.",
+  "¿INP?": "INP?",
+  "Latencia observada de interacciones durante la sesión.": "Observed latency of interactions during the session.",
+  "Suma de cambios inesperados de layout.": "Sum of unexpected layout changes.",
+  "¿Tree shaking?": "Tree shaking?",
+  "El bundler elimina código no alcanzable cuando el formato y las dependencias lo permiten.": "The bundler removes unreachable code when the format and dependencies allow it.",
+  "¿AOT?": "AOT?",
+  "Compila templates en build, reduce trabajo runtime y detecta errores antes.": "Compile templates in build, reduce runtime work and detect errors earlier.",
+  "¿NgRx reducer?": "NgRx reducer?",
+  "Función pura que calcula nuevo estado desde estado y action.": "Pure function that calculates new state from state and action.",
+  "¿NgRx effect?": "NgRx effect?",
+  "Reacciona a eventos y coordina I/O u otros efectos.": "Reacts to events and coordinates I/O or other effects.",
+  "¿Selector?": "Selector?",
+  "Consulta derivada y memorizada sobre el store.": "Derived and memorized query about the store.",
+  "¿Optimistic update?": "Optimistic update?",
+  "Actualiza UI antes de confirmar y define rollback o reconciliación.": "Update UI before committing and define rollback or reconciliation.",
+  "¿Facade?": "Facade?",
+  "API estable que reduce superficie de un subsistema; puede ocultar demasiado si no protege un límite.": "Stable API that reduces the surface area of a subsystem; You can hide too much if you don't protect a boundary.",
+  "¿Adapter?": "Adapter?",
+  "Traduce un contrato externo al modelo interno.": "Translate an external contract to the internal model.",
+  "¿Strategy?": "Strategy?",
+  "Encapsula políticas intercambiables detrás de un contrato.": "Encapsulates interchangeable policies behind a contract.",
+  "¿SRP?": "SRP?",
+  "Una unidad concentra responsabilidades que cambian por el mismo motivo.": "A unit concentrates responsibilities that change for the same reason.",
+  "¿DIP?": "DIP?",
+  "El código de alto nivel depende de abstracciones, no de detalles concretos.": "High-level code depends on abstractions, not concrete details.",
+  "¿`unknown`?": "`unknown`?",
+  "Tipo seguro para valor no validado; obliga a estrechar antes de usar.": "Safe type for value not validated; Forces to shake before use.",
+  "¿`never`?": "`never`?",
+  "Representa estados imposibles y permite checks exhaustivos.": "It represents impossible states and allows exhaustive checks.",
+  "¿Microtask?": "Microtask?",
+  "Cola de promesas que se drena antes de la siguiente macrotask.": "Promise queue that is drained before the next macrotask.",
+  "Función junto con su entorno léxico: puede seguir leyendo o modificando los bindings capturados cuando se ejecuta fuera de la llamada que los creó.": "Function along with its lexical environment: it can continue reading or modifying captured bindings when executed outside of the call that created them.",
+  "¿Inmutabilidad?": "Immutability?",
+  "Crear nuevas referencias en lugar de mutar estado compartido; mejora previsibilidad y detección.": "Create new references instead of mutating shared state; improves predictability and detection.",
+  "¿`Object.freeze`?": "`Object.freeze`?",
+  "Congelación superficial; no protege objetos anidados sin trabajo adicional.": "Superficial freezing; it does not protect nested objects without additional work.",
+  "¿Unit test?": "Unit test?",
+  "Prueba una unidad con fronteras controladas y feedback rápido.": "Try a unit with controlled boundaries and quick feedback.",
+  "¿Integration test?": "Integration test?",
+  "Verifica colaboración entre varias unidades o una frontera real.": "Verify collaboration between several units or a real border.",
+  "¿E2E?": "E2E?",
+  "Prueba un recorrido del usuario a través del sistema desplegado o equivalente.": "Test a user journey through the deployed system or equivalent.",
+  "¿Harness?": "Harness?",
+  "API estable para interactuar con un componente en tests sin depender de su DOM interno.": "Stable API to interact with a component in tests without depending on its internal DOM.",
+  "¿Memory leak típico?": "Typical memory leak?",
+  "Subscription, listener, timer, observer o cache que conserva una vista destruida.": "Subscription, listener, timer, observer or cache that preserves a destroyed view.",
+  "¿Correlation ID?": "Correlation ID?",
+  "Identificador que conecta eventos frontend, gateway y backend de una operación.": "Identifier that connects frontend, gateway, and backend events of an operation.",
+  "¿Feature flag?": "Feature flag?",
+  "Control temporal de exposición con owner, métricas y plan de retiro.": "Temporary exposure control with owner, metrics and retirement plan.",
+  "¿Micro-frontend?": "Micro-frontend?",
+  "Unidad de frontend con ownership y despliegue independiente, a cambio de integración y duplicación.": "Frontend unit with independent ownership and deployment, in exchange for integration and duplication.",
+  "¿ADR?": "ADR?",
+  "Registro corto de una decisión, alternativas y consecuencias.": "Short record of a decision, alternatives and consequences.",
+  "Buscador cancelable": "Cancelable search engine",
+  "Construí un buscador con debounce, cancelación, estados loading/error/empty, caché por query y tests con tiempo controlado. Explicá por qué elegiste switchMap y qué cambia si el endpoint no soporta cancelación.": "I built a search engine with debounce, cancellation, loading/error/empty states, query cache and time-controlled tests. Explain why you chose switchMap and what changes if the endpoint does not support cancellation.",
+  "Motor de formularios dinámicos": "Dynamic forms engine",
+  "Diseñá un schema para tipos, validación, layout, visibilidad y permisos. Sumá un CVA, validación asíncrona, persistencia parcial y una estrategia de versionado del schema.": "Design a schema for types, validation, layout, visibility and permissions. Add a CVA, asynchronous validation, partial persistence and a schema versioning strategy.",
+  "Dashboard en tiempo real": "Real-time dashboard",
+  "Diseñá seis widgets con frecuencias distintas. Incluí WebSocket o SSE, reconexión, backpressure, pausa fuera del viewport, caché, permisos y métricas de INP.": "Design six widgets with different frequencies. I included WebSocket or SSE, reconnect, backpressure, pause outside viewport, cache, permissions and metrics from INP.",
+  "Migración entre cinco versiones mayores": "Migration between five major versions",
+  "Proponé etapas para actualizar majors, convertir features a standalone, introducir control flow, Signals y zoneless. Definí pruebas, métricas, feature flags y rollback.": "I proposed stages to update majors, convert features to standalone, introduce control flow, Signals and zoneless. I defined tests, metrics, feature flags and rollback.",
+  "Lista de 100.000 filas": "List of 100,000 rows",
+  "Compará paginación server-side, virtual scroll, filtros remotos y caché. Medí memoria, scripting, layout e interacción sin perder navegación por teclado ni soporte de lector de pantalla.": "Compare server-side paging, virtual scroll, remote filters and caching. I measured memory, scripting, layout and interaction without losing keyboard navigation or screen reader support.",
+  "Carrera de refresh de autenticación": "Authentication refresh race",
+  "Varias requests reciben 401 al mismo tiempo. Diseñá un refresh único, cola, cancelación, logout seguro, telemetría y tests deterministas de concurrencia.": "Several requests receive 401 at the same time. Design a single refresh, queue, cancellation, secure logout, telemetry and deterministic concurrency tests.",
+  "Event loop": "event loop",
+  "Predecí el orden de logs que mezclen Promises, queueMicrotask, timers, async/await y eventos. Verificá el resultado en navegador y justificá cada transición entre colas.": "I predicted the order of logs that mix Promises, queueMicrotask, timers, async/await and events. Check the result in the browser and justify each transition between queues.",
+  "Tabla accesible": "Accessible table",
+  "Construí una tabla ordenable y paginada con caption, headers, estados de orden, teclado, foco, loading y empty state. Validala con lector de pantalla.": "I built a sortable and paginated table with caption, headers, order states, keyboard, focus, loading and empty state. Validate it with a screen reader.",
+  "Layout responsive sin CLS": "Responsive layout without CLS",
+  "Implementá una card que cambie con container queries, respete reduced motion y no produzca saltos. Explicá cascade, stacking contexts, overflow y containment.": "Implement a card that changes with container queries, respects reduced motion and does not produce jumps. Explain cascade, stacking contexts, overflow and containment.",
+  "Caché offline": "Offline cache",
+  "Diseñá caché HTTP, IndexedDB y Service Worker para una pantalla de lectura. Definí invalidación, conflictos, cuotas, logout y tratamiento de datos sensibles.": "Design HTTP cache, IndexedDB and Service Worker for a reading screen. I defined invalidation, conflicts, quotas, logout and processing of sensitive data.",
+  "Angular · Control flow": "Angular Control flow",
+  "Angular · Rendering strategies": "Angular · Rendering strategies",
+  "MDN · Web platform": "MDN · Web platform"
 };

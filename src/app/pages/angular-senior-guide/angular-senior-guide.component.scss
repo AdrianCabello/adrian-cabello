@@ -195,6 +195,12 @@
   box-shadow: inset 3px 0 0 rgba(110, 231, 183, 0.7);
 }
 
+.study-review-button-active {
+  border-color: rgba(103, 232, 249, 0.55);
+  background: rgba(103, 232, 249, 0.1);
+  color: #cffafe;
+}
+
 .study-kicker {
   color: #67e8f9;
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
