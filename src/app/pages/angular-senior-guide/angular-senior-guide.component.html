@@ -1,0 +1,708 @@
+<a
+  href="#study-main"
+  class="fixed left-4 top-3 z-[70] -translate-y-24 rounded-full bg-amber-300 px-4 py-2 text-sm font-bold text-slate-950 transition-transform focus:translate-y-0"
+  data-testid="guide-skip-link">
+  Ir al contenido
+</a>
+
+<div class="study-shell min-h-screen text-slate-100">
+  <div class="study-grid fixed inset-0 -z-10" aria-hidden="true"></div>
+
+  <header
+    class="sticky top-0 z-50 border-b border-white/10 bg-[#07101f]/90 backdrop-blur-xl"
+    data-testid="guide-header">
+    <div
+      class="mx-auto flex min-h-16 max-w-[1440px] items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8">
+      <a
+        routerLink="/"
+        class="group flex items-center gap-3 rounded-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-amber-300"
+        aria-label="Ir al portfolio de Adrian Cabello"
+        data-testid="guide-home-link">
+        <span
+          class="grid h-9 w-9 shrink-0 place-items-center rounded-lg border border-cyan-300/40 bg-cyan-300/10 font-mono text-xs font-black text-cyan-200 transition group-hover:-rotate-3 sm:h-10 sm:w-10">
+          AC
+        </span>
+        <span class="min-w-0">
+          <span class="block truncate text-xs font-bold text-white sm:text-sm"
+            >Adrian Cabello</span
+          >
+          <span
+            class="block truncate font-mono text-[8px] uppercase tracking-[0.15em] text-cyan-300/80 sm:text-[9px]"
+            >Portfolio · Perfil</span
+          >
+        </span>
+      </a>
+
+      <nav
+        class="hidden items-center gap-5 lg:flex"
+        aria-label="Enlaces de Adrian Cabello">
+        <a
+          routerLink="/"
+          class="rounded-md py-2 text-xs font-bold text-slate-400 transition hover:text-cyan-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan-300"
+          data-testid="guide-portfolio-link"
+          >Portfolio</a
+        >
+        <a
+          href="https://www.linkedin.com/in/adrian-cabello-b07290b8/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="rounded-md py-2 text-xs font-bold text-slate-400 transition hover:text-cyan-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan-300"
+          data-testid="guide-linkedin-link"
+          >LinkedIn</a
+        >
+        <a
+          href="https://github.com/adriancabello"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="rounded-md py-2 text-xs font-bold text-slate-400 transition hover:text-cyan-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan-300"
+          data-testid="guide-github-link"
+          >GitHub</a
+        >
+      </nav>
+
+      <div class="flex min-w-28 items-center gap-2 sm:min-w-44 sm:gap-3">
+        <div class="min-w-0 flex-1">
+          <div
+            class="mb-1 flex items-center justify-between text-[10px] font-bold uppercase tracking-wider">
+            <span class="hidden text-slate-500 sm:inline">Progreso</span>
+            <span class="text-amber-200">{{ progressPercentage() }}%</span>
+          </div>
+          <div
+            class="h-1.5 overflow-hidden rounded-full bg-white/10"
+            role="progressbar"
+            aria-label="Progreso de módulos"
+            [attr.aria-valuenow]="completedCount()"
+            aria-valuemin="0"
+            [attr.aria-valuemax]="topics.length">
+            <div
+              class="h-full rounded-full bg-gradient-to-r from-amber-300 to-cyan-300 transition-[width] duration-500"
+              [style.width.%]="progressPercentage()"></div>
+          </div>
+        </div>
+        <span class="font-mono text-xs text-slate-400"
+          >{{ completedCount() }}/{{ topics.length }}</span
+        >
+      </div>
+    </div>
+  </header>
+
+  <main id="study-main" data-testid="guide-main">
+    <section
+      class="relative overflow-hidden border-b border-white/10 px-4 pb-14 pt-14 sm:px-6 sm:pb-20 sm:pt-20 lg:px-8">
+      <div class="study-signal study-signal-one" aria-hidden="true"></div>
+      <div class="study-signal study-signal-two" aria-hidden="true"></div>
+
+      <div
+        class="relative mx-auto grid max-w-[1440px] gap-12 lg:grid-cols-[minmax(0,1.35fr)_minmax(290px,0.65fr)] lg:items-end">
+        <div>
+          <p
+            class="mb-5 font-mono text-xs font-bold uppercase tracking-[0.32em] text-amber-300">
+            Guía de entrevista · Edición 2026
+          </p>
+          <h1
+            class="max-w-5xl text-balance text-5xl font-extrabold leading-[0.94] tracking-[-0.055em] text-white sm:text-7xl lg:text-[6.5rem]">
+            Angular<br />
+            <span class="study-outline-text">Senior</span>
+          </h1>
+          <p
+            class="mt-7 max-w-3xl text-pretty text-base leading-8 text-slate-300 sm:text-lg">
+            Angular moderno, TypeScript, JavaScript, browser, HTML, CSS, RxJS,
+            arquitectura, performance, testing, seguridad, system design y
+            liderazgo técnico.
+          </p>
+        </div>
+
+        <dl
+          class="grid grid-cols-3 gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/10">
+          <div class="bg-[#0a1425]/95 p-4 sm:p-5">
+            <dt
+              class="font-mono text-[9px] uppercase tracking-[0.18em] text-slate-500">
+              Módulos
+            </dt>
+            <dd class="mt-2 text-2xl font-black text-white">
+              {{ topics.length }}
+            </dd>
+          </div>
+          <div class="bg-[#0a1425]/95 p-4 sm:p-5">
+            <dt
+              class="font-mono text-[9px] uppercase tracking-[0.18em] text-slate-500">
+              Conceptos
+            </dt>
+            <dd class="mt-2 text-2xl font-black text-white">
+              {{ theoryCount }}
+            </dd>
+          </div>
+          <div class="bg-[#0a1425]/95 p-4 sm:p-5">
+            <dt
+              class="font-mono text-[9px] uppercase tracking-[0.18em] text-slate-500">
+              Preguntas
+            </dt>
+            <dd class="mt-2 text-2xl font-black text-amber-200">
+              {{ questionCount }}
+            </dd>
+          </div>
+        </dl>
+      </div>
+
+      <aside
+        class="relative mx-auto mt-12 grid max-w-[1440px] gap-5 rounded-2xl border border-white/10 bg-[#0a1425]/75 p-5 shadow-2xl shadow-slate-950/20 backdrop-blur sm:grid-cols-[auto_minmax(0,1fr)] sm:items-center sm:p-6 lg:grid-cols-[auto_minmax(0,1fr)_auto] lg:gap-7"
+        aria-labelledby="guide-author-title"
+        data-testid="guide-author-card">
+        <img
+          src="./assets/images/adrian-profile-400.webp"
+          srcset="
+            ./assets/images/adrian-profile-400.webp 400w,
+            ./assets/images/adrian-profile.webp     800w
+          "
+          sizes="(max-width: 639px) 72px, 88px"
+          width="800"
+          height="800"
+          loading="lazy"
+          decoding="async"
+          alt="Adrian Cabello, Full-Stack Product Engineer y Tech Lead"
+          class="h-[4.5rem] w-[4.5rem] rounded-2xl border border-cyan-300/20 bg-slate-800 object-cover object-top sm:h-[5.5rem] sm:w-[5.5rem]" />
+
+        <div class="min-w-0">
+          <p
+            class="font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-cyan-300">
+            Autor de la guía
+          </p>
+          <h2
+            id="guide-author-title"
+            class="mt-1.5 text-xl font-black tracking-[-0.025em] text-white">
+            Adrian Cabello
+          </h2>
+          <p class="mt-2 max-w-4xl text-sm leading-7 text-slate-300">
+            Full-Stack Product Engineer y Tech Lead con más de 9 años creando
+            productos web y mobile, liderando arquitectura Angular y migraciones
+            de aplicaciones empresariales. Armé esta guía para convertir
+            experiencia real en teoría precisa, respuestas concretas y
+            decisiones técnicas con sus trade-offs.
+          </p>
+          <div
+            class="mt-3 flex flex-wrap gap-2 font-mono text-[9px] font-bold uppercase tracking-wider text-slate-400"
+            aria-label="Experiencia destacada">
+            <span
+              class="rounded-full border border-white/10 bg-white/[0.025] px-2.5 py-1.5"
+              >9+ años</span
+            >
+            <span
+              class="rounded-full border border-white/10 bg-white/[0.025] px-2.5 py-1.5"
+              >Angular 2—22</span
+            >
+            <span
+              class="rounded-full border border-white/10 bg-white/[0.025] px-2.5 py-1.5"
+              >Web · Mobile · Backend</span
+            >
+          </div>
+        </div>
+
+        <div
+          class="flex flex-wrap gap-2 sm:col-start-2 lg:col-auto lg:flex-col">
+          <a
+            routerLink="/"
+            class="inline-flex min-h-11 items-center justify-center whitespace-nowrap rounded-full border border-amber-300/40 bg-amber-300/10 px-4 text-xs font-extrabold text-amber-100 transition hover:-translate-y-px hover:border-amber-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300"
+            data-testid="guide-author-portfolio-link">
+            Ver experiencia
+          </a>
+          <a
+            href="https://www.linkedin.com/in/adrian-cabello-b07290b8/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex min-h-11 items-center justify-center whitespace-nowrap rounded-full border border-white/20 px-4 text-xs font-extrabold text-slate-300 transition hover:-translate-y-px hover:border-cyan-300/60 hover:text-cyan-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300"
+            data-testid="guide-author-linkedin-link">
+            LinkedIn
+          </a>
+        </div>
+      </aside>
+    </section>
+
+    <section
+      id="study-content"
+      class="scroll-mt-20 px-4 py-8 sm:px-6 lg:px-8 lg:py-12"
+      data-testid="guide-study-content">
+      <div
+        class="mx-auto grid max-w-[1440px] gap-8 lg:grid-cols-[300px_minmax(0,1fr)]">
+        <aside
+          data-testid="guide-sidebar"
+          class="sticky top-16 z-30 self-start lg:top-24 lg:h-[calc(100vh-7rem)] lg:overflow-y-auto lg:pr-2">
+          <div
+            class="rounded-2xl border border-white/10 bg-[#091426]/95 p-3 shadow-2xl shadow-slate-950/40 backdrop-blur-xl sm:p-4">
+            <button
+              type="button"
+              class="flex min-h-12 w-full items-center justify-between gap-3 rounded-xl px-2 text-left lg:hidden"
+              [attr.aria-expanded]="mobileNavigationOpen()"
+              aria-controls="guide-navigation-content"
+              data-testid="guide-mobile-navigation-toggle"
+              (click)="toggleMobileNavigation()">
+              <span class="min-w-0">
+                <span
+                  class="block font-mono text-[9px] font-bold uppercase tracking-[0.2em] text-cyan-300"
+                  >Índice · {{ topics.length }} temas</span
+                >
+                <span
+                  class="mt-1 block truncate text-sm font-bold text-white"
+                  >{{ activeNavigationLabel() }}</span
+                >
+              </span>
+              <span
+                class="study-navigation-chevron shrink-0"
+                [class.study-navigation-chevron-open]="mobileNavigationOpen()"
+                aria-hidden="true"></span>
+            </button>
+
+            <div
+              id="guide-navigation-content"
+              class="max-h-[68vh] overflow-y-auto pt-3 lg:block lg:max-h-none lg:overflow-visible lg:pt-0"
+              [class.hidden]="!mobileNavigationOpen()"
+              data-testid="guide-navigation-content">
+              <label
+                for="guide-search"
+                class="mb-2 block font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500">
+                Buscar en la guía
+              </label>
+              <input
+                id="guide-search"
+                type="search"
+                autocomplete="off"
+                placeholder="Signals, closures, CSP..."
+                class="min-h-11 w-full rounded-xl border border-white/10 bg-slate-950/60 px-3.5 text-sm text-white outline-none transition placeholder:text-slate-600 focus:border-amber-300/70 focus:ring-2 focus:ring-amber-300/15"
+                [value]="query()"
+                data-testid="guide-search-input"
+                (input)="updateQuery($event)" />
+
+              <nav class="mt-5 grid gap-1.5" aria-label="Secciones de estudio">
+                <button
+                  type="button"
+                  class="study-filter"
+                  [class.study-filter-active]="
+                    selectedCollection() === 'all' && !activeSectionId()
+                  "
+                  [attr.aria-pressed]="
+                    selectedCollection() === 'all' && !activeSectionId()
+                  "
+                  data-testid="guide-filter-all"
+                  (click)="selectCollection('all')">
+                  <span class="font-mono text-[10px] text-slate-500">ALL</span>
+                  <span>Contenido completo</span>
+                </button>
+
+                @for (group of navigationGroups; track group.id) {
+                  <details
+                    class="study-menu-group rounded-xl border border-transparent"
+                    [class.study-menu-group-active]="
+                      selectedCollection() === group.id ||
+                      activeSectionId() === group.id
+                    "
+                    [attr.open]="activeSectionId() === group.id ? '' : null"
+                    [attr.data-testid]="'guide-menu-' + group.id">
+                    <summary
+                      class="study-filter cursor-pointer list-none"
+                      [attr.data-testid]="'guide-menu-toggle-' + group.id">
+                      <span class="font-mono text-[10px] text-slate-500">{{
+                        group.index
+                      }}</span>
+                      <span
+                        class="flex min-w-0 items-center justify-between gap-2">
+                        <span>{{ group.title }}</span>
+                        <span
+                          class="shrink-0 font-mono text-[9px] font-semibold text-slate-600">
+                          {{ group.topics.length }}
+                          {{ group.topics.length === 1 ? 'tema' : 'temas' }}
+                        </span>
+                      </span>
+                    </summary>
+
+                    <div
+                      class="mb-2 ml-[3.05rem] mr-2 border-l border-white/10 pl-2"
+                      [attr.data-testid]="'guide-submenu-' + group.id">
+                      <button
+                        type="button"
+                        class="study-submenu-link mb-1 text-cyan-200"
+                        [class.study-submenu-link-active]="
+                          activeSectionId() === group.id && !activeTopicId()
+                        "
+                        [attr.aria-pressed]="
+                          activeSectionId() === group.id && !activeTopicId()
+                        "
+                        [attr.data-testid]="'guide-filter-' + group.id"
+                        (click)="selectCollection(group.id)">
+                        <span class="font-mono text-[9px] text-cyan-300/70"
+                          >ALL</span
+                        >
+                        <span>Ver bloque completo</span>
+                      </button>
+
+                      @for (topic of group.topics; track topic.id) {
+                        <a
+                          [href]="'#' + topic.id"
+                          class="study-submenu-link"
+                          [class.study-submenu-link-active]="
+                            activeTopicId() === topic.id
+                          "
+                          [attr.aria-current]="
+                            activeTopicId() === topic.id ? 'location' : null
+                          "
+                          [attr.data-testid]="'guide-topic-link-' + topic.id"
+                          [attr.data-study-topic-link]="topic.id"
+                          (click)="navigateToTopic($event, topic)">
+                          <span
+                            class="font-mono text-[9px] text-amber-300/70"
+                            >{{ topic.number }}</span
+                          >
+                          <span>{{ topic.title }}</span>
+                        </a>
+                      }
+                    </div>
+                  </details>
+                }
+
+                <button
+                  type="button"
+                  class="study-filter"
+                  [class.study-filter-active]="
+                    selectedCollection() === 'rapid' ||
+                    activeSectionId() === 'rapid'
+                  "
+                  [attr.aria-pressed]="activeSectionId() === 'rapid'"
+                  data-testid="guide-filter-rapid"
+                  (click)="selectCollection('rapid')">
+                  <span class="font-mono text-[10px] text-slate-500">06</span>
+                  <span>Banco rápido</span>
+                </button>
+                <button
+                  type="button"
+                  class="study-filter"
+                  [class.study-filter-active]="
+                    selectedCollection() === 'practice' ||
+                    activeSectionId() === 'practice'
+                  "
+                  [attr.aria-pressed]="activeSectionId() === 'practice'"
+                  data-testid="guide-filter-practice"
+                  (click)="selectCollection('practice')">
+                  <span class="font-mono text-[10px] text-slate-500">07</span>
+                  <span>Casos prácticos</span>
+                </button>
+              </nav>
+            </div>
+          </div>
+        </aside>
+
+        <div class="min-w-0">
+          @for (section of visibleSections(); track section.id) {
+            <section
+              [id]="section.id"
+              class="mb-16 scroll-mt-40 lg:scroll-mt-24"
+              [attr.aria-labelledby]="section.id + '-title'">
+              <div
+                class="mb-6 border-b border-white/10 pb-5 sm:flex sm:items-end sm:justify-between sm:gap-6">
+                <div>
+                  <p
+                    class="font-mono text-xs font-bold uppercase tracking-[0.24em] text-cyan-300">
+                    Bloque {{ section.index }}
+                  </p>
+                  <h2
+                    [id]="section.id + '-title'"
+                    class="mt-2 text-3xl font-black tracking-[-0.035em] text-white sm:text-4xl">
+                    {{ section.title }}
+                  </h2>
+                </div>
+                <p
+                  class="mt-3 max-w-md text-sm leading-6 text-slate-400 sm:mt-0 sm:text-right">
+                  {{ section.description }}
+                </p>
+              </div>
+
+              <div class="grid gap-6">
+                @for (topic of section.topics; track topic.id) {
+                  <article
+                    [id]="topic.id"
+                    class="study-topic scroll-mt-40 overflow-hidden rounded-2xl border border-white/10 bg-[#0a1425]/80 shadow-xl shadow-slate-950/20 lg:scroll-mt-24"
+                    [class.study-topic-complete]="isCompleted(topic.id)"
+                    [attr.data-study-navigation-id]="topic.id"
+                    [attr.data-study-section-id]="topic.groupId"
+                    [attr.data-study-topic-id]="topic.id"
+                    [attr.data-testid]="'guide-topic-' + topic.id">
+                    <header class="border-b border-white/10 p-5 sm:p-7">
+                      <div
+                        class="grid grid-cols-[auto_minmax(0,1fr)] items-start gap-x-4 gap-y-3 sm:flex sm:gap-6">
+                        <span
+                          class="shrink-0 font-mono text-2xl font-black leading-none text-amber-300/80 sm:text-3xl">
+                          {{ topic.number }}
+                        </span>
+                        <div class="contents sm:block sm:min-w-0 sm:flex-1">
+                          <h3
+                            class="text-xl font-extrabold leading-tight tracking-[-0.025em] text-white sm:text-2xl">
+                            {{ topic.title }}
+                          </h3>
+                          <p
+                            class="col-span-2 mt-3 max-w-4xl text-sm leading-7 text-slate-300 sm:text-[15px]">
+                            {{ topic.intro }}
+                          </p>
+                        </div>
+                        <button
+                          type="button"
+                          class="hidden min-h-10 shrink-0 rounded-full border px-4 text-xs font-bold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-300 sm:inline-flex sm:items-center"
+                          [class.border-emerald-300]="isCompleted(topic.id)"
+                          [class.bg-emerald-300]="isCompleted(topic.id)"
+                          [class.text-slate-950]="isCompleted(topic.id)"
+                          [class.border-white]="!isCompleted(topic.id)"
+                          [class.text-slate-300]="!isCompleted(topic.id)"
+                          [attr.aria-pressed]="isCompleted(topic.id)"
+                          [attr.data-testid]="'guide-complete-' + topic.id"
+                          (click)="toggleCompleted(topic.id)">
+                          {{
+                            isCompleted(topic.id) ? 'Estudiado' : 'Marcar listo'
+                          }}
+                        </button>
+                      </div>
+                    </header>
+
+                    <div
+                      class="grid lg:grid-cols-[minmax(0,1.05fr)_minmax(320px,0.95fr)]">
+                      <section
+                        class="min-w-0 border-b border-white/10 p-5 sm:p-7 lg:border-b-0 lg:border-r">
+                        <h4 class="study-kicker">Teoría</h4>
+                        <ul class="mt-5 grid gap-4">
+                          @for (item of topic.theory; track $index) {
+                            <li
+                              class="flex gap-3 text-sm leading-7 text-slate-300">
+                              <span
+                                class="mt-[0.7rem] h-1.5 w-1.5 shrink-0 rotate-45 bg-cyan-300"
+                                aria-hidden="true"></span>
+                              <span class="min-w-0 break-words">
+                                @for (
+                                  segment of theorySegments(item);
+                                  track $index
+                                ) {
+                                  @switch (segment.kind) {
+                                    @case ('important') {
+                                      <strong
+                                        class="rounded bg-cyan-300/[0.09] px-1 py-0.5 font-extrabold text-cyan-100"
+                                        >{{ segment.text }}</strong
+                                      >
+                                    }
+                                    @case ('code') {
+                                      <code
+                                        class="rounded border border-amber-300/15 bg-amber-300/[0.08] px-1.5 py-0.5 font-mono text-[0.82em] font-bold text-amber-100"
+                                        >{{ segment.text }}</code
+                                      >
+                                    }
+                                    @default {
+                                      <span>{{ segment.text }}</span>
+                                    }
+                                  }
+                                }
+                              </span>
+                            </li>
+                          }
+                        </ul>
+
+                        @if (topic.code) {
+                          <div class="mt-7">
+                            <h4 class="study-kicker">Ejemplo</h4>
+                            <pre
+                              class="study-code mt-4 overflow-x-auto rounded-xl border border-white/10 bg-slate-950/80 p-4 text-xs leading-6 text-cyan-100"><code>{{ topic.code }}</code></pre>
+                          </div>
+                        }
+                      </section>
+
+                      <section class="min-w-0 p-5 sm:p-7">
+                        <h4 class="study-kicker">Preguntas y respuestas</h4>
+                        <div class="mt-5 grid gap-3">
+                          @for (
+                            item of topic.questions;
+                            track item.question;
+                            let questionIndex = $index
+                          ) {
+                            <details
+                              class="study-answer group rounded-xl border border-white/10 bg-slate-950/30">
+                              <summary
+                                class="flex min-h-12 cursor-pointer list-none items-center justify-between gap-4 rounded-xl px-4 py-3 text-left text-sm font-bold leading-6 text-slate-100 outline-none transition hover:bg-white/5 focus-visible:ring-2 focus-visible:ring-amber-300/70"
+                                [attr.data-testid]="
+                                  'guide-question-' +
+                                  topic.id +
+                                  '-' +
+                                  questionIndex
+                                ">
+                                <span>{{ item.question }}</span>
+                                <span
+                                  class="shrink-0 font-mono text-[10px] uppercase tracking-wider text-amber-300 group-open:hidden"
+                                  >Ver respuesta</span
+                                >
+                                <span
+                                  class="hidden shrink-0 font-mono text-[10px] uppercase tracking-wider text-cyan-300 group-open:inline"
+                                  >Ocultar</span
+                                >
+                              </summary>
+                              <p
+                                class="border-t border-white/10 px-4 py-4 text-sm leading-7 text-slate-300">
+                                {{ item.answer }}
+                              </p>
+                            </details>
+                          }
+                        </div>
+
+                        <button
+                          type="button"
+                          class="mt-5 inline-flex min-h-11 w-full items-center justify-center rounded-xl border text-xs font-bold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-300 sm:hidden"
+                          [class.border-emerald-300]="isCompleted(topic.id)"
+                          [class.bg-emerald-300]="isCompleted(topic.id)"
+                          [class.text-slate-950]="isCompleted(topic.id)"
+                          [class.border-white]="!isCompleted(topic.id)"
+                          [class.text-slate-300]="!isCompleted(topic.id)"
+                          [attr.aria-pressed]="isCompleted(topic.id)"
+                          [attr.data-testid]="
+                            'guide-complete-mobile-' + topic.id
+                          "
+                          (click)="toggleCompleted(topic.id)">
+                          {{
+                            isCompleted(topic.id) ? 'Estudiado' : 'Marcar listo'
+                          }}
+                        </button>
+                      </section>
+                    </div>
+                  </article>
+                }
+              </div>
+            </section>
+          }
+
+          @if (visibleRapidQuestions().length > 0) {
+            <section
+              id="banco-rapido"
+              class="mb-16 scroll-mt-40 lg:scroll-mt-24"
+              data-study-navigation-id="banco-rapido"
+              data-study-section-id="rapid"
+              aria-labelledby="rapid-title">
+              <div class="mb-6 border-b border-white/10 pb-5">
+                <p
+                  class="font-mono text-xs font-bold uppercase tracking-[0.24em] text-cyan-300">
+                  Bloque 06
+                </p>
+                <h2
+                  id="rapid-title"
+                  class="mt-2 text-3xl font-black tracking-[-0.035em] text-white sm:text-4xl">
+                  Banco rápido
+                </h2>
+                <p class="mt-3 max-w-3xl text-sm leading-6 text-slate-400">
+                  Definiciones breves para responder con precisión antes de
+                  ampliar con mecanismo, caso y trade-off.
+                </p>
+              </div>
+
+              <div class="grid gap-3 md:grid-cols-2">
+                @for (
+                  item of visibleRapidQuestions();
+                  track item.id;
+                  let rapidIndex = $index
+                ) {
+                  <details
+                    class="study-answer group self-start rounded-xl border border-white/10 bg-[#0a1425]/80">
+                    <summary
+                      class="flex min-h-14 cursor-pointer list-none items-center justify-between gap-4 rounded-xl px-4 py-3 text-left text-sm font-bold leading-6 text-white outline-none transition hover:bg-white/5 focus-visible:ring-2 focus-visible:ring-amber-300/70"
+                      [attr.data-testid]="'guide-rapid-question-' + rapidIndex">
+                      <span>{{ item.question }}</span>
+                      <span
+                        class="shrink-0 font-mono text-[10px] uppercase tracking-wider text-amber-300 group-open:hidden"
+                        >Respuesta</span
+                      >
+                      <span
+                        class="hidden shrink-0 font-mono text-[10px] uppercase tracking-wider text-cyan-300 group-open:inline"
+                        >Ocultar</span
+                      >
+                    </summary>
+                    <p
+                      class="border-t border-white/10 px-4 py-4 text-sm leading-7 text-slate-300">
+                      {{ item.answer }}
+                    </p>
+                  </details>
+                }
+              </div>
+            </section>
+          }
+
+          @if (visiblePracticeCases().length > 0) {
+            <section
+              id="casos-practicos"
+              class="mb-16 scroll-mt-40 lg:scroll-mt-24"
+              data-study-navigation-id="casos-practicos"
+              data-study-section-id="practice"
+              aria-labelledby="practice-title">
+              <div class="mb-6 border-b border-white/10 pb-5">
+                <p
+                  class="font-mono text-xs font-bold uppercase tracking-[0.24em] text-cyan-300">
+                  Bloque 07
+                </p>
+                <h2
+                  id="practice-title"
+                  class="mt-2 text-3xl font-black tracking-[-0.035em] text-white sm:text-4xl">
+                  Casos prácticos
+                </h2>
+              </div>
+              <ol class="grid gap-4 md:grid-cols-2">
+                @for (
+                  item of visiblePracticeCases();
+                  track item.title;
+                  let caseIndex = $index
+                ) {
+                  <li
+                    class="rounded-2xl border border-white/10 bg-[#0a1425]/80 p-5 sm:p-6">
+                    <span class="font-mono text-xs font-black text-amber-300">{{
+                      (caseIndex + 1).toString().padStart(2, '0')
+                    }}</span>
+                    <h3 class="mt-3 text-lg font-extrabold text-white">
+                      {{ item.title }}
+                    </h3>
+                    <p class="mt-3 text-sm leading-7 text-slate-300">
+                      {{ item.brief }}
+                    </p>
+                  </li>
+                }
+              </ol>
+            </section>
+          }
+
+          @if (!hasResults()) {
+            <section
+              class="rounded-2xl border border-dashed border-white/20 bg-white/[0.03] px-6 py-16 text-center"
+              data-testid="guide-empty-state">
+              <p
+                class="font-mono text-xs uppercase tracking-[0.2em] text-amber-300">
+                Sin coincidencias
+              </p>
+              <h2 class="mt-3 text-2xl font-black text-white">
+                Probá con otro término
+              </h2>
+              <button
+                type="button"
+                class="mt-6 min-h-11 rounded-full border border-white/20 px-5 text-sm font-bold text-slate-200 transition hover:border-amber-300 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-300"
+                data-testid="guide-clear-filters"
+                (click)="clearFilters()">
+                Limpiar búsqueda
+              </button>
+            </section>
+          }
+
+          @if (selectedCollection() === 'all' && !query()) {
+            <footer class="border-t border-white/10 pb-10 pt-8">
+              <h2 class="study-kicker">Referencias oficiales</h2>
+              <div class="mt-4 flex flex-wrap gap-2">
+                @for (reference of references; track reference.url) {
+                  <a
+                    [href]="reference.url"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="rounded-full border border-white/10 bg-white/[0.03] px-3 py-2 text-xs font-semibold text-slate-400 transition hover:border-cyan-300/50 hover:text-cyan-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300"
+                    [attr.data-testid]="'guide-reference-' + $index">
+                    {{ reference.label }}
+                  </a>
+                }
+              </div>
+            </footer>
+          }
+        </div>
+      </div>
+    </section>
+  </main>
+</div>

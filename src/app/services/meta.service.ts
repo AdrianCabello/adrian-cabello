@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Inject, Injectable } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 
 @Injectable({
@@ -14,7 +15,8 @@ export class MetaService {
 
   constructor(
     private meta: Meta,
-    private title: Title
+    private title: Title,
+    @Inject(DOCUMENT) private document: Document
   ) {}
 
   updateForUrl(url: string): void {
@@ -24,7 +26,14 @@ export class MetaService {
       return;
     }
 
+    if (path === '/angular-senior') {
+      this.updateAngularSeniorMetaTags();
+      return;
+    }
+
     this.title.setTitle('Private workspace | Adrian Cabello');
+    this.updateCanonical(`${this.baseUrl}${path}`);
+    this.document.documentElement.lang = 'en';
     this.meta.updateTag({ name: 'robots', content: 'noindex, nofollow' });
     this.meta.updateTag({
       name: 'description',
@@ -33,6 +42,8 @@ export class MetaService {
   }
 
   updateMetaTags() {
+    this.updateCanonical(`${this.baseUrl}/`);
+    this.document.documentElement.lang = 'en';
     // Title
     this.title.setTitle(this.pageTitle);
 
@@ -135,5 +146,52 @@ export class MetaService {
       property: 'og:image:type',
       content: 'image/jpeg',
     });
+  }
+
+  private updateAngularSeniorMetaTags(): void {
+    const title = 'Guía completa de entrevista Angular Senior | Adrian Cabello';
+    const description =
+      'Teoría, ejemplos y preguntas con respuesta sobre Angular, TypeScript, JavaScript, HTML, CSS, RxJS, arquitectura, testing, seguridad y system design frontend.';
+    const url = `${this.baseUrl}/angular-senior`;
+
+    this.title.setTitle(title);
+    this.updateCanonical(url);
+    this.document.documentElement.lang = 'es';
+    this.meta.updateTag({ name: 'title', content: title });
+    this.meta.updateTag({ name: 'description', content: description });
+    this.meta.updateTag({
+      name: 'keywords',
+      content:
+        'Angular Senior, entrevista Angular, TypeScript, JavaScript, RxJS, Signals, frontend system design',
+    });
+    this.meta.updateTag({ name: 'author', content: 'Adrian Cabello' });
+    this.meta.updateTag({ name: 'robots', content: 'index, follow' });
+    this.meta.updateTag({ name: 'language', content: 'Spanish' });
+    this.meta.updateTag({ name: 'theme-color', content: '#07101f' });
+    this.meta.updateTag({ property: 'og:type', content: 'article' });
+    this.meta.updateTag({ property: 'og:url', content: url });
+    this.meta.updateTag({ property: 'og:title', content: title });
+    this.meta.updateTag({ property: 'og:description', content: description });
+    this.meta.updateTag({ property: 'og:image', content: this.imageUrl });
+    this.meta.updateTag({
+      name: 'twitter:card',
+      content: 'summary_large_image',
+    });
+    this.meta.updateTag({ name: 'twitter:url', content: url });
+    this.meta.updateTag({ name: 'twitter:title', content: title });
+    this.meta.updateTag({ name: 'twitter:description', content: description });
+    this.meta.updateTag({ name: 'twitter:image', content: this.imageUrl });
+  }
+
+  private updateCanonical(url: string): void {
+    let canonical = this.document.querySelector<HTMLLinkElement>(
+      'link[rel="canonical"]'
+    );
+    if (!canonical) {
+      canonical = this.document.createElement('link');
+      canonical.rel = 'canonical';
+      this.document.head.appendChild(canonical);
+    }
+    canonical.href = url;
   }
 }

@@ -5,6 +5,7 @@ import { ExperienceComponent } from '../../sections/experience/experience.compon
 import { FooterComponent } from '../../sections/footer/footer.component';
 import { HomeComponent } from '../../sections/home/home.component';
 import { ProjectsComponent } from '../../sections/projects/projects.component';
+import { ResourcesComponent } from '../../sections/resources/resources.component';
 import { HeaderComponent } from '../../shared/components/header/header.component';
 import { RevealDirective } from '../../shared/directives/reveal.directive';
 
@@ -18,6 +19,7 @@ import { RevealDirective } from '../../shared/directives/reveal.directive';
     ProjectsComponent,
     ExperienceComponent,
     AcademicComponent,
+    ResourcesComponent,
     FooterComponent,
     RevealDirective,
   ],
