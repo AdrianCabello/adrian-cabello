@@ -60,8 +60,8 @@
     </div>
   </header>
 
-  <div class="grid gap-8 p-6 sm:p-8 lg:p-10 xl:grid-cols-2">
-    <section class="min-w-0" aria-labelledby="likely-challenges-title">
+  <div class="grid gap-8 p-6 sm:p-8 lg:p-10">
+    <section class="order-2 min-w-0" aria-labelledby="likely-challenges-title">
       <p class="study-kicker">
         {{ translate('Qué te pueden hacer programar') }}
       </p>
@@ -235,7 +235,8 @@
       </div>
     </section>
 
-    <div class="grid min-w-0 content-start gap-6">
+    <div
+      class="order-1 grid min-w-0 content-start items-start gap-6 xl:grid-cols-[minmax(18rem,0.72fr)_minmax(0,1.28fr)]">
       <section
         class="rounded-2xl border border-white/10 bg-black/15 p-5 sm:p-6"
         aria-labelledby="challenge-rubric-title">
