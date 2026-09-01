@@ -36,6 +36,46 @@ export interface StudyTopic {
   readonly references: readonly StudyReference[];
 }
 
+export interface CodeChallengeFormat {
+  readonly id: string;
+  readonly time: string;
+  readonly title: string;
+  readonly description: string;
+}
+
+export interface CodeChallengeDrill {
+  readonly id: string;
+  readonly priority: string;
+  readonly time: string;
+  readonly title: string;
+  readonly prompt: string;
+  readonly deliverables: readonly string[];
+  readonly watch_for: string;
+  readonly solution: string;
+  readonly solution_code_title: string;
+  readonly solution_code: string;
+  readonly test_code_title: string;
+  readonly test_code: string;
+  readonly decisions: readonly string[];
+}
+
+export interface CodeChallengeRubricItem {
+  readonly label: string;
+  readonly weight: string;
+}
+
+export interface CodeChallengeMock {
+  readonly title: string;
+  readonly time: string;
+  readonly brief: string;
+  readonly requirements: readonly string[];
+  readonly timeline: readonly {
+    readonly time: string;
+    readonly task: string;
+  }[];
+  readonly starter_code: string;
+}
+
 export interface PracticeCase {
   readonly id: string;
   readonly stack: readonly string[];
@@ -3778,6 +3818,333 @@ export const PRACTICE_CASES: readonly PracticeCase[] = [
     ],
   },
 ];
+
+export const CODE_CHALLENGE_FORMATS: readonly CodeChallengeFormat[] = [
+  {
+    id: 'live-coding',
+    time: '45–60 min',
+    title: 'Live coding',
+    description:
+      'Compartís pantalla, aclarás requisitos y construís una solución incremental mientras explicás decisiones.',
+  },
+  {
+    id: 'debugging',
+    time: '30–45 min',
+    title: 'Debugging y code review',
+    description:
+      'Recibís una feature rota o un PR y tenés que encontrar carreras, leaks, errores de estado y problemas de accesibilidad.',
+  },
+  {
+    id: 'pairing',
+    time: '45–75 min',
+    title: 'Pair programming',
+    description:
+      'Implementás o refactorizás con el entrevistador. Evalúan colaboración, navegación del código y respuesta al feedback.',
+  },
+  {
+    id: 'take-home',
+    time: '2–4 h',
+    title: 'Take-home acotado',
+    description:
+      'Entregás una pequeña aplicación con README, tests y commits. Importa más el alcance defendible que agregar features sin terminar.',
+  },
+];
+
+export const CODE_CHALLENGE_DRILLS: readonly CodeChallengeDrill[] = [
+  {
+    id: 'typescript-transformations',
+    priority: 'Calentamiento',
+    time: '25 min',
+    title: 'Transformación de datos con TypeScript',
+    prompt:
+      'Dado un array de transacciones, eliminá duplicados por `id`, agrupá por moneda, calculá totales y devolvé los tres clientes con mayor gasto sin mutar la entrada.',
+    deliverables: [
+      'Tipos estrictos y retorno explícito.',
+      'Complejidad temporal explicada.',
+      'Tests para duplicados, array vacío, importes negativos y empates.',
+    ],
+    watch_for:
+      'No encadenes cinco recorridos si un `Map` resuelve agrupación y deduplicación en una pasada. Aclará qué significa una transacción negativa.',
+    solution:
+      'Recorro la entrada una vez para deduplicar y acumular. Mantengo totales por moneda y por cliente; después ordeno únicamente los clientes únicos. La entrada nunca se modifica y el criterio de empate queda explícito.',
+    solution_code_title: 'transaction-summary.ts',
+    solution_code:
+      'interface Transaction {\n  readonly id: string;\n  readonly customerId: string;\n  readonly currency: string;\n  readonly amount: number;\n}\n\ninterface Summary {\n  readonly totalsByCurrency: Readonly<Record<string, number>>;\n  readonly topCustomers: readonly { customerId: string; total: number }[];\n}\n\nexport function summarize(input: readonly Transaction[]): Summary {\n  const seen = new Set<string>();\n  const currencyTotals = new Map<string, number>();\n  const customerTotals = new Map<string, number>();\n\n  for (const transaction of input) {\n    if (seen.has(transaction.id)) continue;\n    seen.add(transaction.id);\n\n    currencyTotals.set(\n      transaction.currency,\n      (currencyTotals.get(transaction.currency) ?? 0) + transaction.amount\n    );\n    customerTotals.set(\n      transaction.customerId,\n      (customerTotals.get(transaction.customerId) ?? 0) + transaction.amount\n    );\n  }\n\n  const topCustomers = [...customerTotals]\n    .map(([customerId, total]) => ({ customerId, total }))\n    .sort((a, b) => b.total - a.total || a.customerId.localeCompare(b.customerId))\n    .slice(0, 3);\n\n  return {\n    totalsByCurrency: Object.fromEntries(currencyTotals),\n    topCustomers\n  };\n}',
+    test_code_title: 'transaction-summary.spec.ts',
+    test_code:
+      "describe('summarize', () => {\n  it('deduplicates, aggregates and does not mutate the input', () => {\n    const input = Object.freeze([\n      { id: '1', customerId: 'ana', currency: 'USD', amount: 10 },\n      { id: '1', customerId: 'ana', currency: 'USD', amount: 10 },\n      { id: '2', customerId: 'bob', currency: 'USD', amount: 25 },\n      { id: '3', customerId: 'ana', currency: 'EUR', amount: -2 }\n    ]);\n\n    expect(summarize(input)).toEqual({\n      totalsByCurrency: { USD: 35, EUR: -2 },\n      topCustomers: [\n        { customerId: 'bob', total: 25 },\n        { customerId: 'ana', total: 8 }\n      ]\n    });\n    expect(input).toHaveLength(4);\n  });\n\n  it('returns empty collections for empty input', () => {\n    expect(summarize([])).toEqual({ totalsByCurrency: {}, topCustomers: [] });\n  });\n});",
+    decisions: [
+      'Complejidad: `O(n + c log c)`, donde `c` es la cantidad de clientes únicos.',
+      'Un importe negativo se interpreta como devolución; si el dominio dice otra cosa, se valida antes de agregar.',
+      'El empate se resuelve por `customerId` para que el resultado sea determinista.',
+    ],
+  },
+  {
+    id: 'rxjs-search',
+    priority: 'Muy probable',
+    time: '45 min',
+    title: 'Buscador Angular con RxJS',
+    prompt:
+      'Completá un buscador con debounce, cancelación de requests anteriores, loading, error, empty state y caché por query. Evitá resultados fuera de orden.',
+    deliverables: [
+      '`debounceTime`, `distinctUntilChanged` y política de flattening defendida.',
+      'Estados representables sin booleanos contradictorios.',
+      'Test con tiempo controlado y dos respuestas fuera de orden.',
+    ],
+    watch_for:
+      'El entrevistador puede preguntar por qué `switchMap` y qué cambia si cada operación debe completarse. No anides `subscribe`.',
+    solution:
+      'El input produce una query normalizada. `switchMap` conserva solo la búsqueda más reciente y `concat` emite loading antes del resultado. Un estado discriminado evita combinaciones como loading y error simultáneos.',
+    solution_code_title: 'search.store.ts',
+    solution_code:
+      "type SearchState =\n  | { status: 'idle'; results: readonly Result[] }\n  | { status: 'loading'; results: readonly Result[] }\n  | { status: 'success'; results: readonly Result[] }\n  | { status: 'error'; results: readonly Result[]; message: string };\n\n@Injectable()\nexport class SearchStore {\n  private readonly api = inject(SearchApi);\n  private readonly querySubject = new Subject<string>();\n  private readonly cache = new Map<string, readonly Result[]>();\n\n  readonly state$ = this.querySubject.pipe(\n    map(query => query.trim().toLocaleLowerCase()),\n    debounceTime(300),\n    distinctUntilChanged(),\n    switchMap(query => {\n      if (!query) return of<SearchState>({ status: 'idle', results: [] });\n      const cached = this.cache.get(query);\n      if (cached) return of<SearchState>({ status: 'success', results: cached });\n\n      return concat(\n        of<SearchState>({ status: 'loading', results: [] }),\n        this.api.search(query).pipe(\n          tap(results => this.cache.set(query, results)),\n          map(results => ({ status: 'success', results }) as const),\n          catchError(() => of({\n            status: 'error', results: [], message: 'No pudimos buscar'\n          } as const))\n        )\n      );\n    }),\n    shareReplay({ bufferSize: 1, refCount: true })\n  );\n\n  search(query: string): void {\n    this.querySubject.next(query);\n  }\n}",
+    test_code_title: 'search.store.spec.ts',
+    test_code:
+      "it('debounces and ignores the stale request', fakeAsync(() => {\n  const first = new Subject<readonly Result[]>();\n  const second = new Subject<readonly Result[]>();\n  api.search.mockReturnValueOnce(first).mockReturnValueOnce(second);\n  const states: SearchState[] = [];\n  store.state$.subscribe(state => states.push(state));\n\n  store.search('angular');\n  tick(299);\n  expect(api.search).not.toHaveBeenCalled();\n  tick(1);\n\n  store.search('signals');\n  tick(300);\n  first.next([{ id: 'old' }]);\n  second.next([{ id: 'new' }]);\n\n  expect(api.search).toHaveBeenCalledTimes(2);\n  expect(states.at(-1)).toEqual({\n    status: 'success', results: [{ id: 'new' }]\n  });\n}));",
+    decisions: [
+      '`switchMap` es correcto porque una query anterior deja de interesar; para guardar acciones usaría `concatMap` o `mergeMap` según el contrato.',
+      'La caché necesita TTL o invalidación en una aplicación real.',
+      'Desuscribir `HttpClient` aborta la request del browser, aunque el servidor podría continuar procesándola.',
+    ],
+  },
+  {
+    id: 'angular-feature',
+    priority: 'Muy probable',
+    time: '60 min',
+    title: 'Feature Angular de punta a punta',
+    prompt:
+      'Construí una lista de productos desde una API: búsqueda, filtro de categoría, orden, favorito optimista y estados loading/error/empty. La URL debe conservar los filtros.',
+    deliverables: [
+      'Componente standalone con límites claros entre UI, estado y API.',
+      'Signals/computed o RxJS usados con un criterio consistente.',
+      'HTML semántico, teclado, `track` estable y tests de interacción.',
+    ],
+    watch_for:
+      'No diseñes una arquitectura de diez archivos antes del primer resultado visible. Entregá un vertical slice y extraé cuando aparezca una responsabilidad real.',
+    solution:
+      'Mantengo filtros como signals y derivo la query en un `computed`. El store conserva la frontera HTTP y expone un único estado. El favorito aplica actualización optimista, guarda el snapshot y revierte ante error.',
+    solution_code_title: 'product-explorer.component.ts',
+    solution_code:
+      "@Component({\n  standalone: true,\n  imports: [ReactiveFormsModule],\n  templateUrl: './product-explorer.html',\n  changeDetection: ChangeDetectionStrategy.OnPush\n})\nexport class ProductExplorer {\n  private readonly api = inject(ProductApi);\n  private readonly route = inject(ActivatedRoute);\n  private readonly router = inject(Router);\n\n  readonly search = new FormControl('', { nonNullable: true });\n  readonly category = signal<string | null>(\n    this.route.snapshot.queryParamMap.get('category')\n  );\n  readonly sort = signal<ProductSort>('name');\n  readonly retry = signal(0);\n\n  private readonly searchValue = toSignal(this.search.valueChanges.pipe(\n    startWith(this.search.value), debounceTime(300), distinctUntilChanged()\n  ), { initialValue: '' });\n\n  readonly query = computed(() => ({\n    search: this.searchValue().trim(),\n    category: this.category(),\n    sort: this.sort(),\n    retry: this.retry()\n  }));\n\n  readonly products = resource({\n    params: () => this.query(),\n    loader: ({ params, abortSignal }) =>\n      firstValueFrom(this.api.list(params, abortSignal))\n  });\n\n  updateCategory(category: string | null): void {\n    this.category.set(category);\n    void this.router.navigate([], {\n      queryParams: { category }, queryParamsHandling: 'merge', replaceUrl: true\n    });\n  }\n\n  retryLoad(): void {\n    this.retry.update(value => value + 1);\n  }\n}",
+    test_code_title: 'product-explorer.spec.ts',
+    test_code:
+      "it('keeps filters in the URL and renders an empty state', async () => {\n  api.list.mockReturnValue(of([]));\n  const fixture = TestBed.createComponent(ProductExplorer);\n  fixture.detectChanges();\n\n  fixture.componentInstance.updateCategory('books');\n  await fixture.whenStable();\n  fixture.detectChanges();\n\n  expect(router.navigate).toHaveBeenCalledWith([], expect.objectContaining({\n    queryParams: { category: 'books' }, replaceUrl: true\n  }));\n  expect(fixture.nativeElement.textContent).toContain('Sin productos');\n});\n\nit('tracks cards by product id', () => {\n  api.list.mockReturnValue(of([{ id: 'p1', name: 'Keyboard', price: 90 }]));\n  const fixture = TestBed.createComponent(ProductExplorer);\n  fixture.detectChanges();\n  expect(fixture.nativeElement.querySelector('[data-product-id=\"p1\"]')).not.toBeNull();\n});",
+    decisions: [
+      'Un vertical slice puede vivir en un componente; extraigo store o facade cuando estado y efectos necesitan otro ciclo de vida.',
+      '`resource` recibe `AbortSignal`, por lo que una query nueva puede cancelar la carga anterior.',
+      'La mutación optimista debe revertir desde un snapshot y anunciar el error sin perder foco.',
+    ],
+  },
+  {
+    id: 'debug-race',
+    priority: 'Muy probable',
+    time: '35 min',
+    title: 'Encontrar una carrera y un memory leak',
+    prompt:
+      'Un componente hace `subscribe` dentro de otro `subscribe`, duplica requests al navegar y a veces muestra el usuario anterior. Diagnosticá, corregí y agregá una prueba que reproduzca la carrera.',
+    deliverables: [
+      'Causa explicada antes de editar.',
+      'Cancelación o teardown ligado al ciclo de vida.',
+      'Prueba que falla antes del fix y pasa después.',
+    ],
+    watch_for:
+      'No tapes el síntoma con más flags. Buscá ownership de la suscripción, identidad de la request y orden temporal de las respuestas.',
+    solution:
+      'La ruta se transforma en un stream de ids y `switchMap` reemplaza la carga anterior. `takeUntilDestroyed` ata la suscripción al componente. `distinctUntilChanged` evita repetir la misma request.',
+    solution_code_title: 'user-detail.component.ts',
+    solution_code:
+      "@Component({\n  standalone: true,\n  template: `\n    @if (user(); as current) {\n      <h1>{{ current.name }}</h1>\n    } @else {\n      <p>Seleccioná un usuario</p>\n    }\n  `\n})\nexport class UserDetailComponent {\n  private readonly route = inject(ActivatedRoute);\n  private readonly api = inject(UserApi);\n  private readonly destroyRef = inject(DestroyRef);\n\n  readonly user = toSignal(\n    this.route.paramMap.pipe(\n      map(params => params.get('id')),\n      filter((id): id is string => id !== null),\n      distinctUntilChanged(),\n      switchMap(id => this.api.get(id).pipe(\n        catchError(() => of(null))\n      )),\n      takeUntilDestroyed(this.destroyRef)\n    ),\n    { initialValue: null }\n  );\n}",
+    test_code_title: 'user-detail.component.spec.ts',
+    test_code:
+      "it('never renders a stale response', () => {\n  const params$ = new Subject<ParamMap>();\n  const first$ = new Subject<User>();\n  const second$ = new Subject<User>();\n  api.get.mockReturnValueOnce(first$).mockReturnValueOnce(second$);\n  route.paramMap = params$;\n\n  const fixture = TestBed.createComponent(UserDetailComponent);\n  params$.next(convertToParamMap({ id: '1' }));\n  params$.next(convertToParamMap({ id: '2' }));\n  first$.next({ id: '1', name: 'Old user' });\n  second$.next({ id: '2', name: 'Current user' });\n  fixture.detectChanges();\n\n  expect(fixture.nativeElement.textContent).toContain('Current user');\n  expect(fixture.nativeElement.textContent).not.toContain('Old user');\n});",
+    decisions: [
+      'El leak nace porque la suscripción exterior sobrevive al componente y crea suscripciones interiores adicionales.',
+      '`switchMap` resuelve identidad temporal; un booleano loading no puede hacerlo.',
+      'La prueba controla ambas respuestas para reproducir determinísticamente la carrera.',
+    ],
+  },
+  {
+    id: 'reactive-form',
+    priority: 'Probable',
+    time: '50 min',
+    title: 'Formulario reactivo real',
+    prompt:
+      'Implementá alta de usuario con validación cruzada, username asíncrono, campos condicionales, errores accesibles y protección contra doble submit.',
+    deliverables: [
+      'Formulario tipado y validadores testeables.',
+      'Manejo correcto de `pending`, submit y errores del servidor.',
+      'Foco o resumen de errores sin depender solo del color.',
+    ],
+    watch_for:
+      'La validación asíncrona necesita cancelación y debounce. El backend sigue siendo la autoridad aunque el control sea válido.',
+    solution:
+      'El formulario es non-nullable y tipado. La confirmación se valida a nivel de grupo; el username usa un validador asíncrono que espera antes de consultar. El submit se bloquea durante `pending`, envío o invalidez.',
+    solution_code_title: 'signup.component.ts',
+    solution_code:
+      "const passwordsMatch: ValidatorFn = control => {\n  const password = control.get('password')?.value;\n  const confirmation = control.get('confirmation')?.value;\n  return password === confirmation ? null : { passwordsMismatch: true };\n};\n\nfunction usernameAvailable(api: UsersApi): AsyncValidatorFn {\n  return control => timer(300).pipe(\n    switchMap(() => api.usernameExists(control.value)),\n    map(exists => exists ? { usernameTaken: true } : null),\n    catchError(() => of({ usernameCheckFailed: true })),\n    first()\n  );\n}\n\n@Component({ standalone: true, imports: [ReactiveFormsModule] })\nexport class SignupComponent {\n  private readonly api = inject(UsersApi);\n  private readonly builder = inject(NonNullableFormBuilder);\n  readonly submitting = signal(false);\n  readonly serverError = signal<string | null>(null);\n\n  readonly form = this.builder.group({\n    username: this.builder.control('', {\n      validators: [Validators.required, Validators.minLength(3)],\n      asyncValidators: [usernameAvailable(this.api)],\n      updateOn: 'blur'\n    }),\n    password: ['', [Validators.required, Validators.minLength(12)]],\n    confirmation: ['', Validators.required],\n    companyAccount: false,\n    companyName: ''\n  }, { validators: passwordsMatch });\n\n  submit(): void {\n    if (this.form.invalid || this.form.pending || this.submitting()) {\n      this.form.markAllAsTouched();\n      return;\n    }\n    this.submitting.set(true);\n    this.api.create(this.form.getRawValue()).pipe(\n      finalize(() => this.submitting.set(false))\n    ).subscribe({ error: () => this.serverError.set('No pudimos crear la cuenta') });\n  }\n}",
+    test_code_title: 'signup.component.spec.ts',
+    test_code:
+      "it('rejects mismatched passwords and prevents submit', () => {\n  const fixture = TestBed.createComponent(SignupComponent);\n  const component = fixture.componentInstance;\n  component.form.patchValue({\n    username: 'adrii', password: 'very-secure-1', confirmation: 'different-123'\n  });\n\n  component.submit();\n\n  expect(component.form.hasError('passwordsMismatch')).toBe(true);\n  expect(api.create).not.toHaveBeenCalled();\n});\n\nit('marks a username reported by the API as taken', fakeAsync(() => {\n  api.usernameExists.mockReturnValue(of(true));\n  const control = TestBed.createComponent(SignupComponent)\n    .componentInstance.form.controls.username;\n  control.setValue('adrii');\n  control.markAsTouched();\n  control.updateValueAndValidity();\n  tick(300);\n\n  expect(control.hasError('usernameTaken')).toBe(true);\n}));",
+    decisions: [
+      "`updateOn: 'blur'` evita consultar disponibilidad en cada tecla; para feedback en vivo usaría un stream externo con debounce.",
+      'Los errores se asocian con `aria-describedby` y el submit inválido lleva foco al primer control con error.',
+      'La respuesta del servidor se mapea nuevamente al campo aunque el validador previo haya pasado.',
+    ],
+  },
+  {
+    id: 'http-testing',
+    priority: 'Probable',
+    time: '45 min',
+    title: 'Interceptor funcional y tests HTTP',
+    prompt:
+      'Agregá correlation id y token solo a la API propia. Ante 401, reintentá una vez después de un refresh compartido. Probá éxito, error y requests concurrentes.',
+    deliverables: [
+      'Interceptor funcional y bypass explícito para refresh.',
+      'Inmutabilidad de `HttpRequest` respetada.',
+      'Tests con `provideHttpClientTesting()` y verificación de requests pendientes.',
+    ],
+    watch_for:
+      'La prueba difícil son varios 401 simultáneos: debe existir un solo refresh. Evitá loops y no registres credenciales.',
+    solution:
+      'El interceptor agrega headers solo a la API propia y marca el reintento en `HttpContext`. Un observable compartido representa el refresh en vuelo; todas las requests esperan la misma emisión y reintentan una sola vez.',
+    solution_code_title: 'auth.interceptor.ts',
+    solution_code:
+      "const RETRIED = new HttpContextToken(() => false);\nlet refreshInFlight$: Observable<string> | null = null;\n\nfunction sharedRefresh(auth: AuthService): Observable<string> {\n  if (!refreshInFlight$) {\n    refreshInFlight$ = auth.refresh().pipe(\n      map(session => session.accessToken),\n      shareReplay({ bufferSize: 1, refCount: false }),\n      finalize(() => refreshInFlight$ = null)\n    );\n  }\n  return refreshInFlight$;\n}\n\nexport const authInterceptor: HttpInterceptorFn = (request, next) => {\n  const auth = inject(AuthService);\n  const isOwnApi = request.url.startsWith(environment.apiUrl);\n  const isRefresh = request.url.endsWith('/auth/refresh');\n  if (!isOwnApi || isRefresh) return next(request);\n\n  const correlationId = crypto.randomUUID();\n  const authenticated = request.clone({\n    setHeaders: {\n      'X-Correlation-ID': correlationId,\n      ...(auth.token() ? { Authorization: `Bearer ${auth.token()}` } : {})\n    }\n  });\n\n  return next(authenticated).pipe(\n    catchError(error => {\n      if (error.status !== 401 || request.context.get(RETRIED)) {\n        return throwError(() => error);\n      }\n      return sharedRefresh(auth).pipe(\n        switchMap(token => next(request.clone({\n          context: request.context.set(RETRIED, true),\n          setHeaders: { Authorization: `Bearer ${token}`, 'X-Correlation-ID': correlationId }\n        }))),\n        catchError(refreshError => {\n          auth.logout();\n          return throwError(() => refreshError);\n        })\n      );\n    })\n  );\n};",
+    test_code_title: 'auth.interceptor.spec.ts',
+    test_code:
+      "it('shares one refresh across concurrent 401 responses', () => {\n  service.load('/a').subscribe();\n  service.load('/b').subscribe();\n  const initial = http.match(req => ['/a', '/b'].some(path => req.url.endsWith(path)));\n  initial.forEach(req => req.flush(null, { status: 401, statusText: 'Unauthorized' }));\n\n  const refresh = http.expectOne(`${apiUrl}/auth/refresh`);\n  refresh.flush({ accessToken: 'fresh-token' });\n\n  const retried = http.match(req =>\n    req.headers.get('Authorization') === 'Bearer fresh-token'\n  );\n  expect(retried).toHaveLength(2);\n  retried.forEach(req => req.flush({ ok: true }));\n  http.verify();\n});\n\nit('does not send credentials to a third-party URL', () => {\n  service.loadExternal().subscribe();\n  const request = http.expectOne('https://images.example/avatar');\n  expect(request.request.headers.has('Authorization')).toBe(false);\n  request.flush(new Blob());\n});",
+    decisions: [
+      'Los interceptores funcionales ofrecen un orden de ejecución predecible.',
+      'El `HttpContextToken` impide un segundo retry y el endpoint refresh evita interceptarse a sí mismo.',
+      'La telemetría registra correlation id y estado, nunca access o refresh tokens.',
+    ],
+  },
+  {
+    id: 'component-tests',
+    priority: 'Probable',
+    time: '40 min',
+    title: 'Completar tests de un componente',
+    prompt:
+      'Recibís un componente con tests vacíos. Cubrí render, interacción, dependencia HTTP, error, navegación por teclado y un caso límite elegido por vos.',
+    deliverables: [
+      'Tests de comportamiento observable, no de implementación privada.',
+      'Dobles en la frontera correcta y datos legibles.',
+      'Nombres que describen escenario, acción y resultado.',
+    ],
+    watch_for:
+      '`should create` no alcanza. Priorizá el contrato que rompería una regresión real y explicá qué dejarías para integración o E2E.',
+    solution:
+      'Primero identifico el contrato visible: carga inicial, render, acción principal, error y teclado. Doblo el servicio en su API pública y uso el DOM para comprobar la integración entre clase y template.',
+    solution_code_title: 'team-list.component.ts',
+    solution_code:
+      '@Component({\n  standalone: true,\n  template: `\n    <h1>Equipo</h1>\n    @if (error()) {\n      <p role="alert">No pudimos cargar el equipo</p>\n      <button type="button" (click)="load()">Reintentar</button>\n    } @else {\n      <ul aria-label="Miembros del equipo">\n        @for (member of members(); track member.id) {\n          <li>{{ member.name }} — {{ member.role }}</li>\n        } @empty {\n          <li>No hay miembros</li>\n        }\n      </ul>\n    }\n  `\n})\nexport class TeamListComponent {\n  private readonly api = inject(TeamApi);\n  readonly members = signal<readonly Member[]>([]);\n  readonly error = signal(false);\n\n  constructor() { this.load(); }\n\n  load(): void {\n    this.error.set(false);\n    this.api.list().subscribe({\n      next: members => this.members.set(members),\n      error: () => this.error.set(true)\n    });\n  }\n}',
+    test_code_title: 'team-list.component.spec.ts',
+    test_code:
+      "describe('TeamListComponent', () => {\n  const response$ = new Subject<readonly Member[]>();\n\n  beforeEach(() => TestBed.configureTestingModule({\n    providers: [{ provide: TeamApi, useValue: { list: vi.fn(() => response$) } }]\n  }));\n\n  it('renders members returned by the public service contract', () => {\n    const fixture = TestBed.createComponent(TeamListComponent);\n    response$.next([{ id: '1', name: 'Ada', role: 'Lead' }]);\n    fixture.detectChanges();\n\n    expect(fixture.nativeElement.querySelector(\n      'ul[aria-label=\"Miembros del equipo\"]'\n    )).not.toBeNull();\n    expect(fixture.nativeElement.textContent).toContain('Ada — Lead');\n  });\n\n  it('shows an alert and retries after an error', () => {\n    const api = TestBed.inject(TeamApi) as { list: Mock };\n    api.list.mockReturnValueOnce(throwError(() => new Error('offline')))\n      .mockReturnValueOnce(of([]));\n    const fixture = TestBed.createComponent(TeamListComponent);\n    fixture.detectChanges();\n    expect(fixture.nativeElement.querySelector('[role=\"alert\"]')).not.toBeNull();\n\n    fixture.nativeElement.querySelector('button').click();\n    expect(api.list).toHaveBeenCalledTimes(2);\n  });\n});",
+    decisions: [
+      'Una prueba de clase pura sirve para lógica; una interacción del template necesita fixture y DOM.',
+      'Mockeo `TeamApi`, no detalles internos del componente.',
+      'Dejaría navegación real, backend y recorrido entre pantallas para integración o E2E.',
+    ],
+  },
+  {
+    id: 'accessible-table',
+    priority: 'Diferenciador Senior',
+    time: '45 min',
+    title: 'Tabla accesible y performante',
+    prompt:
+      'Construí una tabla ordenable y paginada. Debe funcionar con teclado, anunciar cambios, conservar foco y evitar render innecesario con cientos de filas.',
+    deliverables: [
+      'Semántica nativa, botones reales y `aria-sort`.',
+      'Identidad estable de filas y paginación remota defendida.',
+      'Prueba de teclado y estrategia de medición.',
+    ],
+    watch_for:
+      'No conviertas la tabla en una grilla ARIA sin necesidad. Virtual scroll puede entrar en tensión con la semántica y debe justificarse.',
+    solution:
+      'Uso una tabla HTML nativa y un botón dentro del encabezado ordenable. El `th` comunica `aria-sort`; un live region anuncia el resultado. La paginación remota limita datos y DOM sin romper la semántica.',
+    solution_code_title: 'people-table.component.html',
+    solution_code:
+      '<table>\n  <caption>Personas del equipo</caption>\n  <thead>\n    <tr>\n      <th scope="col" [attr.aria-sort]="nameSort()">\n        <button type="button" (click)="sortByName()">\n          Nombre <span aria-hidden="true">{{ sortIcon() }}</span>\n        </button>\n      </th>\n      <th scope="col">Rol</th>\n    </tr>\n  </thead>\n  <tbody>\n    @for (person of page().items; track person.id; let index = $index) {\n      <tr [attr.data-person-id]="person.id">\n        <th scope="row">{{ person.name }}</th>\n        <td>{{ person.role }}</td>\n      </tr>\n    }\n  </tbody>\n</table>\n\n<nav aria-label="Paginación del equipo">\n  <button type="button" [disabled]="page().number === 1" (click)="previous()">\n    Anterior\n  </button>\n  <span>Página {{ page().number }} de {{ page().totalPages }}</span>\n  <button type="button" [disabled]="page().number === page().totalPages" (click)="next()">\n    Siguiente\n  </button>\n</nav>\n\n<p class="sr-only" aria-live="polite">{{ resultAnnouncement() }}</p>',
+    test_code_title: 'people-table.component.spec.ts',
+    test_code:
+      "it('sorts from the keyboard and exposes the current direction', async () => {\n  const fixture = TestBed.createComponent(PeopleTableComponent);\n  fixture.detectChanges();\n  const header = fixture.nativeElement.querySelector('th[scope=\"col\"]');\n  const button = header.querySelector('button');\n\n  button.focus();\n  button.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }));\n  button.click();\n  fixture.detectChanges();\n\n  expect(document.activeElement).toBe(button);\n  expect(header.getAttribute('aria-sort')).toBe('ascending');\n});\n\nit('keeps row identity stable when a person changes', () => {\n  const fixture = TestBed.createComponent(PeopleTableComponent);\n  fixture.detectChanges();\n  const before = fixture.nativeElement.querySelector('[data-person-id=\"p1\"]');\n  fixture.componentInstance.rename('p1', 'Ada Lovelace');\n  fixture.detectChanges();\n  const after = fixture.nativeElement.querySelector('[data-person-id=\"p1\"]');\n  expect(after).toBe(before);\n});",
+    decisions: [
+      'No agrego roles ARIA cuando la semántica nativa ya expresa tabla, encabezados y botones.',
+      'La paginación conserva foco en el control activado y anuncia página y cantidad de resultados.',
+      'Con 100.000 filas prefiero paginación remota; virtual scroll se evalúa contra requisitos de lector de pantalla.',
+    ],
+  },
+];
+
+export const CODE_CHALLENGE_RUBRIC: readonly CodeChallengeRubricItem[] = [
+  {
+    label: 'Correctitud y casos límite',
+    weight: '25%',
+  },
+  {
+    label: 'Descomposición, tipos y legibilidad',
+    weight: '20%',
+  },
+  {
+    label: 'Tests y capacidad de verificar',
+    weight: '20%',
+  },
+  {
+    label: 'Angular, RxJS y plataforma',
+    weight: '15%',
+  },
+  {
+    label: 'Comunicación y manejo del tiempo',
+    weight: '10%',
+  },
+  {
+    label: 'Accesibilidad y performance',
+    weight: '10%',
+  },
+];
+
+export const CODE_CHALLENGE_MOCK: CodeChallengeMock = {
+  title: 'Product Explorer',
+  time: '75 minutos',
+  brief:
+    'Construí una feature standalone que consulta `/api/products`, permite buscar y filtrar, sincroniza la query con la URL y muestra estados idle, loading, error, empty y success.',
+  requirements: [
+    'Debounce de 300 ms y cancelación de la búsqueda anterior.',
+    'Filtro por categoría y orden por precio o nombre.',
+    'Retry manual; no reintentes automáticamente errores 4xx.',
+    'Template accesible, navegación por teclado y `track` por id.',
+    'Tests de debounce, carrera de respuestas, error y empty state.',
+  ],
+  timeline: [
+    {
+      time: '00–08',
+      task: 'Preguntar, fijar supuestos y ordenar prioridades.',
+    },
+    {
+      time: '08–18',
+      task: 'Definir tipos, estados y frontera del API.',
+    },
+    {
+      time: '18–45',
+      task: 'Entregar el recorrido principal funcionando.',
+    },
+    {
+      time: '45–58',
+      task: 'Agregar error, empty, URL y accesibilidad.',
+    },
+    {
+      time: '58–68',
+      task: 'Escribir los tests de mayor riesgo.',
+    },
+    {
+      time: '68–75',
+      task: 'Refactor mínimo y explicar trade-offs pendientes.',
+    },
+  ],
+  starter_code:
+    "export type ProductSort = 'name' | 'price';\n\nexport interface ProductQuery {\n  search: string;\n  category: string | null;\n  sort: ProductSort;\n}\n\nexport type ProductState =\n  | { status: 'idle'; products: readonly Product[] }\n  | { status: 'loading'; products: readonly Product[] }\n  | { status: 'success'; products: readonly Product[] }\n  | { status: 'error'; products: readonly Product[]; message: string };\n\n// TODO: implementá ProductApi, el estado de la feature,\n// la sincronización con query params, el template y los tests.",
+};
 
 export const STUDY_REFERENCES: readonly StudyReference[] = [
   {

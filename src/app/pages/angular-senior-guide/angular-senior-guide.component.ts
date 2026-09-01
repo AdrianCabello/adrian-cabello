@@ -11,7 +11,9 @@ import {
 import { RouterLink } from '@angular/router';
 import { LanguageService } from '../../i18n/language.service';
 import { LanguageSwitcherComponent } from '../../shared/components/language-switcher/language-switcher.component';
+import { CodeChallengePrepComponent } from './code-challenge-prep.component';
 import {
+  CODE_CHALLENGE_DRILLS,
   PRACTICE_CASES,
   STUDY_GROUPS,
   STUDY_REFERENCES,
@@ -151,7 +153,7 @@ const IMPORTANT_THEORY_PATTERN = new RegExp(
 @Component({
   selector: 'app-angular-senior-guide',
   standalone: true,
-  imports: [RouterLink, LanguageSwitcherComponent],
+  imports: [RouterLink, LanguageSwitcherComponent, CodeChallengePrepComponent],
   templateUrl: './angular-senior-guide.component.html',
   styleUrl: './angular-senior-guide.component.scss',
 })
@@ -191,6 +193,7 @@ export class AngularSeniorGuideComponent {
     topics: this.topics.filter(topic => topic.groupId === group.id),
   }));
   protected readonly references = STUDY_REFERENCES;
+  protected readonly codeChallengeNavigation = CODE_CHALLENGE_DRILLS;
   protected readonly query = signal('');
   protected readonly selectedCollection = signal<CollectionId>('all');
   protected readonly activeSectionId = signal<string | null>(null);
@@ -346,6 +349,30 @@ export class AngularSeniorGuideComponent {
     if (isPlatformBrowser(this.platformId)) {
       setTimeout(() => {
         this.document.getElementById(topic.id)?.scrollIntoView({
+          behavior: 'instant' as ScrollBehavior,
+          block: 'start',
+        });
+      });
+    }
+  }
+
+  protected navigateToCodeChallenge(event: Event, challengeId: string): void {
+    event.preventDefault();
+    const targetId = `code-challenge-${challengeId}`;
+    this.query.set('');
+    this.selectedCollection.set('practice');
+    this.activeSectionId.set('practice');
+    this.activeTopicId.set(targetId);
+    this.mobileNavigationOpen.set(false);
+    this.scheduleScrollSpyRefresh();
+
+    if (isPlatformBrowser(this.platformId)) {
+      setTimeout(() => {
+        const target = this.document.getElementById(targetId);
+        if (target instanceof HTMLDetailsElement) {
+          target.open = true;
+        }
+        target?.scrollIntoView({
           behavior: 'instant' as ScrollBehavior,
           block: 'start',
         });

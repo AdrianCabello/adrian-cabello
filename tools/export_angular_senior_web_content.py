@@ -12,6 +12,12 @@ from build_angular_senior_guide import (
     rapid_fire,
 )
 from angular_senior_practice_cases import PRACTICE_CASES
+from angular_senior_code_challenges import (
+    CODE_CHALLENGE_DRILLS,
+    CODE_CHALLENGE_FORMATS,
+    CODE_CHALLENGE_MOCK,
+    CODE_CHALLENGE_RUBRIC,
+)
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -314,10 +320,56 @@ def write_typescript() -> None:
         "STUDY_GROUPS": GROUPS,
         "STUDY_TOPICS": topics,
         "PRACTICE_CASES": PRACTICE_CASES,
+        "CODE_CHALLENGE_FORMATS": CODE_CHALLENGE_FORMATS,
+        "CODE_CHALLENGE_DRILLS": CODE_CHALLENGE_DRILLS,
+        "CODE_CHALLENGE_RUBRIC": CODE_CHALLENGE_RUBRIC,
+        "CODE_CHALLENGE_MOCK": CODE_CHALLENGE_MOCK,
         "STUDY_REFERENCES": REFERENCES,
     }
 
     prelude = """// Generated from tools/build_angular_senior_guide.py. Do not edit by hand.\n\nexport interface StudyGroup {\n  readonly id: string;\n  readonly index: string;\n  readonly title: string;\n  readonly description: string;\n}\n\nexport interface StudyQuestion {\n  readonly id?: string;\n  readonly question: string;\n  readonly answer: string;\n}\n\nexport interface StudyReference {\n  readonly label: string;\n  readonly url: string;\n}\n\nexport interface TheorySection {\n  readonly title: string;\n  readonly items: readonly string[];\n}\n\nexport interface StudyTopic {\n  readonly id: string;\n  readonly number: string;\n  readonly groupId: string;\n  readonly title: string;\n  readonly intro: string;\n  readonly theory: readonly string[];\n  readonly theorySections: readonly TheorySection[];\n  readonly questions: readonly StudyQuestion[];\n  readonly code?: string;\n  readonly references: readonly StudyReference[];\n}\n\nexport interface PracticeCase {\n  readonly title: string;\n  readonly brief: string;\n}\n\n"""
+    code_challenge_types = """export interface CodeChallengeFormat {
+  readonly id: string;
+  readonly time: string;
+  readonly title: string;
+  readonly description: string;
+}
+
+export interface CodeChallengeDrill {
+  readonly id: string;
+  readonly priority: string;
+  readonly time: string;
+  readonly title: string;
+  readonly prompt: string;
+  readonly deliverables: readonly string[];
+  readonly watch_for: string;
+  readonly solution: string;
+  readonly solution_code_title: string;
+  readonly solution_code: string;
+  readonly test_code_title: string;
+  readonly test_code: string;
+  readonly decisions: readonly string[];
+}
+
+export interface CodeChallengeRubricItem {
+  readonly label: string;
+  readonly weight: string;
+}
+
+export interface CodeChallengeMock {
+  readonly title: string;
+  readonly time: string;
+  readonly brief: string;
+  readonly requirements: readonly string[];
+  readonly timeline: readonly { readonly time: string; readonly task: string }[];
+  readonly starter_code: string;
+}
+
+"""
+    prelude = prelude.replace(
+        "export interface PracticeCase {",
+        f"{code_challenge_types}export interface PracticeCase {{",
+    )
     prelude = prelude.replace(
         "  readonly title: string;\n  readonly brief: string;\n}",
         "  readonly id: string;\n"
@@ -333,6 +385,10 @@ def write_typescript() -> None:
         "STUDY_GROUPS": "readonly StudyGroup[]",
         "STUDY_TOPICS": "readonly StudyTopic[]",
         "PRACTICE_CASES": "readonly PracticeCase[]",
+        "CODE_CHALLENGE_FORMATS": "readonly CodeChallengeFormat[]",
+        "CODE_CHALLENGE_DRILLS": "readonly CodeChallengeDrill[]",
+        "CODE_CHALLENGE_RUBRIC": "readonly CodeChallengeRubricItem[]",
+        "CODE_CHALLENGE_MOCK": "CodeChallengeMock",
         "STUDY_REFERENCES": "readonly StudyReference[]",
     }
     output = [prelude]

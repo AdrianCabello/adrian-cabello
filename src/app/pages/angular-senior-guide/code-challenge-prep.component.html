@@ -1,0 +1,340 @@
+<section
+  class="mb-12 overflow-hidden rounded-3xl border border-amber-300/20 bg-gradient-to-br from-amber-300/[0.08] via-[#0a1425] to-cyan-300/[0.05]"
+  data-testid="guide-code-challenge-prep"
+  aria-labelledby="code-challenge-title">
+  <header class="border-b border-white/10 p-6 sm:p-8 lg:p-10">
+    <div class="grid items-end gap-6 lg:grid-cols-[minmax(0,1fr)_auto]">
+      <div>
+        <p
+          class="font-mono text-xs font-black uppercase tracking-[0.24em] text-amber-300">
+          {{ translate('Preparación prioritaria') }}
+        </p>
+        <h3
+          id="code-challenge-title"
+          class="mt-3 max-w-3xl text-3xl font-black tracking-[-0.04em] text-white sm:text-4xl">
+          {{ translate('Code challenge Senior Angular') }}
+        </h3>
+        <p class="mt-4 max-w-3xl text-sm leading-7 text-slate-300 sm:text-base">
+          {{
+            translate(
+              'No evalúan solamente si el código compila. Evalúan cómo aclarás el problema, reducís alcance, modelás estados, verificás riesgos y explicás lo que dejarías para una segunda iteración.'
+            )
+          }}
+        </p>
+      </div>
+      <div class="flex gap-3">
+        <div
+          class="min-w-24 rounded-xl border border-white/10 bg-black/20 px-4 py-3 text-center">
+          <strong class="block text-2xl font-black text-white">08</strong>
+          <span
+            class="font-mono text-[9px] uppercase tracking-wider text-slate-400"
+            >{{ translate('ejercicios') }}</span
+          >
+        </div>
+        <div
+          class="min-w-24 rounded-xl border border-white/10 bg-black/20 px-4 py-3 text-center">
+          <strong class="block text-2xl font-black text-amber-300">75'</strong>
+          <span
+            class="font-mono text-[9px] uppercase tracking-wider text-slate-400"
+            >{{ translate('simulacro') }}</span
+          >
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-8 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+      @for (format of formats; track format.id) {
+        <article class="rounded-xl border border-white/10 bg-black/15 p-4">
+          <span
+            class="font-mono text-[9px] font-black uppercase tracking-wider text-cyan-300"
+            >{{ format.time }}</span
+          >
+          <h4 class="mt-3 font-extrabold text-white">
+            {{ translate(format.title) }}
+          </h4>
+          <p class="mt-2 text-xs leading-6 text-slate-400">
+            {{ translate(format.description) }}
+          </p>
+        </article>
+      }
+    </div>
+  </header>
+
+  <div class="grid gap-8 p-6 sm:p-8 lg:p-10 xl:grid-cols-2">
+    <section class="min-w-0" aria-labelledby="likely-challenges-title">
+      <p class="study-kicker">
+        {{ translate('Qué te pueden hacer programar') }}
+      </p>
+      <h4
+        id="likely-challenges-title"
+        class="mt-2 text-2xl font-black text-white">
+        {{ translate('Ejercicios más probables') }}
+      </h4>
+      <p class="mt-2 text-sm leading-6 text-slate-400">
+        {{
+          translate(
+            'Practicalos en este orden. Abrí cada uno para ver qué debería quedar terminado y dónde suelen presionar.'
+          )
+        }}
+      </p>
+
+      <div class="mt-5 grid gap-3">
+        @for (drill of drills; track drill.id) {
+          <details
+            [id]="'code-challenge-' + drill.id"
+            class="group min-w-0 rounded-xl border border-white/10 bg-black/15 open:border-cyan-300/20 open:bg-cyan-300/[0.035]"
+            [attr.data-study-navigation-id]="'code-challenge-' + drill.id"
+            data-study-section-id="practice"
+            [attr.data-study-topic-id]="'code-challenge-' + drill.id"
+            [attr.data-testid]="'guide-code-challenge-' + drill.id">
+            <summary
+              class="grid cursor-pointer list-none grid-cols-[1fr_auto] items-center gap-4 p-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-3px] focus-visible:outline-cyan-300">
+              <span>
+                <span class="flex flex-wrap items-center gap-x-3 gap-y-1">
+                  <span
+                    class="font-mono text-[9px] font-black uppercase tracking-wider text-amber-300"
+                    >{{ translate(drill.priority) }}</span
+                  >
+                  <span class="font-mono text-[9px] text-slate-500">{{
+                    drill.time
+                  }}</span>
+                </span>
+                <span class="mt-1.5 block font-extrabold text-white">{{
+                  translate(drill.title)
+                }}</span>
+              </span>
+              <span
+                aria-hidden="true"
+                class="text-xl text-cyan-300 transition-transform group-open:rotate-45"
+                >+</span
+              >
+            </summary>
+            <div class="border-t border-white/10 px-4 pb-5 pt-4">
+              <p class="text-sm leading-7 text-slate-300">
+                {{ translate(drill.prompt) }}
+              </p>
+              <p
+                class="mt-5 font-mono text-[9px] font-black uppercase tracking-wider text-cyan-300">
+                {{ translate('Entregables mínimos') }}
+              </p>
+              <ul class="mt-2 grid gap-2">
+                @for (deliverable of drill.deliverables; track deliverable) {
+                  <li
+                    class="grid grid-cols-[0.75rem_1fr] gap-2 text-xs leading-6 text-slate-400">
+                    <span class="text-emerald-300">✓</span>
+                    <span>{{ translate(deliverable) }}</span>
+                  </li>
+                }
+              </ul>
+              <div
+                class="mt-4 rounded-lg border-l-2 border-amber-300 bg-amber-300/[0.06] px-4 py-3">
+                <p
+                  class="font-mono text-[9px] font-black uppercase tracking-wider text-amber-300">
+                  {{ translate('Donde te van a presionar') }}
+                </p>
+                <p class="mt-1.5 text-xs leading-6 text-slate-300">
+                  {{ translate(drill.watch_for) }}
+                </p>
+              </div>
+
+              <details
+                class="mt-4 min-w-0 overflow-hidden rounded-xl border border-emerald-300/20 bg-emerald-300/[0.035]"
+                [attr.data-testid]="
+                  'guide-code-challenge-solution-' + drill.id
+                ">
+                <summary
+                  class="flex min-h-12 cursor-pointer list-none items-center justify-between gap-3 px-4 font-mono text-[10px] font-black uppercase tracking-wider text-emerald-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-3px] focus-visible:outline-emerald-300">
+                  <span>{{ translate('Ver solución completa') }}</span>
+                  <span aria-hidden="true">&lt;/&gt;</span>
+                </summary>
+                <div class="border-t border-white/10 p-4">
+                  <p class="text-sm leading-7 text-slate-300">
+                    {{ translate(drill.solution) }}
+                  </p>
+
+                  <p
+                    class="mt-5 font-mono text-[9px] font-black uppercase tracking-wider text-cyan-300">
+                    {{ translate('Decisiones para defender') }}
+                  </p>
+                  <ul class="mt-2 grid gap-2">
+                    @for (decision of drill.decisions; track decision) {
+                      <li
+                        class="grid grid-cols-[0.75rem_1fr] gap-2 text-xs leading-6 text-slate-400">
+                        <span class="text-cyan-300">→</span>
+                        <span>{{ translate(decision) }}</span>
+                      </li>
+                    }
+                  </ul>
+
+                  <section
+                    class="mt-5 overflow-hidden rounded-lg border border-white/10 bg-[#050b15]"
+                    [attr.aria-label]="drill.solution_code_title">
+                    <div
+                      class="flex min-h-11 items-center justify-between gap-3 border-b border-white/10 px-3">
+                      <span
+                        class="truncate font-mono text-[9px] font-bold text-slate-500"
+                        >{{ drill.solution_code_title }}</span
+                      >
+                      <button
+                        type="button"
+                        class="min-h-8 rounded border border-white/10 px-2 font-mono text-[8px] font-black uppercase tracking-wider text-cyan-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300"
+                        [attr.data-testid]="
+                          'guide-copy-challenge-solution-' + drill.id
+                        "
+                        (click)="
+                          copyCode(drill.id + '-solution', drill.solution_code)
+                        ">
+                        {{
+                          copiedId() === drill.id + '-solution'
+                            ? translate('Copiado')
+                            : translate('Copiar')
+                        }}
+                      </button>
+                    </div>
+                    <div class="overflow-x-auto">
+                      <pre
+                        class="study-code min-w-max p-4 text-[10px] leading-5 text-slate-300"><code>{{ drill.solution_code }}</code></pre>
+                    </div>
+                  </section>
+
+                  <section
+                    class="mt-3 overflow-hidden rounded-lg border border-white/10 bg-[#050b15]"
+                    [attr.aria-label]="drill.test_code_title">
+                    <div
+                      class="flex min-h-11 items-center justify-between gap-3 border-b border-white/10 px-3">
+                      <span
+                        class="truncate font-mono text-[9px] font-bold text-slate-500"
+                        >{{ drill.test_code_title }}</span
+                      >
+                      <button
+                        type="button"
+                        class="min-h-8 rounded border border-white/10 px-2 font-mono text-[8px] font-black uppercase tracking-wider text-cyan-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300"
+                        [attr.data-testid]="
+                          'guide-copy-challenge-tests-' + drill.id
+                        "
+                        (click)="
+                          copyCode(drill.id + '-tests', drill.test_code)
+                        ">
+                        {{
+                          copiedId() === drill.id + '-tests'
+                            ? translate('Copiado')
+                            : translate('Copiar tests')
+                        }}
+                      </button>
+                    </div>
+                    <div class="overflow-x-auto">
+                      <pre
+                        class="study-code min-w-max p-4 text-[10px] leading-5 text-slate-300"><code>{{ drill.test_code }}</code></pre>
+                    </div>
+                  </section>
+                </div>
+              </details>
+            </div>
+          </details>
+        }
+      </div>
+    </section>
+
+    <div class="grid min-w-0 content-start gap-6">
+      <section
+        class="rounded-2xl border border-white/10 bg-black/15 p-5 sm:p-6"
+        aria-labelledby="challenge-rubric-title">
+        <p class="study-kicker">{{ translate('Cómo te puntúan') }}</p>
+        <h4
+          id="challenge-rubric-title"
+          class="mt-2 text-2xl font-black text-white">
+          {{ translate('Rúbrica Senior') }}
+        </h4>
+        <div class="mt-5 grid gap-3">
+          @for (criterion of rubric; track criterion.label) {
+            <div class="grid grid-cols-[3rem_1fr] items-center gap-3">
+              <strong class="font-mono text-sm font-black text-amber-300">{{
+                criterion.weight
+              }}</strong>
+              <span class="text-sm text-slate-300">{{
+                translate(criterion.label)
+              }}</span>
+            </div>
+          }
+        </div>
+      </section>
+
+      <section
+        class="min-w-0 overflow-hidden rounded-2xl border border-cyan-300/20 bg-[#050b15]"
+        data-testid="guide-code-challenge-mock"
+        aria-labelledby="challenge-mock-title">
+        <div class="p-5 sm:p-6">
+          <div class="flex flex-wrap items-start justify-between gap-4">
+            <div>
+              <p class="study-kicker">
+                {{ translate('Simulacro recomendado') }}
+              </p>
+              <h4
+                id="challenge-mock-title"
+                class="mt-2 text-2xl font-black text-white">
+                {{ mock.title }}
+              </h4>
+            </div>
+            <span
+              class="rounded-full border border-amber-300/20 bg-amber-300/[0.08] px-3 py-1.5 font-mono text-[10px] font-black uppercase tracking-wider text-amber-300">
+              {{ mock.time }}
+            </span>
+          </div>
+          <p class="mt-4 text-sm leading-7 text-slate-300">
+            {{ translate(mock.brief) }}
+          </p>
+          <ul class="mt-4 grid gap-2">
+            @for (requirement of mock.requirements; track requirement) {
+              <li
+                class="grid grid-cols-[0.75rem_1fr] gap-2 text-xs leading-6 text-slate-400">
+                <span class="text-cyan-300">→</span>
+                <span>{{ translate(requirement) }}</span>
+              </li>
+            }
+          </ul>
+        </div>
+
+        <div class="border-y border-white/10 bg-white/[0.02] p-5">
+          <p
+            class="font-mono text-[9px] font-black uppercase tracking-wider text-slate-500">
+            {{ translate('Plan de tiempo') }}
+          </p>
+          <ol class="mt-3 grid gap-2">
+            @for (step of mock.timeline; track step.time) {
+              <li class="grid grid-cols-[3rem_1fr] gap-3 text-xs leading-5">
+                <span class="font-mono font-black text-cyan-300">{{
+                  step.time
+                }}</span>
+                <span class="text-slate-400">{{ translate(step.task) }}</span>
+              </li>
+            }
+          </ol>
+        </div>
+
+        <div>
+          <div
+            class="flex min-h-12 items-center justify-between gap-3 border-b border-white/10 px-4">
+            <span class="font-mono text-[10px] font-bold text-slate-500"
+              >product-explorer.start.ts</span
+            >
+            <button
+              type="button"
+              class="min-h-9 rounded-md border border-white/10 px-3 font-mono text-[9px] font-bold uppercase tracking-wider text-cyan-300 transition hover:border-cyan-300/40 hover:bg-cyan-300/[0.08] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300"
+              data-testid="guide-copy-code-challenge-mock"
+              (click)="copyCode('mock-starter', mock.starter_code)">
+              {{
+                copiedId() === 'mock-starter'
+                  ? translate('Copiado')
+                  : translate('Copiar inicio')
+              }}
+            </button>
+          </div>
+          <div class="overflow-x-auto">
+            <pre
+              class="study-code min-w-max p-5 text-[11px] leading-6 text-slate-300 sm:text-xs"><code>{{ mock.starter_code }}</code></pre>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</section>

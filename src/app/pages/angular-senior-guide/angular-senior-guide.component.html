@@ -374,19 +374,79 @@
                   </details>
                 }
 
-                <button
-                  type="button"
-                  class="study-filter"
-                  [class.study-filter-active]="
+                <details
+                  class="study-menu-group rounded-xl border border-transparent"
+                  [class.study-menu-group-active]="
                     selectedCollection() === 'practice' ||
                     activeSectionId() === 'practice'
                   "
-                  [attr.aria-pressed]="activeSectionId() === 'practice'"
-                  data-testid="guide-filter-practice"
-                  (click)="selectCollection('practice')">
-                  <span class="font-mono text-[10px] text-slate-500">06</span>
-                  <span>{{ translate('Casos prácticos') }}</span>
-                </button>
+                  [attr.open]="activeSectionId() === 'practice' ? '' : null"
+                  data-testid="guide-menu-practice">
+                  <summary
+                    class="study-filter cursor-pointer list-none"
+                    data-testid="guide-menu-toggle-practice">
+                    <span class="font-mono text-[10px] text-slate-500">06</span>
+                    <span
+                      class="flex min-w-0 items-center justify-between gap-2">
+                      <span>{{ translate('Casos prácticos') }}</span>
+                      <span
+                        class="shrink-0 font-mono text-[9px] font-semibold text-slate-600">
+                        {{ codeChallengeNavigation.length }} challenges
+                      </span>
+                    </span>
+                  </summary>
+
+                  <div
+                    class="mb-2 ml-[3.05rem] mr-2 border-l border-white/10 pl-2"
+                    data-testid="guide-submenu-practice">
+                    <button
+                      type="button"
+                      class="study-submenu-link mb-1 text-cyan-200"
+                      [class.study-submenu-link-active]="
+                        activeSectionId() === 'practice' && !activeTopicId()
+                      "
+                      [attr.aria-pressed]="
+                        activeSectionId() === 'practice' && !activeTopicId()
+                      "
+                      data-testid="guide-filter-practice"
+                      (click)="selectCollection('practice')">
+                      <span class="font-mono text-[9px] text-cyan-300/70"
+                        >ALL</span
+                      >
+                      <span>{{ translate('Preparación completa') }}</span>
+                    </button>
+
+                    @for (
+                      challenge of codeChallengeNavigation;
+                      track challenge.id;
+                      let challengeIndex = $index
+                    ) {
+                      <a
+                        [href]="'#code-challenge-' + challenge.id"
+                        class="study-submenu-link"
+                        [class.study-submenu-link-active]="
+                          activeTopicId() === 'code-challenge-' + challenge.id
+                        "
+                        [attr.aria-current]="
+                          activeTopicId() === 'code-challenge-' + challenge.id
+                            ? 'location'
+                            : null
+                        "
+                        [attr.data-testid]="
+                          'guide-challenge-link-' + challenge.id
+                        "
+                        [attr.data-study-topic-link]="
+                          'code-challenge-' + challenge.id
+                        "
+                        (click)="navigateToCodeChallenge($event, challenge.id)">
+                        <span class="font-mono text-[9px] text-amber-300/70">
+                          {{ (challengeIndex + 1).toString().padStart(2, '0') }}
+                        </span>
+                        <span>{{ translate(challenge.title) }}</span>
+                      </a>
+                    }
+                  </div>
+                </details>
               </nav>
             </div>
           </div>
@@ -838,6 +898,16 @@
                   {{ translate('Casos prácticos') }}
                 </h2>
               </div>
+              @if (!query()) {
+                <app-code-challenge-prep />
+                <div class="mb-5 flex items-center gap-4">
+                  <h3
+                    class="shrink-0 font-mono text-xs font-black uppercase tracking-[0.2em] text-cyan-300">
+                    {{ translate('Casos resueltos') }}
+                  </h3>
+                  <span class="h-px flex-1 bg-white/10"></span>
+                </div>
+              }
               <ol class="grid gap-4" data-testid="guide-practice-cases">
                 @for (
                   item of visiblePracticeCases();
