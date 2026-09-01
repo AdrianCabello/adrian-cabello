@@ -193,12 +193,18 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
     theory: [
       'JavaScript tiene tipos primitivos `undefined`, `null`, `boolean`, `number`, `bigint`, `string` y `symbol`. Los objetos se comparan por referencia. `typeof null` devuelve `object` por una decisión histórica.',
       '`var` posee function scope, permite redeclaración y su declaración se eleva. `let` y `const` poseen block scope y permanecen en temporal dead zone hasta la inicialización. `const` fija la referencia, no vuelve inmutable el objeto.',
-      'La coerción implícita aplica reglas distintas según el operador. `+` concatena si aparece un string; otros operadores aritméticos convierten sus operandos a número. `Number`, `String` y `Boolean` hacen visible la conversión en fronteras como formularios, storage y parámetros de URL.',
+      'La coerción es la conversión de un valor de un tipo a otro. Es explícita cuando el código llama a `Number(value)`, `String(value)` o `Boolean(value)`, e implícita cuando el lenguaje convierte porque un operador o contexto necesita otro tipo. Formularios, query params, atributos DOM y storage entregan strings aunque representen números o booleanos; convertir y validar en esa frontera evita que la coerción se propague al dominio.',
+      "Cuando un operador necesita convertir un objeto a primitivo, JavaScript ejecuta la operación abstracta `ToPrimitive`. Primero respeta `Symbol.toPrimitive` y, según el hint, consulta `valueOf` y `toString` hasta obtener un primitivo. Por eso `[]` se convierte en `''`, `[1, 2]` en `'1,2'` y un objeto común suele producir `'[object Object]'`; después el operador continúa con la conversión numérica o textual que corresponda.",
+      "El operador `+` es especial: después de convertir objetos a primitivos, concatena si alguno de los operandos es string; si no, realiza suma numérica. `1 + '2'` produce `'12'`, mientras `'5' - 2`, `'5' * 2` y `'5' / 2` convierten a número. Los template literals fuerzan string y los contextos de `if`, `!`, `&&` y `||` usan conversión booleana.",
+      "Las conversiones tienen bordes que conviene conocer: `Number('')` y `Number(null)` producen `0`, `Number(undefined)` produce `NaN`, y `Boolean('false')` es `true` porque cualquier string no vacío es truthy. `Number` exige que toda la cadena represente un número; `parseInt('10px', 10)` acepta el prefijo numérico. Ninguna de las dos reemplaza validar rango, formato y finitud con `Number.isFinite`.",
       '`===` compara tipo y valor sin coerción. `Object.is` difiere en `NaN` y `-0`. `==` tiene casos útiles, como `value == null`, pero exige conocer su tabla de coerción.',
       'Falsy incluye `false`, `0`, `-0`, `0n`, cadena vacía, `null`, `undefined` y `NaN`. Un array u objeto vacío es truthy.',
       'Una declaración de función se eleva con su cuerpo. Una function expression sigue las reglas de su variable. Las arrow functions capturan `this`, `arguments` y `super` del entorno; no sirven como constructor.',
       '`this` depende de cómo se invoca una función: method call, `call/apply/bind`, constructor con `new` o binding léxico de arrow. Extraer un método puede perder el receiver.',
-      'Un closure conserva acceso al entorno léxico. Sirve para encapsular estado, factories y callbacks; también puede retener memoria si una referencia mantiene vivo un grafo grande.',
+      'Un closure es la combinación de una función con el entorno léxico donde fue creada. La función puede ejecutarse después de que terminó la llamada exterior y seguir resolviendo parámetros y variables de ese entorno. `makeCounter` puede declarar `let count = 0` y devolver una función que incrementa `count`; cada llamada a `makeCounter()` crea un binding privado e independiente.',
+      'El closure conserva bindings, no una fotografía de sus valores. Si el binding cambia, las funciones que lo cerraron observan el valor actual. Esto permite estado privado y callbacks coordinados, pero también explica bugs cuando varias funciones comparten accidentalmente una misma variable mutable.',
+      'En un loop, `var` crea un único binding con scope de función, por lo que callbacks diferidos suelen leer el valor final. `let` crea un binding nuevo por iteración. Antes de `let`, una IIFE o una factory recibía el valor de cada vuelta y creaba un entorno distinto.',
+      'Closures sostienen factories, currying, memoization, event handlers y callbacks asíncronos. El entorno permanece vivo mientras una función alcanzable lo necesite: no es una fuga por sí mismo, pero puede retener DOM, caches o respuestas grandes. El cleanup debe remover listeners, cancelar timers o suscripciones y evitar capturar objetos completos cuando alcanza con un identificador o un dato pequeño.',
       'El spread copia un nivel y enumera propiedades. `structuredClone` cubre muchos valores y ciclos, pero no funciones ni todos los objetos host. Un JSON round-trip pierde fechas, `undefined`, `BigInt` y prototipos.',
       'Destructuring extrae valores y admite defaults. El default corre solo para `undefined`, no para `null`. Rest agrupa el remanente y debe ocupar la última posición.',
     ],
@@ -211,7 +217,7 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
       {
         question: '¿Por qué `[] == false` da true?',
         answer:
-          '`==` convierte el array a primitivo, produce una cadena vacía y después convierte ambos lados a número: cero y cero. Con `===` el resultado es false porque los tipos difieren.',
+          "La igualdad abstracta no compara directamente array y boolean. Primero convierte `false` a número: `0`. Después aplica `ToPrimitive` al array: `[].toString()` produce `''`. Como ahora compara string con number, convierte `''` a `0`; el resultado final es `0 == 0`, que es `true`. En cambio, `[] === false` es `false` porque los tipos son distintos y no existe coerción. No memorizaría solamente este resultado: seguir los pasos boolean → number, object → primitive y string → number permite explicar también casos como `[0] == false`. En código de producto uso `===` y conversiones explícitas para que esa secuencia no quede escondida.",
       },
       {
         question: '¿Arrow function o función normal?',
@@ -224,6 +230,38 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
           "Una shallow copy crea un objeto o array nuevo, pero copia por referencia los valores anidados. Por ejemplo, con `const original = { user: { name: 'Ana' } }; const copy = { ...original };`, se cumple `copy !== original`, pero `copy.user === original.user`; por eso `copy.user.name = 'Luis'` también modifica `original.user.name`. Spread, `Object.assign`, `Array.from` y `slice` hacen copias superficiales. Una deep copy duplica recursivamente la estructura para que los objetos anidados no compartan identidad. `structuredClone(original)` sirve para muchos datos nativos y ciclos, pero no clona funciones, elementos DOM ni conserva el comportamiento de todas las instancias de clases. No hago una copia profunda por defecto: cuesta CPU y memoria, y puede romper identidades que la aplicación necesita. Para actualizar estado prefiero copiar sólo el camino modificado, por ejemplo `{ ...state, user: { ...state.user, name: 'Luis' } }`; así mantengo inmutabilidad y structural sharing sin duplicar todo el grafo.",
       },
       {
+        question: '¿Qué es un closure y cuándo se crea?',
+        answer:
+          'Un closure es una función junto con las referencias a los bindings de su entorno léxico. Se determina cuando la función se crea, no cuando se invoca. Por ejemplo, `function makeCounter() { let count = 0; return () => ++count; }` devuelve una función que sigue accediendo a `count` después de que `makeCounter` terminó. `const a = makeCounter(); const b = makeCounter();` crea dos entornos: `a()` devuelve `1`, luego `2`, mientras `b()` comienza en `1`. El runtime conserva sólo los entornos que todavía son alcanzables; por eso un closure permite estado privado sin convertir `count` en una variable global.',
+      },
+      {
+        question: '¿Un closure captura el valor o el binding?',
+        answer:
+          'Captura el binding, es decir, la celda donde vive el valor, no una fotografía inmutable. Con `let rate = 1; const price = value => value * rate; rate = 2;`, `price(10)` devuelve `20` porque lee el valor actual de `rate`. Varias funciones pueden compartir el mismo binding y observar sus cambios. Si necesito congelar el valor de un momento, creo otro binding pasando el dato a una factory: `const withRate = rate => value => value * rate`. Cada llamada recibe su propio parámetro `rate`.',
+      },
+      {
+        question:
+          '¿Por qué un loop con `var` y callbacks suele imprimir el valor final?',
+        answer:
+          '`var` tiene scope de función, así que todas las callbacks cierran sobre un único binding `i`. Cuando ejecuta el timer, el loop ya terminó y ese binding vale `3`: `for (var i = 0; i < 3; i++) setTimeout(() => console.log(i));` imprime `3, 3, 3`. Con `let`, la especificación crea un binding nuevo en cada iteración y el resultado es `0, 1, 2`. Otra solución es una factory o IIFE que reciba `i` y genere un parámetro distinto por vuelta. El punto importante no es el timer: es cuántos bindings existen y cuál captura cada función.',
+      },
+      {
+        question: '¿Cómo puede un closure retener memoria innecesariamente?',
+        answer:
+          'Mientras una función sea alcanzable, también permanecen alcanzables los valores de su entorno que necesita. Un listener global que captura el componente, un timer que captura una respuesta grande o una cache sin límite pueden mantener vivo ese grafo después de retirar la vista. No todo closure es un leak: se vuelve problema cuando la vida de la referencia supera la vida útil del dato. Remuevo listeners, limpio timers y suscripciones, limito caches y capturo sólo el identificador o valor pequeño necesario. En Angular asocio el cleanup a `DestroyRef` o `takeUntilDestroyed` cuando corresponde.',
+      },
+      {
+        question:
+          '¿Qué diferencia hay entre coerción implícita y conversión explícita?',
+        answer:
+          "En una conversión explícita el código declara la intención: `Number(input.value)`, `String(id)` o `Boolean(flag)`. La coerción implícita ocurre dentro de un operador o contexto: `'5' - 1` produce `4`, `1 + '2'` produce `'12'` y `if ('false')` entra porque el string no está vacío. La coerción no es automáticamente un error; templates, comparaciones y operadores dependen de ella. El riesgo aparece cuando oculta un contrato. En fronteras externas convierto, valido y conservo desde allí un tipo estable.",
+      },
+      {
+        question: '¿Qué es `ToPrimitive` y por qué importa?',
+        answer:
+          "`ToPrimitive` es la operación abstracta que convierte un objeto en un valor primitivo antes de que otro algoritmo continúe. Si existe, llama a `Symbol.toPrimitive`; en caso contrario prueba `valueOf` y `toString` en un orden que depende del hint. Deben devolver un primitivo o la conversión falla con `TypeError`. Por eso `[] + 1` produce `'1'`: el array se vuelve `''` y `+` concatena. Un objeto puede personalizar el resultado con `[Symbol.toPrimitive](hint)`, pero hacerlo de forma sorprendente vuelve los operadores difíciles de razonar; normalmente prefiero métodos explícitos de dominio.",
+      },
+      {
         question: '¿Por qué existe la Temporal Dead Zone?',
         answer:
           'Al entrar en un bloque, JavaScript crea los bindings de `let`, `const` y `class`, pero los deja sin inicializar hasta ejecutar su declaración. Ese intervalo es la Temporal Dead Zone. Leer el binding durante ese tramo lanza `ReferenceError`: `console.log(total); let total = 1;`. Incluso `typeof total` falla si `total` está en la TDZ, a diferencia de una variable que no existe. Con `var`, en cambio, el binding se inicializa con `undefined`, por lo que el acceso prematuro no falla y puede ocultar un error de orden. La TDZ existe para que una variable con scope de bloque no se use antes de tener el valor que su declaración promete. No significa que `let` y `const` no tengan hoisting: sus bindings se crean al entrar al scope, pero todavía no son accesibles.',
@@ -234,7 +272,7 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
           "Sí, pero sólo usaría deliberadamente `value == null` cuando quiero aceptar exactamente `null` o `undefined`. La comparación es verdadera para esos dos valores y falsa para `0`, `false`, `''` y `NaN`; por ejemplo, `if (response.middleName == null)` detecta que el campo opcional no llegó sin rechazar una cadena vacía válida. Es una excepción conocida de Abstract Equality y conviene permitirla explícitamente con una regla como `eqeqeq: ['error', 'always', { null: 'ignore' }]`. En el resto del código uso `===` y `!==`, porque `==` aplica coerciones difíciles de leer: `'' == 0`, `'0' == false` y `[] == false` son verdaderas. Si el equipo prioriza máxima explicitud, escribo `value === null || value === undefined`; comunica el mismo contrato sin depender de conocer la excepción.",
       },
     ],
-    code: "const profile = { name: 'Adrii', address: { city: 'Tandil' } };\nconst copy = { ...profile };\ncopy.address.city = 'Bali';\n\nconsole.log(profile.address.city); // 'Bali': address comparte referencia\n\nconst deep = structuredClone(profile);",
+    code: "function makeCounter() {\n  let count = 0;\n  return () => ++count;\n}\n\nconst first = makeCounter();\nconst second = makeCounter();\nconsole.log(first(), first(), second()); // 1, 2, 1\n\nconsole.log(1 + '2');       // '12'\nconsole.log('5' - 2);       // 3\nconsole.log(Number('42'));  // 42\nconsole.log(Boolean(''));   // false\nconsole.log([] == false);   // true\nconsole.log([] === false);  // false",
   },
   {
     id: 'javascript-objetos-prototipos-arrays-y-programacion-funcional',
@@ -1401,642 +1439,650 @@ export const RAPID_QUESTIONS: readonly StudyQuestion[] = [
       'Call invoca con argumentos; apply con array-like; bind crea otra función con receiver o argumentos fijados.',
   },
   {
-    id: 'rapid-010-closure',
-    question: '¿Closure?',
-    answer: 'Una función conserva acceso a bindings de su entorno léxico.',
+    id: 'rapid-010-coercion',
+    question: '¿Coerción?',
+    answer:
+      'Conversión entre tipos. Puede ser explícita con `Number`, `String` o `Boolean`, o implícita cuando un operador o contexto necesita otro tipo.',
   },
   {
-    id: 'rapid-011-spread-y-rest',
+    id: 'rapid-011-closure',
+    question: '¿Closure?',
+    answer:
+      'Una función conserva los bindings del entorno léxico donde fue creada, incluso si se ejecuta después de que terminó la función exterior. Conserva bindings vivos, no una copia congelada de sus valores.',
+  },
+  {
+    id: 'rapid-012-spread-y-rest',
     question: '¿Spread y rest?',
     answer: 'Misma sintaxis: spread expande; rest reúne valores restantes.',
   },
   {
-    id: 'rapid-012-destructuring-default',
+    id: 'rapid-013-destructuring-default',
     question: '¿Destructuring default?',
     answer: 'Se aplica ante undefined, no ante null.',
   },
   {
-    id: 'rapid-013-shallow-copy',
+    id: 'rapid-014-shallow-copy',
     question: '¿Shallow copy?',
     answer:
       'Crea un contenedor nuevo y conserva las mismas referencias anidadas. Con `const copy = { ...original }`, `copy !== original`, pero `copy.user === original.user` si `user` es un objeto.',
   },
   {
-    id: 'rapid-014-structuredclone',
+    id: 'rapid-015-structuredclone',
     question: '¿`structuredClone`?',
     answer: 'Clona estructuras soportadas y ciclos; no clona funciones.',
   },
   {
-    id: 'rapid-015-prototipo',
+    id: 'rapid-016-prototipo',
     question: '¿Prototipo?',
     answer:
       'Objeto delegado que JavaScript consulta cuando una propiedad falta en el receiver.',
   },
   {
-    id: 'rapid-016-own-property',
+    id: 'rapid-017-own-property',
     question: '¿Own property?',
     answer: 'Propiedad definida en el objeto, comprobable con Object.hasOwn.',
   },
   {
-    id: 'rapid-017-for-in-o-for-of',
+    id: 'rapid-018-for-in-o-for-of',
     question: '¿`for...in` o `for...of`?',
     answer: 'In recorre claves enumerables; of recorre valores de un iterable.',
   },
   {
-    id: 'rapid-018-metodos-de-array-mutables',
+    id: 'rapid-019-metodos-de-array-mutables',
     question: '¿Métodos de array mutables?',
     answer:
       'Push, pop, shift, unshift, splice, sort, reverse, fill y copyWithin.',
   },
   {
-    id: 'rapid-019-find-o-filter',
+    id: 'rapid-020-find-o-filter',
     question: '¿`find` o `filter`?',
     answer: 'Find devuelve el primer match; filter crea un array con todos.',
   },
   {
-    id: 'rapid-020-pure-function',
+    id: 'rapid-021-pure-function',
     question: '¿Pure function?',
     answer: 'Mismo resultado para mismas entradas y sin efectos observables.',
   },
   {
-    id: 'rapid-021-currying',
+    id: 'rapid-022-currying',
     question: '¿Currying?',
     answer:
       'Convierte una función de varios argumentos en una secuencia de funciones.',
   },
   {
-    id: 'rapid-022-debounce-o-throttle',
+    id: 'rapid-023-debounce-o-throttle',
     question: '¿Debounce o throttle?',
     answer:
       'Debounce espera silencio; throttle limita ejecuciones por intervalo.',
   },
   {
-    id: 'rapid-023-promise-all',
+    id: 'rapid-024-promise-all',
     question: '¿`Promise.all`?',
     answer: 'Conserva orden y rechaza al primer rechazo observado.',
   },
   {
-    id: 'rapid-024-allsettled',
+    id: 'rapid-025-allsettled',
     question: '¿`allSettled`?',
     answer: 'Espera todos y devuelve el estado de cada operación.',
   },
   {
-    id: 'rapid-025-abortcontroller',
+    id: 'rapid-026-abortcontroller',
     question: '¿AbortController?',
     answer: 'Emite una señal de cancelación que consumen fetch y otras APIs.',
   },
   {
-    id: 'rapid-026-async-bloquea-el-thread',
+    id: 'rapid-027-async-bloquea-el-thread',
     question: '¿Async bloquea el thread?',
     answer: 'No. Await cede la continuación; CPU síncrono sigue bloqueando.',
   },
   {
-    id: 'rapid-027-unhandled-rejection',
+    id: 'rapid-028-unhandled-rejection',
     question: '¿Unhandled rejection?',
     answer:
       'Promise rechazada sin handler; registrala y corregí la cadena, no la ocultes.',
   },
   {
-    id: 'rapid-028-dom',
+    id: 'rapid-029-dom',
     question: '¿DOM?',
     answer: 'Árbol de nodos y APIs que representan el documento.',
   },
   {
-    id: 'rapid-029-bom',
+    id: 'rapid-030-bom',
     question: '¿BOM?',
     answer:
       'APIs del navegador fuera del documento, como history, location y navigator.',
   },
   {
-    id: 'rapid-030-event-bubbling',
+    id: 'rapid-031-event-bubbling',
     question: '¿Event bubbling?',
     answer: 'El evento asciende desde el target por ancestros que participan.',
   },
   {
-    id: 'rapid-031-event-delegation',
+    id: 'rapid-032-event-delegation',
     question: '¿Event delegation?',
     answer:
       'Listener en un ancestro que decide según el target; reduce listeners y cubre hijos dinámicos.',
   },
   {
-    id: 'rapid-032-preventdefault',
+    id: 'rapid-033-preventdefault',
     question: '¿preventDefault?',
     answer: 'Evita la acción predeterminada si el evento es cancelable.',
   },
   {
-    id: 'rapid-033-localstorage',
+    id: 'rapid-034-localstorage',
     question: '¿localStorage?',
     answer: 'Almacenamiento síncrono string por origin y persistente.',
   },
   {
-    id: 'rapid-034-indexeddb',
+    id: 'rapid-035-indexeddb',
     question: '¿IndexedDB?',
     answer:
       'Base asíncrona del navegador para datos estructurados y mayor volumen.',
   },
   {
-    id: 'rapid-035-same-origin',
+    id: 'rapid-036-same-origin',
     question: '¿Same-origin?',
     answer: 'Coincidencia de scheme, host y port.',
   },
   {
-    id: 'rapid-036-preflight',
+    id: 'rapid-037-preflight',
     question: '¿Preflight?',
     answer: 'Request OPTIONS con la que el navegador consulta permiso CORS.',
   },
   {
-    id: 'rapid-037-etag',
+    id: 'rapid-038-etag',
     question: '¿ETag?',
     answer: 'Validador de representación para revalidación condicional.',
   },
   {
-    id: 'rapid-038-service-worker',
+    id: 'rapid-039-service-worker',
     question: '¿Service Worker?',
     answer: 'Worker con lifecycle que intercepta red y habilita offline/push.',
   },
   {
-    id: 'rapid-039-web-worker',
+    id: 'rapid-040-web-worker',
     question: '¿Web Worker?',
     answer: 'Thread para JavaScript sin acceso directo al DOM.',
   },
   {
-    id: 'rapid-040-etiqueta-semantica',
+    id: 'rapid-041-etiqueta-semantica',
     question: '¿Etiqueta semántica?',
     answer:
       'Elemento cuyo nombre comunica rol y estructura al navegador y tecnologías asistivas.',
   },
   {
-    id: 'rapid-041-head',
+    id: 'rapid-042-head',
     question: '¿`head`?',
     answer:
       'Metadata y recursos del documento, no contenido principal visible.',
   },
   {
-    id: 'rapid-042-alt',
+    id: 'rapid-043-alt',
     question: '¿`alt`?',
     answer:
       'Alternativa textual que depende de la función de la imagen; decorativas usan alt vacío.',
   },
   {
-    id: 'rapid-043-iframe-sandbox',
+    id: 'rapid-044-iframe-sandbox',
     question: '¿`iframe sandbox`?',
     answer:
       'Restringe capacidades del documento embebido y se abre con tokens explícitos.',
   },
   {
-    id: 'rapid-044-get-o-post-en-form',
+    id: 'rapid-045-get-o-post-en-form',
     question: '¿GET o POST en form?',
     answer:
       'GET expresa consulta y deja datos en URL; POST envía body para una operación.',
   },
   {
-    id: 'rapid-045-submit-default',
+    id: 'rapid-046-submit-default',
     question: '¿Submit default?',
     answer: 'Un button dentro de form usa submit si no declarás type.',
   },
   {
-    id: 'rapid-046-defer-o-async-script',
+    id: 'rapid-047-defer-o-async-script',
     question: '¿`defer` o `async` script?',
     answer: 'Defer preserva orden y espera parseo; async ejecuta al descargar.',
   },
   {
-    id: 'rapid-047-box-model',
+    id: 'rapid-048-box-model',
     question: '¿Box model?',
     answer: 'Content, padding, border y margin.',
   },
   {
-    id: 'rapid-048-specificity',
+    id: 'rapid-049-specificity',
     question: '¿Specificity?',
     answer:
       'Peso de un selector dentro de la cascada después de origen, importancia y layer.',
   },
   {
-    id: 'rapid-049-box-sizing-border-box',
+    id: 'rapid-050-box-sizing-border-box',
     question: '¿`box-sizing:border-box`?',
     answer: 'El width declarado incluye padding y border.',
   },
   {
-    id: 'rapid-050-margin-o-padding',
+    id: 'rapid-051-margin-o-padding',
     question: '¿Margin o padding?',
     answer: 'Margin separa cajas; padding agrega espacio dentro del borde.',
   },
   {
-    id: 'rapid-051-position-absolute',
+    id: 'rapid-052-position-absolute',
     question: '¿Position absolute?',
     answer: 'Sale del flujo y se posiciona respecto de su containing block.',
   },
   {
-    id: 'rapid-052-position-sticky',
+    id: 'rapid-053-position-sticky',
     question: '¿Position sticky?',
     answer:
       'Participa en flujo y se fija dentro de su scroll container al cruzar un umbral.',
   },
   {
-    id: 'rapid-053-stacking-context',
+    id: 'rapid-054-stacking-context',
     question: '¿Stacking context?',
     answer: 'Ámbito que limita la comparación de z-index entre descendientes.',
   },
   {
-    id: 'rapid-054-pseudo-clase-o-pseudo-elemento',
+    id: 'rapid-055-pseudo-clase-o-pseudo-elemento',
     question: '¿Pseudo-clase o pseudo-elemento?',
     answer:
       'Pseudo-clase selecciona estado; pseudo-elemento representa una parte generada o conceptual.',
   },
   {
-    id: 'rapid-055-bem',
+    id: 'rapid-056-bem',
     question: '¿BEM?',
     answer: 'Convención Block, Element, Modifier para nombres de clases.',
   },
   {
-    id: 'rapid-056-preprocesador-o-framework',
+    id: 'rapid-057-preprocesador-o-framework',
     question: '¿Preprocesador o framework?',
     answer:
       'Preprocesador extiende sintaxis; framework aporta reglas, utilidades o componentes.',
   },
   {
-    id: 'rapid-057-media-o-container-query',
+    id: 'rapid-058-media-o-container-query',
     question: '¿Media o container query?',
     answer:
       'Media consulta viewport/dispositivo; container consulta tamaño o estilo del contenedor.',
   },
   {
-    id: 'rapid-058-reflow',
+    id: 'rapid-059-reflow',
     question: '¿Reflow?',
     answer:
       'Recalculo de geometría provocado por cambios o lecturas que requieren layout.',
   },
   {
-    id: 'rapid-059-cls',
+    id: 'rapid-060-cls',
     question: '¿CLS?',
     answer:
       'Movimiento inesperado de contenido; reservá espacio para imágenes y contenido asíncrono.',
   },
   {
-    id: 'rapid-060-componente-o-directiva',
+    id: 'rapid-061-componente-o-directiva',
     question: '¿Componente o directiva?',
     answer:
       'El componente posee vista; la directiva agrega comportamiento a un host.',
   },
   {
-    id: 'rapid-061-pipe-pura',
+    id: 'rapid-062-pipe-pura',
     question: '¿Pipe pura?',
     answer:
       'Angular puede reutilizar el resultado mientras no cambien las referencias de entrada.',
   },
   {
-    id: 'rapid-062-for-track',
+    id: 'rapid-063-for-track',
     question: '¿`@for track`?',
     answer:
       'Asocia identidad de datos con nodos DOM para minimizar creación y conservar estado.',
   },
   {
-    id: 'rapid-063-computed-o-effect',
+    id: 'rapid-064-computed-o-effect',
     question: '¿`computed` o `effect`?',
     answer:
       '`computed` deriva estado; `effect` sincroniza con una API externa.',
   },
   {
-    id: 'rapid-064-signal-o-behaviorsubject',
+    id: 'rapid-065-signal-o-behaviorsubject',
     question: '¿Signal o BehaviorSubject?',
     answer:
       'Signal para estado síncrono de UI; BehaviorSubject cuando necesitás semántica y operadores RxJS.',
   },
   {
-    id: 'rapid-065-switchmap',
+    id: 'rapid-066-switchmap',
     question: '¿`switchMap`?',
     answer: 'Cancela el inner anterior al llegar una nueva emisión.',
   },
   {
-    id: 'rapid-066-concatmap',
+    id: 'rapid-067-concatmap',
     question: '¿`concatMap`?',
     answer: 'Encola inner observables y conserva orden.',
   },
   {
-    id: 'rapid-067-exhaustmap',
+    id: 'rapid-068-exhaustmap',
     question: '¿`exhaustMap`?',
     answer: 'Ignora nuevos disparos mientras el inner sigue activo.',
   },
   {
-    id: 'rapid-068-mergemap',
+    id: 'rapid-069-mergemap',
     question: '¿`mergeMap`?',
     answer:
       'Ejecuta inner observables en paralelo con concurrencia configurable.',
   },
   {
-    id: 'rapid-069-forkjoin',
+    id: 'rapid-070-forkjoin',
     question: '¿`forkJoin`?',
     answer:
       'Emite una vez cuando todos completan; falla si alguno falla y no sirve para streams infinitos.',
   },
   {
-    id: 'rapid-070-cold-observable',
+    id: 'rapid-071-cold-observable',
     question: '¿Cold observable?',
     answer: 'Cada subscription crea su propio productor.',
   },
   {
-    id: 'rapid-071-sharereplay',
+    id: 'rapid-072-sharereplay',
     question: '¿`shareReplay`?',
     answer:
       'Comparte y reproduce valores; necesita política de refCount, error e invalidación.',
   },
   {
-    id: 'rapid-072-providedin-root',
+    id: 'rapid-073-providedin-root',
     question: '¿`providedIn: root`?',
     answer: 'Provider tree-shakeable en el root EnvironmentInjector.',
   },
   {
-    id: 'rapid-073-providers-local',
+    id: 'rapid-074-providers-local',
     question: '¿`providers` local?',
     answer:
       'Nueva instancia en el ElementInjector del componente y sus descendientes visibles.',
   },
   {
-    id: 'rapid-074-viewproviders',
+    id: 'rapid-075-viewproviders',
     question: '¿`viewProviders`?',
     answer: 'Oculta esos providers al contenido proyectado.',
   },
   {
-    id: 'rapid-075-injectiontoken',
+    id: 'rapid-076-injectiontoken',
     question: '¿InjectionToken?',
     answer: 'Token runtime tipado para valores, funciones o interfaces.',
   },
   {
-    id: 'rapid-076-onpush',
+    id: 'rapid-077-onpush',
     question: '¿OnPush?',
     answer:
       'Permite saltar subárboles hasta que una notificación relevante marca la vista.',
   },
   {
-    id: 'rapid-077-zoneless',
+    id: 'rapid-078-zoneless',
     question: '¿Zoneless?',
     answer:
       'Angular recibe notificaciones explícitas y evita usar ZoneJS para inferir cambios.',
   },
   {
-    id: 'rapid-078-markforcheck',
+    id: 'rapid-079-markforcheck',
     question: '¿`markForCheck`?',
     answer: 'Marca la vista para una próxima verificación.',
   },
   {
-    id: 'rapid-079-detectchanges',
+    id: 'rapid-080-detectchanges',
     question: '¿`detectChanges`?',
     answer:
       'Ejecuta verificación local; su uso frecuente suele indicar un flujo defectuoso.',
   },
   {
-    id: 'rapid-080-standalone',
+    id: 'rapid-081-standalone',
     question: '¿Standalone?',
     answer:
       'Componente que declara dependencias en imports y no necesita declaración en NgModule.',
   },
   {
-    id: 'rapid-081-lazy-route',
+    id: 'rapid-082-lazy-route',
     question: '¿Lazy route?',
     answer:
       'Carga código al navegar a la feature, reduciendo el bundle inicial.',
   },
   {
-    id: 'rapid-082-guard',
+    id: 'rapid-083-guard',
     question: '¿Guard?',
     answer:
       'Control de navegación en cliente; no reemplaza autorización del servidor.',
   },
   {
-    id: 'rapid-083-resolver',
+    id: 'rapid-084-resolver',
     question: '¿Resolver?',
     answer: 'Obtiene datos antes de activar la ruta.',
   },
   {
-    id: 'rapid-084-reactive-form',
+    id: 'rapid-085-reactive-form',
     question: '¿Reactive Form?',
     answer:
       'Modelo explícito y observable en TypeScript, apto para composición y validación compleja.',
   },
   {
-    id: 'rapid-085-cva',
+    id: 'rapid-086-cva',
     question: '¿CVA?',
     answer: 'Contrato que conecta un control custom con Angular Forms.',
   },
   {
-    id: 'rapid-086-async-validator',
+    id: 'rapid-087-async-validator',
     question: '¿Async validator?',
     answer:
       'Validador que completa con errores o null; controlá cancelación y frecuencia.',
   },
   {
-    id: 'rapid-087-interceptor',
+    id: 'rapid-088-interceptor',
     question: '¿Interceptor?',
     answer:
       'Middleware de requests y responses para preocupaciones transversales.',
   },
   {
-    id: 'rapid-088-retry',
+    id: 'rapid-089-retry',
     question: '¿Retry?',
     answer: 'Solo con política, límite y seguridad de idempotencia.',
   },
   {
-    id: 'rapid-089-xss',
+    id: 'rapid-090-xss',
     question: '¿XSS?',
     answer:
       'Ejecución de script no confiable; evitá sinks peligrosos y mantené sanitización y CSP.',
   },
   {
-    id: 'rapid-090-csrf',
+    id: 'rapid-091-csrf',
     question: '¿CSRF?',
     answer:
       'Petición autenticada inducida desde otro origen; afecta sobre todo credenciales automáticas como cookies.',
   },
   {
-    id: 'rapid-091-csp',
+    id: 'rapid-092-csp',
     question: '¿CSP?',
     answer:
       'Política del navegador que limita fuentes de scripts, estilos y otros recursos.',
   },
   {
-    id: 'rapid-092-trusted-types',
+    id: 'rapid-093-trusted-types',
     question: '¿Trusted Types?',
     answer:
       'Restringe asignaciones a sinks DOM peligrosos a valores creados por políticas confiables.',
   },
   {
-    id: 'rapid-093-ssr',
+    id: 'rapid-094-ssr',
     question: '¿SSR?',
     answer:
       'Render por request en servidor; ayuda SEO y HTML inicial, agrega costo operativo.',
   },
   {
-    id: 'rapid-094-ssg',
+    id: 'rapid-095-ssg',
     question: '¿SSG?',
     answer: 'HTML generado en build para contenido estable.',
   },
   {
-    id: 'rapid-095-hydration',
+    id: 'rapid-096-hydration',
     question: '¿Hydration?',
     answer:
       'Angular reutiliza HTML de servidor y conecta comportamiento cliente.',
   },
   {
-    id: 'rapid-096-defer',
+    id: 'rapid-097-defer',
     question: '¿`@defer`?',
     answer: 'Divide dependencias y carga una vista según trigger o condición.',
   },
   {
-    id: 'rapid-097-lcp',
+    id: 'rapid-098-lcp',
     question: '¿LCP?',
     answer: 'Tiempo hasta renderizar el mayor elemento visible.',
   },
   {
-    id: 'rapid-098-inp',
+    id: 'rapid-099-inp',
     question: '¿INP?',
     answer: 'Latencia observada de interacciones durante la sesión.',
   },
   {
-    id: 'rapid-099-cls',
+    id: 'rapid-100-cls',
     question: '¿CLS?',
     answer: 'Suma de cambios inesperados de layout.',
   },
   {
-    id: 'rapid-100-tree-shaking',
+    id: 'rapid-101-tree-shaking',
     question: '¿Tree shaking?',
     answer:
       'El bundler elimina código no alcanzable cuando el formato y las dependencias lo permiten.',
   },
   {
-    id: 'rapid-101-aot',
+    id: 'rapid-102-aot',
     question: '¿AOT?',
     answer:
       'Compila templates en build, reduce trabajo runtime y detecta errores antes.',
   },
   {
-    id: 'rapid-102-ngrx-reducer',
+    id: 'rapid-103-ngrx-reducer',
     question: '¿NgRx reducer?',
     answer: 'Función pura que calcula nuevo estado desde estado y action.',
   },
   {
-    id: 'rapid-103-ngrx-effect',
+    id: 'rapid-104-ngrx-effect',
     question: '¿NgRx effect?',
     answer: 'Reacciona a eventos y coordina I/O u otros efectos.',
   },
   {
-    id: 'rapid-104-selector',
+    id: 'rapid-105-selector',
     question: '¿Selector?',
     answer: 'Consulta derivada y memorizada sobre el store.',
   },
   {
-    id: 'rapid-105-optimistic-update',
+    id: 'rapid-106-optimistic-update',
     question: '¿Optimistic update?',
     answer:
       'Actualiza UI antes de confirmar y define rollback o reconciliación.',
   },
   {
-    id: 'rapid-106-facade',
+    id: 'rapid-107-facade',
     question: '¿Facade?',
     answer:
       'API estable que reduce superficie de un subsistema; puede ocultar demasiado si no protege un límite.',
   },
   {
-    id: 'rapid-107-adapter',
+    id: 'rapid-108-adapter',
     question: '¿Adapter?',
     answer: 'Traduce un contrato externo al modelo interno.',
   },
   {
-    id: 'rapid-108-strategy',
+    id: 'rapid-109-strategy',
     question: '¿Strategy?',
     answer: 'Encapsula políticas intercambiables detrás de un contrato.',
   },
   {
-    id: 'rapid-109-srp',
+    id: 'rapid-110-srp',
     question: '¿SRP?',
     answer:
       'Una unidad concentra responsabilidades que cambian por el mismo motivo.',
   },
   {
-    id: 'rapid-110-dip',
+    id: 'rapid-111-dip',
     question: '¿DIP?',
     answer:
       'El código de alto nivel depende de abstracciones, no de detalles concretos.',
   },
   {
-    id: 'rapid-111-unknown',
+    id: 'rapid-112-unknown',
     question: '¿`unknown`?',
     answer:
       'Tipo seguro para valor no validado; obliga a estrechar antes de usar.',
   },
   {
-    id: 'rapid-112-never',
+    id: 'rapid-113-never',
     question: '¿`never`?',
     answer: 'Representa estados imposibles y permite checks exhaustivos.',
   },
   {
-    id: 'rapid-113-microtask',
+    id: 'rapid-114-microtask',
     question: '¿Microtask?',
     answer: 'Cola de promesas que se drena antes de la siguiente macrotask.',
   },
   {
-    id: 'rapid-114-closure',
+    id: 'rapid-115-closure',
     question: '¿Closure?',
-    answer: 'Función que conserva acceso al entorno léxico donde se creó.',
+    answer:
+      'Función junto con su entorno léxico: puede seguir leyendo o modificando los bindings capturados cuando se ejecuta fuera de la llamada que los creó.',
   },
   {
-    id: 'rapid-115-inmutabilidad',
+    id: 'rapid-116-inmutabilidad',
     question: '¿Inmutabilidad?',
     answer:
       'Crear nuevas referencias en lugar de mutar estado compartido; mejora previsibilidad y detección.',
   },
   {
-    id: 'rapid-116-object-freeze',
+    id: 'rapid-117-object-freeze',
     question: '¿`Object.freeze`?',
     answer:
       'Congelación superficial; no protege objetos anidados sin trabajo adicional.',
   },
   {
-    id: 'rapid-117-unit-test',
+    id: 'rapid-118-unit-test',
     question: '¿Unit test?',
     answer: 'Prueba una unidad con fronteras controladas y feedback rápido.',
   },
   {
-    id: 'rapid-118-integration-test',
+    id: 'rapid-119-integration-test',
     question: '¿Integration test?',
     answer: 'Verifica colaboración entre varias unidades o una frontera real.',
   },
   {
-    id: 'rapid-119-e2e',
+    id: 'rapid-120-e2e',
     question: '¿E2E?',
     answer:
       'Prueba un recorrido del usuario a través del sistema desplegado o equivalente.',
   },
   {
-    id: 'rapid-120-harness',
+    id: 'rapid-121-harness',
     question: '¿Harness?',
     answer:
       'API estable para interactuar con un componente en tests sin depender de su DOM interno.',
   },
   {
-    id: 'rapid-121-memory-leak-tipico',
+    id: 'rapid-122-memory-leak-tipico',
     question: '¿Memory leak típico?',
     answer:
       'Subscription, listener, timer, observer o cache que conserva una vista destruida.',
   },
   {
-    id: 'rapid-122-correlation-id',
+    id: 'rapid-123-correlation-id',
     question: '¿Correlation ID?',
     answer:
       'Identificador que conecta eventos frontend, gateway y backend de una operación.',
   },
   {
-    id: 'rapid-123-feature-flag',
+    id: 'rapid-124-feature-flag',
     question: '¿Feature flag?',
     answer:
       'Control temporal de exposición con owner, métricas y plan de retiro.',
   },
   {
-    id: 'rapid-124-micro-frontend',
+    id: 'rapid-125-micro-frontend',
     question: '¿Micro-frontend?',
     answer:
       'Unidad de frontend con ownership y despliegue independiente, a cambio de integración y duplicación.',
   },
   {
-    id: 'rapid-125-adr',
+    id: 'rapid-126-adr',
     question: '¿ADR?',
     answer: 'Registro corto de una decisión, alternativas y consecuencias.',
   },

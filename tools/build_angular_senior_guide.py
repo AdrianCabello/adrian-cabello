@@ -576,17 +576,25 @@ foundation_chapters = [
         ],
         "qa": [
             ("¿Cuál es la diferencia entre `var`, `let` y `const`?", "`var` usa scope de función y permite redeclaración. `let` y `const` usan scope de bloque y temporal dead zone. `const` impide reasignar la variable, pero el valor referenciado puede mutar."),
-            ("¿Por qué `[] == false` da true?", "`==` convierte el array a primitivo, produce una cadena vacía y después convierte ambos lados a número: cero y cero. Con `===` el resultado es false porque los tipos difieren."),
+            ("¿Por qué `[] == false` da true?", "La igualdad abstracta no compara directamente array y boolean. Primero convierte `false` a número: `0`. Después aplica `ToPrimitive` al array: `[].toString()` produce `''`. Como ahora compara string con number, convierte `''` a `0`; el resultado final es `0 == 0`, que es `true`. En cambio, `[] === false` es `false` porque los tipos son distintos y no existe coerción. No memorizaría solamente este resultado: seguir los pasos boolean → number, object → primitive y string → number permite explicar también casos como `[0] == false`. En código de producto uso `===` y conversiones explícitas para que esa secuencia no quede escondida."),
             ("¿Arrow function o función normal?", "Uso arrow para callbacks que necesitan el `this` exterior. Uso función normal para métodos dinámicos, constructores o APIs que asignan receiver."),
             ("¿Shallow copy o deep copy?", "Una shallow copy crea un objeto o array nuevo, pero copia por referencia los valores anidados. Por ejemplo, con `const original = { user: { name: 'Ana' } }; const copy = { ...original };`, se cumple `copy !== original`, pero `copy.user === original.user`; por eso `copy.user.name = 'Luis'` también modifica `original.user.name`. Spread, `Object.assign`, `Array.from` y `slice` hacen copias superficiales. Una deep copy duplica recursivamente la estructura para que los objetos anidados no compartan identidad. `structuredClone(original)` sirve para muchos datos nativos y ciclos, pero no clona funciones, elementos DOM ni conserva el comportamiento de todas las instancias de clases. No hago una copia profunda por defecto: cuesta CPU y memoria, y puede romper identidades que la aplicación necesita. Para actualizar estado prefiero copiar sólo el camino modificado, por ejemplo `{ ...state, user: { ...state.user, name: 'Luis' } }`; así mantengo inmutabilidad y structural sharing sin duplicar todo el grafo."),
         ],
-        "code": """const profile = { name: 'Adrii', address: { city: 'Tandil' } };
-const copy = { ...profile };
-copy.address.city = 'Bali';
+        "code": """function makeCounter() {
+  let count = 0;
+  return () => ++count;
+}
 
-console.log(profile.address.city); // 'Bali': address comparte referencia
+const first = makeCounter();
+const second = makeCounter();
+console.log(first(), first(), second()); // 1, 2, 1
 
-const deep = structuredClone(profile);""",
+console.log(1 + '2');       // '12'
+console.log('5' - 2);       // 3
+console.log(Number('42'));  // 42
+console.log(Boolean(''));   // false
+console.log([] == false);   // true
+console.log([] === false);  // false""",
     },
     {
         "title": "JavaScript: objetos, prototipos, arrays y programación funcional",
@@ -751,7 +759,8 @@ foundation_rapid_fire = [
     ("¿Hoisting?", "El entorno registra declaraciones antes de ejecutar; la disponibilidad depende del tipo de declaración."),
     ("¿`this`?", "Receiver de una llamada según call-site, salvo arrow que captura el binding exterior."),
     ("¿`call`, `apply`, `bind`?", "Call invoca con argumentos; apply con array-like; bind crea otra función con receiver o argumentos fijados."),
-    ("¿Closure?", "Una función conserva acceso a bindings de su entorno léxico."),
+    ("¿Coerción?", "Conversión entre tipos. Puede ser explícita con `Number`, `String` o `Boolean`, o implícita cuando un operador o contexto necesita otro tipo."),
+    ("¿Closure?", "Una función conserva los bindings del entorno léxico donde fue creada, incluso si se ejecuta después de que terminó la función exterior. Conserva bindings vivos, no una copia congelada de sus valores."),
     ("¿Spread y rest?", "Misma sintaxis: spread expande; rest reúne valores restantes."),
     ("¿Destructuring default?", "Se aplica ante undefined, no ante null."),
     ("¿Shallow copy?", "Crea un contenedor nuevo y conserva las mismas referencias anidadas. Con `const copy = { ...original }`, `copy !== original`, pero `copy.user === original.user` si `user` es un objeto."),
@@ -859,7 +868,7 @@ rapid_fire = [
     ("¿`unknown`?", "Tipo seguro para valor no validado; obliga a estrechar antes de usar."),
     ("¿`never`?", "Representa estados imposibles y permite checks exhaustivos."),
     ("¿Microtask?", "Cola de promesas que se drena antes de la siguiente macrotask."),
-    ("¿Closure?", "Función que conserva acceso al entorno léxico donde se creó."),
+    ("¿Closure?", "Función junto con su entorno léxico: puede seguir leyendo o modificando los bindings capturados cuando se ejecuta fuera de la llamada que los creó."),
     ("¿Inmutabilidad?", "Crear nuevas referencias en lugar de mutar estado compartido; mejora previsibilidad y detección."),
     ("¿`Object.freeze`?", "Congelación superficial; no protege objetos anidados sin trabajo adicional."),
     ("¿Unit test?", "Prueba una unidad con fronteras controladas y feedback rápido."),

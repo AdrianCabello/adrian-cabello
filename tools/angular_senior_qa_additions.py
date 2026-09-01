@@ -27,6 +27,30 @@ QA_ADDITIONS: dict[str, list[tuple[str, str]]] = {
     ],
     "JavaScript: tipos, coerción, scope y funciones": [
         (
+            "¿Qué es un closure y cuándo se crea?",
+            "Un closure es una función junto con las referencias a los bindings de su entorno léxico. Se determina cuando la función se crea, no cuando se invoca. Por ejemplo, `function makeCounter() { let count = 0; return () => ++count; }` devuelve una función que sigue accediendo a `count` después de que `makeCounter` terminó. `const a = makeCounter(); const b = makeCounter();` crea dos entornos: `a()` devuelve `1`, luego `2`, mientras `b()` comienza en `1`. El runtime conserva sólo los entornos que todavía son alcanzables; por eso un closure permite estado privado sin convertir `count` en una variable global.",
+        ),
+        (
+            "¿Un closure captura el valor o el binding?",
+            "Captura el binding, es decir, la celda donde vive el valor, no una fotografía inmutable. Con `let rate = 1; const price = value => value * rate; rate = 2;`, `price(10)` devuelve `20` porque lee el valor actual de `rate`. Varias funciones pueden compartir el mismo binding y observar sus cambios. Si necesito congelar el valor de un momento, creo otro binding pasando el dato a una factory: `const withRate = rate => value => value * rate`. Cada llamada recibe su propio parámetro `rate`.",
+        ),
+        (
+            "¿Por qué un loop con `var` y callbacks suele imprimir el valor final?",
+            "`var` tiene scope de función, así que todas las callbacks cierran sobre un único binding `i`. Cuando ejecuta el timer, el loop ya terminó y ese binding vale `3`: `for (var i = 0; i < 3; i++) setTimeout(() => console.log(i));` imprime `3, 3, 3`. Con `let`, la especificación crea un binding nuevo en cada iteración y el resultado es `0, 1, 2`. Otra solución es una factory o IIFE que reciba `i` y genere un parámetro distinto por vuelta. El punto importante no es el timer: es cuántos bindings existen y cuál captura cada función.",
+        ),
+        (
+            "¿Cómo puede un closure retener memoria innecesariamente?",
+            "Mientras una función sea alcanzable, también permanecen alcanzables los valores de su entorno que necesita. Un listener global que captura el componente, un timer que captura una respuesta grande o una cache sin límite pueden mantener vivo ese grafo después de retirar la vista. No todo closure es un leak: se vuelve problema cuando la vida de la referencia supera la vida útil del dato. Remuevo listeners, limpio timers y suscripciones, limito caches y capturo sólo el identificador o valor pequeño necesario. En Angular asocio el cleanup a `DestroyRef` o `takeUntilDestroyed` cuando corresponde.",
+        ),
+        (
+            "¿Qué diferencia hay entre coerción implícita y conversión explícita?",
+            "En una conversión explícita el código declara la intención: `Number(input.value)`, `String(id)` o `Boolean(flag)`. La coerción implícita ocurre dentro de un operador o contexto: `'5' - 1` produce `4`, `1 + '2'` produce `'12'` y `if ('false')` entra porque el string no está vacío. La coerción no es automáticamente un error; templates, comparaciones y operadores dependen de ella. El riesgo aparece cuando oculta un contrato. En fronteras externas convierto, valido y conservo desde allí un tipo estable.",
+        ),
+        (
+            "¿Qué es `ToPrimitive` y por qué importa?",
+            "`ToPrimitive` es la operación abstracta que convierte un objeto en un valor primitivo antes de que otro algoritmo continúe. Si existe, llama a `Symbol.toPrimitive`; en caso contrario prueba `valueOf` y `toString` en un orden que depende del hint. Deben devolver un primitivo o la conversión falla con `TypeError`. Por eso `[] + 1` produce `'1'`: el array se vuelve `''` y `+` concatena. Un objeto puede personalizar el resultado con `[Symbol.toPrimitive](hint)`, pero hacerlo de forma sorprendente vuelve los operadores difíciles de razonar; normalmente prefiero métodos explícitos de dominio.",
+        ),
+        (
             "¿Por qué existe la Temporal Dead Zone?",
             "Al entrar en un bloque, JavaScript crea los bindings de `let`, `const` y `class`, pero los deja sin inicializar hasta ejecutar su declaración. Ese intervalo es la Temporal Dead Zone. Leer el binding durante ese tramo lanza `ReferenceError`: `console.log(total); let total = 1;`. Incluso `typeof total` falla si `total` está en la TDZ, a diferencia de una variable que no existe. Con `var`, en cambio, el binding se inicializa con `undefined`, por lo que el acceso prematuro no falla y puede ocultar un error de orden. La TDZ existe para que una variable con scope de bloque no se use antes de tener el valor que su declaración promete. No significa que `let` y `const` no tengan hoisting: sus bindings se crean al entrar al scope, pero todavía no son accesibles.",
         ),
