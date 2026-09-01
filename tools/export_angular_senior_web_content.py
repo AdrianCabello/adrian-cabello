@@ -318,6 +318,17 @@ def write_typescript() -> None:
     }
 
     prelude = """// Generated from tools/build_angular_senior_guide.py. Do not edit by hand.\n\nexport interface StudyGroup {\n  readonly id: string;\n  readonly index: string;\n  readonly title: string;\n  readonly description: string;\n}\n\nexport interface StudyQuestion {\n  readonly id?: string;\n  readonly question: string;\n  readonly answer: string;\n}\n\nexport interface StudyReference {\n  readonly label: string;\n  readonly url: string;\n}\n\nexport interface TheorySection {\n  readonly title: string;\n  readonly items: readonly string[];\n}\n\nexport interface StudyTopic {\n  readonly id: string;\n  readonly number: string;\n  readonly groupId: string;\n  readonly title: string;\n  readonly intro: string;\n  readonly theory: readonly string[];\n  readonly theorySections: readonly TheorySection[];\n  readonly questions: readonly StudyQuestion[];\n  readonly code?: string;\n  readonly references: readonly StudyReference[];\n}\n\nexport interface PracticeCase {\n  readonly title: string;\n  readonly brief: string;\n}\n\n"""
+    prelude = prelude.replace(
+        "  readonly title: string;\n  readonly brief: string;\n}",
+        "  readonly id: string;\n"
+        "  readonly stack: readonly string[];\n"
+        "  readonly title: string;\n"
+        "  readonly brief: string;\n"
+        "  readonly approach: string;\n"
+        "  readonly code_title: string;\n"
+        "  readonly code: string;\n"
+        "  readonly checks: readonly string[];\n}",
+    )
     types = {
         "STUDY_GROUPS": "readonly StudyGroup[]",
         "STUDY_TOPICS": "readonly StudyTopic[]",

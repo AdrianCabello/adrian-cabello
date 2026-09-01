@@ -196,6 +196,7 @@ export class AngularSeniorGuideComponent {
   protected readonly activeSectionId = signal<string | null>(null);
   protected readonly activeTopicId = signal<string | null>(null);
   protected readonly mobileNavigationOpen = signal(false);
+  protected readonly copiedPracticeCaseId = signal<string | null>(null);
   protected readonly completedTopicIds = signal<ReadonlySet<string>>(new Set());
   protected readonly collapsedTopicIds = signal<ReadonlySet<string>>(new Set());
   protected readonly topicReviews = signal<
@@ -266,7 +267,7 @@ export class AngularSeniorGuideComponent {
     const terms = this.queryTerms(normalizedQuery);
     return PRACTICE_CASES.filter(item =>
       this.matchesTerms(
-        `${item.title} ${item.brief} ${this.translate(item.title)} ${this.translate(item.brief)}`,
+        `${item.title} ${item.brief} ${item.approach} ${item.checks.join(' ')} ${this.translate(item.title)} ${this.translate(item.brief)} ${this.translate(item.approach)}`,
         terms
       )
     );
@@ -366,6 +367,22 @@ export class AngularSeniorGuideComponent {
 
   protected translate(value: string): string {
     return this.languageService.translate(value);
+  }
+
+  protected async copyPracticeCode(
+    caseId: string,
+    code: string
+  ): Promise<void> {
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
+    await this.document.defaultView?.navigator.clipboard.writeText(code);
+    this.copiedPracticeCaseId.set(caseId);
+    this.document.defaultView?.setTimeout(() => {
+      if (this.copiedPracticeCaseId() === caseId) {
+        this.copiedPracticeCaseId.set(null);
+      }
+    }, 1800);
   }
 
   protected theorySegments(text: string): readonly TheorySegment[] {

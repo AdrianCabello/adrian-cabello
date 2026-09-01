@@ -37,8 +37,14 @@ export interface StudyTopic {
 }
 
 export interface PracticeCase {
+  readonly id: string;
+  readonly stack: readonly string[];
   readonly title: string;
   readonly brief: string;
+  readonly approach: string;
+  readonly code_title: string;
+  readonly code: string;
+  readonly checks: readonly string[];
 }
 
 export const STUDY_GROUPS: readonly StudyGroup[] = [
@@ -3614,54 +3620,162 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
 
 export const PRACTICE_CASES: readonly PracticeCase[] = [
   {
+    id: 'buscador-cancelable',
+    stack: ['Angular', 'RxJS', 'Testing'],
     title: 'Buscador cancelable',
     brief:
-      'Construí un buscador con debounce, cancelación, estados loading/error/empty, caché por query y tests con tiempo controlado. Explicá por qué elegiste switchMap y qué cambia si el endpoint no soporta cancelación.',
+      'Buscador con debounce, cancelación, estados de UI, caché y tests con tiempo controlado.',
+    approach:
+      'Modelá la pantalla como un único stream de estados. `switchMap` desuscribe la búsqueda anterior; con `HttpClient` también aborta la request del navegador. Si el servidor no cancela trabajo, igual evita que una respuesta vieja pise la UI.',
+    code_title: 'search.store.ts',
+    code: "type State =\n  | { status: 'idle' | 'loading'; items: readonly Result[] }\n  | { status: 'success'; items: readonly Result[] }\n  | { status: 'error'; items: []; message: string };\n\nreadonly state$ = this.query.valueChanges.pipe(\n  map(value => value.trim()),\n  debounceTime(300),\n  distinctUntilChanged(),\n  switchMap(query => !query\n    ? of<State>({ status: 'idle', items: [] })\n    : concat(\n        of<State>({ status: 'loading', items: [] }),\n        this.api.find(query).pipe(\n          map(items => ({ status: 'success', items }) as const),\n          catchError(() => of({\n            status: 'error', items: [], message: 'No pudimos buscar'\n          } as const))\n        )\n      )\n  ),\n  shareReplay({ bufferSize: 1, refCount: true })\n);",
+    checks: [
+      'Con `fakeAsync`, a los 299 ms no hay request y a los 300 ms sí.',
+      'Dos queries rápidas producen un solo resultado visible: el de la última.',
+      'La clave de caché se normaliza y tiene una política explícita de expiración.',
+    ],
   },
   {
+    id: 'formularios-dinamicos',
+    stack: ['Angular', 'Reactive Forms', 'CVA'],
     title: 'Motor de formularios dinámicos',
     brief:
-      'Diseñá un schema para tipos, validación, layout, visibilidad y permisos. Sumá un CVA, validación asíncrona, persistencia parcial y una estrategia de versionado del schema.',
+      'Schema tipado para validación, layout, visibilidad, permisos, persistencia y evolución.',
+    approach:
+      'Separá el contrato serializable del renderer. Una discriminated union vuelve exhaustivos los tipos de campo y un registry conecta cada tipo con su componente. Las reglas recibidas del servidor describen condiciones; nunca ejecutan código.',
+    code_title: 'form-schema.ts',
+    code: "type Field =\n  | { kind: 'text'; key: string; label: string; required?: boolean }\n  | { kind: 'select'; key: string; label: string; options: Option[] }\n  | { kind: 'date'; key: string; label: string; min?: string };\n\ninterface FormSchema {\n  version: 3;\n  fields: readonly Field[];\n}\n\nfunction buildForm(schema: FormSchema): FormGroup {\n  return new FormGroup(Object.fromEntries(\n    schema.fields.map(field => [\n      field.key,\n      new FormControl(null, field.required ? Validators.required : [])\n    ])\n  ));\n}\n\nconst renderers: Record<Field['kind'], Type<ControlValueAccessor>> = {\n  text: TextFieldComponent,\n  select: SelectFieldComponent,\n  date: DateFieldComponent\n};",
+    checks: [
+      'Versioná schema y draft juntos; migrá `v1 → v2 → v3` con funciones puras.',
+      'Cancelá validadores asíncronos obsoletos y representá el estado `pending`.',
+      'El backend vuelve a validar permisos y valores aunque la UI oculte campos.',
+    ],
   },
   {
+    id: 'dashboard-tiempo-real',
+    stack: ['Angular', 'RxJS', 'WebSocket'],
     title: 'Dashboard en tiempo real',
     brief:
-      'Diseñá seis widgets con frecuencias distintas. Incluí WebSocket o SSE, reconexión, backpressure, pausa fuera del viewport, caché, permisos y métricas de INP.',
+      'Seis widgets con ritmos distintos, reconexión, backpressure y pausa fuera del viewport.',
+    approach:
+      'Usá una conexión por sesión y multiplexá topics. Separá el ritmo de recepción del de render: eventos críticos pasan inmediatamente; métricas frecuentes se agrupan por intervalo para proteger el main thread.',
+    code_title: 'live-metrics.service.ts',
+    code: 'readonly connection$ = defer(() => this.connect()).pipe(\n  retry({\n    count: 8,\n    delay: (_, attempt) =>\n      timer(Math.min(1_000 * 2 ** attempt, 30_000))\n  }),\n  share({\n    connector: () => new ReplaySubject<MetricEvent>(1),\n    resetOnRefCountZero: true\n  })\n);\n\nmetric$(widget: Widget, visible$: Observable<boolean>) {\n  return visible$.pipe(\n    switchMap(visible => visible ? this.connection$ : EMPTY),\n    filter(event => event.topic === widget.topic),\n    auditTime(widget.renderEveryMs),\n    distinctUntilChanged((a, b) => a.version === b.version)\n  );\n}',
+    checks: [
+      'Pausá consumidores invisibles con `IntersectionObserver`.',
+      'Deduplicá eventos por id y versión después de reconectar.',
+      'Medí INP y long tasks por widget, no solo latencia de red.',
+    ],
   },
   {
+    id: 'migracion-angular',
+    stack: ['Angular', 'Signals', 'Zoneless'],
     title: 'Migración entre cinco versiones mayores',
     brief:
-      'Proponé etapas para actualizar majors, convertir features a standalone, introducir control flow, Signals y zoneless. Definí pruebas, métricas, feature flags y rollback.',
+      'Upgrade incremental con pruebas, métricas, canary, feature flags y rollback.',
+    approach:
+      'Actualizá una major por vez y separá la actualización mecánica de los cambios arquitectónicos. Cada etapa produce un artefacto desplegable y conserva compatibilidad temporal con la API y los assets anteriores.',
+    code_title: 'migration-plan.ts',
+    code: "const stages: readonly MigrationStage[] = [\n  { from: 17, to: 18, work: ['ng update', 'fix deprecations'] },\n  { from: 18, to: 19, work: ['standalone routes'] },\n  { from: 19, to: 20, work: ['built-in control flow'] },\n  { from: 20, to: 21, work: ['signals at feature boundaries'] },\n  { from: 21, to: 22, work: ['zoneless canary'] }\n];\n\nfor (const stage of stages) {\n  await runTypecheckAndTests();\n  await compareBudgets(['initial-js', 'INP', 'error-rate']);\n  await deployCanary({ percentage: 5, featureFlag: stage.to });\n  // Promote only if the observation window stays inside the SLO.\n}",
+    checks: [
+      'No mezcles upgrade, Signals y zoneless en el mismo PR.',
+      'Probá rutas críticas, SSR, hydration y lazy loading en cada major.',
+      'Rollback exige bundles previos y contratos de API compatibles.',
+    ],
   },
   {
+    id: 'lista-100k',
+    stack: ['Angular', 'CDK', 'Signals'],
     title: 'Lista de 100.000 filas',
     brief:
-      'Compará paginación server-side, virtual scroll, filtros remotos y caché. Medí memoria, scripting, layout e interacción sin perder navegación por teclado ni soporte de lector de pantalla.',
+      'Paginación y filtros remotos, virtual scroll, caché y navegación accesible.',
+    approach:
+      'No lleves 100.000 registros al browser. El servidor pagina, ordena y filtra; virtual scroll limita el DOM. La query completa forma la clave de caché para no mezclar páginas de filtros distintos.',
+    code_title: 'people-table.store.ts',
+    code: "interface PeopleQuery {\n  cursor?: string;\n  sort: 'name' | 'createdAt';\n  direction: 'asc' | 'desc';\n  filter: string;\n}\n\nreadonly page = resource({\n  params: () => this.query(),\n  loader: ({ params, abortSignal }) =>\n    firstValueFrom(this.api.list(params, { signal: abortSignal }))\n});\n\ntrackRow(_: number, row: Person) {\n  return row.id;\n}\n\n// Use cdk-virtual-scroll-viewport with a stable itemSize.\n// aria-rowindex keeps the absolute position returned by the API.",
+    checks: [
+      'Medí nodos DOM, heap, scripting y layout con datos de producción.',
+      'Conservá el foco por id cuando una fila sale del viewport.',
+      'Anunciá carga, cantidad de resultados y cambios de página.',
+    ],
   },
   {
+    id: 'refresh-autenticacion',
+    stack: ['Angular', 'HttpClient', 'RxJS'],
     title: 'Carrera de refresh de autenticación',
     brief:
-      'Varias requests reciben 401 al mismo tiempo. Diseñá un refresh único, cola, cancelación, logout seguro, telemetría y tests deterministas de concurrencia.',
+      'Un solo refresh para varios 401 simultáneos, con cola, retry y logout seguro.',
+    approach:
+      'Compartí un único refresh en vuelo. Las requests esperan ese resultado y reintentan una vez. El endpoint de refresh queda fuera del interceptor para evitar recursión.',
+    code_title: 'auth.interceptor.ts',
+    code: 'let refreshInFlight$: Observable<string> | undefined;\n\nfunction refreshOnce(): Observable<string> {\n  return refreshInFlight$ ??= auth.refresh().pipe(\n    map(session => session.accessToken),\n    shareReplay({ bufferSize: 1, refCount: false }),\n    finalize(() => refreshInFlight$ = undefined)\n  );\n}\n\nreturn next(request).pipe(\n  catchError(error => {\n    if (error.status !== 401 || request.context.get(IS_RETRY)) {\n      return throwError(() => error);\n    }\n    return refreshOnce().pipe(\n      switchMap(token => next(withToken(request, token, true))),\n      catchError(refreshError => logoutAndFail(refreshError))\n    );\n  })\n);',
+    checks: [
+      'Tres 401 simultáneos producen un refresh y tres reintentos.',
+      'Si refresh falla, cancelá la cola, limpiá memoria y navegá una vez.',
+      'No registres tokens; correlacioná el incidente con request ids.',
+    ],
   },
   {
+    id: 'event-loop',
+    stack: ['JavaScript', 'Browser'],
     title: 'Event loop',
-    brief:
-      'Predecí el orden de logs que mezclen Promises, queueMicrotask, timers, async/await y eventos. Verificá el resultado en navegador y justificá cada transición entre colas.',
+    brief: 'Predicción verificable de stack, microtasks y tasks.',
+    approach:
+      'Ejecutá primero todo el stack síncrono. Al vaciarse, drená microtasks en orden FIFO; recién después el browser puede renderizar y tomar la siguiente task, como el timer.',
+    code_title: 'event-loop.exercise.ts',
+    code: "console.log('A');\nsetTimeout(() => console.log('B'), 0);\n\nPromise.resolve().then(() => {\n  console.log('C');\n  queueMicrotask(() => console.log('D'));\n});\n\nqueueMicrotask(() => console.log('E'));\n\nasync function run() {\n  console.log('F');\n  await null;\n  console.log('G');\n}\n\nrun();\nconsole.log('H');\n\n// Resultado: A, F, H, C, E, G, D, B",
+    checks: [
+      'Explicá por qué `await` agenda la continuación como microtask.',
+      'Una microtask puede encolar otra antes de pasar al timer.',
+      'Verificá en browser; Node.js agrega fases y APIs propias.',
+    ],
   },
   {
+    id: 'tabla-accesible',
+    stack: ['Angular', 'HTML', 'ARIA'],
     title: 'Tabla accesible',
     brief:
-      'Construí una tabla ordenable y paginada con caption, headers, estados de orden, teclado, foco, loading y empty state. Validala con lector de pantalla.',
+      'Tabla ordenable y paginada con semántica, foco y anuncios correctos.',
+    approach:
+      'Conservá la semántica nativa y convertí el encabezado ordenable en un botón. `aria-sort` vive en el `th`; los resultados se anuncian sin mover el foco automáticamente.',
+    code_title: 'people-table.component.html',
+    code: '<table>\n  <caption>Personas del equipo</caption>\n  <thead>\n    <tr>\n      <th scope="col" [attr.aria-sort]="nameSort()">\n        <button type="button" (click)="sortBy(\'name\')">\n          Nombre <span aria-hidden="true">↕</span>\n        </button>\n      </th>\n      <th scope="col">Rol</th>\n    </tr>\n  </thead>\n  <tbody>\n    @for (person of people(); track person.id) {\n      <tr><th scope="row">{{ person.name }}</th><td>{{ person.role }}</td></tr>\n    }\n  </tbody>\n</table>\n<p aria-live="polite">{{ resultSummary() }}</p>',
+    checks: [
+      'Probá Tab, Enter, orden y paginación solo con teclado.',
+      'Loading conserva caption y headers; empty state indica cómo seguir.',
+      'Validá con VoiceOver o NVDA, además de axe.',
+    ],
   },
   {
+    id: 'layout-sin-cls',
+    stack: ['CSS', 'Browser', 'Core Web Vitals'],
     title: 'Layout responsive sin CLS',
     brief:
-      'Implementá una card que cambie con container queries, respete reduced motion y no produzca saltos. Explicá cascade, stacking contexts, overflow y containment.',
+      'Card con container queries, medios dimensionados y movimiento opcional.',
+    approach:
+      'La card responde al espacio asignado, no al viewport. Reservá la proporción de la imagen antes de descargarla y animá propiedades que no provoquen layout.',
+    code_title: 'product-card.scss',
+    code: '.card-shell { container: product / inline-size; }\n\n.card {\n  display: grid;\n  gap: 1rem;\n  overflow: clip;\n}\n\n.card img {\n  width: 100%;\n  aspect-ratio: 16 / 9;\n  object-fit: cover;\n}\n\n@container product (min-width: 36rem) {\n  .card { grid-template-columns: minmax(12rem, 2fr) 3fr; }\n}\n\n@media (prefers-reduced-motion: no-preference) {\n  .card { transition: transform 180ms ease; }\n  .card:hover { transform: translateY(-2px); }\n}',
+    checks: [
+      'Reservá espacio para imágenes, fuentes y contenido tardío.',
+      'No uses `container-type: size` si el contenido define la altura.',
+      'Medí CLS durante el recorrido completo, no solo al cargar.',
+    ],
   },
   {
+    id: 'cache-offline',
+    stack: ['Browser', 'IndexedDB', 'Service Worker'],
     title: 'Caché offline',
-    brief:
-      'Diseñá caché HTTP, IndexedDB y Service Worker para una pantalla de lectura. Definí invalidación, conflictos, cuotas, logout y tratamiento de datos sensibles.',
+    brief: 'HTTP, Service Worker e IndexedDB con invalidación y logout seguro.',
+    approach:
+      'Cada capa tiene un rol: HTTP revalida, Service Worker conserva shell y recursos seguros, IndexedDB guarda datos estructurados. No caches por defecto respuestas privadas ni credenciales.',
+    code_title: 'article.repository.ts',
+    code: "async function getArticle(id: string): Promise<Article> {\n  const cached = await db.articles.get(id);\n\n  try {\n    const response = await fetch(`/api/articles/${id}`, {\n      headers: cached?.etag ? { 'If-None-Match': cached.etag } : {}\n    });\n    if (response.status === 304 && cached) return cached.value;\n    if (!response.ok) throw new Error(`HTTP ${response.status}`);\n\n    const value = await response.json() as Article;\n    await db.articles.put({\n      id, value, etag: response.headers.get('ETag'), savedAt: Date.now()\n    });\n    return value;\n  } catch (error) {\n    if (cached) return cached.value;\n    throw error;\n  }\n}",
+    checks: [
+      'Definí TTL, ETag y versión de schema; no uses caché eterna.',
+      'En logout borrá IndexedDB, Cache Storage y memoria del usuario.',
+      'Indicá que el dato es offline y cuándo se actualizó.',
+    ],
   },
 ];
 

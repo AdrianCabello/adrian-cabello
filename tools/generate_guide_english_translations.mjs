@@ -32,6 +32,14 @@ const guideUiCopy = [
   'Contenido completo',
   'Ver bloque completo',
   'Casos prácticos',
+  'Ver solución',
+  'Cerrar solución',
+  'Solución razonada',
+  'Cómo lo resolvería',
+  'Qué comprobar',
+  'Criterios de validación',
+  'Copiar código',
+  'Copiado',
   'Estudiado',
   'Marcar listo',
   'Listo',
@@ -73,6 +81,8 @@ const ignoredKeys = new Set([
   'number',
   'groupId',
   'code',
+  'code_title',
+  'stack',
   'url',
 ]);
 const strings = new Set(guideUiCopy);
