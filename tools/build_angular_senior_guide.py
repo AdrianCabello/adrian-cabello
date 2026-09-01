@@ -620,32 +620,75 @@ console.log([] === false);  // false""",
     },
     {
         "title": "JavaScript asíncrono: event loop, Promises y errores",
-        "intro": "El event loop coordina el stack con colas y APIs del host. Una entrevista Senior suele pedir el orden exacto de logs, cancelación y manejo de carreras.",
+        "intro": "JavaScript ejecuta código en un solo call stack y delega timers, red y eventos al entorno. Promises, async/await y el event loop permiten coordinar cuándo continúa cada operación sin bloquear la interfaz.",
         "master": [
-            "El motor ejecuta una tarea hasta vaciar el stack. Después drena microtasks, permite render y toma otra task. Promises y `queueMicrotask` usan microtasks; timers y eventos entran como tasks.",
-            "Una cadena de Promises adopta el estado del valor retornado. Lanzar dentro de `then` rechaza la siguiente Promise. Omitir `return` rompe la cadena y crea errores no observados.",
-            "`async` siempre devuelve una Promise. `await` suspende esa función y programa la continuación como microtask; no bloquea el thread.",
-            "`Promise.all` falla rápido y conserva orden; `allSettled` espera todos; `race` toma el primer settlement; `any` toma el primer fulfillment o lanza AggregateError.",
-            "Promise no ofrece cancelación propia. `AbortController` transmite una señal a `fetch` y otras APIs compatibles. El servidor puede seguir procesando aun cuando el cliente abandona.",
-            "`try/catch` captura errores síncronos y awaits rechazados dentro del bloque. No captura un callback asíncrono que corre después fuera de la cadena.",
-            "Clasificá errores por dominio, validación, autenticación, red, timeout, cancelación y bug. Preservá `cause` y evitá tragarlos con un log sin recuperación.",
-            "Debounce espera una pausa; throttle limita frecuencia. Definí leading, trailing y cleanup. Angular/RxJS ofrecen operadores que expresan mejor estos flujos.",
-            "Races aparecen cuando respuestas llegan fuera de orden. Cancelá, versioná la solicitud o ignorá resultados obsoletos.",
-            "CPU intenso bloquea input y render. Dividí trabajo, usá scheduler adecuado o Web Worker; async/await no mueve CPU a otro thread.",
+            "El código síncrono termina una instrucción antes de comenzar la siguiente. JavaScript usa un solo call stack para ejecutar ese código en el main thread del navegador. Una función lenta ocupa el stack y retrasa clicks, input, layout y paint.",
+            "Una operación asíncrona inicia un trabajo cuyo resultado llegará después. El navegador puede encargarse de un timer, una petición de red o un evento mientras el stack continúa con otras instrucciones. Asincronía describe coordinación en el tiempo; no significa que dos fragmentos de JavaScript se ejecuten al mismo tiempo en el mismo thread.",
+            "El event loop coordina el call stack con el entorno del navegador y sus colas. Toma una task, ejecuta su callback hasta vaciar el stack, drena todas las microtasks pendientes, permite que el navegador renderice y después avanza a otra task. `setTimeout`, eventos y mensajes generan tasks; continuaciones de Promises y `queueMicrotask` generan microtasks.",
+            "Una `Promise` es un objeto que representa el resultado futuro de una sola operación. Nace en estado `pending` y termina como `fulfilled` con un valor o `rejected` con una razón. `fulfilled` y `rejected` forman el estado `settled`. Una Promise settled no puede cambiar de estado ni volver a emitir otro resultado.",
+            "El constructor `new Promise(executor)` ejecuta el executor de inmediato y de forma síncrona. Las funciones `resolve` y `reject` fijan el resultado eventual; no vuelven asíncrono el trabajo que se ejecuta dentro del executor. La asincronía proviene de la API usada, como `fetch`, un timer o IndexedDB. Si una API ya devuelve una Promise, envolverla en otra suele agregar código y errores sin aportar control.",
+            "`then` registra el camino de éxito, `catch` registra el de rechazo y `finally` ejecuta cleanup sin recibir ni reemplazar el resultado salvo que lance un error. Cada método devuelve una Promise nueva. Por eso una cadena no modifica la Promise anterior: cada eslabón describe cómo obtener el resultado siguiente.",
+            "El valor que retorna un callback decide el siguiente eslabón. Un valor común cumple la Promise siguiente con ese valor; una Promise o thenable hace que la siguiente adopte su estado; un `throw` la rechaza. Omitir `return` entrega `undefined` y deja fuera de la cadena cualquier operación iniciada dentro del callback.",
+            "Los handlers de `then`, `catch` y `finally` no corren durante el stack actual, aunque la Promise ya esté settled. JavaScript los encola como microtasks. El navegador drena esa cola antes de tomar otra task, por eso una cadena que crea microtasks sin terminar puede retrasar timers, eventos y render.",
+            "Una función declarada con `async` devuelve una Promise. Un `return value` produce una Promise fulfilled con `value`; un `throw error` produce una Promise rejected. `await promise` pausa sólo la ejecución de esa función, libera el stack y reanuda su continuación como microtask cuando la Promise termina. `await` no bloquea el thread ni mueve trabajo de CPU a otro thread.",
+            "Dos `await` consecutivos suelen ejecutar operaciones en secuencia cuando la segunda comienza después de resolver la primera. Si ambas son independientes, iniciarlas antes y esperar `Promise.all` reduce el tiempo total. La concurrencia empieza al crear o invocar las operaciones, no al escribir `Promise.all`.",
+            "Los combinadores expresan políticas distintas. `Promise.all` cumple cuando todas cumplen, conserva el orden de entrada y rechaza ante el primer rechazo observado. `Promise.allSettled` espera todos los resultados. `Promise.race` adopta el primer settlement. `Promise.any` toma el primer fulfillment y, si todos rechazan, devuelve un `AggregateError`.",
+            "Un `Observable` representa una fuente que puede enviar cero, uno o varios valores a lo largo del tiempo. Una suscripción conecta un observer con esa fuente. El observer puede recibir notificaciones `next`, una única notificación terminal `error` o una única notificación terminal `complete`. Después de `error` o `complete` no llegan más valores.",
+            "La mayoría de los Observables de RxJS son lazy: el producer comienza para cada `subscribe`. Un Observable cold crea una ejecución independiente por suscriptor, como una request HTTP. Un Observable hot comparte una fuente que ya produce, como eventos del usuario o un Subject. Operadores como `map`, `filter`, `switchMap` y `catchError` crean Observables nuevos y describen el flujo sin mutar la fuente.",
+            "`unsubscribe` ejecuta el teardown registrado por el Observable y deja de entregar notificaciones a ese suscriptor. Detener el trabajo subyacente depende de que el producer implemente ese teardown. Angular `HttpClient` aborta la request al desuscribirse; un Observable propio que inicia un timer debe cancelarlo en su función de cleanup. Desuscribirse no deshace efectos que ya ocurrieron.",
+            "Promise y Observable modelan contratos distintos. Una Promise comparte un único resultado settled y se consume con `then` o `await`. Un Observable modela una secuencia, puede ser lazy, permite composición temporal y ofrece teardown por suscripción. Convertir entre ambos puede perder información: `firstValueFrom` toma el primer valor y necesita que la fuente emita o termine; convertir una Promise a Observable no vuelve cancelable la operación original.",
+            "`try/catch` captura errores síncronos del bloque y rechazos que atraviesan un `await`. No captura un error lanzado más tarde por un callback desconectado, como un `setTimeout`. Ese callback necesita su propio manejo o debe formar parte de una Promise que el flujo retorne y espere.",
+            "Una Promise no define cancelación. `AbortController` permite pedirle a `fetch` y a otras APIs compatibles que detengan su trabajo mediante una `signal`. Cancelar el cliente evita procesar una respuesta innecesaria, aunque el servidor puede continuar si ya recibió y empezó la operación.",
+            "Una race condition aparece cuando varias operaciones compiten por actualizar el mismo estado y terminan en otro orden. Un buscador puede mostrar una respuesta vieja si la primera petición tarda más que la última. Abortá la anterior, asigná una versión a cada solicitud o aceptá el resultado sólo si todavía corresponde a la consulta vigente.",
+            "Debounce espera un período sin eventos antes de ejecutar; sirve para búsquedas mientras el usuario escribe. Throttle impone una frecuencia máxima; sirve para scroll o resize. Ambos necesitan cleanup para cancelar timers o trabajo pendiente cuando se destruye el consumidor.",
+            "`async/await` organiza espera de I/O, pero no reduce el costo del código síncrono. Dividí CPU intenso en tareas pequeñas cuando necesitás devolver control al navegador. Usá un Web Worker cuando el cálculo merece otro thread y el costo de copiar datos y enviar mensajes resulta aceptable.",
         ],
         "qa": [
-            ("¿En qué orden imprime este código?", "Ejecutá primero el stack síncrono, después todas las microtasks creadas, y recién entonces timers. Cada callback puede encolar más microtasks antes de la siguiente task."),
-            ("¿Promise u Observable?", "Promise representa un settlement y empieza al crearse. Observable puede producir varios valores, suele ser lazy y permite unsubscribe y operadores de concurrencia."),
-            ("¿Cómo cancelás fetch?", "Creo un AbortController, paso `signal` a fetch y llamo `abort`. Trato `AbortError` como cancelación, no como fallo del producto."),
-            ("¿Qué diferencia hay entre syntax error y runtime error?", "El parser detecta un syntax error antes de ejecutar esa unidad. Un runtime error aparece al evaluar una operación válida en sintaxis con un estado inválido."),
+            ("¿Qué es una Promise?", "Una Promise representa un único resultado que todavía puede no estar disponible. Empieza `pending` y termina `fulfilled` con un valor o `rejected` con un error. Por ejemplo, `fetch('/users')` devuelve de inmediato una Promise; el objeto permite registrar qué hacer cuando lleguen la respuesta o el fallo. La Promise no contiene un thread ni ejecuta dos resultados: modela la finalización de una operación."),
+            ("¿El executor de `new Promise` es asíncrono?", "No. `new Promise((resolve) => { console.log('executor'); resolve(1); })` imprime `executor` durante el stack actual. Lo que corre después como microtask es el callback registrado con `then`. Poner un loop pesado dentro del executor bloquea la interfaz igual que cualquier otro código síncrono."),
+            ("¿Qué devuelve `then`?", "`then` devuelve una Promise nueva. Si el callback retorna `42`, la nueva Promise cumple con `42`; si retorna `fetch(...)`, adopta el estado de esa Promise; si lanza un error, queda rechazada. Este contrato permite encadenar transformaciones y propagar errores hasta un `catch`."),
+            ("¿Qué pasa si olvidás `return` dentro de un `then`?", "El callback retorna `undefined`, así que el siguiente `then` continúa sin esperar la operación interna. En `loadUser().then(user => { saveUser(user); }).then(showSuccess)`, `showSuccess` puede ejecutarse antes de que termine `saveUser`. La corrección es `return saveUser(user)` o usar `await saveUser(user)` dentro de una función `async`."),
+            ("¿En qué orden imprime el ejemplo?", "Primero corre el stack síncrono: `A` y `E`. Después se procesan las microtasks en el orden en que fueron encoladas: `C` y `D`. Al final corre la task del timer y aparece `B`. El resultado es `A, E, C, D, B`. Un timer con demora cero indica una demora mínima; no salta por delante del stack ni de las microtasks."),
+            ("¿`await` bloquea JavaScript?", "`await` pausa la función `async` que lo contiene y devuelve el control al caller. El main thread puede procesar otras tareas. Cuando la Promise termina, JavaScript encola la continuación de la función como microtask. Un cálculo pesado antes o después del `await` sigue bloqueando porque `await` no crea otro thread."),
+            ("¿Cuándo usar ejecución secuencial y cuándo concurrente?", "Usá secuencia cuando una operación depende del resultado anterior, como cargar un usuario y después consultar sus permisos. Para trabajos independientes, iniciá ambos antes: `const userRequest = loadUser(); const settingsRequest = loadSettings(); const [user, settings] = await Promise.all([userRequest, settingsRequest]);`. Así el tiempo total se aproxima a la operación más lenta en lugar de sumar ambas esperas."),
+            ("¿Promise u Observable?", "Una Promise entrega un único resultado y no incorpora cancelación. Empieza cuando la operación que la creó ya fue iniciada. Un Observable puede emitir cero, uno o varios valores; suele comenzar al suscribirse, permite `unsubscribe` y compone tiempo, cancelación y concurrencia mediante operadores. Para una request HTTP aislada una Promise puede alcanzar; para eventos, streams o flujos cancelables, un Observable expresa mejor el contrato."),
+            ("¿Qué es un Observable y qué hace `subscribe`?", "Un Observable describe cómo producir y entregar una secuencia de notificaciones. `subscribe` inicia o conecta esa producción y devuelve una `Subscription`. El observer recibe `next(value)` mientras hay datos y después puede recibir `complete()` o `error(reason)` como final excluyente. Ejemplo: `interval(1000)` emite valores hasta que el consumidor se desuscribe; `http.get()` suele emitir una respuesta y completar."),
+            ("¿Observable cold u hot?", "Un cold Observable crea una ejecución por suscriptor. Dos suscripciones a `http.get('/users')` suelen crear dos requests. Un hot Observable comparte una fuente externa o una ejecución entre suscriptores, como clicks o un Subject. `share` y `shareReplay` pueden compartir una fuente cold, pero requieren definir replay, refCount y reset para no conservar datos o conexiones más tiempo del previsto."),
+            ("¿`unsubscribe` siempre cancela el trabajo?", "`unsubscribe` deja de entregar valores y ejecuta el teardown del producer. Cancela el trabajo sólo si ese teardown sabe detenerlo. `HttpClient` puede abortar la request; un Observable creado con `new Observable` debe retornar cleanup, por ejemplo `return () => clearInterval(id)`. Una Promise convertida con `from(promise)` seguirá resolviéndose porque la Promise original no conoce la suscripción."),
+            ("¿Cuándo convertir una Promise a Observable o un Observable a Promise?", "`from(promise)` integra un resultado único en un pipeline RxJS, pero no agrega cancelación a la Promise. `firstValueFrom(source$)` resuelve con la primera emisión y se desuscribe; `lastValueFrom(source$)` espera que la fuente complete y usa la última. Si la fuente no emite o no completa, la Promise puede rechazar o quedar pendiente, por lo que la conversión necesita un contrato de finalización claro."),
+            ("¿Cómo cancelás `fetch`?", "Creo `const controller = new AbortController()`, paso `controller.signal` a `fetch` y llamo `controller.abort()` cuando la respuesta deja de ser útil. El rechazo resultante representa cancelación y no un error funcional. También limpio el controller al destruir el componente o al iniciar una solicitud que reemplaza la anterior."),
+            ("¿Por qué `try/catch` no captura un error de `setTimeout`?", "El callback del timer corre en otra task, después de que el bloque `try` terminó. `try { setTimeout(() => { throw new Error('boom'); }); } catch {}` no lo captura. El callback necesita manejar su error o la API debe envolver el resultado en una Promise que el caller pueda retornar y esperar."),
+            ("¿Cómo evitás que una respuesta vieja reemplace una nueva?", "Guardo la identidad de la solicitud vigente, cancelo la anterior o comparo una versión antes de escribir estado. En un buscador, la consulta `ang` puede responder después de `angular`; sin esa protección, la UI muestra resultados que ya no coinciden con el input. En RxJS, `switchMap` expresa la política de conservar sólo la operación más reciente."),
         ],
-        "code": """console.log('A');
+        "code": """function delay(ms, value) {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve(value), ms);
+  });
+}
+
+async function loadDashboard() {
+  const userRequest = delay(300, { id: 7 });
+  const settingsRequest = delay(200, { theme: 'dark' });
+
+  try {
+    const [user, settings] = await Promise.all([
+      userRequest,
+      settingsRequest,
+    ]);
+    return { user, settings };
+  } catch (error) {
+    throw new Error('No se pudo cargar el dashboard', { cause: error });
+  }
+}
+
+console.log('A');
 setTimeout(() => console.log('B'), 0);
 Promise.resolve().then(() => console.log('C'));
 queueMicrotask(() => console.log('D'));
 console.log('E');
 
-// A, E, C, D, B""",
+// A, E, C, D, B
+loadDashboard().then(console.log).catch(console.error);""",
     },
     {
         "title": "Browser internals, DOM, storage y red",

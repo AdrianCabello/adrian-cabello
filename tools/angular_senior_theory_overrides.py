@@ -56,12 +56,6 @@ THEORY_OVERRIDES: dict[str, dict[int, Replacement]] = {
         4: "`map` crea una colección transformada, `filter` conserva elementos, `reduce` acumula, `find` devuelve la primera coincidencia y `some` o `every` evalúan predicados. Cada método comunica una intención distinta y evita acumular efectos dentro de un loop genérico.",
         8: "Memoization guarda resultados asociados a sus argumentos. La estrategia necesita una regla de igualdad, un límite de tamaño y una política de invalidación; sin esos límites, la caché puede devolver datos obsoletos o retener memoria sin control.",
     },
-    "JavaScript asíncrono: event loop, Promises y errores": {
-        6: "Los errores pueden pertenecer al dominio, validación, autenticación, red, timeout, cancelación o a un bug. Esa clasificación define si corresponde reintentar, pedir una corrección al usuario, cerrar la sesión o registrar el incidente. La propiedad `cause` conserva el error original al envolverlo.",
-        7: "Debounce ejecuta una operación después de un período sin eventos; throttle limita cuántas ejecuciones caben en un intervalo. Las opciones leading y trailing determinan si se emite al comienzo, al final o en ambos puntos, y el cleanup cancela trabajo pendiente al destruir el consumidor.",
-        8: "Una race condition aparece cuando dos operaciones concurrentes modifican el mismo estado y el resultado depende del orden de finalización. La cancelación, un identificador de versión o la comparación contra la solicitud vigente evita que una respuesta antigua reemplace datos nuevos.",
-        9: "El trabajo intensivo de CPU ocupa el main thread y retrasa input, layout y render. Dividirlo en tareas pequeñas permite ceder tiempo al navegador; un Web Worker lo mueve a otro thread a cambio de serialización y mensajes. `async/await` no cambia de thread.",
-    },
     "HTML completo: semántica, formularios, medios y SEO": {
         1: "`header`, `nav`, `main`, `article`, `section`, `aside` y `footer` describen la función de cada región. Navegadores y tecnologías asistivas usan esa estructura para crear landmarks. `div` y `span` agrupan contenido sin añadir significado.",
         7: "Un `button` dentro de un formulario tiene tipo `submit` por defecto. `type=button` representa una acción auxiliar y evita envíos accidentales. La semántica de submit también permite enviar con Enter y ejecutar la validación nativa.",
