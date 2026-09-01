@@ -235,12 +235,12 @@
         class="mx-auto grid max-w-[1440px] gap-8 lg:grid-cols-[300px_minmax(0,1fr)]">
         <aside
           data-testid="guide-sidebar"
-          class="sticky top-20 z-30 mt-3 min-w-0 max-w-full self-start sm:top-24 lg:mt-0 lg:h-[calc(100vh-7rem)] lg:overflow-y-auto lg:pr-2">
+          class="sticky top-16 z-40 -mx-4 w-[calc(100%+2rem)] min-w-0 max-w-none self-start sm:-mx-6 sm:w-[calc(100%+3rem)] lg:top-24 lg:z-30 lg:mx-0 lg:h-[calc(100vh-7rem)] lg:w-auto lg:max-w-full lg:overflow-y-auto lg:pr-2">
           <div
-            class="rounded-2xl border border-white/10 bg-[#091426]/95 p-3 shadow-2xl shadow-slate-950/40 backdrop-blur-xl sm:p-4">
+            class="border-y border-white/10 bg-[#07101f]/95 px-4 py-2 shadow-xl shadow-slate-950/30 backdrop-blur-xl sm:px-6 lg:rounded-2xl lg:border lg:bg-[#091426]/95 lg:p-4 lg:shadow-2xl lg:shadow-slate-950/40">
             <button
               type="button"
-              class="flex min-h-12 w-full items-center justify-between gap-3 rounded-xl px-2 text-left lg:hidden"
+              class="flex min-h-14 w-full items-center justify-between gap-3 text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300 lg:hidden"
               [attr.aria-expanded]="mobileNavigationOpen()"
               aria-controls="guide-navigation-content"
               data-testid="guide-mobile-navigation-toggle"
