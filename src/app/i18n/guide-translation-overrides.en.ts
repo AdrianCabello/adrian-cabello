@@ -19,7 +19,6 @@ export const GUIDE_ENGLISH_TRANSLATION_OVERRIDES: Readonly<
     'Browser internals, DOM, networking, boundaries, patterns, SOLID and code evolution.',
   'Cómo razonar y responder como Senior':
     'How to reason and answer as a Senior engineer',
-  'Banco rápido': 'Quick-fire questions',
   'Abrir tema': 'Open topic',
   'Cerrar tema': 'Collapse topic',
   '¿Temporal Dead Zone?': 'Temporal Dead Zone?',

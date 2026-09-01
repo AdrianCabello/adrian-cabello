@@ -11,6 +11,7 @@ from build_angular_senior_guide import (
     foundation_rapid_fire,
     rapid_fire,
 )
+from angular_senior_practice_cases import PRACTICE_CASES
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -51,48 +52,43 @@ GROUPS = [
 ]
 
 
-PRACTICE_CASES = [
-    {
-        "title": "Buscador cancelable",
-        "brief": "Construí un buscador con debounce, cancelación, estados loading/error/empty, caché por query y tests con tiempo controlado. Explicá por qué elegiste switchMap y qué cambia si el endpoint no soporta cancelación.",
-    },
-    {
-        "title": "Motor de formularios dinámicos",
-        "brief": "Diseñá un schema para tipos, validación, layout, visibilidad y permisos. Sumá un CVA, validación asíncrona, persistencia parcial y una estrategia de versionado del schema.",
-    },
-    {
-        "title": "Dashboard en tiempo real",
-        "brief": "Diseñá seis widgets con frecuencias distintas. Incluí WebSocket o SSE, reconexión, backpressure, pausa fuera del viewport, caché, permisos y métricas de INP.",
-    },
-    {
-        "title": "Migración entre cinco versiones mayores",
-        "brief": "Proponé etapas para actualizar majors, convertir features a standalone, introducir control flow, Signals y zoneless. Definí pruebas, métricas, feature flags y rollback.",
-    },
-    {
-        "title": "Lista de 100.000 filas",
-        "brief": "Compará paginación server-side, virtual scroll, filtros remotos y caché. Medí memoria, scripting, layout e interacción sin perder navegación por teclado ni soporte de lector de pantalla.",
-    },
-    {
-        "title": "Carrera de refresh de autenticación",
-        "brief": "Varias requests reciben 401 al mismo tiempo. Diseñá un refresh único, cola, cancelación, logout seguro, telemetría y tests deterministas de concurrencia.",
-    },
-    {
-        "title": "Event loop",
-        "brief": "Predecí el orden de logs que mezclen Promises, queueMicrotask, timers, async/await y eventos. Verificá el resultado en navegador y justificá cada transición entre colas.",
-    },
-    {
-        "title": "Tabla accesible",
-        "brief": "Construí una tabla ordenable y paginada con caption, headers, estados de orden, teclado, foco, loading y empty state. Validala con lector de pantalla.",
-    },
-    {
-        "title": "Layout responsive sin CLS",
-        "brief": "Implementá una card que cambie con container queries, respete reduced motion y no produzca saltos. Explicá cascade, stacking contexts, overflow y containment.",
-    },
-    {
-        "title": "Caché offline",
-        "brief": "Diseñá caché HTTP, IndexedDB y Service Worker para una pantalla de lectura. Definí invalidación, conflictos, cuotas, logout y tratamiento de datos sensibles.",
-    },
+RAPID_TOPIC_ASSIGNMENTS = [
+    (range(1, 14), "JavaScript: tipos, coerción, scope y funciones"),
+    (range(14, 23), "JavaScript: objetos, prototipos, arrays y programación funcional"),
+    (range(23, 29), "JavaScript asíncrono: event loop, Promises y errores"),
+    (range(29, 41), "Browser internals, DOM, storage y red"),
+    (range(41, 48), "HTML completo: semántica, formularios, medios y SEO"),
+    (range(48, 61), "CSS completo: cascade, layout, responsive y rendimiento"),
+    (range(61, 64), "Componentes, templates y composición"),
+    (range(66, 73), "RxJS y concurrencia"),
+    (range(73, 77), "Dependency Injection en profundidad"),
+    (range(77, 81), "Change detection, Signals y zoneless"),
+    (range(82, 85), "Routing y navegación"),
+    (range(85, 88), "Formularios complejos"),
+    (range(88, 90), "HTTP, APIs, errores y caché"),
+    (range(90, 94), "Seguridad web en Angular"),
+    (range(94, 98), "SSR, SSG, hidratación y rendering híbrido"),
+    (range(98, 101), "Rendimiento y Core Web Vitals"),
+    (range(101, 103), "Build, CI/CD, configuración y upgrades"),
+    (range(103, 107), "Estado: local, servicios, Signals y NgRx"),
+    (range(107, 112), "Patrones, SOLID y calidad de diseño"),
+    (range(112, 114), "TypeScript avanzado"),
+    (range(118, 122), "Testing y estrategia de calidad"),
+    (range(122, 124), "Observabilidad, errores y debugging"),
 ]
+
+RAPID_TOPIC_OVERRIDES = {
+    64: "Change detection, Signals y zoneless",
+    65: "Estado: local, servicios, Signals y NgRx",
+    81: "Angular: fundamentos, renderizado y versiones",
+    114: "JavaScript asíncrono: event loop, Promises y errores",
+    115: "JavaScript: tipos, coerción, scope y funciones",
+    116: "JavaScript: objetos, prototipos, arrays y programación funcional",
+    117: "JavaScript: objetos, prototipos, arrays y programación funcional",
+    124: "Build, CI/CD, configuración y upgrades",
+    125: "Arquitectura de aplicaciones Angular",
+    126: "Arquitectura de aplicaciones Angular",
+}
 
 
 REFERENCES = [
@@ -277,28 +273,46 @@ def build_topics() -> list[dict]:
         ("criterio-senior", chapters[0]),
         ("criterio-senior", chapters[23]),
     ]
-    return [
+    topics = [
         serialize_topic(chapter, group_id, index)
         for index, (group_id, chapter) in enumerate(ordered, 1)
     ]
+    topics_by_title = {topic["title"]: topic for topic in topics}
+    rapid_questions = foundation_rapid_fire + rapid_fire
+
+    for index, (question, answer) in enumerate(rapid_questions, 1):
+        target_title = RAPID_TOPIC_OVERRIDES.get(index)
+        if target_title is None:
+            target_title = next(
+                (
+                    title
+                    for indexes, title in RAPID_TOPIC_ASSIGNMENTS
+                    if index in indexes
+                ),
+                None,
+            )
+        if target_title is None:
+            raise ValueError(f"Rapid question {index} has no topic assignment")
+
+        target = topics_by_title[target_title]
+        if any(item["question"] == question for item in target["questions"]):
+            continue
+        target["questions"].append(
+            {
+                "id": f"topic-{index:03d}-{slugify(question)}",
+                "question": question,
+                "answer": answer,
+            }
+        )
+
+    return topics
 
 
 def write_typescript() -> None:
     topics = build_topics()
-    rapid_questions = [
-        {
-            "id": f"rapid-{index:03d}-{slugify(question)}",
-            "question": question,
-            "answer": answer,
-        }
-        for index, (question, answer) in enumerate(
-            foundation_rapid_fire + rapid_fire, 1
-        )
-    ]
     payloads = {
         "STUDY_GROUPS": GROUPS,
         "STUDY_TOPICS": topics,
-        "RAPID_QUESTIONS": rapid_questions,
         "PRACTICE_CASES": PRACTICE_CASES,
         "STUDY_REFERENCES": REFERENCES,
     }
@@ -307,7 +321,6 @@ def write_typescript() -> None:
     types = {
         "STUDY_GROUPS": "readonly StudyGroup[]",
         "STUDY_TOPICS": "readonly StudyTopic[]",
-        "RAPID_QUESTIONS": "readonly StudyQuestion[]",
         "PRACTICE_CASES": "readonly PracticeCase[]",
         "STUDY_REFERENCES": "readonly StudyReference[]",
     }

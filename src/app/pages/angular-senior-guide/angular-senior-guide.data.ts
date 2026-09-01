@@ -159,6 +159,47 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
         answer:
           'Atributos como `required`, `type`, `min`, `max` y `pattern` expresan restricciones y permiten feedback del navegador. La aplicación puede personalizar mensajes, pero el servidor debe repetir la validación porque el cliente se puede modificar.',
       },
+      {
+        id: 'topic-041-etiqueta-semantica',
+        question: '¿Etiqueta semántica?',
+        answer:
+          'Elemento cuyo nombre comunica rol y estructura al navegador y tecnologías asistivas.',
+      },
+      {
+        id: 'topic-042-head',
+        question: '¿`head`?',
+        answer:
+          'Metadata y recursos del documento, no contenido principal visible.',
+      },
+      {
+        id: 'topic-043-alt',
+        question: '¿`alt`?',
+        answer:
+          'Alternativa textual que depende de la función de la imagen; decorativas usan alt vacío.',
+      },
+      {
+        id: 'topic-044-iframe-sandbox',
+        question: '¿`iframe sandbox`?',
+        answer:
+          'Restringe capacidades del documento embebido y se abre con tokens explícitos.',
+      },
+      {
+        id: 'topic-045-get-o-post-en-form',
+        question: '¿GET o POST en form?',
+        answer:
+          'GET expresa consulta y deja datos en URL; POST envía body para una operación.',
+      },
+      {
+        id: 'topic-046-submit-default',
+        question: '¿Submit default?',
+        answer: 'Un button dentro de form usa submit si no declarás type.',
+      },
+      {
+        id: 'topic-047-defer-o-async-script',
+        question: '¿`defer` o `async` script?',
+        answer:
+          'Defer preserva orden y espera parseo; async ejecuta al descargar.',
+      },
     ],
     code: '<form (ngSubmit)="save()" [formGroup]="profileForm">\n  <label for="email">Correo</label>\n  <input id="email" type="email" autocomplete="email"\n         formControlName="email" aria-describedby="email-error">\n  <p id="email-error" role="alert">Ingresá un correo válido.</p>\n  <button type="submit">Guardar</button>\n</form>',
     references: [
@@ -252,6 +293,80 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
         question: '¿Media query o container query?',
         answer:
           'Una media query responde al viewport o a preferencias del usuario. Una container query responde al espacio disponible para el componente. La segunda permite reutilizar la misma pieza en layouts distintos sin conocer la página que la contiene.',
+      },
+      {
+        id: 'topic-048-box-model',
+        question: '¿Box model?',
+        answer: 'Content, padding, border y margin.',
+      },
+      {
+        id: 'topic-049-specificity',
+        question: '¿Specificity?',
+        answer:
+          'Peso de un selector dentro de la cascada después de origen, importancia y layer.',
+      },
+      {
+        id: 'topic-050-box-sizing-border-box',
+        question: '¿`box-sizing:border-box`?',
+        answer: 'El width declarado incluye padding y border.',
+      },
+      {
+        id: 'topic-051-margin-o-padding',
+        question: '¿Margin o padding?',
+        answer: 'Margin separa cajas; padding agrega espacio dentro del borde.',
+      },
+      {
+        id: 'topic-052-position-absolute',
+        question: '¿Position absolute?',
+        answer:
+          'Sale del flujo y se posiciona respecto de su containing block.',
+      },
+      {
+        id: 'topic-053-position-sticky',
+        question: '¿Position sticky?',
+        answer:
+          'Participa en flujo y se fija dentro de su scroll container al cruzar un umbral.',
+      },
+      {
+        id: 'topic-054-stacking-context',
+        question: '¿Stacking context?',
+        answer:
+          'Ámbito que limita la comparación de z-index entre descendientes.',
+      },
+      {
+        id: 'topic-055-pseudo-clase-o-pseudo-elemento',
+        question: '¿Pseudo-clase o pseudo-elemento?',
+        answer:
+          'Pseudo-clase selecciona estado; pseudo-elemento representa una parte generada o conceptual.',
+      },
+      {
+        id: 'topic-056-bem',
+        question: '¿BEM?',
+        answer: 'Convención Block, Element, Modifier para nombres de clases.',
+      },
+      {
+        id: 'topic-057-preprocesador-o-framework',
+        question: '¿Preprocesador o framework?',
+        answer:
+          'Preprocesador extiende sintaxis; framework aporta reglas, utilidades o componentes.',
+      },
+      {
+        id: 'topic-058-media-o-container-query',
+        question: '¿Media o container query?',
+        answer:
+          'Media consulta viewport/dispositivo; container consulta tamaño o estilo del contenedor.',
+      },
+      {
+        id: 'topic-059-reflow',
+        question: '¿Reflow?',
+        answer:
+          'Recalculo de geometría provocado por cambios o lecturas que requieren layout.',
+      },
+      {
+        id: 'topic-060-cls',
+        question: '¿CLS?',
+        answer:
+          'Movimiento inesperado de contenido; reservá espacio para imágenes y contenido asíncrono.',
       },
     ],
     code: '@layer reset, base, components, utilities;\n\n@layer components {\n  .card { container-type: inline-size; }\n  @container (min-width: 36rem) {\n    .card__body { display: grid; grid-template-columns: 2fr 1fr; }\n  }\n}\n\n@media (prefers-reduced-motion: reduce) {\n  *, *::before, *::after { animation-duration: 0.01ms !important; }\n}',
@@ -383,6 +498,80 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
         answer:
           "Sí, pero sólo usaría deliberadamente `value == null` cuando quiero aceptar exactamente `null` o `undefined`. La comparación es verdadera para esos dos valores y falsa para `0`, `false`, `''` y `NaN`; por ejemplo, `if (response.middleName == null)` detecta que el campo opcional no llegó sin rechazar una cadena vacía válida. Es una excepción conocida de Abstract Equality y conviene permitirla explícitamente con una regla como `eqeqeq: ['error', 'always', { null: 'ignore' }]`. En el resto del código uso `===` y `!==`, porque `==` aplica coerciones difíciles de leer: `'' == 0`, `'0' == false` y `[] == false` son verdaderas. Si el equipo prioriza máxima explicitud, escribo `value === null || value === undefined`; comunica el mismo contrato sin depender de conocer la excepción.",
       },
+      {
+        id: 'topic-001-tipos-primitivos',
+        question: '¿Tipos primitivos?',
+        answer: 'undefined, null, boolean, number, bigint, string y symbol.',
+      },
+      {
+        id: 'topic-002-typeof-null',
+        question: '¿`typeof null`?',
+        answer:
+          'Devuelve `object` por compatibilidad histórica; verificá null de forma explícita.',
+      },
+      {
+        id: 'topic-003-nan-nan',
+        question: '¿`NaN === NaN`?',
+        answer: 'False. Usá `Number.isNaN` u `Object.is`.',
+      },
+      {
+        id: 'topic-004-null-y-undefined',
+        question: '¿`null` y `undefined`?',
+        answer:
+          'Null suele expresar ausencia intencional; undefined expresa falta de valor o propiedad.',
+      },
+      {
+        id: 'topic-005-truthy-y-falsy',
+        question: '¿Truthy y falsy?',
+        answer:
+          'La conversión booleana determina branches; objetos y arrays vacíos son truthy.',
+      },
+      {
+        id: 'topic-006-temporal-dead-zone',
+        question: '¿Temporal Dead Zone?',
+        answer:
+          'Es el tramo entre la entrada al bloque y la inicialización de un binding `let`, `const` o `class`. El binding ya pertenece al scope, pero leerlo lanza `ReferenceError`; por ejemplo, `console.log(total); let total = 1;`.',
+      },
+      {
+        id: 'topic-007-hoisting',
+        question: '¿Hoisting?',
+        answer:
+          'El entorno registra declaraciones antes de ejecutar; la disponibilidad depende del tipo de declaración.',
+      },
+      {
+        id: 'topic-008-this',
+        question: '¿`this`?',
+        answer:
+          'Receiver de una llamada según call-site, salvo arrow que captura el binding exterior.',
+      },
+      {
+        id: 'topic-009-call-apply-bind',
+        question: '¿`call`, `apply`, `bind`?',
+        answer:
+          'Call invoca con argumentos; apply con array-like; bind crea otra función con receiver o argumentos fijados.',
+      },
+      {
+        id: 'topic-010-coercion',
+        question: '¿Coerción?',
+        answer:
+          'Conversión entre tipos. Puede ser explícita con `Number`, `String` o `Boolean`, o implícita cuando un operador o contexto necesita otro tipo.',
+      },
+      {
+        id: 'topic-011-closure',
+        question: '¿Closure?',
+        answer:
+          'Una función conserva los bindings del entorno léxico donde fue creada, incluso si se ejecuta después de que terminó la función exterior. Conserva bindings vivos, no una copia congelada de sus valores.',
+      },
+      {
+        id: 'topic-012-spread-y-rest',
+        question: '¿Spread y rest?',
+        answer: 'Misma sintaxis: spread expande; rest reúne valores restantes.',
+      },
+      {
+        id: 'topic-013-destructuring-default',
+        question: '¿Destructuring default?',
+        answer: 'Se aplica ante undefined, no ante null.',
+      },
     ],
     code: "function makeCounter() {\n  let count = 0;\n  return () => ++count;\n}\n\nconst first = makeCounter();\nconst second = makeCounter();\nconsole.log(first(), first(), second()); // 1, 2, 1\n\nconsole.log(1 + '2');       // '12'\nconsole.log('5' - 2);       // 3\nconsole.log(Number('42'));  // 42\nconsole.log(Boolean(''));   // false\nconsole.log([] == false);   // true\nconsole.log([] === false);  // false",
     references: [
@@ -468,6 +657,71 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
         question: '¿Cuándo evitás `map`, `filter` y `reduce` encadenados?',
         answer:
           'Cada operador puede recorrer y asignar otra colección. En una ruta caliente o una lista grande, un solo loop puede reducir memoria y trabajo. Mantengo la cadena cuando su claridad pesa más que ese costo medido.',
+      },
+      {
+        id: 'topic-014-shallow-copy',
+        question: '¿Shallow copy?',
+        answer:
+          'Crea un contenedor nuevo y conserva las mismas referencias anidadas. Con `const copy = { ...original }`, `copy !== original`, pero `copy.user === original.user` si `user` es un objeto.',
+      },
+      {
+        id: 'topic-015-structuredclone',
+        question: '¿`structuredClone`?',
+        answer: 'Clona estructuras soportadas y ciclos; no clona funciones.',
+      },
+      {
+        id: 'topic-016-prototipo',
+        question: '¿Prototipo?',
+        answer:
+          'Objeto delegado que JavaScript consulta cuando una propiedad falta en el receiver.',
+      },
+      {
+        id: 'topic-017-own-property',
+        question: '¿Own property?',
+        answer:
+          'Propiedad definida en el objeto, comprobable con Object.hasOwn.',
+      },
+      {
+        id: 'topic-018-for-in-o-for-of',
+        question: '¿`for...in` o `for...of`?',
+        answer:
+          'In recorre claves enumerables; of recorre valores de un iterable.',
+      },
+      {
+        id: 'topic-019-metodos-de-array-mutables',
+        question: '¿Métodos de array mutables?',
+        answer:
+          'Push, pop, shift, unshift, splice, sort, reverse, fill y copyWithin.',
+      },
+      {
+        id: 'topic-020-find-o-filter',
+        question: '¿`find` o `filter`?',
+        answer:
+          'Find devuelve el primer match; filter crea un array con todos.',
+      },
+      {
+        id: 'topic-021-pure-function',
+        question: '¿Pure function?',
+        answer:
+          'Mismo resultado para mismas entradas y sin efectos observables.',
+      },
+      {
+        id: 'topic-022-currying',
+        question: '¿Currying?',
+        answer:
+          'Convierte una función de varios argumentos en una secuencia de funciones.',
+      },
+      {
+        id: 'topic-116-inmutabilidad',
+        question: '¿Inmutabilidad?',
+        answer:
+          'Crear nuevas referencias en lugar de mutar estado compartido; mejora previsibilidad y detección.',
+      },
+      {
+        id: 'topic-117-object-freeze',
+        question: '¿`Object.freeze`?',
+        answer:
+          'Congelación superficial; no protege objetos anidados sin trabajo adicional.',
       },
     ],
     references: [
@@ -635,6 +889,46 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
         answer:
           '`Promise.all` rechaza al recibir el primer rechazo observable, pero las operaciones restantes continúan salvo que su API admita cancelación. Uso `allSettled` cuando necesito el resultado de cada operación y `AbortController` cuando debo detener I/O compatible.',
       },
+      {
+        id: 'topic-023-debounce-o-throttle',
+        question: '¿Debounce o throttle?',
+        answer:
+          'Debounce espera silencio; throttle limita ejecuciones por intervalo.',
+      },
+      {
+        id: 'topic-024-promise-all',
+        question: '¿`Promise.all`?',
+        answer: 'Conserva orden y rechaza al primer rechazo observado.',
+      },
+      {
+        id: 'topic-025-allsettled',
+        question: '¿`allSettled`?',
+        answer: 'Espera todos y devuelve el estado de cada operación.',
+      },
+      {
+        id: 'topic-026-abortcontroller',
+        question: '¿AbortController?',
+        answer:
+          'Emite una señal de cancelación que consumen fetch y otras APIs.',
+      },
+      {
+        id: 'topic-027-async-bloquea-el-thread',
+        question: '¿Async bloquea el thread?',
+        answer:
+          'No. Await cede la continuación; CPU síncrono sigue bloqueando.',
+      },
+      {
+        id: 'topic-028-unhandled-rejection',
+        question: '¿Unhandled rejection?',
+        answer:
+          'Promise rechazada sin handler; registrala y corregí la cadena, no la ocultes.',
+      },
+      {
+        id: 'topic-114-microtask',
+        question: '¿Microtask?',
+        answer:
+          'Cola de promesas que se drena antes de la siguiente macrotask.',
+      },
     ],
     code: "function delay(ms, value) {\n  return new Promise((resolve) => {\n    setTimeout(() => resolve(value), ms);\n  });\n}\n\nasync function loadDashboard() {\n  const userRequest = delay(300, { id: 7 });\n  const settingsRequest = delay(200, { theme: 'dark' });\n\n  try {\n    const [user, settings] = await Promise.all([\n      userRequest,\n      settingsRequest,\n    ]);\n    return { user, settings };\n  } catch (error) {\n    throw new Error('No se pudo cargar el dashboard', { cause: error });\n  }\n}\n\nconsole.log('A');\nsetTimeout(() => console.log('B'), 0);\nPromise.resolve().then(() => console.log('C'));\nqueueMicrotask(() => console.log('D'));\nconsole.log('E');\n\n// A, E, C, D, B\nloadDashboard().then(console.log).catch(console.error);",
     references: [
@@ -760,6 +1054,17 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
         answer:
           'Cuando un contrato deriva de otro de forma mecánica. `type Flags<T> = { [K in keyof T]: boolean }` conserva las keys y cambia sus valores. Esto evita duplicar modelos que luego divergen.',
       },
+      {
+        id: 'topic-112-unknown',
+        question: '¿`unknown`?',
+        answer:
+          'Tipo seguro para valor no validado; obliga a estrechar antes de usar.',
+      },
+      {
+        id: 'topic-113-never',
+        question: '¿`never`?',
+        answer: 'Representa estados imposibles y permite checks exhaustivos.',
+      },
     ],
     code: "type LoadState<T> =\n  | { kind: 'idle' }\n  | { kind: 'loading' }\n  | { kind: 'success'; data: T }\n  | { kind: 'error'; error: Error };\n\nfunction assertNever(value: never): never {\n  throw new Error(`Unhandled state: ${JSON.stringify(value)}`);\n}",
     references: [
@@ -862,6 +1167,12 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
           '¿Qué adoptarías primero al modernizar una aplicación antigua?',
         answer:
           'Actualizo majors soportadas y estabilizo tests. Después reduzco NgModules con standalone, migro control flow y recién introduzco Signals o zoneless donde el modelo de estado lo justifique. Cada etapa conserva una forma de medir y revertir.',
+      },
+      {
+        id: 'topic-081-standalone',
+        question: '¿Standalone?',
+        answer:
+          'Componente que declara dependencias en imports y no necesita declaración en NgModule.',
       },
     ],
     code: "bootstrapApplication(AppComponent, {\n  providers: [provideRouter(routes), provideHttpClient()],\n});\n\n@Component({\n  selector: 'app-root',\n  template: `\n    <button [disabled]=\"saving()\" (click)=\"save()\">\n      {{ saving() ? 'Guardando…' : 'Guardar' }}\n    </button>\n  `,\n})\nexport class AppComponent {\n  saving = signal(false);\n}",
@@ -968,6 +1279,24 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
         question: '¿Cómo crearías un componente dinámico con bindings?',
         answer:
           'Uso `ViewContainerRef.createComponent` si debe formar parte de esa view y paso `bindings` con `inputBinding`, `outputBinding` o `twoWayBinding`. Para un caso declarativo puedo usar `NgComponentOutlet`; para lazy loading visual prefiero evaluar `@defer`.',
+      },
+      {
+        id: 'topic-061-componente-o-directiva',
+        question: '¿Componente o directiva?',
+        answer:
+          'El componente posee vista; la directiva agrega comportamiento a un host.',
+      },
+      {
+        id: 'topic-062-pipe-pura',
+        question: '¿Pipe pura?',
+        answer:
+          'Angular puede reutilizar el resultado mientras no cambien las referencias de entrada.',
+      },
+      {
+        id: 'topic-063-for-track',
+        question: '¿`@for track`?',
+        answer:
+          'Asocia identidad de datos con nodos DOM para minimizar creación y conservar estado.',
       },
     ],
     code: "@Component({\n  selector: 'user-picker',\n  host: { '[class.disabled]': 'disabled()' },\n  template: `\n    @let selected = selectedUser();\n    <button #trigger (click)=\"open.set(true)\">{{ selected?.name ?? 'Elegir' }}</button>\n    <ng-template #row let-user>\n      <button (click)=\"select(user)\">{{ user.name }}</button>\n    </ng-template>\n  `,\n})\nexport class UserPicker {\n  disabled = input(false);\n  selectedUser = model<User | null>(null);\n  open = signal(false);\n}",
@@ -1170,6 +1499,35 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
         answer:
           'Grabo una interacción con Angular DevTools y el Performance panel, identifico qué notificación marcó la rama y reviso referencias, funciones de template y efectos. Cambio una causa y vuelvo a medir scripting e INP.',
       },
+      {
+        id: 'topic-064-computed-o-effect',
+        question: '¿`computed` o `effect`?',
+        answer:
+          '`computed` deriva estado; `effect` sincroniza con una API externa.',
+      },
+      {
+        id: 'topic-077-onpush',
+        question: '¿OnPush?',
+        answer:
+          'Permite saltar subárboles hasta que una notificación relevante marca la vista.',
+      },
+      {
+        id: 'topic-078-zoneless',
+        question: '¿Zoneless?',
+        answer:
+          'Angular recibe notificaciones explícitas y evita usar ZoneJS para inferir cambios.',
+      },
+      {
+        id: 'topic-079-markforcheck',
+        question: '¿`markForCheck`?',
+        answer: 'Marca la vista para una próxima verificación.',
+      },
+      {
+        id: 'topic-080-detectchanges',
+        question: '¿`detectChanges`?',
+        answer:
+          'Ejecuta verificación local; su uso frecuente suele indicar un flujo defectuoso.',
+      },
     ],
     code: "private readonly query = signal('');\nreadonly normalizedQuery = computed(() => this.query().trim().toLowerCase());\nreadonly results = computed(() =>\n  this.items().filter(x => x.name.toLowerCase().includes(this.normalizedQuery()))\n);",
     references: [
@@ -1267,6 +1625,27 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
         question: "¿Qué riesgo tiene `providedIn: 'root'`?",
         answer:
           'Convierte el servicio en singleton de aplicación. Si guarda estado de pantalla o usuario sin una política de reset, puede mezclar ciclos de navegación y sesiones. El scope debe coincidir con la vida útil del dato.',
+      },
+      {
+        id: 'topic-073-providedin-root',
+        question: '¿`providedIn: root`?',
+        answer: 'Provider tree-shakeable en el root EnvironmentInjector.',
+      },
+      {
+        id: 'topic-074-providers-local',
+        question: '¿`providers` local?',
+        answer:
+          'Nueva instancia en el ElementInjector del componente y sus descendientes visibles.',
+      },
+      {
+        id: 'topic-075-viewproviders',
+        question: '¿`viewProviders`?',
+        answer: 'Oculta esos providers al contenido proyectado.',
+      },
+      {
+        id: 'topic-076-injectiontoken',
+        question: '¿InjectionToken?',
+        answer: 'Token runtime tipado para valores, funciones o interfaces.',
       },
     ],
     code: "export const ANALYTICS = new InjectionToken<Analytics>('analytics');\n\nexport const appConfig: ApplicationConfig = {\n  providers: [\n    { provide: ANALYTICS, useClass: BrowserAnalytics },\n    { provide: HTTP_INTERCEPTORS, useClass: AuditInterceptor, multi: true },\n  ],\n};",
@@ -1369,6 +1748,44 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
         answer:
           'Elijo la política de concurrencia: `switchMap` reemplaza, `concatMap` encola, `mergeMap` permite paralelismo y `exhaustMap` ignora nuevas entradas mientras una sigue activa. La semántica del negocio decide cuál pérdida u orden resulta válido.',
       },
+      {
+        id: 'topic-066-switchmap',
+        question: '¿`switchMap`?',
+        answer: 'Cancela el inner anterior al llegar una nueva emisión.',
+      },
+      {
+        id: 'topic-067-concatmap',
+        question: '¿`concatMap`?',
+        answer: 'Encola inner observables y conserva orden.',
+      },
+      {
+        id: 'topic-068-exhaustmap',
+        question: '¿`exhaustMap`?',
+        answer: 'Ignora nuevos disparos mientras el inner sigue activo.',
+      },
+      {
+        id: 'topic-069-mergemap',
+        question: '¿`mergeMap`?',
+        answer:
+          'Ejecuta inner observables en paralelo con concurrencia configurable.',
+      },
+      {
+        id: 'topic-070-forkjoin',
+        question: '¿`forkJoin`?',
+        answer:
+          'Emite una vez cuando todos completan; falla si alguno falla y no sirve para streams infinitos.',
+      },
+      {
+        id: 'topic-071-cold-observable',
+        question: '¿Cold observable?',
+        answer: 'Cada subscription crea su propio productor.',
+      },
+      {
+        id: 'topic-072-sharereplay',
+        question: '¿`shareReplay`?',
+        answer:
+          'Comparte y reproduce valores; necesita política de refCount, error e invalidación.',
+      },
     ],
     code: 'results$ = this.query.valueChanges.pipe(\n  debounceTime(250),\n  distinctUntilChanged(),\n  switchMap(query => this.api.search(query).pipe(\n    catchError(error => of({ items: [], error }))\n  )),\n  shareReplay({ bufferSize: 1, refCount: true })\n);',
     references: [
@@ -1460,6 +1877,33 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
         question: '¿Qué pondrías en el store global?',
         answer:
           'Estado de dominio compartido cuya vida cruza rutas y necesita coordinación. Estados de foco, accordion o formulario temporal permanecen cerca del componente salvo que otra parte de la aplicación deba controlarlos.',
+      },
+      {
+        id: 'topic-065-signal-o-behaviorsubject',
+        question: '¿Signal o BehaviorSubject?',
+        answer:
+          'Signal para estado síncrono de UI; BehaviorSubject cuando necesitás semántica y operadores RxJS.',
+      },
+      {
+        id: 'topic-103-ngrx-reducer',
+        question: '¿NgRx reducer?',
+        answer: 'Función pura que calcula nuevo estado desde estado y action.',
+      },
+      {
+        id: 'topic-104-ngrx-effect',
+        question: '¿NgRx effect?',
+        answer: 'Reacciona a eventos y coordina I/O u otros efectos.',
+      },
+      {
+        id: 'topic-105-selector',
+        question: '¿Selector?',
+        answer: 'Consulta derivada y memorizada sobre el store.',
+      },
+      {
+        id: 'topic-106-optimistic-update',
+        question: '¿Optimistic update?',
+        answer:
+          'Actualiza UI antes de confirmar y define rollback o reconciliación.',
       },
     ],
     references: [
@@ -1558,6 +2002,23 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
         answer:
           'Uso RouterTestingHarness con rutas reales, navego una URL y compruebo componente, redirects y estado visible. Tests aislados cubren la lógica de guards o resolvers y los de integración cubren el orden de navegación.',
       },
+      {
+        id: 'topic-082-lazy-route',
+        question: '¿Lazy route?',
+        answer:
+          'Carga código al navegar a la feature, reduciendo el bundle inicial.',
+      },
+      {
+        id: 'topic-083-guard',
+        question: '¿Guard?',
+        answer:
+          'Control de navegación en cliente; no reemplaza autorización del servidor.',
+      },
+      {
+        id: 'topic-084-resolver',
+        question: '¿Resolver?',
+        answer: 'Obtiene datos antes de activar la ruta.',
+      },
     ],
     code: "export const routes: Routes = [{\n  path: 'users/:id',\n  loadComponent: () => import('./user.page').then(m => m.UserPage),\n  canActivate: [authGuard],\n  resolve: { user: userResolver },\n  providers: [UserFeatureStore],\n}];",
     references: [
@@ -1653,6 +2114,23 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
         question: '¿Cómo enfocás el primer error al enviar?',
         answer:
           'Marco controles como touched, localizo el primer elemento inválido siguiendo el orden visual, lo enfoco y conecto el mensaje con `aria-describedby`. Un resumen de errores puede enlazar cada campo en formularios largos.',
+      },
+      {
+        id: 'topic-085-reactive-form',
+        question: '¿Reactive Form?',
+        answer:
+          'Modelo explícito y observable en TypeScript, apto para composición y validación compleja.',
+      },
+      {
+        id: 'topic-086-cva',
+        question: '¿CVA?',
+        answer: 'Contrato que conecta un control custom con Angular Forms.',
+      },
+      {
+        id: 'topic-087-async-validator',
+        question: '¿Async validator?',
+        answer:
+          'Validador que completa con errores o null; controlá cancelación y frecuencia.',
       },
     ],
     code: "readonly form = new FormGroup({\n  email: new FormControl('', {\n    nonNullable: true,\n    validators: [Validators.required, Validators.email],\n    asyncValidators: [uniqueEmailValidator(this.http)],\n    updateOn: 'blur',\n  }),\n  addresses: new FormArray<FormGroup<AddressControls>>([]),\n});",
@@ -1750,6 +2228,17 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
         answer:
           'Comparto una única operación de refresh mientras esté activa, encolo o reintento las requests originales después del nuevo token y limpio el estado al terminar. Si el refresh falla, cierro sesión una sola vez.',
       },
+      {
+        id: 'topic-088-interceptor',
+        question: '¿Interceptor?',
+        answer:
+          'Middleware de requests y responses para preocupaciones transversales.',
+      },
+      {
+        id: 'topic-089-retry',
+        question: '¿Retry?',
+        answer: 'Solo con política, límite y seguridad de idempotencia.',
+      },
     ],
     code: 'export const authInterceptor: HttpInterceptorFn = (request, next) => {\n  const token = inject(AuthStore).token();\n  const authenticated = request.clone({\n    setHeaders: { Authorization: `Bearer ${token}` },\n  });\n  return next(authenticated);\n};',
     references: [
@@ -1836,6 +2325,72 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
         answer:
           'No. CORS controla qué respuestas puede leer JavaScript desde otro origin en un navegador. Un script de servidor puede llamar al endpoint. La API todavía necesita autenticación, autorización y validación.',
       },
+      {
+        id: 'topic-029-dom',
+        question: '¿DOM?',
+        answer: 'Árbol de nodos y APIs que representan el documento.',
+      },
+      {
+        id: 'topic-030-bom',
+        question: '¿BOM?',
+        answer:
+          'APIs del navegador fuera del documento, como history, location y navigator.',
+      },
+      {
+        id: 'topic-031-event-bubbling',
+        question: '¿Event bubbling?',
+        answer:
+          'El evento asciende desde el target por ancestros que participan.',
+      },
+      {
+        id: 'topic-032-event-delegation',
+        question: '¿Event delegation?',
+        answer:
+          'Listener en un ancestro que decide según el target; reduce listeners y cubre hijos dinámicos.',
+      },
+      {
+        id: 'topic-033-preventdefault',
+        question: '¿preventDefault?',
+        answer: 'Evita la acción predeterminada si el evento es cancelable.',
+      },
+      {
+        id: 'topic-034-localstorage',
+        question: '¿localStorage?',
+        answer: 'Almacenamiento síncrono string por origin y persistente.',
+      },
+      {
+        id: 'topic-035-indexeddb',
+        question: '¿IndexedDB?',
+        answer:
+          'Base asíncrona del navegador para datos estructurados y mayor volumen.',
+      },
+      {
+        id: 'topic-036-same-origin',
+        question: '¿Same-origin?',
+        answer: 'Coincidencia de scheme, host y port.',
+      },
+      {
+        id: 'topic-037-preflight',
+        question: '¿Preflight?',
+        answer:
+          'Request OPTIONS con la que el navegador consulta permiso CORS.',
+      },
+      {
+        id: 'topic-038-etag',
+        question: '¿ETag?',
+        answer: 'Validador de representación para revalidación condicional.',
+      },
+      {
+        id: 'topic-039-service-worker',
+        question: '¿Service Worker?',
+        answer:
+          'Worker con lifecycle que intercepta red y habilita offline/push.',
+      },
+      {
+        id: 'topic-040-web-worker',
+        question: '¿Web Worker?',
+        answer: 'Thread para JavaScript sin acceso directo al DOM.',
+      },
     ],
     references: [
       {
@@ -1915,6 +2470,17 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
         answer:
           'Cuando concentra varios stores o servicios, traduce modelos y ofrece casos de uso estables a la UI. Si sólo reenvía cada método con el mismo nombre y tipo, agrega navegación sin reducir acoplamiento.',
       },
+      {
+        id: 'topic-125-micro-frontend',
+        question: '¿Micro-frontend?',
+        answer:
+          'Unidad de frontend con ownership y despliegue independiente, a cambio de integración y duplicación.',
+      },
+      {
+        id: 'topic-126-adr',
+        question: '¿ADR?',
+        answer: 'Registro corto de una decisión, alternativas y consecuencias.',
+      },
     ],
     references: [
       {
@@ -1990,6 +2556,34 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
           '¿Qué señal indica que una abstracción llegó demasiado pronto?',
         answer:
           'La interfaz tiene una sola implementación, replica todos sus métodos y cambia junto con el detalle. Espero casos de variación concretos y extraigo la frontera que esos casos comparten.',
+      },
+      {
+        id: 'topic-107-facade',
+        question: '¿Facade?',
+        answer:
+          'API estable que reduce superficie de un subsistema; puede ocultar demasiado si no protege un límite.',
+      },
+      {
+        id: 'topic-108-adapter',
+        question: '¿Adapter?',
+        answer: 'Traduce un contrato externo al modelo interno.',
+      },
+      {
+        id: 'topic-109-strategy',
+        question: '¿Strategy?',
+        answer: 'Encapsula políticas intercambiables detrás de un contrato.',
+      },
+      {
+        id: 'topic-110-srp',
+        question: '¿SRP?',
+        answer:
+          'Una unidad concentra responsabilidades que cambian por el mismo motivo.',
+      },
+      {
+        id: 'topic-111-dip',
+        question: '¿DIP?',
+        answer:
+          'El código de alto nivel depende de abstracciones, no de detalles concretos.',
       },
     ],
     references: [
@@ -2067,6 +2661,21 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
         question: '¿Cuándo virtual scroll no alcanza?',
         answer:
           'Virtual scroll reduce nodos DOM, pero no reduce datos descargados, filtros costosos ni memoria del modelo completo. Con cientos de miles de filas combino paginación server-side, consultas remotas y una ventana visible accesible.',
+      },
+      {
+        id: 'topic-098-lcp',
+        question: '¿LCP?',
+        answer: 'Tiempo hasta renderizar el mayor elemento visible.',
+      },
+      {
+        id: 'topic-099-inp',
+        question: '¿INP?',
+        answer: 'Latencia observada de interacciones durante la sesión.',
+      },
+      {
+        id: 'topic-100-cls',
+        question: '¿CLS?',
+        answer: 'Suma de cambios inesperados de layout.',
       },
     ],
     references: [
@@ -2161,6 +2770,29 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
           '¿Por qué evitarías cambiar el árbol con `isPlatformBrowser`?',
         answer:
           'La condición puede hacer que servidor y cliente creen nodos distintos durante la hidratación. Mantengo la misma estructura y ejecuto sólo la integración browser después del render, o excluyo de hidratación un caso aislado como último recurso.',
+      },
+      {
+        id: 'topic-094-ssr',
+        question: '¿SSR?',
+        answer:
+          'Render por request en servidor; ayuda SEO y HTML inicial, agrega costo operativo.',
+      },
+      {
+        id: 'topic-095-ssg',
+        question: '¿SSG?',
+        answer: 'HTML generado en build para contenido estable.',
+      },
+      {
+        id: 'topic-096-hydration',
+        question: '¿Hydration?',
+        answer:
+          'Angular reutiliza HTML de servidor y conecta comportamiento cliente.',
+      },
+      {
+        id: 'topic-097-defer',
+        question: '¿`@defer`?',
+        answer:
+          'Divide dependencias y carga una vista según trigger o condición.',
       },
     ],
     code: 'bootstrapApplication(AppComponent, {\n  providers: [provideClientHydration()],\n});\n\n// La estructura renderizada debe coincidir en servidor y cliente.\n@defer (on viewport; hydrate on interaction) {\n  <reviews-panel />\n} @placeholder {\n  <reviews-skeleton />\n}',
@@ -2260,6 +2892,30 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
         answer:
           'Método, URL, params, headers y body que forman parte del contrato; luego responde con éxito o error y comprueba el resultado visible. `verify()` asegura que no quedaron requests sin resolver.',
       },
+      {
+        id: 'topic-118-unit-test',
+        question: '¿Unit test?',
+        answer:
+          'Prueba una unidad con fronteras controladas y feedback rápido.',
+      },
+      {
+        id: 'topic-119-integration-test',
+        question: '¿Integration test?',
+        answer:
+          'Verifica colaboración entre varias unidades o una frontera real.',
+      },
+      {
+        id: 'topic-120-e2e',
+        question: '¿E2E?',
+        answer:
+          'Prueba un recorrido del usuario a través del sistema desplegado o equivalente.',
+      },
+      {
+        id: 'topic-121-harness',
+        question: '¿Harness?',
+        answer:
+          'API estable para interactuar con un componente en tests sin depender de su DOM interno.',
+      },
     ],
     code: "it('shows the resolved user', async () => {\n  const harness = await RouterTestingHarness.create('/users/7');\n  const request = http.expectOne('/api/users/7');\n  request.flush({ id: 7, name: 'Ada' });\n  await harness.fixture.whenStable();\n  expect(harness.routeNativeElement?.textContent).toContain('Ada');\n});",
     references: [
@@ -2339,6 +2995,30 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
         question: '¿Dónde guardarías un token de sesión?',
         answer:
           'Depende del modelo de amenazas. Una cookie HttpOnly reduce robo directo por XSS y requiere protección CSRF; memoria evita persistencia pero se pierde al recargar. No presento localStorage como opción segura por defecto para credenciales de larga vida.',
+      },
+      {
+        id: 'topic-090-xss',
+        question: '¿XSS?',
+        answer:
+          'Ejecución de script no confiable; evitá sinks peligrosos y mantené sanitización y CSP.',
+      },
+      {
+        id: 'topic-091-csrf',
+        question: '¿CSRF?',
+        answer:
+          'Petición autenticada inducida desde otro origen; afecta sobre todo credenciales automáticas como cookies.',
+      },
+      {
+        id: 'topic-092-csp',
+        question: '¿CSP?',
+        answer:
+          'Política del navegador que limita fuentes de scripts, estilos y otros recursos.',
+      },
+      {
+        id: 'topic-093-trusted-types',
+        question: '¿Trusted Types?',
+        answer:
+          'Restringe asignaciones a sinks DOM peligrosos a valores creados por políticas confiables.',
       },
     ],
     references: [
@@ -2498,6 +3178,24 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
         answer:
           'Límites de bundle inicial y chunks críticos, typecheck, tests y métricas del recorrido principal. Un presupuesto debe fallar cerca de la causa y tener owner; una cifra ignorada en cada pipeline no protege rendimiento.',
       },
+      {
+        id: 'topic-101-tree-shaking',
+        question: '¿Tree shaking?',
+        answer:
+          'El bundler elimina código no alcanzable cuando el formato y las dependencias lo permiten.',
+      },
+      {
+        id: 'topic-102-aot',
+        question: '¿AOT?',
+        answer:
+          'Compila templates en build, reduce trabajo runtime y detecta errores antes.',
+      },
+      {
+        id: 'topic-124-feature-flag',
+        question: '¿Feature flag?',
+        answer:
+          'Control temporal de exposición con owner, métricas y plan de retiro.',
+      },
     ],
     references: [
       {
@@ -2574,6 +3272,18 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
         question: '¿Qué datos evitarías enviar a telemetría?',
         answer:
           'Tokens, passwords, bodies sensibles, datos personales sin necesidad y HTML completo. Defino una allowlist, anonimizo identificadores y aplico sampling y retención según el propósito operativo.',
+      },
+      {
+        id: 'topic-122-memory-leak-tipico',
+        question: '¿Memory leak típico?',
+        answer:
+          'Subscription, listener, timer, observer o cache que conserva una vista destruida.',
+      },
+      {
+        id: 'topic-123-correlation-id',
+        question: '¿Correlation ID?',
+        answer:
+          'Identificador que conecta eventos frontend, gateway y backend de una operación.',
       },
     ],
     references: [
@@ -2899,709 +3609,6 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
         url: 'https://google.github.io/eng-practices/',
       },
     ],
-  },
-];
-
-export const RAPID_QUESTIONS: readonly StudyQuestion[] = [
-  {
-    id: 'rapid-001-tipos-primitivos',
-    question: '¿Tipos primitivos?',
-    answer: 'undefined, null, boolean, number, bigint, string y symbol.',
-  },
-  {
-    id: 'rapid-002-typeof-null',
-    question: '¿`typeof null`?',
-    answer:
-      'Devuelve `object` por compatibilidad histórica; verificá null de forma explícita.',
-  },
-  {
-    id: 'rapid-003-nan-nan',
-    question: '¿`NaN === NaN`?',
-    answer: 'False. Usá `Number.isNaN` u `Object.is`.',
-  },
-  {
-    id: 'rapid-004-null-y-undefined',
-    question: '¿`null` y `undefined`?',
-    answer:
-      'Null suele expresar ausencia intencional; undefined expresa falta de valor o propiedad.',
-  },
-  {
-    id: 'rapid-005-truthy-y-falsy',
-    question: '¿Truthy y falsy?',
-    answer:
-      'La conversión booleana determina branches; objetos y arrays vacíos son truthy.',
-  },
-  {
-    id: 'rapid-006-temporal-dead-zone',
-    question: '¿Temporal Dead Zone?',
-    answer:
-      'Es el tramo entre la entrada al bloque y la inicialización de un binding `let`, `const` o `class`. El binding ya pertenece al scope, pero leerlo lanza `ReferenceError`; por ejemplo, `console.log(total); let total = 1;`.',
-  },
-  {
-    id: 'rapid-007-hoisting',
-    question: '¿Hoisting?',
-    answer:
-      'El entorno registra declaraciones antes de ejecutar; la disponibilidad depende del tipo de declaración.',
-  },
-  {
-    id: 'rapid-008-this',
-    question: '¿`this`?',
-    answer:
-      'Receiver de una llamada según call-site, salvo arrow que captura el binding exterior.',
-  },
-  {
-    id: 'rapid-009-call-apply-bind',
-    question: '¿`call`, `apply`, `bind`?',
-    answer:
-      'Call invoca con argumentos; apply con array-like; bind crea otra función con receiver o argumentos fijados.',
-  },
-  {
-    id: 'rapid-010-coercion',
-    question: '¿Coerción?',
-    answer:
-      'Conversión entre tipos. Puede ser explícita con `Number`, `String` o `Boolean`, o implícita cuando un operador o contexto necesita otro tipo.',
-  },
-  {
-    id: 'rapid-011-closure',
-    question: '¿Closure?',
-    answer:
-      'Una función conserva los bindings del entorno léxico donde fue creada, incluso si se ejecuta después de que terminó la función exterior. Conserva bindings vivos, no una copia congelada de sus valores.',
-  },
-  {
-    id: 'rapid-012-spread-y-rest',
-    question: '¿Spread y rest?',
-    answer: 'Misma sintaxis: spread expande; rest reúne valores restantes.',
-  },
-  {
-    id: 'rapid-013-destructuring-default',
-    question: '¿Destructuring default?',
-    answer: 'Se aplica ante undefined, no ante null.',
-  },
-  {
-    id: 'rapid-014-shallow-copy',
-    question: '¿Shallow copy?',
-    answer:
-      'Crea un contenedor nuevo y conserva las mismas referencias anidadas. Con `const copy = { ...original }`, `copy !== original`, pero `copy.user === original.user` si `user` es un objeto.',
-  },
-  {
-    id: 'rapid-015-structuredclone',
-    question: '¿`structuredClone`?',
-    answer: 'Clona estructuras soportadas y ciclos; no clona funciones.',
-  },
-  {
-    id: 'rapid-016-prototipo',
-    question: '¿Prototipo?',
-    answer:
-      'Objeto delegado que JavaScript consulta cuando una propiedad falta en el receiver.',
-  },
-  {
-    id: 'rapid-017-own-property',
-    question: '¿Own property?',
-    answer: 'Propiedad definida en el objeto, comprobable con Object.hasOwn.',
-  },
-  {
-    id: 'rapid-018-for-in-o-for-of',
-    question: '¿`for...in` o `for...of`?',
-    answer: 'In recorre claves enumerables; of recorre valores de un iterable.',
-  },
-  {
-    id: 'rapid-019-metodos-de-array-mutables',
-    question: '¿Métodos de array mutables?',
-    answer:
-      'Push, pop, shift, unshift, splice, sort, reverse, fill y copyWithin.',
-  },
-  {
-    id: 'rapid-020-find-o-filter',
-    question: '¿`find` o `filter`?',
-    answer: 'Find devuelve el primer match; filter crea un array con todos.',
-  },
-  {
-    id: 'rapid-021-pure-function',
-    question: '¿Pure function?',
-    answer: 'Mismo resultado para mismas entradas y sin efectos observables.',
-  },
-  {
-    id: 'rapid-022-currying',
-    question: '¿Currying?',
-    answer:
-      'Convierte una función de varios argumentos en una secuencia de funciones.',
-  },
-  {
-    id: 'rapid-023-debounce-o-throttle',
-    question: '¿Debounce o throttle?',
-    answer:
-      'Debounce espera silencio; throttle limita ejecuciones por intervalo.',
-  },
-  {
-    id: 'rapid-024-promise-all',
-    question: '¿`Promise.all`?',
-    answer: 'Conserva orden y rechaza al primer rechazo observado.',
-  },
-  {
-    id: 'rapid-025-allsettled',
-    question: '¿`allSettled`?',
-    answer: 'Espera todos y devuelve el estado de cada operación.',
-  },
-  {
-    id: 'rapid-026-abortcontroller',
-    question: '¿AbortController?',
-    answer: 'Emite una señal de cancelación que consumen fetch y otras APIs.',
-  },
-  {
-    id: 'rapid-027-async-bloquea-el-thread',
-    question: '¿Async bloquea el thread?',
-    answer: 'No. Await cede la continuación; CPU síncrono sigue bloqueando.',
-  },
-  {
-    id: 'rapid-028-unhandled-rejection',
-    question: '¿Unhandled rejection?',
-    answer:
-      'Promise rechazada sin handler; registrala y corregí la cadena, no la ocultes.',
-  },
-  {
-    id: 'rapid-029-dom',
-    question: '¿DOM?',
-    answer: 'Árbol de nodos y APIs que representan el documento.',
-  },
-  {
-    id: 'rapid-030-bom',
-    question: '¿BOM?',
-    answer:
-      'APIs del navegador fuera del documento, como history, location y navigator.',
-  },
-  {
-    id: 'rapid-031-event-bubbling',
-    question: '¿Event bubbling?',
-    answer: 'El evento asciende desde el target por ancestros que participan.',
-  },
-  {
-    id: 'rapid-032-event-delegation',
-    question: '¿Event delegation?',
-    answer:
-      'Listener en un ancestro que decide según el target; reduce listeners y cubre hijos dinámicos.',
-  },
-  {
-    id: 'rapid-033-preventdefault',
-    question: '¿preventDefault?',
-    answer: 'Evita la acción predeterminada si el evento es cancelable.',
-  },
-  {
-    id: 'rapid-034-localstorage',
-    question: '¿localStorage?',
-    answer: 'Almacenamiento síncrono string por origin y persistente.',
-  },
-  {
-    id: 'rapid-035-indexeddb',
-    question: '¿IndexedDB?',
-    answer:
-      'Base asíncrona del navegador para datos estructurados y mayor volumen.',
-  },
-  {
-    id: 'rapid-036-same-origin',
-    question: '¿Same-origin?',
-    answer: 'Coincidencia de scheme, host y port.',
-  },
-  {
-    id: 'rapid-037-preflight',
-    question: '¿Preflight?',
-    answer: 'Request OPTIONS con la que el navegador consulta permiso CORS.',
-  },
-  {
-    id: 'rapid-038-etag',
-    question: '¿ETag?',
-    answer: 'Validador de representación para revalidación condicional.',
-  },
-  {
-    id: 'rapid-039-service-worker',
-    question: '¿Service Worker?',
-    answer: 'Worker con lifecycle que intercepta red y habilita offline/push.',
-  },
-  {
-    id: 'rapid-040-web-worker',
-    question: '¿Web Worker?',
-    answer: 'Thread para JavaScript sin acceso directo al DOM.',
-  },
-  {
-    id: 'rapid-041-etiqueta-semantica',
-    question: '¿Etiqueta semántica?',
-    answer:
-      'Elemento cuyo nombre comunica rol y estructura al navegador y tecnologías asistivas.',
-  },
-  {
-    id: 'rapid-042-head',
-    question: '¿`head`?',
-    answer:
-      'Metadata y recursos del documento, no contenido principal visible.',
-  },
-  {
-    id: 'rapid-043-alt',
-    question: '¿`alt`?',
-    answer:
-      'Alternativa textual que depende de la función de la imagen; decorativas usan alt vacío.',
-  },
-  {
-    id: 'rapid-044-iframe-sandbox',
-    question: '¿`iframe sandbox`?',
-    answer:
-      'Restringe capacidades del documento embebido y se abre con tokens explícitos.',
-  },
-  {
-    id: 'rapid-045-get-o-post-en-form',
-    question: '¿GET o POST en form?',
-    answer:
-      'GET expresa consulta y deja datos en URL; POST envía body para una operación.',
-  },
-  {
-    id: 'rapid-046-submit-default',
-    question: '¿Submit default?',
-    answer: 'Un button dentro de form usa submit si no declarás type.',
-  },
-  {
-    id: 'rapid-047-defer-o-async-script',
-    question: '¿`defer` o `async` script?',
-    answer: 'Defer preserva orden y espera parseo; async ejecuta al descargar.',
-  },
-  {
-    id: 'rapid-048-box-model',
-    question: '¿Box model?',
-    answer: 'Content, padding, border y margin.',
-  },
-  {
-    id: 'rapid-049-specificity',
-    question: '¿Specificity?',
-    answer:
-      'Peso de un selector dentro de la cascada después de origen, importancia y layer.',
-  },
-  {
-    id: 'rapid-050-box-sizing-border-box',
-    question: '¿`box-sizing:border-box`?',
-    answer: 'El width declarado incluye padding y border.',
-  },
-  {
-    id: 'rapid-051-margin-o-padding',
-    question: '¿Margin o padding?',
-    answer: 'Margin separa cajas; padding agrega espacio dentro del borde.',
-  },
-  {
-    id: 'rapid-052-position-absolute',
-    question: '¿Position absolute?',
-    answer: 'Sale del flujo y se posiciona respecto de su containing block.',
-  },
-  {
-    id: 'rapid-053-position-sticky',
-    question: '¿Position sticky?',
-    answer:
-      'Participa en flujo y se fija dentro de su scroll container al cruzar un umbral.',
-  },
-  {
-    id: 'rapid-054-stacking-context',
-    question: '¿Stacking context?',
-    answer: 'Ámbito que limita la comparación de z-index entre descendientes.',
-  },
-  {
-    id: 'rapid-055-pseudo-clase-o-pseudo-elemento',
-    question: '¿Pseudo-clase o pseudo-elemento?',
-    answer:
-      'Pseudo-clase selecciona estado; pseudo-elemento representa una parte generada o conceptual.',
-  },
-  {
-    id: 'rapid-056-bem',
-    question: '¿BEM?',
-    answer: 'Convención Block, Element, Modifier para nombres de clases.',
-  },
-  {
-    id: 'rapid-057-preprocesador-o-framework',
-    question: '¿Preprocesador o framework?',
-    answer:
-      'Preprocesador extiende sintaxis; framework aporta reglas, utilidades o componentes.',
-  },
-  {
-    id: 'rapid-058-media-o-container-query',
-    question: '¿Media o container query?',
-    answer:
-      'Media consulta viewport/dispositivo; container consulta tamaño o estilo del contenedor.',
-  },
-  {
-    id: 'rapid-059-reflow',
-    question: '¿Reflow?',
-    answer:
-      'Recalculo de geometría provocado por cambios o lecturas que requieren layout.',
-  },
-  {
-    id: 'rapid-060-cls',
-    question: '¿CLS?',
-    answer:
-      'Movimiento inesperado de contenido; reservá espacio para imágenes y contenido asíncrono.',
-  },
-  {
-    id: 'rapid-061-componente-o-directiva',
-    question: '¿Componente o directiva?',
-    answer:
-      'El componente posee vista; la directiva agrega comportamiento a un host.',
-  },
-  {
-    id: 'rapid-062-pipe-pura',
-    question: '¿Pipe pura?',
-    answer:
-      'Angular puede reutilizar el resultado mientras no cambien las referencias de entrada.',
-  },
-  {
-    id: 'rapid-063-for-track',
-    question: '¿`@for track`?',
-    answer:
-      'Asocia identidad de datos con nodos DOM para minimizar creación y conservar estado.',
-  },
-  {
-    id: 'rapid-064-computed-o-effect',
-    question: '¿`computed` o `effect`?',
-    answer:
-      '`computed` deriva estado; `effect` sincroniza con una API externa.',
-  },
-  {
-    id: 'rapid-065-signal-o-behaviorsubject',
-    question: '¿Signal o BehaviorSubject?',
-    answer:
-      'Signal para estado síncrono de UI; BehaviorSubject cuando necesitás semántica y operadores RxJS.',
-  },
-  {
-    id: 'rapid-066-switchmap',
-    question: '¿`switchMap`?',
-    answer: 'Cancela el inner anterior al llegar una nueva emisión.',
-  },
-  {
-    id: 'rapid-067-concatmap',
-    question: '¿`concatMap`?',
-    answer: 'Encola inner observables y conserva orden.',
-  },
-  {
-    id: 'rapid-068-exhaustmap',
-    question: '¿`exhaustMap`?',
-    answer: 'Ignora nuevos disparos mientras el inner sigue activo.',
-  },
-  {
-    id: 'rapid-069-mergemap',
-    question: '¿`mergeMap`?',
-    answer:
-      'Ejecuta inner observables en paralelo con concurrencia configurable.',
-  },
-  {
-    id: 'rapid-070-forkjoin',
-    question: '¿`forkJoin`?',
-    answer:
-      'Emite una vez cuando todos completan; falla si alguno falla y no sirve para streams infinitos.',
-  },
-  {
-    id: 'rapid-071-cold-observable',
-    question: '¿Cold observable?',
-    answer: 'Cada subscription crea su propio productor.',
-  },
-  {
-    id: 'rapid-072-sharereplay',
-    question: '¿`shareReplay`?',
-    answer:
-      'Comparte y reproduce valores; necesita política de refCount, error e invalidación.',
-  },
-  {
-    id: 'rapid-073-providedin-root',
-    question: '¿`providedIn: root`?',
-    answer: 'Provider tree-shakeable en el root EnvironmentInjector.',
-  },
-  {
-    id: 'rapid-074-providers-local',
-    question: '¿`providers` local?',
-    answer:
-      'Nueva instancia en el ElementInjector del componente y sus descendientes visibles.',
-  },
-  {
-    id: 'rapid-075-viewproviders',
-    question: '¿`viewProviders`?',
-    answer: 'Oculta esos providers al contenido proyectado.',
-  },
-  {
-    id: 'rapid-076-injectiontoken',
-    question: '¿InjectionToken?',
-    answer: 'Token runtime tipado para valores, funciones o interfaces.',
-  },
-  {
-    id: 'rapid-077-onpush',
-    question: '¿OnPush?',
-    answer:
-      'Permite saltar subárboles hasta que una notificación relevante marca la vista.',
-  },
-  {
-    id: 'rapid-078-zoneless',
-    question: '¿Zoneless?',
-    answer:
-      'Angular recibe notificaciones explícitas y evita usar ZoneJS para inferir cambios.',
-  },
-  {
-    id: 'rapid-079-markforcheck',
-    question: '¿`markForCheck`?',
-    answer: 'Marca la vista para una próxima verificación.',
-  },
-  {
-    id: 'rapid-080-detectchanges',
-    question: '¿`detectChanges`?',
-    answer:
-      'Ejecuta verificación local; su uso frecuente suele indicar un flujo defectuoso.',
-  },
-  {
-    id: 'rapid-081-standalone',
-    question: '¿Standalone?',
-    answer:
-      'Componente que declara dependencias en imports y no necesita declaración en NgModule.',
-  },
-  {
-    id: 'rapid-082-lazy-route',
-    question: '¿Lazy route?',
-    answer:
-      'Carga código al navegar a la feature, reduciendo el bundle inicial.',
-  },
-  {
-    id: 'rapid-083-guard',
-    question: '¿Guard?',
-    answer:
-      'Control de navegación en cliente; no reemplaza autorización del servidor.',
-  },
-  {
-    id: 'rapid-084-resolver',
-    question: '¿Resolver?',
-    answer: 'Obtiene datos antes de activar la ruta.',
-  },
-  {
-    id: 'rapid-085-reactive-form',
-    question: '¿Reactive Form?',
-    answer:
-      'Modelo explícito y observable en TypeScript, apto para composición y validación compleja.',
-  },
-  {
-    id: 'rapid-086-cva',
-    question: '¿CVA?',
-    answer: 'Contrato que conecta un control custom con Angular Forms.',
-  },
-  {
-    id: 'rapid-087-async-validator',
-    question: '¿Async validator?',
-    answer:
-      'Validador que completa con errores o null; controlá cancelación y frecuencia.',
-  },
-  {
-    id: 'rapid-088-interceptor',
-    question: '¿Interceptor?',
-    answer:
-      'Middleware de requests y responses para preocupaciones transversales.',
-  },
-  {
-    id: 'rapid-089-retry',
-    question: '¿Retry?',
-    answer: 'Solo con política, límite y seguridad de idempotencia.',
-  },
-  {
-    id: 'rapid-090-xss',
-    question: '¿XSS?',
-    answer:
-      'Ejecución de script no confiable; evitá sinks peligrosos y mantené sanitización y CSP.',
-  },
-  {
-    id: 'rapid-091-csrf',
-    question: '¿CSRF?',
-    answer:
-      'Petición autenticada inducida desde otro origen; afecta sobre todo credenciales automáticas como cookies.',
-  },
-  {
-    id: 'rapid-092-csp',
-    question: '¿CSP?',
-    answer:
-      'Política del navegador que limita fuentes de scripts, estilos y otros recursos.',
-  },
-  {
-    id: 'rapid-093-trusted-types',
-    question: '¿Trusted Types?',
-    answer:
-      'Restringe asignaciones a sinks DOM peligrosos a valores creados por políticas confiables.',
-  },
-  {
-    id: 'rapid-094-ssr',
-    question: '¿SSR?',
-    answer:
-      'Render por request en servidor; ayuda SEO y HTML inicial, agrega costo operativo.',
-  },
-  {
-    id: 'rapid-095-ssg',
-    question: '¿SSG?',
-    answer: 'HTML generado en build para contenido estable.',
-  },
-  {
-    id: 'rapid-096-hydration',
-    question: '¿Hydration?',
-    answer:
-      'Angular reutiliza HTML de servidor y conecta comportamiento cliente.',
-  },
-  {
-    id: 'rapid-097-defer',
-    question: '¿`@defer`?',
-    answer: 'Divide dependencias y carga una vista según trigger o condición.',
-  },
-  {
-    id: 'rapid-098-lcp',
-    question: '¿LCP?',
-    answer: 'Tiempo hasta renderizar el mayor elemento visible.',
-  },
-  {
-    id: 'rapid-099-inp',
-    question: '¿INP?',
-    answer: 'Latencia observada de interacciones durante la sesión.',
-  },
-  {
-    id: 'rapid-100-cls',
-    question: '¿CLS?',
-    answer: 'Suma de cambios inesperados de layout.',
-  },
-  {
-    id: 'rapid-101-tree-shaking',
-    question: '¿Tree shaking?',
-    answer:
-      'El bundler elimina código no alcanzable cuando el formato y las dependencias lo permiten.',
-  },
-  {
-    id: 'rapid-102-aot',
-    question: '¿AOT?',
-    answer:
-      'Compila templates en build, reduce trabajo runtime y detecta errores antes.',
-  },
-  {
-    id: 'rapid-103-ngrx-reducer',
-    question: '¿NgRx reducer?',
-    answer: 'Función pura que calcula nuevo estado desde estado y action.',
-  },
-  {
-    id: 'rapid-104-ngrx-effect',
-    question: '¿NgRx effect?',
-    answer: 'Reacciona a eventos y coordina I/O u otros efectos.',
-  },
-  {
-    id: 'rapid-105-selector',
-    question: '¿Selector?',
-    answer: 'Consulta derivada y memorizada sobre el store.',
-  },
-  {
-    id: 'rapid-106-optimistic-update',
-    question: '¿Optimistic update?',
-    answer:
-      'Actualiza UI antes de confirmar y define rollback o reconciliación.',
-  },
-  {
-    id: 'rapid-107-facade',
-    question: '¿Facade?',
-    answer:
-      'API estable que reduce superficie de un subsistema; puede ocultar demasiado si no protege un límite.',
-  },
-  {
-    id: 'rapid-108-adapter',
-    question: '¿Adapter?',
-    answer: 'Traduce un contrato externo al modelo interno.',
-  },
-  {
-    id: 'rapid-109-strategy',
-    question: '¿Strategy?',
-    answer: 'Encapsula políticas intercambiables detrás de un contrato.',
-  },
-  {
-    id: 'rapid-110-srp',
-    question: '¿SRP?',
-    answer:
-      'Una unidad concentra responsabilidades que cambian por el mismo motivo.',
-  },
-  {
-    id: 'rapid-111-dip',
-    question: '¿DIP?',
-    answer:
-      'El código de alto nivel depende de abstracciones, no de detalles concretos.',
-  },
-  {
-    id: 'rapid-112-unknown',
-    question: '¿`unknown`?',
-    answer:
-      'Tipo seguro para valor no validado; obliga a estrechar antes de usar.',
-  },
-  {
-    id: 'rapid-113-never',
-    question: '¿`never`?',
-    answer: 'Representa estados imposibles y permite checks exhaustivos.',
-  },
-  {
-    id: 'rapid-114-microtask',
-    question: '¿Microtask?',
-    answer: 'Cola de promesas que se drena antes de la siguiente macrotask.',
-  },
-  {
-    id: 'rapid-115-closure',
-    question: '¿Closure?',
-    answer:
-      'Función junto con su entorno léxico: puede seguir leyendo o modificando los bindings capturados cuando se ejecuta fuera de la llamada que los creó.',
-  },
-  {
-    id: 'rapid-116-inmutabilidad',
-    question: '¿Inmutabilidad?',
-    answer:
-      'Crear nuevas referencias en lugar de mutar estado compartido; mejora previsibilidad y detección.',
-  },
-  {
-    id: 'rapid-117-object-freeze',
-    question: '¿`Object.freeze`?',
-    answer:
-      'Congelación superficial; no protege objetos anidados sin trabajo adicional.',
-  },
-  {
-    id: 'rapid-118-unit-test',
-    question: '¿Unit test?',
-    answer: 'Prueba una unidad con fronteras controladas y feedback rápido.',
-  },
-  {
-    id: 'rapid-119-integration-test',
-    question: '¿Integration test?',
-    answer: 'Verifica colaboración entre varias unidades o una frontera real.',
-  },
-  {
-    id: 'rapid-120-e2e',
-    question: '¿E2E?',
-    answer:
-      'Prueba un recorrido del usuario a través del sistema desplegado o equivalente.',
-  },
-  {
-    id: 'rapid-121-harness',
-    question: '¿Harness?',
-    answer:
-      'API estable para interactuar con un componente en tests sin depender de su DOM interno.',
-  },
-  {
-    id: 'rapid-122-memory-leak-tipico',
-    question: '¿Memory leak típico?',
-    answer:
-      'Subscription, listener, timer, observer o cache que conserva una vista destruida.',
-  },
-  {
-    id: 'rapid-123-correlation-id',
-    question: '¿Correlation ID?',
-    answer:
-      'Identificador que conecta eventos frontend, gateway y backend de una operación.',
-  },
-  {
-    id: 'rapid-124-feature-flag',
-    question: '¿Feature flag?',
-    answer:
-      'Control temporal de exposición con owner, métricas y plan de retiro.',
-  },
-  {
-    id: 'rapid-125-micro-frontend',
-    question: '¿Micro-frontend?',
-    answer:
-      'Unidad de frontend con ownership y despliegue independiente, a cambio de integración y duplicación.',
-  },
-  {
-    id: 'rapid-126-adr',
-    question: '¿ADR?',
-    answer: 'Registro corto de una decisión, alternativas y consecuencias.',
   },
 ];
 

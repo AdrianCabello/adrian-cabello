@@ -13,14 +13,13 @@ import { LanguageService } from '../../i18n/language.service';
 import { LanguageSwitcherComponent } from '../../shared/components/language-switcher/language-switcher.component';
 import {
   PRACTICE_CASES,
-  RAPID_QUESTIONS,
   STUDY_GROUPS,
   STUDY_REFERENCES,
   STUDY_TOPICS,
   StudyTopic,
 } from './angular-senior-guide.data';
 
-type CollectionId = 'all' | 'rapid' | 'practice' | string;
+type CollectionId = 'all' | 'practice' | string;
 
 type TheorySegmentKind = 'text' | 'important' | 'code' | 'match';
 
@@ -216,9 +215,6 @@ export class AngularSeniorGuideComponent {
     if (activeGroup) {
       return this.translate(activeGroup.title);
     }
-    if (sectionId === 'rapid') {
-      return this.translate('Banco rápido');
-    }
     if (sectionId === 'practice') {
       return this.translate('Casos prácticos');
     }
@@ -229,9 +225,10 @@ export class AngularSeniorGuideComponent {
     (total, topic) => total + topic.theory.length,
     0
   );
-  protected readonly questionCount =
-    this.topics.reduce((total, topic) => total + topic.questions.length, 0) +
-    RAPID_QUESTIONS.length;
+  protected readonly questionCount = this.topics.reduce(
+    (total, topic) => total + topic.questions.length,
+    0
+  );
 
   protected readonly completedCount = computed(
     () => this.completedTopicIds().size
@@ -242,7 +239,7 @@ export class AngularSeniorGuideComponent {
 
   protected readonly visibleSections = computed(() => {
     const selected = this.selectedCollection();
-    if (selected === 'rapid' || selected === 'practice') {
+    if (selected === 'practice') {
       return [];
     }
 
@@ -258,21 +255,6 @@ export class AngularSeniorGuideComponent {
         ),
       }))
       .filter(section => section.topics.length > 0);
-  });
-
-  protected readonly visibleRapidQuestions = computed(() => {
-    const selected = this.selectedCollection();
-    if (selected !== 'all' && selected !== 'rapid') {
-      return [];
-    }
-    const normalizedQuery = this.normalize(this.query());
-    const terms = this.queryTerms(normalizedQuery);
-    return RAPID_QUESTIONS.filter(item =>
-      this.matchesTerms(
-        `${item.question} ${item.answer} ${this.translate(item.question)} ${this.translate(item.answer)}`,
-        terms
-      )
-    );
   });
 
   protected readonly visiblePracticeCases = computed(() => {
@@ -293,7 +275,6 @@ export class AngularSeniorGuideComponent {
   protected readonly hasResults = computed(
     () =>
       this.visibleSections().length > 0 ||
-      this.visibleRapidQuestions().length > 0 ||
       this.visiblePracticeCases().length > 0
   );
 
@@ -339,11 +320,9 @@ export class AngularSeniorGuideComponent {
       const targetId =
         collection === 'all'
           ? 'study-content'
-          : collection === 'rapid'
-            ? 'banco-rapido'
-            : collection === 'practice'
-              ? 'casos-practicos'
-              : collection;
+          : collection === 'practice'
+            ? 'casos-practicos'
+            : collection;
       setTimeout(() => {
         this.document.getElementById(targetId)?.scrollIntoView({
           behavior: 'instant' as ScrollBehavior,
