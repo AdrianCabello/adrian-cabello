@@ -85,8 +85,8 @@ THEORY_OVERRIDES: dict[str, dict[int, Replacement]] = {
         2: "`useClass` crea una clase para un token; `useValue` entrega un valor existente; `useExisting` crea un alias; `useFactory` calcula la dependencia con otras inyecciones. Los multi providers acumulan varios valores bajo un token e `InjectionToken` representa contratos que no existen como clase en runtime.",
     },
     "8. RxJS y concurrencia": {
-        3: "La ubicación de `catchError` define qué stream termina. Dentro de `switchMap` o de otro flattening operator, el error se reemplaza sólo para esa petición y el stream exterior puede seguir escuchando. Fuera del operador, el error finaliza la cadena completa salvo que se retorne otro observable.",
-        5: "`Subject` no conserva un valor, `BehaviorSubject` guarda el último y exige uno inicial, y `ReplaySubject` reproduce una cantidad o ventana de emisiones. Exponer sólo `asObservable()` impide que consumidores externos escriban en el estado del productor.",
+        7: "La ubicación de `catchError` define qué stream termina. Dentro de `switchMap` o de otro flattening operator, el error se reemplaza sólo para esa petición y el stream exterior puede seguir escuchando. Fuera del operador, el error finaliza la cadena completa salvo que se retorne otro observable.",
+        9: "`Subject` no conserva un valor, `BehaviorSubject` guarda el último y exige uno inicial, y `ReplaySubject` reproduce una cantidad o ventana de emisiones. Exponer sólo `asObservable()` impide que consumidores externos escriban en el estado del productor.",
     },
     "9. Estado: local, servicios, Signals y NgRx": {
         1: "Server state es una copia local de datos remotos y necesita caché, stale time, invalidación, deduplicación y reintentos. Client state nace en la interfaz, como selección, filtros o un wizard, y su ciclo de vida depende de la navegación y del alcance de la feature.",

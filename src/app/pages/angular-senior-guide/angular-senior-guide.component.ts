@@ -297,6 +297,7 @@ export class AngularSeniorGuideComponent {
   protected readonly copiedPracticeCaseId = signal<string | null>(null);
   protected readonly completedTopicIds = signal<ReadonlySet<string>>(new Set());
   protected readonly collapsedTopicIds = signal<ReadonlySet<string>>(new Set());
+  protected readonly progressWasReset = signal(false);
   protected readonly topicReviews = signal<
     Readonly<Record<string, TopicReview>>
   >({});
@@ -661,6 +662,7 @@ export class AngularSeniorGuideComponent {
   }
 
   protected toggleCompleted(topicId: string): void {
+    this.progressWasReset.set(false);
     const updated = new Set(this.completedTopicIds());
     if (updated.has(topicId)) {
       updated.delete(topicId);
@@ -725,12 +727,30 @@ export class AngularSeniorGuideComponent {
   }
 
   protected setReviewLevel(topicId: string, level: ReviewLevel): void {
+    this.progressWasReset.set(false);
     const updated = {
       ...this.topicReviews(),
       [topicId]: { level, reviewedAt: new Date().toISOString() },
     } satisfies Record<string, TopicReview>;
     this.topicReviews.set(updated);
     this.persistTopicReviews(updated);
+  }
+
+  protected resetProgress(details: HTMLDetailsElement): void {
+    const emptyTopicIds = new Set<string>();
+    this.completedTopicIds.set(emptyTopicIds);
+    this.collapsedTopicIds.set(emptyTopicIds);
+    this.topicReviews.set({});
+    this.progressWasReset.set(true);
+    details.open = false;
+
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
+    const storage = this.document.defaultView?.localStorage;
+    storage?.removeItem(this.storageKey);
+    storage?.removeItem(this.collapsedStorageKey);
+    storage?.removeItem(this.reviewStorageKey);
   }
 
   protected handleAnswerToggle(event: Event): void {

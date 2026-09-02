@@ -295,6 +295,10 @@ CUSTOM_SECTION_TITLES: dict[str, list[str]] = {
     "Entrevista y system design para AI Engineer": ["Discovery y arquitectura", "Escala, fallos y rollout", "Preparación de entrevista"],
 }
 
+CUSTOM_SECTION_SIZES: dict[str, list[int]] = {
+    "RxJS y concurrencia": [3, 7, 2, 2],
+}
+
 
 TOPIC_THEORY_EXAMPLES: dict[str, dict[str, list[dict[str, str]]]] = {
     "JavaScript asíncrono: event loop, Promises y errores": {
@@ -778,6 +782,37 @@ drafts$.pipe(concatMap(d => save(d)));       // guarda en orden
 files$.pipe(mergeMap(f => upload(f), 3));    // hasta 3 concurrentes
 submit$.pipe(exhaustMap(() => checkout()));  // ignora doble submit""",
             },
+            {
+                "title": "map transforma valores; switchMap aplana Observables",
+                "description": "map sirve cuando la proyección devuelve un valor común. Si devuelve un Observable, switchMap gestiona la suscripción interna y evita el subscribe anidado.",
+                "code": """// Observable<string>
+const normalized$ = query$.pipe(
+  map(query => query.trim().toLowerCase())
+);
+
+// Observable<Result[]>: aplana la request interna
+const results$ = query$.pipe(
+  map(query => query.trim()),
+  filter(query => query.length >= 2),
+  switchMap(query => api.search(query))
+);
+
+// Anti-patrón: subscribe dentro de subscribe
+// query$.subscribe(q => api.search(q).subscribe(render));""",
+            },
+            {
+                "title": "La misma secuencia produce comportamientos distintos",
+                "description": "Si A tarda más que B y C, switchMap conserva C; concatMap entrega A, B y C en orden; mergeMap entrega según finalización; exhaustMap conserva A e ignora B y C mientras A siga activo.",
+                "code": """// Fuente:     A────B────C
+// Duración:   A────────|
+//               B──|
+//                    C─|
+
+// switchMap:          C─|       (latest wins)
+// concatMap:  A────────|B──|C─| (cola y orden)
+// mergeMap:     B──|    C─| A|  (concurrencia)
+// exhaustMap: A────────|         (ignora B y C)""",
+            },
         ],
         "Errores y teardown": [
             {
@@ -875,11 +910,20 @@ def build_theory_sections(title: str, items: list[str], group_id: str) -> list[d
             else ["Fundamentos", "Mecanismo y aplicación", "Decisiones y límites"]
         )
     section_count = min(len(labels), max(1, len(items)))
+    custom_sizes = CUSTOM_SECTION_SIZES.get(title)
+    if custom_sizes and sum(custom_sizes) != len(items):
+        raise ValueError(
+            f"Section sizes for {title!r} total {sum(custom_sizes)}, expected {len(items)}"
+        )
     base, extra = divmod(len(items), section_count)
     sections = []
     cursor = 0
     for index in range(section_count):
-        size = base + (1 if index < extra else 0)
+        size = (
+            custom_sizes[index]
+            if custom_sizes
+            else base + (1 if index < extra else 0)
+        )
         section_title = labels[index]
         section = {"title": section_title, "items": items[cursor:cursor + size]}
         examples = TOPIC_THEORY_EXAMPLES.get(title, {}).get(section_title)

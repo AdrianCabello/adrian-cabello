@@ -1434,6 +1434,59 @@
                   </a>
                 }
               </div>
+
+              <div
+                class="mt-8 flex min-h-10 flex-wrap items-start justify-end gap-3 border-t border-white/[0.04] pt-5"
+                data-testid="guide-reset-progress-region">
+                @if (progressWasReset()) {
+                  <p
+                    class="pt-1 font-mono text-[10px] text-emerald-300/70"
+                    role="status"
+                    aria-live="polite"
+                    data-testid="guide-reset-progress-status">
+                    {{ translate('Progreso reiniciado') }}
+                  </p>
+                }
+
+                <details
+                  #resetProgressDetails
+                  class="group max-w-sm text-right">
+                  <summary
+                    class="cursor-pointer rounded px-1 py-1 font-mono text-[10px] text-slate-600 outline-none transition hover:text-slate-400 focus-visible:ring-2 focus-visible:ring-slate-500/60"
+                    data-testid="guide-reset-progress-toggle">
+                    {{ translate('Reiniciar progreso') }}
+                  </summary>
+                  <div
+                    class="mt-2 rounded-lg border border-white/[0.07] bg-slate-950/50 p-3 text-left shadow-xl shadow-black/10">
+                    <p
+                      id="guide-reset-progress-description"
+                      class="text-[11px] leading-5 text-slate-500">
+                      {{
+                        translate(
+                          'Borra los temas completados y los niveles de repaso guardados en este navegador.'
+                        )
+                      }}
+                    </p>
+                    <div class="mt-3 flex justify-end gap-2">
+                      <button
+                        type="button"
+                        class="min-h-9 rounded-md px-3 font-mono text-[10px] font-bold text-slate-500 transition hover:bg-white/5 hover:text-slate-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-400"
+                        data-testid="guide-reset-progress-cancel"
+                        (click)="resetProgressDetails.open = false">
+                        {{ translate('Cancelar') }}
+                      </button>
+                      <button
+                        type="button"
+                        class="min-h-9 rounded-md border border-rose-300/15 px-3 font-mono text-[10px] font-bold text-rose-300/70 transition hover:border-rose-300/35 hover:bg-rose-300/[0.06] hover:text-rose-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-300"
+                        aria-describedby="guide-reset-progress-description"
+                        data-testid="guide-reset-progress-confirm"
+                        (click)="resetProgress(resetProgressDetails)">
+                        {{ translate('Confirmar reinicio') }}
+                      </button>
+                    </div>
+                  </div>
+                </details>
+              </div>
             </footer>
           }
         </div>

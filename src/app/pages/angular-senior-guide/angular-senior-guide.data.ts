@@ -1912,9 +1912,13 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
       'Una subscription representa la ejecución y su teardown. `complete` y `error` cierran el contrato; `unsubscribe` lo termina desde el consumidor. El producer debe registrar cleanup para liberar timers, listeners, sockets o requests cancelables.',
       'La ubicación de `catchError` cambia el alcance del fallo. Dentro de un flattening operator recupera una operación interna y mantiene viva la fuente; afuera termina o reemplaza el flujo completo.',
       '`shareReplay` comparte una subscription y conserva emisiones para suscriptores tardíos. Antes de usarlo como caché hay que decidir tamaño de buffer, refCount, reset, errores, vida útil y aislamiento por usuario.',
-      'Cold observables crean el productor por subscription; hot observables comparten un productor externo. `share` y `shareReplay` cambian esa relación.',
-      '`switchMap` cancela el inner anterior; sirve para búsqueda. `concatMap` serializa; sirve para preservar orden. `mergeMap` permite concurrencia. `exhaustMap` ignora disparos mientras uno está activo.',
-      '`map` transforma valores; `tap` ejecuta efectos; `filter` decide emisiones; `scan` acumula; `catchError` define el límite del error.',
+      'Cold observables crean el productor por subscription: dos suscriptores pueden ejecutar dos requests o dos timers independientes. Hot observables comparten un productor externo, como eventos del DOM o un WebSocket. `share` comparte la suscripción mientras corresponde y `shareReplay` además conserva emisiones para consumidores tardíos; ninguno define por sí solo invalidación, expiración ni aislamiento de caché.',
+      'Los operadores simples trabajan sobre cada emisión sin crear una suscripción interna. `map` transforma `T` en `R`; `filter` decide si una emisión continúa; `tap` observa para logging o efectos sin modificar el valor; `scan` acumula estado a lo largo del tiempo. Si una proyección devuelve un Observable, `map` produce un Observable de Observables: hace falta una política de flattening.',
+      'Los flattening operators combinan dos decisiones: transformar cada emisión exterior en un inner Observable y decidir qué hacer cuando llega otra emisión antes de que el inner anterior termine. La pregunta de entrevista no es cuál operador es mejor, sino qué política de concurrencia coincide con el caso de negocio.',
+      '`switchMap` aplica latest wins: se desuscribe del inner anterior y conserva sólo el más reciente. Es ideal para búsquedas, cambios de ruta o filtros donde una respuesta vieja ya no interesa. Con `HttpClient`, el unsubscribe aborta la request del navegador, pero no garantiza que el servidor revierta trabajo que ya comenzó. No lo uses para escrituras que deben completarse todas.',
+      '`concatMap` aplica queue and preserve order: espera que el inner actual complete antes de iniciar el siguiente. Sirve para autosaves o comandos cuyo orden importa. La contrapartida es backlog: si la fuente produce más rápido de lo que cada inner completa, la cola y la latencia crecen.',
+      '`mergeMap` aplica run concurrently: mantiene varios inners activos y entrega cada resultado cuando llega, sin preservar el orden de entrada. Encaja en uploads o lecturas independientes. Su parámetro de concurrencia permite limitar presión sobre red y backend; sin límite, una fuente rápida puede abrir demasiado trabajo.',
+      '`exhaustMap` aplica first wins while busy: acepta la primera emisión, ignora las siguientes mientras el inner está activo y vuelve a escuchar cuando completa. Sirve para evitar doble submit o login repetido. No encola los intentos ignorados y no conviene cuando la última intención del usuario debe reemplazar a la primera.',
       'La ubicación de `catchError` define qué stream termina. Dentro de `switchMap` o de otro flattening operator, el error se reemplaza sólo para esa petición y el stream exterior puede seguir escuchando. Fuera del operador, el error finaliza la cadena completa salvo que se retorne otro observable.',
       '`combineLatest` reacciona a últimos valores; `forkJoin` espera que todos completen; `withLatestFrom` toma contexto cuando la fuente emite.',
       '`Subject` no conserva un valor, `BehaviorSubject` guarda el último y exige uno inicial, y `ReplaySubject` reproduce una cantidad o ventana de emisiones. Exponer sólo `asObservable()` impide que consumidores externos escriban en el estado del productor.',
@@ -1940,9 +1944,13 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
       {
         title: 'Operadores y concurrencia',
         items: [
-          'Cold observables crean el productor por subscription; hot observables comparten un productor externo. `share` y `shareReplay` cambian esa relación.',
-          '`switchMap` cancela el inner anterior; sirve para búsqueda. `concatMap` serializa; sirve para preservar orden. `mergeMap` permite concurrencia. `exhaustMap` ignora disparos mientras uno está activo.',
-          '`map` transforma valores; `tap` ejecuta efectos; `filter` decide emisiones; `scan` acumula; `catchError` define el límite del error.',
+          'Cold observables crean el productor por subscription: dos suscriptores pueden ejecutar dos requests o dos timers independientes. Hot observables comparten un productor externo, como eventos del DOM o un WebSocket. `share` comparte la suscripción mientras corresponde y `shareReplay` además conserva emisiones para consumidores tardíos; ninguno define por sí solo invalidación, expiración ni aislamiento de caché.',
+          'Los operadores simples trabajan sobre cada emisión sin crear una suscripción interna. `map` transforma `T` en `R`; `filter` decide si una emisión continúa; `tap` observa para logging o efectos sin modificar el valor; `scan` acumula estado a lo largo del tiempo. Si una proyección devuelve un Observable, `map` produce un Observable de Observables: hace falta una política de flattening.',
+          'Los flattening operators combinan dos decisiones: transformar cada emisión exterior en un inner Observable y decidir qué hacer cuando llega otra emisión antes de que el inner anterior termine. La pregunta de entrevista no es cuál operador es mejor, sino qué política de concurrencia coincide con el caso de negocio.',
+          '`switchMap` aplica latest wins: se desuscribe del inner anterior y conserva sólo el más reciente. Es ideal para búsquedas, cambios de ruta o filtros donde una respuesta vieja ya no interesa. Con `HttpClient`, el unsubscribe aborta la request del navegador, pero no garantiza que el servidor revierta trabajo que ya comenzó. No lo uses para escrituras que deben completarse todas.',
+          '`concatMap` aplica queue and preserve order: espera que el inner actual complete antes de iniciar el siguiente. Sirve para autosaves o comandos cuyo orden importa. La contrapartida es backlog: si la fuente produce más rápido de lo que cada inner completa, la cola y la latencia crecen.',
+          '`mergeMap` aplica run concurrently: mantiene varios inners activos y entrega cada resultado cuando llega, sin preservar el orden de entrada. Encaja en uploads o lecturas independientes. Su parámetro de concurrencia permite limitar presión sobre red y backend; sin límite, una fuente rápida puede abrir demasiado trabajo.',
+          '`exhaustMap` aplica first wins while busy: acepta la primera emisión, ignora las siguientes mientras el inner está activo y vuelve a escuchar cuando completa. Sirve para evitar doble submit o login repetido. No encola los intentos ignorados y no conviene cuando la última intención del usuario debe reemplazar a la primera.',
         ],
         examples: [
           {
@@ -1950,6 +1958,18 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
             description:
               'La elección depende de qué hacer con trabajos solapados: reemplazar, ordenar, ejecutar juntos o ignorar nuevos intentos.',
             code: 'query$.pipe(switchMap(q => search(q)));       // reemplaza la búsqueda\ndrafts$.pipe(concatMap(d => save(d)));       // guarda en orden\nfiles$.pipe(mergeMap(f => upload(f), 3));    // hasta 3 concurrentes\nsubmit$.pipe(exhaustMap(() => checkout()));  // ignora doble submit',
+          },
+          {
+            title: 'map transforma valores; switchMap aplana Observables',
+            description:
+              'map sirve cuando la proyección devuelve un valor común. Si devuelve un Observable, switchMap gestiona la suscripción interna y evita el subscribe anidado.',
+            code: '// Observable<string>\nconst normalized$ = query$.pipe(\n  map(query => query.trim().toLowerCase())\n);\n\n// Observable<Result[]>: aplana la request interna\nconst results$ = query$.pipe(\n  map(query => query.trim()),\n  filter(query => query.length >= 2),\n  switchMap(query => api.search(query))\n);\n\n// Anti-patrón: subscribe dentro de subscribe\n// query$.subscribe(q => api.search(q).subscribe(render));',
+          },
+          {
+            title: 'La misma secuencia produce comportamientos distintos',
+            description:
+              'Si A tarda más que B y C, switchMap conserva C; concatMap entrega A, B y C en orden; mergeMap entrega según finalización; exhaustMap conserva A e ignora B y C mientras A siga activo.',
+            code: '// Fuente:     A────B────C\n// Duración:   A────────|\n//               B──|\n//                    C─|\n\n// switchMap:          C─|       (latest wins)\n// concatMap:  A────────|B──|C─| (cola y orden)\n// mergeMap:     B──|    C─| A|  (concurrencia)\n// exhaustMap: A────────|         (ignora B y C)',
           },
         ],
       },

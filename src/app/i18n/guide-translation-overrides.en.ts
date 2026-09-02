@@ -317,4 +317,32 @@ export const GUIDE_ENGLISH_TRANSLATION_OVERRIDES: Readonly<
     'Cache with explicit invalidation after a write',
   'La lectura se comparte, pero guardar invalida deliberadamente el valor anterior. La caché tiene un evento de renovación en lugar de depender de una duración accidental.':
     'The read is shared, but saving deliberately invalidates the previous value. The cache has a refresh event instead of relying on an accidental lifetime.',
+  'Cold observables crean el productor por subscription: dos suscriptores pueden ejecutar dos requests o dos timers independientes. Hot observables comparten un productor externo, como eventos del DOM o un WebSocket. `share` comparte la suscripción mientras corresponde y `shareReplay` además conserva emisiones para consumidores tardíos; ninguno define por sí solo invalidación, expiración ni aislamiento de caché.':
+    'Cold observables create the producer per subscription: two subscribers can execute two independent requests or timers. Hot observables share an external producer, such as DOM events or a WebSocket. `share` shares the subscription while appropriate, and `shareReplay` also retains emissions for late consumers; neither defines cache invalidation, expiration or isolation by itself.',
+  'Los operadores simples trabajan sobre cada emisión sin crear una suscripción interna. `map` transforma `T` en `R`; `filter` decide si una emisión continúa; `tap` observa para logging o efectos sin modificar el valor; `scan` acumula estado a lo largo del tiempo. Si una proyección devuelve un Observable, `map` produce un Observable de Observables: hace falta una política de flattening.':
+    'Simple operators work on each emission without creating an inner subscription. `map` transforms `T` into `R`; `filter` decides whether an emission continues; `tap` observes for logging or effects without modifying the value; `scan` accumulates state over time. If a projection returns an Observable, `map` produces an Observable of Observables: a flattening policy is required.',
+  'Los flattening operators combinan dos decisiones: transformar cada emisión exterior en un inner Observable y decidir qué hacer cuando llega otra emisión antes de que el inner anterior termine. La pregunta de entrevista no es cuál operador es mejor, sino qué política de concurrencia coincide con el caso de negocio.':
+    'Flattening operators combine two decisions: transform each outer emission into an inner Observable and decide what to do when another emission arrives before the previous inner completes. The interview question is not which operator is best, but which concurrency policy matches the business case.',
+  '`switchMap` aplica latest wins: se desuscribe del inner anterior y conserva sólo el más reciente. Es ideal para búsquedas, cambios de ruta o filtros donde una respuesta vieja ya no interesa. Con `HttpClient`, el unsubscribe aborta la request del navegador, pero no garantiza que el servidor revierta trabajo que ya comenzó. No lo uses para escrituras que deben completarse todas.':
+    '`switchMap` applies latest wins: it unsubscribes from the previous inner and keeps only the latest one. It is ideal for searches, route changes or filters where an old response no longer matters. With `HttpClient`, unsubscribe aborts the browser request, but it does not guarantee the server will undo work already started. Do not use it for writes that must all complete.',
+  '`concatMap` aplica queue and preserve order: espera que el inner actual complete antes de iniciar el siguiente. Sirve para autosaves o comandos cuyo orden importa. La contrapartida es backlog: si la fuente produce más rápido de lo que cada inner completa, la cola y la latencia crecen.':
+    '`concatMap` applies queue and preserve order: it waits for the current inner to complete before starting the next one. It works for autosaves or commands where order matters. The tradeoff is backlog: if the source emits faster than each inner completes, the queue and latency grow.',
+  '`mergeMap` aplica run concurrently: mantiene varios inners activos y entrega cada resultado cuando llega, sin preservar el orden de entrada. Encaja en uploads o lecturas independientes. Su parámetro de concurrencia permite limitar presión sobre red y backend; sin límite, una fuente rápida puede abrir demasiado trabajo.':
+    '`mergeMap` applies run concurrently: it keeps several inners active and delivers each result as it arrives without preserving input order. It fits uploads or independent reads. Its concurrency parameter limits pressure on the network and backend; without a limit, a fast source can open too much work.',
+  '`exhaustMap` aplica first wins while busy: acepta la primera emisión, ignora las siguientes mientras el inner está activo y vuelve a escuchar cuando completa. Sirve para evitar doble submit o login repetido. No encola los intentos ignorados y no conviene cuando la última intención del usuario debe reemplazar a la primera.':
+    '`exhaustMap` applies first wins while busy: it accepts the first emission, ignores subsequent ones while the inner is active, and listens again after completion. It prevents duplicate submits or repeated logins. It does not queue ignored attempts and is unsuitable when the latest user intent should replace the first.',
+  'map transforma valores; switchMap aplana Observables':
+    'map transforms values; switchMap flattens Observables',
+  'map sirve cuando la proyección devuelve un valor común. Si devuelve un Observable, switchMap gestiona la suscripción interna y evita el subscribe anidado.':
+    'map works when the projection returns a regular value. If it returns an Observable, switchMap manages the inner subscription and avoids nested subscribe calls.',
+  'La misma secuencia produce comportamientos distintos':
+    'The same sequence produces different behaviors',
+  'Si A tarda más que B y C, switchMap conserva C; concatMap entrega A, B y C en orden; mergeMap entrega según finalización; exhaustMap conserva A e ignora B y C mientras A siga activo.':
+    'If A takes longer than B and C, switchMap keeps C; concatMap delivers A, B and C in order; mergeMap delivers by completion time; exhaustMap keeps A and ignores B and C while A remains active.',
+  'Reiniciar progreso': 'Reset progress',
+  'Borra los temas completados y los niveles de repaso guardados en este navegador.':
+    'Deletes completed topics and review levels saved in this browser.',
+  Cancelar: 'Cancel',
+  'Confirmar reinicio': 'Confirm reset',
+  'Progreso reiniciado': 'Progress reset',
 };
