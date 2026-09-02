@@ -1,11 +1,57 @@
 export const GUIDE_ENGLISH_TRANSLATION_OVERRIDES: Readonly<
   Record<string, string>
 > = {
+  Pomodoro: 'Pomodoro',
+  'Ritmo de estudio': 'Study rhythm',
+  Foco: 'Focus',
+  Descanso: 'Break',
+  'Temporizador Pomodoro': 'Pomodoro timer',
+  'Arrastrar Pomodoro': 'Drag Pomodoro',
+  'Arrastrá para mover': 'Drag to move',
+  Mover: 'Move',
+  'Restaurar posición': 'Reset position',
+  'Posición restaurada': 'Position reset',
+  'Historial de estudio': 'Study history',
+  'min hoy': 'min today',
+  Hoy: 'Today',
+  Total: 'Total',
+  'Últimas sesiones': 'Recent sessions',
+  'Completá tu primer foco para empezar el historial.':
+    'Complete your first focus session to start your history.',
+  'Modo del temporizador': 'Timer mode',
+  Duración: 'Duration',
+  'Duración del ciclo': 'Cycle duration',
+  'En curso': 'Running',
+  Preparado: 'Ready',
+  Iniciar: 'Start',
+  Pausar: 'Pause',
+  Reiniciar: 'Reset',
+  Cerrar: 'Close',
+  'Cerrar temporizador': 'Close timer',
+  'Abrir temporizador': 'Open timer',
+  'Pausar temporizador': 'Pause timer',
+  'Temporizador pausado': 'Timer paused',
+  'Temporizador reiniciado': 'Timer reset',
+  'Modo seleccionado': 'Selected mode',
+  iniciado: 'started',
+  sesión: 'session',
+  sesiones: 'sessions',
+  Sonido: 'Sound',
+  Sí: 'On',
+  No: 'Off',
+  'Foco terminado. Es momento de descansar.':
+    'Focus complete. It is time for a break.',
+  'Descanso terminado. Volvé cuando estés listo.':
+    'Break complete. Come back when you are ready.',
   temas: 'topics',
   tema: 'topic',
   'Angular moderno': 'Modern Angular',
   'Criterio Senior': 'Senior judgment',
   'TypeScript avanzado': 'Advanced TypeScript',
+  'Compartir guía': 'Share guide',
+  'Compartir la guía en LinkedIn': 'Share the guide on LinkedIn',
+  'vez compartida': 'share',
+  'veces compartida': 'shares',
   'Ir al contenido': 'Skip to content',
   'Adrian Cabello, Full-Stack Product Engineer y Tech Lead':
     'Adrian Cabello, Full-Stack Product Engineer and Tech Lead',
@@ -21,6 +67,41 @@ export const GUIDE_ENGLISH_TRANSLATION_OVERRIDES: Readonly<
     'How to reason and answer as a Senior engineer',
   'Abrir tema': 'Open topic',
   'Cerrar tema': 'Collapse topic',
+  'Audio del tema': 'Topic audio',
+  'Explicación narrada': 'Narrated explanation',
+  Español: 'Spanish',
+  'Escuchar explicación de': 'Listen to the explanation of',
+  'Tu navegador no puede reproducir este audio.':
+    'Your browser cannot play this audio.',
+  'Descargar audio': 'Download audio',
+  Velocidad: 'Speed',
+  'Velocidad de reproducción': 'Playback speed',
+  ' veces la velocidad normal': ' times normal speed',
+  'Resumen rápido': 'Quick summary',
+  'Orden de la primera inicialización': 'First initialization order',
+  'Angular recorre estas etapas una sola vez al crear el componente.':
+    'Angular goes through these stages once when it creates the component.',
+  'Asignación de inputs': 'Input assignment',
+  'Angular crea la instancia y resuelve la inyección de dependencias.':
+    'Angular creates the instance and resolves dependency injection.',
+  'Angular entrega los valores iniciales recibidos desde el padre.':
+    'Angular assigns the initial values received from the parent.',
+  'Recibe el primer SimpleChanges antes de inicializar el componente.':
+    'Receives the first SimpleChanges before initializing the component.',
+  'Ejecuta una vez la inicialización que necesita los inputs listos.':
+    'Runs initialization that requires ready inputs once.',
+  'Permite una comprobación manual durante el primer recorrido.':
+    'Allows a manual check during the first traversal.',
+  'Content hooks': 'Content hooks',
+  'ngAfterContentInit y luego ngAfterContentChecked.':
+    'ngAfterContentInit followed by ngAfterContentChecked.',
+  'View hooks': 'View hooks',
+  'ngAfterViewInit y luego ngAfterViewChecked.':
+    'ngAfterViewInit followed by ngAfterViewChecked.',
+  'Render callbacks': 'Render callbacks',
+  'afterNextRender y afterEveryRender, sólo en el navegador.':
+    'afterNextRender and afterEveryRender, in the browser only.',
+  'Luego se repite': 'Then each check repeats',
   '¿Temporal Dead Zone?': 'Temporal Dead Zone?',
   '`var` usa scope de función y permite redeclaración. `let` y `const` usan scope de bloque y temporal dead zone. `const` impide reasignar la variable, pero el valor referenciado puede mutar.':
     '`var` has function scope and allows redeclaration. `let` and `const` have block scope and remain in the Temporal Dead Zone until initialized. `const` prevents reassignment of the binding, but the referenced value can still mutate.',
@@ -99,4 +180,141 @@ export const GUIDE_ENGLISH_TRANSLATION_OVERRIDES: Readonly<
     "With explicit conversion, the code states its intention: `Number(input.value)`, `String(id)`, or `Boolean(flag)`. Implicit coercion occurs inside an operator or context: `'5' - 1` produces `4`, `1 + '2'` produces `'12'`, and `if ('false')` enters because the string is not empty. Coercion is not automatically an error; templates, comparisons, and operators depend on it. The risk appears when it hides a contract. At external boundaries I convert, validate, and keep a stable type from that point onward.",
   "`ToPrimitive` es la operación abstracta que convierte un objeto en un valor primitivo antes de que otro algoritmo continúe. Si existe, llama a `Symbol.toPrimitive`; en caso contrario prueba `valueOf` y `toString` en un orden que depende del hint. Deben devolver un primitivo o la conversión falla con `TypeError`. Por eso `[] + 1` produce `'1'`: el array se vuelve `''` y `+` concatena. Un objeto puede personalizar el resultado con `[Symbol.toPrimitive](hint)`, pero hacerlo de forma sorprendente vuelve los operadores difíciles de razonar; normalmente prefiero métodos explícitos de dominio.":
     "`ToPrimitive` is the abstract operation that converts an object into a primitive value before another algorithm continues. If present, it calls `Symbol.toPrimitive`; otherwise it tries `valueOf` and `toString` in an order determined by the hint. They must return a primitive or conversion fails with a `TypeError`. That is why `[] + 1` produces `'1'`: the array becomes `''` and `+` concatenates. An object can customize the result with `[Symbol.toPrimitive](hint)`, but surprising behavior makes operators difficult to reason about; I normally prefer explicit domain methods.",
+  'Ejemplos prácticos': 'Practical examples',
+  'Ver código': 'View code',
+  'OnPush: nueva referencia frente a mutación':
+    'OnPush: new reference versus mutation',
+  'El hijo vuelve a comprobarse cuando recibe una referencia nueva. Mutar el mismo objeto conserva la identidad y puede dejar la vista desactualizada.':
+    'The child is checked again when it receives a new reference. Mutating the same object preserves its identity and can leave the view stale.',
+  'Estado writable y derivación con computed':
+    'Writable state and derivation with computed',
+  'La consulta y los productos son fuentes de verdad. La lista visible se calcula sólo cuando alguna dependencia leída cambia.':
+    'The query and products are sources of truth. The visible list is calculated only when a dependency it reads changes.',
+  'computed para derivar; effect para una frontera externa':
+    'computed for derivation; effect for an external boundary',
+  'El total no se copia en otro signal. El efecto se reserva para sincronizar el valor final con una API no reactiva como localStorage.':
+    'The total is not copied into another signal. The effect is reserved for synchronizing the final value with a non-reactive API such as localStorage.',
+  'Dependencias dinámicas en computed': 'Dynamic dependencies in computed',
+  'Cuando showDetails es false, el computed no lee details. Los cambios de details dejan de invalidar esa derivación hasta que la rama vuelva a leerlos.':
+    'When showDetails is false, the computed does not read details. Changes to details stop invalidating that derivation until the branch reads it again.',
+  'Object.is: mutación profunda frente a update inmutable':
+    'Object.is: deep mutation versus immutable update',
+  'El primer método reutiliza exactamente el mismo objeto y no publica un cambio. El segundo crea una referencia nueva que el signal puede notificar.':
+    'The first method reuses the exact same object and does not publish a change. The second creates a new reference that the signal can notify.',
+  'untracked para una lectura incidental': 'untracked for an incidental read',
+  'El efecto depende del usuario actual. El contador sólo aporta contexto al log y no debe volver a ejecutar el efecto por sí solo.':
+    'The effect depends on the current user. The counter only adds context to the log and should not rerun the effect by itself.',
+  'Zoneless: actualizar mediante una API que notifica':
+    'Zoneless: update through a notifying API',
+  'Aunque la callback venga de una librería externa, escribir el valor en un signal leído por la plantilla agenda la actualización de la vista.':
+    'Even when the callback comes from an external library, writing the value to a signal read by the template schedules a view update.',
+  'RxJS para concurrencia; signal para la vista':
+    'RxJS for concurrency; signal for the view',
+  'RxJS resuelve debounce y cancelación de requests. toSignal entrega a la plantilla un estado síncrono con valor inicial.':
+    'RxJS handles debouncing and request cancellation. toSignal gives the template synchronous state with an initial value.',
+  'Event loop: task, microtasks y render':
+    'Event loop: task, microtasks and rendering',
+  'El stack síncrono termina primero; después se vacían todas las microtasks y recién entonces puede ejecutarse otra task. El orden esperado es A, D, C, B.':
+    'The synchronous stack finishes first; then every microtask is drained before another task can run. The expected order is A, D, C, B.',
+  'await secuencial frente a Promise.all':
+    'Sequential await versus Promise.all',
+  'Si ambas operaciones son independientes, iniciarlas juntas evita sumar sus latencias. La versión secuencial sigue siendo correcta cuando la segunda necesita el resultado de la primera.':
+    'When both operations are independent, starting them together avoids adding their latencies. The sequential version remains correct when the second operation needs the first result.',
+  'Observable con teardown real': 'Observable with real teardown',
+  'Desuscribirse sólo detiene el trabajo cuando el producer registra cómo limpiarlo. Aquí cada suscripción crea y destruye su propio intervalo.':
+    'Unsubscribing only stops the work when the producer registers how to clean it up. Here each subscription creates and destroys its own interval.',
+  'Evitar una respuesta obsoleta con AbortController':
+    'Preventing a stale response with AbortController',
+  'Cada búsqueda cancela la request anterior. También se verifica la respuesta porque cancelar es una petición cooperativa y el trabajo remoto podría haber avanzado.':
+    'Each search cancels the previous request. The response is also checked because cancellation is cooperative and remote work may already have progressed.',
+  'unknown obliga a validar; any propaga el riesgo':
+    'unknown requires validation; any spreads the risk',
+  'Los datos externos siguen siendo unknown hasta demostrar su forma en runtime. Una anotación TypeScript no transforma ni valida la respuesta recibida.':
+    'External data remains unknown until its shape is proven at runtime. A TypeScript annotation neither transforms nor validates the received response.',
+  'Discriminated union sin estados imposibles':
+    'Discriminated union without impossible states',
+  'El discriminante status habilita únicamente los campos válidos para cada estado y evita combinar loading, data y error como booleanos independientes.':
+    'The status discriminant exposes only the fields valid for each state and avoids combining loading, data and error as independent booleans.',
+  'Generic que conserva la relación entre key y valor':
+    'Generic that preserves the relationship between key and value',
+  'El parámetro K relaciona la clave elegida con el tipo exacto de esa propiedad. Con string y unknown esa relación se perdería.':
+    'The K parameter relates the selected key to the exact type of that property. Using string and unknown would lose that relationship.',
+  'satisfies valida sin ensanchar los literales':
+    'satisfies validates without widening literals',
+  'satisfies comprueba el contrato completo y conserva las claves y valores concretos inferidos, algo útil para configuración tipada.':
+    'satisfies checks the full contract while preserving the inferred concrete keys and values, which is useful for typed configuration.',
+  'El lugar del provider define la instancia':
+    'Provider placement defines the instance',
+  'Un provider root comparte estado en toda la aplicación. Declararlo en el componente crea una instancia aislada para cada subárbol.':
+    'A root provider shares state across the application. Declaring it in a component creates an isolated instance for each subtree.',
+  'useExisting reutiliza; useClass crea otra instancia':
+    'useExisting reuses; useClass creates another instance',
+  'useExisting crea un alias al mismo objeto. Reemplazarlo por useClass construiría una segunda instancia y separaría accidentalmente el estado.':
+    'useExisting creates an alias to the same object. Replacing it with useClass would construct a second instance and accidentally split the state.',
+  'skipSelf para extender un contrato del ancestro':
+    'skipSelf to extend an ancestor contract',
+  'El componente obtiene la configuración superior y publica una versión especializada para sus descendientes sin intentar inyectarse a sí mismo.':
+    'The component obtains the parent configuration and publishes a specialized version to its descendants without trying to inject itself.',
+  'catchError interno conserva vivo el buscador':
+    'An inner catchError keeps the search stream alive',
+  'El error se recupera dentro de switchMap, por lo que una request fallida no termina valueChanges y la siguiente consulta todavía funciona.':
+    'The error is recovered inside switchMap, so a failed request does not terminate valueChanges and the next query still works.',
+  'Cuatro flattening operators, cuatro políticas':
+    'Four flattening operators, four policies',
+  'La elección depende de qué hacer con trabajos solapados: reemplazar, ordenar, ejecutar juntos o ignorar nuevos intentos.':
+    'The choice depends on what overlapping work should do: replace, queue, run concurrently or ignore new attempts.',
+  'takeUntilDestroyed vincula el flujo al componente':
+    'takeUntilDestroyed ties the stream to the component',
+  'La suscripción se completa al destruir el contexto de inyección. Los efectos externos siguen concentrados en tap y el pipeline conserva su teardown.':
+    'The subscription completes when the injection context is destroyed. External effects remain concentrated in tap and the pipeline preserves its teardown.',
+  'shareReplay no reemplaza una política de caché':
+    'shareReplay does not replace a caching policy',
+  'El observable comparte una request entre consumidores activos, pero la invalidación continúa siendo explícita mediante refresh.':
+    'The observable shares one request among active consumers, but invalidation remains explicit through refresh.',
+  'Input derivado con computed en lugar de sincronización manual':
+    'Input derived with computed instead of manual synchronization',
+  'Cuando el resultado depende únicamente de un signal input, computed conserva una sola fuente de verdad. ngOnChanges queda para comparar transiciones o coordinar trabajo imperativo.':
+    'When the result depends only on a signal input, computed keeps a single source of truth. ngOnChanges remains useful for comparing transitions or coordinating imperative work.',
+  'afterNextRender separa escritura y lectura del layout':
+    'afterNextRender separates layout writes and reads',
+  'Primero se modifica el DOM y después se mide. Separar las fases evita intercalar escrituras con lecturas geométricas que fuerzan layout repetidamente.':
+    'The DOM is modified first and measured afterward. Separating phases avoids interleaving writes with geometric reads that repeatedly force layout.',
+  'DestroyRef mantiene el cleanup junto al recurso':
+    'DestroyRef keeps cleanup next to the resource',
+  'El observer nace y se destruye en el mismo bloque conceptual. Esto evita dejar listeners vivos cuando el componente desaparece.':
+    'The observer is created and destroyed in the same conceptual block. This prevents listeners from remaining alive after the component disappears.',
+  'Estado efímero cerca del componente':
+    'Ephemeral state close to the component',
+  'La apertura del panel sólo le importa a esta vista. Llevarla a un store global añadiría acciones, selectors y coordinación sin aportar un consumidor real.':
+    'Only this view cares whether the panel is open. Moving it to a global store would add actions, selectors and coordination without adding a real consumer.',
+  'Servicio de feature con escritura encapsulada':
+    'Feature service with encapsulated writes',
+  'Las vistas leen signals readonly y sólo el servicio modifica la fuente. El total sigue siendo una derivación, no una copia sincronizada.':
+    'Views read readonly signals and only the service modifies the source. The total remains a derivation rather than a synchronized copy.',
+  'Cuándo el mismo flujo justifica NgRx': 'When the same flow justifies NgRx',
+  'Cuando varias pantallas reaccionan al mismo hecho, una action de dominio permite coordinar reducer y effects de forma observable. Para un único componente sería complejidad innecesaria.':
+    'When several screens react to the same event, a domain action coordinates reducers and effects observably. It would be unnecessary complexity for a single component.',
+  'Formulario tipado con contrato explícito':
+    'Typed form with an explicit contract',
+  'NonNullableFormBuilder evita que controles requeridos produzcan null. El tipo de los controles queda separado del DTO que finalmente se envía.':
+    'NonNullableFormBuilder prevents required controls from producing null. The control type remains separate from the DTO eventually sent.',
+  'Validator cruzado colocado en el grupo':
+    'Cross-field validator placed on the group',
+  'La regla compara dos controles, por eso pertenece al FormGroup. El error describe la relación sin marcar individualmente como inválido un valor correcto.':
+    'The rule compares two controls, so it belongs on the FormGroup. The error describes the relationship without marking an individually correct value as invalid.',
+  'FormArray tipado para filas dinámicas': 'Typed FormArray for dynamic rows',
+  'Cada fila conserva su estructura de controles y una identidad de dominio. El índice sirve para acceder al control, no como identidad persistente del dato.':
+    'Each row preserves its control structure and domain identity. The index accesses the control but is not the persistent identity of the data.',
+  'Interceptor funcional que no filtra credenciales':
+    'Functional interceptor that does not leak credentials',
+  'El token se agrega sólo a la API propia. Clonar toda request sin comprobar destino podría enviar autorización a URLs de terceros.':
+    'The token is added only to the first-party API. Cloning every request without checking its destination could send authorization to third-party URLs.',
+  'switchMap cancela la búsqueda HTTP anterior':
+    'switchMap cancels the previous HTTP search',
+  'Cada consulta nueva desuscribe la request anterior de HttpClient. catchError está dentro para que un fallo puntual no termine el buscador completo.':
+    'Each new query unsubscribes from the previous HttpClient request. catchError stays inside so one failure does not terminate the entire search stream.',
+  'Caché con invalidación explícita después de escribir':
+    'Cache with explicit invalidation after a write',
+  'La lectura se comparte, pero guardar invalida deliberadamente el valor anterior. La caché tiene un evento de renovación en lugar de depender de una duración accidental.':
+    'The read is shared, but saving deliberately invalidates the previous value. The cache has a refresh event instead of relying on an accidental lifetime.',
 };

@@ -1,0 +1,253 @@
+<div class="pomodoro-root" data-testid="pomodoro-region">
+  <button
+    type="button"
+    class="pomodoro-launcher"
+    [class.pomodoro-launcher-running]="running()"
+    [attr.aria-label]="launcherLabel()"
+    [attr.aria-expanded]="panelOpen()"
+    [attr.title]="translate('Arrastrá para mover')"
+    aria-controls="pomodoro-panel"
+    data-testid="pomodoro-launcher"
+    (pointerdown)="startDrag($event)"
+    (click)="togglePanel()">
+    <span class="pomodoro-launcher-dot" aria-hidden="true"></span>
+    <span class="pomodoro-launcher-copy">
+      <span class="pomodoro-launcher-phase">{{ phaseLabel() }}</span>
+      <span class="pomodoro-launcher-time">{{ formattedTime() }}</span>
+    </span>
+  </button>
+
+  <button
+    type="button"
+    class="pomodoro-backdrop"
+    [class.pomodoro-backdrop-visible]="panelOpen()"
+    [attr.aria-hidden]="!panelOpen()"
+    [attr.tabindex]="panelOpen() ? 0 : -1"
+    [attr.aria-label]="translate('Cerrar temporizador')"
+    data-testid="pomodoro-backdrop"
+    (click)="closePanel()"></button>
+
+  <section
+    id="pomodoro-panel"
+    class="pomodoro-panel max-h-[calc(100dvh-5rem)] overflow-y-auto"
+    [class.pomodoro-panel-open]="panelOpen()"
+    [attr.aria-label]="translate('Temporizador Pomodoro')"
+    data-testid="pomodoro-panel">
+    <header class="pomodoro-header">
+      <div>
+        <p class="pomodoro-eyebrow">{{ translate('Ritmo de estudio') }}</p>
+        <h2>{{ translate('Pomodoro') }}</h2>
+      </div>
+      <div class="pomodoro-header-actions">
+        <button
+          type="button"
+          class="pomodoro-drag-handle"
+          [attr.aria-label]="translate('Arrastrar Pomodoro')"
+          [attr.title]="translate('Arrastrá para mover')"
+          data-testid="pomodoro-drag-handle"
+          (pointerdown)="startDrag($event)">
+          {{ translate('Mover') }}
+        </button>
+        <button
+          type="button"
+          class="pomodoro-close"
+          [attr.aria-label]="translate('Cerrar temporizador')"
+          data-testid="pomodoro-close"
+          (click)="closePanel()">
+          {{ translate('Cerrar') }}
+        </button>
+      </div>
+    </header>
+
+    <div
+      class="pomodoro-phase-tabs"
+      role="group"
+      [attr.aria-label]="translate('Modo del temporizador')">
+      <button
+        type="button"
+        [class.pomodoro-tab-active]="phase() === 'focus'"
+        [disabled]="running()"
+        [attr.aria-pressed]="phase() === 'focus'"
+        data-testid="pomodoro-phase-focus"
+        (click)="selectPhase('focus')">
+        {{ translate('Foco') }}
+      </button>
+      <button
+        type="button"
+        [class.pomodoro-tab-active]="phase() === 'break'"
+        [disabled]="running()"
+        [attr.aria-pressed]="phase() === 'break'"
+        data-testid="pomodoro-phase-break"
+        (click)="selectPhase('break')">
+        {{ translate('Descanso') }}
+      </button>
+    </div>
+
+    <div class="pomodoro-time-block">
+      <span class="pomodoro-state">{{
+        running() ? translate('En curso') : translate('Preparado')
+      }}</span>
+      <time
+        class="pomodoro-time"
+        [attr.datetime]="'PT' + remainingSeconds() + 'S'">
+        {{ formattedTime() }}
+      </time>
+      <span class="pomodoro-session-count">{{ sessionLabel() }}</span>
+    </div>
+
+    <div class="pomodoro-actions">
+      <button
+        type="button"
+        class="pomodoro-primary-action"
+        data-testid="pomodoro-toggle"
+        (click)="toggleTimer()">
+        {{ timerActionLabel() }}
+      </button>
+      <button
+        type="button"
+        class="pomodoro-secondary-action"
+        data-testid="pomodoro-reset"
+        (click)="resetTimer()">
+        {{ translate('Reiniciar') }}
+      </button>
+    </div>
+
+    <div class="pomodoro-settings">
+      <div>
+        <p>{{ translate('Duración') }}</p>
+        <div
+          class="pomodoro-preset-group"
+          role="group"
+          [attr.aria-label]="translate('Duración del ciclo')">
+          <button
+            type="button"
+            [class.pomodoro-preset-active]="preset() === 'classic'"
+            [disabled]="running()"
+            [attr.aria-pressed]="preset() === 'classic'"
+            data-testid="pomodoro-preset-classic"
+            (click)="selectPreset('classic')">
+            25 / 5
+          </button>
+          <button
+            type="button"
+            [class.pomodoro-preset-active]="preset() === 'deep'"
+            [disabled]="running()"
+            [attr.aria-pressed]="preset() === 'deep'"
+            data-testid="pomodoro-preset-deep"
+            (click)="selectPreset('deep')">
+            50 / 10
+          </button>
+        </div>
+      </div>
+
+      <button
+        type="button"
+        class="pomodoro-sound-toggle"
+        [class.pomodoro-sound-toggle-active]="soundEnabled()"
+        [attr.aria-pressed]="soundEnabled()"
+        data-testid="pomodoro-sound-toggle"
+        (click)="toggleSound()">
+        <span>{{ translate('Sonido') }}</span>
+        <strong>{{ translate(soundEnabled() ? 'Sí' : 'No') }}</strong>
+      </button>
+    </div>
+
+    <section
+      class="mt-3 border-t border-white/10 pt-3"
+      [attr.aria-label]="translate('Historial de estudio')"
+      data-testid="pomodoro-history">
+      <button
+        type="button"
+        class="flex min-h-9 w-full items-center justify-between rounded-lg px-2 text-left text-[0.68rem] font-extrabold text-slate-300 transition hover:bg-white/5 hover:text-white"
+        [attr.aria-expanded]="historyOpen()"
+        aria-controls="pomodoro-history-content"
+        data-testid="pomodoro-history-toggle"
+        (click)="toggleHistory()">
+        <span>{{ translate('Historial de estudio') }}</span>
+        <span class="font-mono text-[0.6rem] text-cyan-300">
+          {{ todayStudyMinutes() }} {{ translate('min hoy') }}
+        </span>
+      </button>
+
+      @if (historyOpen()) {
+        <div
+          id="pomodoro-history-content"
+          class="mt-2"
+          data-testid="pomodoro-history-content">
+          <dl class="grid grid-cols-2 gap-2">
+            <div
+              class="rounded-lg border border-white/10 bg-slate-950/40 px-3 py-2">
+              <dt
+                class="font-mono text-[0.52rem] font-extrabold uppercase tracking-[0.16em] text-slate-500">
+                {{ translate('Hoy') }}
+              </dt>
+              <dd class="mt-1 text-sm font-extrabold text-white">
+                {{ todayHistory().length }}
+                <span class="text-[0.6rem] font-bold text-slate-500">{{
+                  translate(todayHistory().length === 1 ? 'sesión' : 'sesiones')
+                }}</span>
+              </dd>
+            </div>
+            <div
+              class="rounded-lg border border-white/10 bg-slate-950/40 px-3 py-2">
+              <dt
+                class="font-mono text-[0.52rem] font-extrabold uppercase tracking-[0.16em] text-slate-500">
+                {{ translate('Total') }}
+              </dt>
+              <dd class="mt-1 text-sm font-extrabold text-white">
+                {{ completedFocusSessions() }}
+                <span class="text-[0.6rem] font-bold text-slate-500">{{
+                  translate(
+                    completedFocusSessions() === 1 ? 'sesión' : 'sesiones'
+                  )
+                }}</span>
+              </dd>
+            </div>
+          </dl>
+
+          @if (recentHistory().length) {
+            <p
+              class="mb-1 mt-3 font-mono text-[0.52rem] font-extrabold uppercase tracking-[0.16em] text-slate-500">
+              {{ translate('Últimas sesiones') }}
+            </p>
+            <ol class="space-y-1" data-testid="pomodoro-history-list">
+              @for (entry of recentHistory(); track entry.id) {
+                <li
+                  class="flex items-center justify-between rounded-md px-2 py-1.5 text-[0.64rem] text-slate-400 odd:bg-white/[0.025]">
+                  <time
+                    [attr.datetime]="formatHistoryDateTime(entry.completedAt)">
+                    {{ formatHistoryDate(entry.completedAt) }}
+                  </time>
+                  <strong class="font-mono text-amber-200"
+                    >{{ entry.durationMinutes }} min</strong
+                  >
+                </li>
+              }
+            </ol>
+          } @else {
+            <p
+              class="px-2 py-3 text-center text-[0.64rem] leading-relaxed text-slate-500">
+              {{
+                translate('Completá tu primer foco para empezar el historial.')
+              }}
+            </p>
+          }
+        </div>
+      }
+    </section>
+
+    @if (customPosition()) {
+      <button
+        type="button"
+        class="pomodoro-position-reset"
+        data-testid="pomodoro-position-reset"
+        (click)="resetPosition()">
+        {{ translate('Restaurar posición') }}
+      </button>
+    }
+  </section>
+
+  <p class="sr-only" aria-live="polite" aria-atomic="true">
+    {{ announcement() }}
+  </p>
+</div>

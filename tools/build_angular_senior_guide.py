@@ -17,6 +17,8 @@ from reportlab.platypus import (
 )
 from reportlab.platypus.tableofcontents import TableOfContents
 
+from angular_senior_ai_chapters import AI_CHAPTERS
+
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 OUT = os.path.join(ROOT, "output", "pdf", "guia_entrevista_angular_senior.pdf")
 os.makedirs(os.path.dirname(OUT), exist_ok=True)
@@ -787,11 +789,13 @@ loadDashboard().then(console.log).catch(console.error);""",
 from angular_senior_theory_overrides import apply_theory_overrides
 from angular_senior_qa_additions import apply_qa_additions
 from angular_senior_content_expansions import apply_content_expansions
+from angular_senior_final_review import apply_final_review
 
 
-apply_theory_overrides([*chapters, *foundation_chapters])
-apply_qa_additions([*chapters, *foundation_chapters])
-apply_content_expansions([*chapters, *foundation_chapters])
+apply_theory_overrides([*chapters, *foundation_chapters, *AI_CHAPTERS])
+apply_qa_additions([*chapters, *foundation_chapters, *AI_CHAPTERS])
+apply_content_expansions([*chapters, *foundation_chapters, *AI_CHAPTERS])
+apply_final_review([*chapters, *foundation_chapters, *AI_CHAPTERS])
 
 
 foundation_rapid_fire = [
@@ -943,6 +947,7 @@ gap_rows = [
     ["Accesibilidad", "Ausente", "Semántica, teclado, foco, ARIA y verificación"],
     ["System design y operación", "Escasa", "Caché, tiempo real, observabilidad, CI/CD y migración"],
     ["Liderazgo Senior", "Parcial", "Reviews, ADRs, mentoring, incidentes y negociación"],
+    ["IA aplicada", "Ausente", "Modelos, prompting, RAG, agentes, MCP, evals, seguridad y arquitectura de producto"],
 ]
 
 
@@ -958,6 +963,11 @@ sources = [
     ("Angular DI jerárquica", "https://angular.dev/guide/di/hierarchical-dependency-injection"),
     ("Angular testing", "https://angular.dev/guide/testing"),
     ("Angular security", "https://angular.dev/best-practices/security"),
+    ("OpenAI API documentation", "https://platform.openai.com/docs/overview"),
+    ("Anthropic Claude documentation", "https://docs.anthropic.com/"),
+    ("Google Gemini API", "https://ai.google.dev/gemini-api/docs"),
+    ("Model Context Protocol", "https://modelcontextprotocol.io/docs/getting-started/intro"),
+    ("OWASP Top 10 for LLM Applications", "https://genai.owasp.org/llm-top-10/"),
     ("Drive: Frontend Questions", "https://docs.google.com/document/d/1reUcSUpyGIrCDdteRaQWxHApEWcuq_5PaoCWQ6ZymZ8/edit"),
     ("Drive: Angular interview", "https://docs.google.com/document/d/10T_AHlHLdcLcdj_B9WMnqCizoF-bPc3BkhWHQ2MPWcU/edit"),
     ("Drive: Teoría", "https://docs.google.com/document/d/1SMNLCse40jqbSmkrskJqQqcx0PPhU5VQ6JTq0K-NtVE/edit"),
@@ -998,7 +1008,7 @@ def build_story():
     story = []
     story += [Spacer(1, 48*mm), P("GUÍA DE ESTUDIO 2026", "cover_kicker"),
               P("Entrevista<br/>Angular Senior", "cover_title"),
-              P("Angular 22 · JavaScript · TypeScript · HTML · CSS · Browser · RxJS · Signals · Arquitectura · Testing · System Design", "cover_sub"),
+              P("Angular 22 · JavaScript · TypeScript · RxJS · Signals · Arquitectura · IA generativa · RAG · Agentes · MCP · Evals · System Design", "cover_sub"),
               Spacer(1, 24*mm),
               P("Preparada a partir del material de Drive de Adrii Cabello y contrastada con la documentación oficial vigente.", "cover_sub"),
               Spacer(1, 38*mm), P("Edición 2 de septiembre de 2026", "cover_kicker"), PageBreak()]
@@ -1011,6 +1021,7 @@ def build_story():
         ["Base web", "JavaScript, HTML, CSS y browser", "Resolver preguntas clásicas y explicar mecanismos de plataforma"],
         ["Angular", "Angular, Signals, RxJS, DI, forms y HTTP", "Responder APIs, diseño, rendimiento, testing y seguridad"],
         ["Senior", "Arquitectura, operación y system design", "Defender trade-offs, migraciones, incidentes y liderazgo"],
+        ["IA aplicada", "Modelos, RAG, agentes, MCP y evals", "Diseñar productos medibles, seguros y operables"],
     ]
     t = Table(priority, colWidths=[27*mm, 43*mm, 88*mm], repeatRows=1)
     t.setStyle(TableStyle([('BACKGROUND',(0,0),(-1,0),PURPLE),('TEXTCOLOR',(0,0),(-1,0),colors.white),('FONTNAME',(0,0),(-1,0),BOLD_FONT),('FONTNAME',(0,1),(-1,-1),BODY_FONT),('FONTSIZE',(0,0),(-1,-1),8),('LEADING',(0,0),(-1,-1),11),('GRID',(0,0),(-1,-1),0.4,colors.HexColor('#D6DAE4')),('VALIGN',(0,0),(-1,-1),'TOP'),('BACKGROUND',(0,1),(-1,-1),PALE),('LEFTPADDING',(0,0),(-1,-1),6),('RIGHTPADDING',(0,0),(-1,-1),6),('TOPPADDING',(0,0),(-1,-1),5),('BOTTOMPADDING',(0,0),(-1,-1),5)]))
@@ -1043,6 +1054,7 @@ def build_story():
         *chapters[12:23],
         chapters[0],
         chapters[23],
+        *AI_CHAPTERS,
     ]
     for chapter_number, source_chapter in enumerate(ordered_chapters, 1):
         ch = dict(source_chapter)
@@ -1081,7 +1093,7 @@ def build_story():
               P("Diseñá cache HTTP, IndexedDB y Service Worker para una pantalla de lectura. Definí invalidación, conflicto, cuotas, logout y datos sensibles.", "body"),
               PageBreak()]
 
-    story += [P("Plan intensivo de 21 días", "h1")]
+    story += [P("Plan intensivo de 30 días", "h1")]
     plan = [
         ["Día", "Foco", "Entrega"],
         ["1", "HTML, semántica y formularios", "Formulario accesible completo"],
@@ -1103,8 +1115,17 @@ def build_story():
         ["17", "Testing", "Suite de componente, HTTP y router"],
         ["18", "Seguridad, accesibilidad y observabilidad", "Threat review + recorrido teclado"],
         ["19", "Build, upgrades y system design", "Diseño y plan de migración"],
-        ["20", "Liderazgo e historias STAR", "Ocho historias grabadas"],
-        ["21", "Repaso y simulación", "Mock interview completa"],
+        ["20", "Modelos, tokens y prompting", "Matriz de selección + prompts evaluados"],
+        ["21", "Embeddings y RAG", "Pipeline con citas y métricas de retrieval"],
+        ["22", "Tool calling y workflows", "Dos tools tipadas con autorización"],
+        ["23", "Agentes y memoria", "Loop limitado con aprobación humana"],
+        ["24", "Skills, plugins y automatizaciones", "Mapa de responsabilidades y una skill"],
+        ["25", "MCP", "Servidor mínimo + threat review"],
+        ["26", "Angular + IA", "Streaming cancelable y estados completos"],
+        ["27", "Evals y observabilidad", "Dataset, graders, tracing y presupuesto"],
+        ["28", "Seguridad y privacidad de IA", "Prompt injection lab + controles"],
+        ["29", "Liderazgo e historias STAR", "Ocho historias, incluida adopción de IA"],
+        ["30", "Repaso y simulación", "Mock interview Angular + AI system design"],
     ]
     pt = Table(plan, colWidths=[14*mm, 60*mm, 84*mm], repeatRows=1)
     pt.setStyle(TableStyle([('BACKGROUND',(0,0),(-1,0),PURPLE),('TEXTCOLOR',(0,0),(-1,0),colors.white),('FONTNAME',(0,0),(-1,0),BOLD_FONT),('FONTNAME',(0,1),(-1,-1),BODY_FONT),('FONTSIZE',(0,0),(-1,-1),7.8),('LEADING',(0,0),(-1,-1),10.5),('GRID',(0,0),(-1,-1),0.35,colors.HexColor('#CCD2DE')),('VALIGN',(0,0),(-1,-1),'TOP'),('ROWBACKGROUNDS',(0,1),(-1,-1),[colors.white,PALE]),('LEFTPADDING',(0,0),(-1,-1),5),('RIGHTPADDING',(0,0),(-1,-1),5),('TOPPADDING',(0,0),(-1,-1),4),('BOTTOMPADDING',(0,0),(-1,-1),4)]))
@@ -1119,6 +1140,8 @@ def build_story():
         "¿Dónde están hoy los mayores costos: entrega, deuda, incidentes, escalabilidad o coordinación?",
         "¿Cómo reparten ownership entre producto, frontend, backend, QA y plataforma?",
         "¿Qué nivel de autonomía tiene el rol para proponer arquitectura y cambiar procesos?",
+        "¿Qué casos de uso de IA están en producción y cómo evalúan calidad, seguridad y costo?",
+        "¿Qué modelos, fuentes de datos, tools o servidores MCP forman parte de la plataforma?",
         "¿Cómo funcionan code reviews, ADRs, mentoring y guardias de incidentes?",
         "¿Qué resultado haría que consideren excelente el primer semestre?",
     ]))

@@ -91,6 +91,8 @@
     </div>
   </header>
 
+  <app-pomodoro-timer />
+
   <main id="study-main" data-testid="guide-main">
     <section
       class="relative overflow-hidden border-b border-white/10 px-4 pb-14 pt-14 sm:px-6 sm:pb-20 sm:pt-20 lg:px-8">
@@ -113,7 +115,7 @@
             class="mt-7 max-w-3xl text-pretty text-base leading-8 text-slate-300 sm:text-lg">
             {{
               translate(
-                'HTML, CSS, JavaScript, TypeScript, Angular moderno, RxJS, browser, arquitectura, performance, testing, seguridad, system design y liderazgo técnico.'
+                'HTML, CSS, JavaScript, TypeScript, Angular moderno, RxJS, browser, arquitectura, performance, testing, seguridad, IA generativa, agentes, RAG, MCP, system design y liderazgo técnico.'
               )
             }}
           </p>
@@ -223,6 +225,35 @@
             data-testid="guide-author-linkedin-link">
             LinkedIn
           </a>
+          <a
+            [href]="linkedInShareUrl()"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="group inline-flex min-h-11 items-center justify-center gap-2 whitespace-nowrap rounded-full border border-cyan-300/25 bg-cyan-300/[0.055] px-3.5 text-xs font-extrabold text-cyan-100 transition hover:-translate-y-px hover:border-cyan-300/60 hover:bg-cyan-300/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300"
+            [attr.aria-label]="
+              translate('Compartir la guía en LinkedIn') +
+              '. ' +
+              shareCount() +
+              ' ' +
+              translate(
+                shareCount() === 1 ? 'vez compartida' : 'veces compartida'
+              )
+            "
+            data-testid="guide-share-linkedin-link"
+            (click)="recordGuideShare()">
+            <span
+              class="grid h-5 w-5 place-items-center rounded bg-cyan-200 font-sans text-[10px] font-black leading-none text-slate-950"
+              aria-hidden="true"
+              >in</span
+            >
+            <span>{{ translate('Compartir guía') }}</span>
+            <span
+              class="rounded-full border border-cyan-200/20 bg-slate-950/30 px-2 py-0.5 font-mono text-[10px] text-cyan-200 transition group-hover:border-cyan-200/40"
+              aria-live="polite"
+              data-testid="guide-share-count">
+              {{ shareCount() }}
+            </span>
+          </a>
         </div>
       </aside>
     </section>
@@ -276,7 +307,7 @@
                 id="guide-search"
                 type="search"
                 autocomplete="off"
-                placeholder="Signals, closures, CSP..."
+                placeholder="Signals, RAG, MCP, closures..."
                 class="min-h-11 w-full rounded-xl border border-white/10 bg-slate-950/60 px-3.5 text-sm text-white outline-none transition placeholder:text-slate-600 focus:border-amber-300/70 focus:ring-2 focus:ring-amber-300/15"
                 [value]="query()"
                 data-testid="guide-search-input"
@@ -385,7 +416,7 @@
                   <summary
                     class="study-filter cursor-pointer list-none"
                     data-testid="guide-menu-toggle-practice">
-                    <span class="font-mono text-[10px] text-slate-500">06</span>
+                    <span class="font-mono text-[10px] text-slate-500">07</span>
                     <span
                       class="flex min-w-0 items-center justify-between gap-2">
                       <span>{{ translate('Casos prácticos') }}</span>
@@ -575,18 +606,143 @@
                     </header>
 
                     @if (!isTopicCollapsed(topic.id)) {
-                      <div
-                        [id]="topic.id + '-content'"
-                        class="grid lg:grid-cols-[minmax(0,1.05fr)_minmax(320px,0.95fr)]">
+                      @if (topicAudio(topic.id); as audio) {
                         <section
-                          class="min-w-0 border-b border-white/10 p-5 sm:p-7 lg:border-b-0 lg:border-r">
+                          class="border-b border-white/10 bg-gradient-to-r from-cyan-300/[0.055] via-transparent to-amber-300/[0.045] px-5 py-5 sm:px-7 sm:py-6"
+                          [attr.aria-labelledby]="topic.id + '-audio-title'"
+                          [attr.data-testid]="'guide-topic-audio-' + topic.id">
+                          <div
+                            class="grid gap-4 lg:grid-cols-[minmax(210px,0.42fr)_minmax(0,1fr)] lg:items-center lg:gap-7">
+                            <div class="flex min-w-0 items-start gap-3">
+                              <span
+                                class="flex h-11 w-11 shrink-0 items-end justify-center gap-0.5 rounded-xl border border-cyan-300/25 bg-cyan-300/10 pb-3"
+                                aria-hidden="true">
+                                <span
+                                  class="h-2 w-0.5 rounded-full bg-cyan-200"></span>
+                                <span
+                                  class="h-4 w-0.5 rounded-full bg-amber-200"></span>
+                                <span
+                                  class="h-3 w-0.5 rounded-full bg-cyan-200"></span>
+                                <span
+                                  class="h-5 w-0.5 rounded-full bg-amber-200"></span>
+                              </span>
+                              <div class="min-w-0">
+                                <p
+                                  class="font-mono text-[9px] font-bold uppercase tracking-[0.2em] text-cyan-300">
+                                  {{ translate('Audio del tema') }}
+                                </p>
+                                <h4
+                                  [id]="topic.id + '-audio-title'"
+                                  class="mt-1 text-sm font-extrabold text-white">
+                                  {{ translate('Explicación narrada') }}
+                                </h4>
+                                <p
+                                  class="mt-1 font-mono text-[10px] text-slate-400">
+                                  {{ translate(audio.language) }} ·
+                                  {{ audio.duration }}
+                                </p>
+                              </div>
+                            </div>
+
+                            <div class="min-w-0">
+                              <audio
+                                #topicAudioPlayer
+                                controls
+                                preload="metadata"
+                                class="h-12 w-full [color-scheme:dark]"
+                                [attr.aria-label]="
+                                  translate('Escuchar explicación de') +
+                                  ' ' +
+                                  translate(topic.title)
+                                "
+                                [attr.data-testid]="
+                                  'guide-topic-audio-player-' + topic.id
+                                "
+                                (loadedmetadata)="
+                                  applyAudioPlaybackRate($event)
+                                ">
+                                <source [src]="audio.src" type="audio/mpeg" />
+                                <span>
+                                  {{
+                                    translate(
+                                      'Tu navegador no puede reproducir este audio.'
+                                    )
+                                  }}
+                                  <a
+                                    [href]="audio.src"
+                                    class="font-bold text-cyan-200 underline"
+                                    [attr.data-testid]="
+                                      'guide-topic-audio-download-' + topic.id
+                                    ">
+                                    {{ translate('Descargar audio') }}
+                                  </a>
+                                </span>
+                              </audio>
+
+                              <div
+                                class="mt-3 flex items-center justify-between gap-3"
+                                [attr.aria-label]="
+                                  translate('Velocidad de reproducción')
+                                ">
+                                <span
+                                  class="font-mono text-[9px] font-bold uppercase tracking-[0.16em] text-slate-500">
+                                  {{ translate('Velocidad') }}
+                                </span>
+                                <div
+                                  class="flex gap-1"
+                                  role="group"
+                                  [attr.aria-label]="
+                                    translate('Velocidad de reproducción')
+                                  ">
+                                  @for (
+                                    rate of audioPlaybackRates;
+                                    track rate
+                                  ) {
+                                    <button
+                                      type="button"
+                                      class="min-h-9 min-w-11 rounded-lg border px-2 font-mono text-[11px] font-extrabold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300"
+                                      [ngClass]="
+                                        audioPlaybackRate() === rate
+                                          ? 'border-cyan-300 bg-cyan-300 text-slate-950'
+                                          : 'border-white/10 bg-slate-950/30 text-slate-400 hover:border-cyan-300 hover:bg-cyan-300 hover:text-slate-950'
+                                      "
+                                      [attr.aria-pressed]="
+                                        audioPlaybackRate() === rate
+                                      "
+                                      [attr.aria-label]="
+                                        rate +
+                                        translate(' veces la velocidad normal')
+                                      "
+                                      [attr.data-testid]="
+                                        'guide-audio-rate-' + rate
+                                      "
+                                      (click)="
+                                        setAudioPlaybackRate(
+                                          rate,
+                                          topicAudioPlayer
+                                        )
+                                      ">
+                                      {{ rate }}×
+                                    </button>
+                                  }
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </section>
+                      }
+
+                      <div [id]="topic.id + '-content'" class="grid">
+                        <section
+                          class="min-w-0 border-b border-white/10 p-5 sm:p-7">
                           <h4 class="study-kicker">
                             {{ translate('Teoría') }}
                           </h4>
                           <div class="mt-5 grid gap-7">
                             @for (
                               theorySection of visibleTheorySections(topic);
-                              track theorySection.title
+                              track theorySection.title;
+                              let sectionIndex = $index
                             ) {
                               <section
                                 class="border-t border-white/10 pt-6 first:border-t-0 first:pt-0"
@@ -594,7 +750,7 @@
                                   'guide-theory-section-' +
                                   topic.id +
                                   '-' +
-                                  $index
+                                  sectionIndex
                                 ">
                                 <h5
                                   class="text-sm font-extrabold tracking-wide text-white">
@@ -645,6 +801,174 @@
                                     </li>
                                   }
                                 </ul>
+
+                                @if (
+                                  theorySection.examples?.length;
+                                  as exampleCount
+                                ) {
+                                  <div
+                                    class="mt-5 rounded-2xl border border-amber-300/15 bg-amber-300/[0.025] p-3 sm:p-4"
+                                    [attr.data-testid]="
+                                      'guide-theory-examples-' +
+                                      topic.id +
+                                      '-' +
+                                      sectionIndex
+                                    ">
+                                    <div
+                                      class="mb-3 flex items-center justify-between gap-3 px-1">
+                                      <p
+                                        class="font-mono text-[9px] font-extrabold uppercase tracking-[0.18em] text-amber-300">
+                                        {{ translate('Ejemplos prácticos') }}
+                                      </p>
+                                      <span
+                                        class="rounded-full border border-white/10 px-2 py-1 font-mono text-[9px] font-bold text-slate-500">
+                                        {{ exampleCount }}
+                                      </span>
+                                    </div>
+
+                                    <div class="grid gap-2">
+                                      @for (
+                                        example of theorySection.examples;
+                                        track example.title;
+                                        let exampleIndex = $index
+                                      ) {
+                                        <details
+                                          class="study-answer group overflow-hidden rounded-xl border border-white/10 bg-slate-950/40"
+                                          [attr.data-testid]="
+                                            'guide-theory-example-' +
+                                            topic.id +
+                                            '-' +
+                                            sectionIndex +
+                                            '-' +
+                                            exampleIndex
+                                          ">
+                                          <summary
+                                            class="flex min-h-12 cursor-pointer list-none items-center justify-between gap-4 px-4 py-3 text-left outline-none transition hover:bg-white/5 focus-visible:ring-2 focus-visible:ring-amber-300/70"
+                                            [attr.data-testid]="
+                                              'guide-theory-example-toggle-' +
+                                              topic.id +
+                                              '-' +
+                                              sectionIndex +
+                                              '-' +
+                                              exampleIndex
+                                            ">
+                                            <span
+                                              class="text-xs font-extrabold leading-5 text-slate-100 sm:text-sm">
+                                              {{ translate(example.title) }}
+                                            </span>
+                                            <span
+                                              class="shrink-0 font-mono text-[9px] font-bold uppercase tracking-wider text-amber-300 group-open:hidden">
+                                              {{ translate('Ver código') }}
+                                            </span>
+                                            <span
+                                              class="hidden shrink-0 font-mono text-[9px] font-bold uppercase tracking-wider text-cyan-300 group-open:inline">
+                                              {{ translate('Ocultar') }}
+                                            </span>
+                                          </summary>
+                                          <div
+                                            class="border-t border-white/10 p-4">
+                                            <p
+                                              class="text-xs leading-6 text-slate-400 sm:text-sm">
+                                              {{
+                                                translate(example.description)
+                                              }}
+                                            </p>
+                                            <pre
+                                              class="study-code mt-3 overflow-x-auto rounded-lg border border-cyan-300/10 bg-[#030914] p-4 text-[11px] leading-5 text-cyan-100"><code>{{ example.code }}</code></pre>
+                                          </div>
+                                        </details>
+                                      }
+                                    </div>
+                                  </div>
+                                }
+
+                                @if (
+                                  topic.id === 'ciclo-de-vida-y-render-hooks' &&
+                                  theorySection.title === 'Modelo mental'
+                                ) {
+                                  <aside
+                                    class="mt-6 overflow-hidden rounded-2xl border border-cyan-300/20 bg-cyan-300/[0.035]"
+                                    aria-labelledby="lifecycle-initialization-title"
+                                    data-testid="guide-lifecycle-initialization-summary">
+                                    <div
+                                      class="border-b border-cyan-300/15 bg-gradient-to-r from-cyan-300/[0.09] via-transparent to-amber-300/[0.07] px-4 py-4 sm:px-5">
+                                      <p
+                                        class="font-mono text-[9px] font-bold uppercase tracking-[0.2em] text-cyan-300">
+                                        {{ translate('Resumen rápido') }}
+                                      </p>
+                                      <h6
+                                        id="lifecycle-initialization-title"
+                                        class="mt-1 text-sm font-extrabold text-white">
+                                        {{
+                                          translate(
+                                            'Orden de la primera inicialización'
+                                          )
+                                        }}
+                                      </h6>
+                                      <p
+                                        class="mt-1 max-w-3xl text-xs leading-5 text-slate-400">
+                                        {{
+                                          translate(
+                                            'Angular recorre estas etapas una sola vez al crear el componente.'
+                                          )
+                                        }}
+                                      </p>
+                                    </div>
+
+                                    <ol
+                                      class="grid gap-px bg-white/10 sm:grid-cols-2 xl:grid-cols-4">
+                                      @for (
+                                        step of lifecycleInitializationSteps;
+                                        track step.label;
+                                        let stepIndex = $index
+                                      ) {
+                                        <li
+                                          class="relative min-w-0 bg-[#071222] px-4 py-4 sm:min-h-32">
+                                          <div
+                                            class="flex items-start justify-between gap-3">
+                                            <span
+                                              class="grid h-7 w-7 shrink-0 place-items-center rounded-full border border-cyan-300/25 bg-cyan-300/10 font-mono text-[10px] font-black text-cyan-200">
+                                              {{ stepIndex + 1 }}
+                                            </span>
+                                            @if (
+                                              stepIndex <
+                                              lifecycleInitializationSteps.length -
+                                                1
+                                            ) {
+                                              <span
+                                                class="font-mono text-sm text-amber-200/60"
+                                                aria-hidden="true"
+                                                >→</span
+                                              >
+                                            }
+                                          </div>
+                                          <code
+                                            class="mt-3 block break-words font-mono text-[11px] font-bold text-amber-100">
+                                            {{ translate(step.label) }}
+                                          </code>
+                                          <p
+                                            class="mt-1.5 text-xs leading-5 text-slate-400">
+                                            {{ translate(step.detail) }}
+                                          </p>
+                                        </li>
+                                      }
+                                    </ol>
+
+                                    <div
+                                      class="grid gap-2 border-t border-white/10 px-4 py-4 sm:grid-cols-[auto_1fr] sm:items-start sm:gap-4 sm:px-5">
+                                      <span
+                                        class="font-mono text-[9px] font-bold uppercase tracking-[0.16em] text-emerald-300">
+                                        {{ translate('Luego se repite') }}
+                                      </span>
+                                      <code
+                                        class="break-words font-mono text-[10px] leading-5 text-slate-300">
+                                        {{
+                                          translate(lifecycleSubsequentChecks)
+                                        }}
+                                      </code>
+                                    </div>
+                                  </aside>
+                                }
                               </section>
                             }
                           </div>
@@ -688,7 +1012,11 @@
                           }
                         </section>
 
-                        <section class="min-w-0 p-5 sm:p-7">
+                        <section
+                          class="min-w-0 border-b border-white/10 p-5 sm:p-7"
+                          [attr.data-testid]="
+                            'guide-questions-section-' + topic.id
+                          ">
                           <h4 class="study-kicker">
                             {{ translate('Preguntas y respuestas') }}
                           </h4>
@@ -776,8 +1104,7 @@
                           </div>
                         </section>
 
-                        <div
-                          class="border-t border-white/10 p-5 sm:p-7 lg:col-span-2">
+                        <div class="p-5 sm:p-7">
                           <div
                             class="mb-4 rounded-xl border border-white/10 bg-slate-950/30 p-4"
                             [attr.data-testid]="'guide-review-' + topic.id">
@@ -890,7 +1217,7 @@
               <div class="mb-6 border-b border-white/10 pb-5">
                 <p
                   class="font-mono text-xs font-bold uppercase tracking-[0.24em] text-cyan-300">
-                  {{ translate('Bloque') }} 06
+                  {{ translate('Bloque') }} 07
                 </p>
                 <h2
                   id="practice-title"

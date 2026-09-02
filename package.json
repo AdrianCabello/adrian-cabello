@@ -10,6 +10,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
+    "audio:scripts": "node tools/build_guide_audio_scripts.mjs",
+    "audio:generate": "node tools/generate_guide_audio.mjs",
     "serve:ssr:adrian-cabello": "node server-runner.mjs",
     "format": "prettier --write \"src/**/*.{ts,html,scss,json,md}\""
   },

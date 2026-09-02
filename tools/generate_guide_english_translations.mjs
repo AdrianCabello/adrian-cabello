@@ -17,7 +17,7 @@ const guideUiCopy = [
   'Progreso',
   'Progreso de módulos',
   'Guía de entrevista · Edición 2026',
-  'HTML, CSS, JavaScript, TypeScript, Angular moderno, RxJS, browser, arquitectura, performance, testing, seguridad, system design y liderazgo técnico.',
+  'HTML, CSS, JavaScript, TypeScript, Angular moderno, RxJS, browser, arquitectura, performance, testing, seguridad, IA generativa, agentes, RAG, MCP, system design y liderazgo técnico.',
   'Módulos',
   'Conceptos',
   'Preguntas',

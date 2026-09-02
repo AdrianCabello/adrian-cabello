@@ -1,7 +1,8 @@
-import { DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { DOCUMENT, NgClass, isPlatformBrowser } from '@angular/common';
 import {
   DestroyRef,
   PLATFORM_ID,
+  ChangeDetectorRef,
   Component,
   afterNextRender,
   computed,
@@ -11,7 +12,9 @@ import {
 import { RouterLink } from '@angular/router';
 import { LanguageService } from '../../i18n/language.service';
 import { LanguageSwitcherComponent } from '../../shared/components/language-switcher/language-switcher.component';
+import { GuideShareService } from '../../services/guide-share.service';
 import { CodeChallengePrepComponent } from './code-challenge-prep.component';
+import { PomodoroTimerComponent } from './pomodoro-timer.component';
 import {
   CODE_CHALLENGE_DRILLS,
   PRACTICE_CASES,
@@ -30,6 +33,17 @@ type ReviewLevel = 'review' | 'practice' | 'confident';
 interface TopicReview {
   readonly level: ReviewLevel;
   readonly reviewedAt: string;
+}
+
+interface TopicAudio {
+  readonly src: string;
+  readonly duration: string;
+  readonly language: string;
+}
+
+interface LifecycleInitializationStep {
+  readonly label: string;
+  readonly detail: string;
 }
 
 interface TheorySegment {
@@ -140,6 +154,27 @@ const IMPORTANT_THEORY_TERMS = [
   'arquitectura',
   'ownership',
   'ADR',
+  'LLM',
+  'Transformer',
+  'tokens',
+  'context window',
+  'prompt',
+  'Structured Outputs',
+  'embeddings',
+  'RAG',
+  'vector search',
+  'reranking',
+  'tool calling',
+  'workflow',
+  'agent',
+  'MCP',
+  'skills',
+  'plugins',
+  'automatización',
+  'evals',
+  'prompt injection',
+  'human-in-the-loop',
+  'guardrails',
 ] as const;
 
 const IMPORTANT_THEORY_PATTERN = new RegExp(
@@ -153,7 +188,13 @@ const IMPORTANT_THEORY_PATTERN = new RegExp(
 @Component({
   selector: 'app-angular-senior-guide',
   standalone: true,
-  imports: [RouterLink, LanguageSwitcherComponent, CodeChallengePrepComponent],
+  imports: [
+    RouterLink,
+    NgClass,
+    LanguageSwitcherComponent,
+    CodeChallengePrepComponent,
+    PomodoroTimerComponent,
+  ],
   templateUrl: './angular-senior-guide.component.html',
   styleUrl: './angular-senior-guide.component.scss',
 })
@@ -161,6 +202,8 @@ export class AngularSeniorGuideComponent {
   private readonly platformId = inject(PLATFORM_ID);
   private readonly document = inject(DOCUMENT);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly changeDetectorRef = inject(ChangeDetectorRef);
+  private readonly guideShareService = inject(GuideShareService);
   protected readonly languageService = inject(LanguageService);
 
   protected portfolioPath(): string {
@@ -169,12 +212,16 @@ export class AngularSeniorGuideComponent {
   private readonly storageKey = 'angular-senior-guide-completed';
   private readonly collapsedStorageKey = 'angular-senior-guide-collapsed';
   private readonly reviewStorageKey = 'angular-senior-guide-review-levels';
+  private readonly audioRateStorageKey = 'angular-senior-guide-audio-rate';
+  private readonly shareCountStorageKey = 'angular-senior-guide-share-count';
   private readonly theorySegmentCache = new Map<
     string,
     readonly TheorySegment[]
   >();
   private observerRefreshTimer?: number;
   private scrollSpyFrame?: number;
+  private restoringLocationHash = false;
+  private shareRecordedDuringCurrentVisit = false;
   private readonly handleViewportChange = (): void => {
     const browserWindow = this.document.defaultView;
     if (!browserWindow || this.scrollSpyFrame !== undefined) {
@@ -194,6 +241,54 @@ export class AngularSeniorGuideComponent {
   }));
   protected readonly references = STUDY_REFERENCES;
   protected readonly codeChallengeNavigation = CODE_CHALLENGE_DRILLS;
+  protected readonly topicAudioById: Readonly<Record<string, TopicAudio>> = {
+    'change-detection-signals-y-zoneless': {
+      src: './assets/audio/angular-senior/change-detection-signals-zoneless.mp3',
+      duration: '08:26',
+      language: 'Español',
+    },
+  };
+  protected readonly lifecycleInitializationSteps: readonly LifecycleInitializationStep[] =
+    [
+      {
+        label: 'constructor()',
+        detail:
+          'Angular crea la instancia y resuelve la inyección de dependencias.',
+      },
+      {
+        label: 'Asignación de inputs',
+        detail:
+          'Angular entrega los valores iniciales recibidos desde el padre.',
+      },
+      {
+        label: 'ngOnChanges',
+        detail:
+          'Recibe el primer SimpleChanges antes de inicializar el componente.',
+      },
+      {
+        label: 'ngOnInit',
+        detail:
+          'Ejecuta una vez la inicialización que necesita los inputs listos.',
+      },
+      {
+        label: 'ngDoCheck',
+        detail: 'Permite una comprobación manual durante el primer recorrido.',
+      },
+      {
+        label: 'Content hooks',
+        detail: 'ngAfterContentInit y luego ngAfterContentChecked.',
+      },
+      {
+        label: 'View hooks',
+        detail: 'ngAfterViewInit y luego ngAfterViewChecked.',
+      },
+      {
+        label: 'Render callbacks',
+        detail: 'afterNextRender y afterEveryRender, sólo en el navegador.',
+      },
+    ];
+  protected readonly lifecycleSubsequentChecks =
+    'ngOnChanges (si cambian inputs) → ngDoCheck → ngAfterContentChecked → ngAfterViewChecked → afterEveryRender';
   protected readonly query = signal('');
   protected readonly selectedCollection = signal<CollectionId>('all');
   protected readonly activeSectionId = signal<string | null>(null);
@@ -205,6 +300,22 @@ export class AngularSeniorGuideComponent {
   protected readonly topicReviews = signal<
     Readonly<Record<string, TopicReview>>
   >({});
+  protected readonly audioPlaybackRate = signal(1);
+  protected readonly audioPlaybackRates = [1, 1.5, 2] as const;
+  protected readonly shareCount = signal(0);
+  protected readonly linkedInShareUrl = computed(() => {
+    const guideUrl = new URL(
+      `/${this.languageService.language()}/angular-senior`,
+      'https://adriancabello.dev'
+    );
+    guideUrl.searchParams.set('utm_source', 'linkedin');
+    guideUrl.searchParams.set('utm_medium', 'social');
+    guideUrl.searchParams.set('utm_campaign', 'angular_senior_guide');
+
+    const shareUrl = new URL('https://www.linkedin.com/sharing/share-offsite/');
+    shareUrl.searchParams.set('url', guideUrl.toString());
+    return shareUrl.toString();
+  });
 
   protected readonly activeNavigationLabel = computed(() => {
     const activeTopic = this.topics.find(
@@ -287,6 +398,9 @@ export class AngularSeniorGuideComponent {
       this.restoreProgress();
       this.restoreCollapsedTopics();
       this.restoreTopicReviews();
+      this.restoreAudioPlaybackRate();
+      this.document.defaultView?.setTimeout(() => this.loadShareCount());
+      this.restoreLocationFromHash();
       this.setupScrollSpy();
     });
 
@@ -327,6 +441,7 @@ export class AngularSeniorGuideComponent {
           : collection === 'practice'
             ? 'casos-practicos'
             : collection;
+      this.replaceLocationHash(targetId);
       setTimeout(() => {
         this.document.getElementById(targetId)?.scrollIntoView({
           behavior: 'instant' as ScrollBehavior,
@@ -347,6 +462,7 @@ export class AngularSeniorGuideComponent {
     this.scheduleScrollSpyRefresh();
 
     if (isPlatformBrowser(this.platformId)) {
+      this.replaceLocationHash(topic.id);
       setTimeout(() => {
         this.document.getElementById(topic.id)?.scrollIntoView({
           behavior: 'instant' as ScrollBehavior,
@@ -367,6 +483,7 @@ export class AngularSeniorGuideComponent {
     this.scheduleScrollSpyRefresh();
 
     if (isPlatformBrowser(this.platformId)) {
+      this.replaceLocationHash(targetId);
       setTimeout(() => {
         const target = this.document.getElementById(targetId);
         if (target instanceof HTMLDetailsElement) {
@@ -394,6 +511,50 @@ export class AngularSeniorGuideComponent {
 
   protected translate(value: string): string {
     return this.languageService.translate(value);
+  }
+
+  protected topicAudio(topicId: string): TopicAudio | null {
+    return this.topicAudioById[topicId] ?? null;
+  }
+
+  protected setAudioPlaybackRate(
+    rate: number,
+    audioElement: HTMLAudioElement
+  ): void {
+    if (!this.audioPlaybackRates.includes(rate as 1 | 1.5 | 2)) {
+      return;
+    }
+    this.audioPlaybackRate.set(rate);
+    audioElement.playbackRate = rate;
+    if (isPlatformBrowser(this.platformId)) {
+      this.document.defaultView?.localStorage.setItem(
+        this.audioRateStorageKey,
+        rate.toString()
+      );
+    }
+  }
+
+  protected applyAudioPlaybackRate(event: Event): void {
+    (event.currentTarget as HTMLAudioElement).playbackRate =
+      this.audioPlaybackRate();
+  }
+
+  protected recordGuideShare(): void {
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
+    this.shareRecordedDuringCurrentVisit = true;
+    const updatedCount = this.shareCount() + 1;
+    this.shareCount.set(updatedCount);
+    this.document.defaultView?.localStorage.setItem(
+      this.shareCountStorageKey,
+      updatedCount.toString()
+    );
+    this.guideShareService.incrementShareCount().subscribe(globalCount => {
+      if (globalCount !== null) {
+        this.setShareCount(globalCount);
+      }
+    });
   }
 
   protected async copyPracticeCode(
@@ -459,8 +620,16 @@ export class AngularSeniorGuideComponent {
         items: section.items.filter(item =>
           this.matchesTerms(`${item} ${this.translate(item)}`, query)
         ),
+        examples: section.examples?.filter(example =>
+          this.matchesTerms(
+            `${example.title} ${example.description} ${example.code} ${this.translate(example.title)} ${this.translate(example.description)}`,
+            query
+          )
+        ),
       }))
-      .filter(section => section.items.length > 0);
+      .filter(
+        section => section.items.length > 0 || Boolean(section.examples?.length)
+      );
   }
 
   protected visibleQuestions(topic: StudyTopic) {
@@ -498,9 +667,46 @@ export class AngularSeniorGuideComponent {
     } else {
       updated.add(topicId);
       this.setTopicCollapsed(topicId, true);
+      this.advanceToNextTopic(topicId);
     }
     this.completedTopicIds.set(updated);
     this.persistProgress(updated);
+  }
+
+  private advanceToNextTopic(topicId: string): void {
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
+
+    const visibleTopics = this.visibleSections().flatMap(
+      section => section.topics
+    );
+    const currentIndex = visibleTopics.findIndex(topic => topic.id === topicId);
+    const nextTopic = visibleTopics[currentIndex + 1];
+    const nextTargetId =
+      nextTopic?.id ??
+      (this.visiblePracticeCases().length > 0 ? 'casos-practicos' : null);
+
+    if (!nextTargetId) {
+      return;
+    }
+
+    if (nextTopic) {
+      this.setTopicCollapsed(nextTopic.id, false);
+      this.activeSectionId.set(nextTopic.groupId);
+      this.activeTopicId.set(nextTopic.id);
+    } else {
+      this.activeSectionId.set('practice');
+      this.activeTopicId.set(null);
+    }
+
+    this.document.defaultView?.requestAnimationFrame(() => {
+      this.replaceLocationHash(nextTargetId);
+      this.document.getElementById(nextTargetId)?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+    });
   }
 
   protected reviewLevel(topicId: string): ReviewLevel | null {
@@ -556,10 +762,23 @@ export class AngularSeniorGuideComponent {
       topic.title,
       topic.intro,
       ...topic.theory,
+      ...topic.theorySections.flatMap(section =>
+        (section.examples ?? []).flatMap(example => [
+          example.title,
+          example.description,
+          example.code,
+        ])
+      ),
       ...topic.questions.flatMap(item => [item.question, item.answer]),
       this.translate(topic.title),
       this.translate(topic.intro),
       ...topic.theory.map(item => this.translate(item)),
+      ...topic.theorySections.flatMap(section =>
+        (section.examples ?? []).flatMap(example => [
+          this.translate(example.title),
+          this.translate(example.description),
+        ])
+      ),
       ...topic.questions.flatMap(item => [
         this.translate(item.question),
         this.translate(item.answer),
@@ -677,6 +896,52 @@ export class AngularSeniorGuideComponent {
     }
   }
 
+  private restoreAudioPlaybackRate(): void {
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
+    const stored = Number(
+      this.document.defaultView?.localStorage.getItem(this.audioRateStorageKey)
+    );
+    if (this.audioPlaybackRates.includes(stored as 1 | 1.5 | 2)) {
+      this.audioPlaybackRate.set(stored);
+    }
+  }
+
+  private restoreShareCount(): void {
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
+    const storedCount = Number.parseInt(
+      this.document.defaultView?.localStorage.getItem(
+        this.shareCountStorageKey
+      ) ?? '0',
+      10
+    );
+    this.shareCount.set(
+      Number.isSafeInteger(storedCount) && storedCount > 0 ? storedCount : 0
+    );
+    this.changeDetectorRef.detectChanges();
+  }
+
+  private loadShareCount(): void {
+    this.restoreShareCount();
+    this.guideShareService.getShareCount().subscribe(globalCount => {
+      if (globalCount !== null && !this.shareRecordedDuringCurrentVisit) {
+        this.setShareCount(globalCount);
+      }
+    });
+  }
+
+  private setShareCount(count: number): void {
+    this.shareCount.set(count);
+    this.document.defaultView?.localStorage.setItem(
+      this.shareCountStorageKey,
+      count.toString()
+    );
+    this.changeDetectorRef.detectChanges();
+  }
+
   private restoreCollapsedTopics(): void {
     if (!isPlatformBrowser(this.platformId)) {
       return;
@@ -755,6 +1020,9 @@ export class AngularSeniorGuideComponent {
 
     this.activeSectionId.set(sectionId);
     this.activeTopicId.set(topicId);
+    this.replaceLocationHash(
+      topicId ?? (sectionId === 'practice' ? 'casos-practicos' : sectionId)
+    );
     if (topicId) {
       this.keepActiveLinkVisible(topicId);
     }
@@ -819,7 +1087,7 @@ export class AngularSeniorGuideComponent {
 
   private syncNavigationWithScroll(): void {
     const browserWindow = this.document.defaultView;
-    if (!browserWindow) {
+    if (!browserWindow || this.restoringLocationHash) {
       return;
     }
 
@@ -856,5 +1124,91 @@ export class AngularSeniorGuideComponent {
       this.activeSectionId.set(null);
       this.activeTopicId.set(null);
     }
+  }
+
+  private replaceLocationHash(targetId: string): void {
+    const browserWindow = this.document.defaultView;
+    if (!isPlatformBrowser(this.platformId) || !browserWindow) {
+      return;
+    }
+
+    const nextHash = `#${targetId}`;
+    if (browserWindow.location.hash === nextHash) {
+      return;
+    }
+
+    const nextUrl = `${browserWindow.location.pathname}${browserWindow.location.search}${nextHash}`;
+    browserWindow.history.replaceState(
+      browserWindow.history.state,
+      '',
+      nextUrl
+    );
+  }
+
+  private restoreLocationFromHash(): void {
+    const browserWindow = this.document.defaultView;
+    if (!isPlatformBrowser(this.platformId) || !browserWindow) {
+      return;
+    }
+
+    let targetId: string;
+    try {
+      targetId = decodeURIComponent(browserWindow.location.hash.slice(1));
+    } catch {
+      return;
+    }
+    if (!targetId) {
+      return;
+    }
+
+    const topic = this.topics.find(item => item.id === targetId);
+    const challenge = this.codeChallengeNavigation.find(
+      item => `code-challenge-${item.id}` === targetId
+    );
+    const group = this.groups.find(item => item.id === targetId);
+    const isKnownTarget =
+      Boolean(topic || challenge || group) ||
+      targetId === 'casos-practicos' ||
+      targetId === 'study-content';
+    if (!isKnownTarget) {
+      return;
+    }
+
+    this.restoringLocationHash = true;
+    this.query.set('');
+
+    if (topic) {
+      this.selectedCollection.set('all');
+      this.activeSectionId.set(topic.groupId);
+      this.activeTopicId.set(topic.id);
+      this.setTopicCollapsed(topic.id, false);
+    } else if (challenge) {
+      this.selectedCollection.set('practice');
+      this.activeSectionId.set('practice');
+      this.activeTopicId.set(targetId);
+    } else if (targetId === 'casos-practicos') {
+      this.selectedCollection.set('all');
+      this.activeSectionId.set('practice');
+      this.activeTopicId.set(null);
+    } else {
+      this.selectedCollection.set('all');
+      this.activeSectionId.set(group?.id ?? null);
+      this.activeTopicId.set(null);
+    }
+
+    browserWindow.requestAnimationFrame(() => {
+      browserWindow.requestAnimationFrame(() => {
+        const target = this.document.getElementById(targetId);
+        if (target instanceof HTMLDetailsElement) {
+          target.open = true;
+        }
+        target?.scrollIntoView({
+          behavior: 'instant' as ScrollBehavior,
+          block: 'start',
+        });
+        this.restoringLocationHash = false;
+        this.refreshScrollSpyTargets();
+      });
+    });
   }
 }
