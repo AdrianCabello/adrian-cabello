@@ -29,8 +29,10 @@ describe('ProjectsComponent', () => {
     );
 
     expect(gallery).toBeTruthy();
-    expect(gallery?.querySelectorAll('figure').length).toBe(2);
-    expect(gallery?.textContent).toContain('Event page & ticketing');
+    expect(gallery?.querySelectorAll('figure').length).toBe(4);
+    expect(gallery?.textContent).toContain('Current EventLoop home');
+    expect(gallery?.textContent).toContain('Producer setup form');
+    expect(gallery?.textContent).toContain('Operations dashboard · Demo data');
     expect(gallery?.textContent).not.toContain('Producer website · markama.ar');
     expect(gallery?.textContent).not.toContain('Artist website · adricted.com');
   });

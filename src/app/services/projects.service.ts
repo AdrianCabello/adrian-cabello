@@ -19,6 +19,7 @@ export interface Project {
   featured?: boolean;
   imageLabels?: string[];
   platformNote?: string;
+  producerSetupUrl?: string;
 }
 
 interface BackendGalleryItem {
@@ -57,21 +58,30 @@ export class ProjectsService {
       title: 'EventLoop',
       role: 'Founder & Tech Lead',
       description:
-        'The operating system behind event discovery, ticketing, producer operations, artist profiles, point of sale, inventory and branded public websites.',
+        'I founded and lead EventLoop, a platform that connects the event lifecycle: producer and venue setup, branded profiles, event discovery and ticketing, team and access management, on-site sales, inventory, and post-event reporting.',
       outcomes: [
         'Own product strategy, UX, architecture, backend systems and production releases.',
-        'Built one platform serving attendees, producers, venues and artists.',
-        'Launched productized custom-domain websites powered and managed from EventLoop.',
+        'Built producer onboarding and branded profiles that connect events, artists, teams and custom domains.',
+        'Connected ticketing, access control, point of sale, expenses and reporting around each event.',
+        'Serve attendees, producers, venues and artists through one platform and its public websites.',
       ],
       tech: ['Angular 22', 'Go', 'Node.js', 'PostgreSQL'],
       link: 'https://eventloop.ar',
       images: [
-        '../../../assets/images/eventloop-discovery.webp',
-        '../../../assets/images/eventloop-event.webp',
+        '../../../assets/images/eventloop-home-current.webp',
+        '../../../assets/images/eventloop-producer-identity.webp',
+        '../../../assets/images/eventloop-producer-registration.webp',
+        '../../../assets/images/eventloop-operations-demo.webp',
       ],
-      imageLabels: ['Event discovery', 'Event page & ticketing'],
+      imageLabels: [
+        'Current EventLoop home',
+        'Producer identity & public profile',
+        'Producer setup form',
+        'Operations dashboard · Demo data',
+      ],
       clientName: 'EventLoop',
       website: 'https://eventloop.ar',
+      producerSetupUrl: 'https://eventloop.ar/crear-productora',
       instagram: 'https://instagram.com/eventloop.ar',
       featured: true,
     },
@@ -211,6 +221,10 @@ export class ProjectsService {
 
       if (!backendProject) {
         return fallback;
+      }
+
+      if (fallback.featured) {
+        return { ...fallback, id: backendProject.id };
       }
 
       return {

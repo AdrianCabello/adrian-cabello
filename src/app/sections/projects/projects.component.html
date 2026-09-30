@@ -124,6 +124,19 @@
                     aria-hidden="true"></i>
                 </a>
               }
+              @if (project.producerSetupUrl) {
+                <a
+                  [href]="project.producerSetupUrl"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="portfolio-inline-link"
+                  data-testid="featured-project-producer-setup-link">
+                  {{ 'Explore producer setup' | translate }}
+                  <i
+                    class="pi pi-arrow-up-right text-xs"
+                    aria-hidden="true"></i>
+                </a>
+              }
               @if (project.instagram) {
                 <a
                   [href]="project.instagram"

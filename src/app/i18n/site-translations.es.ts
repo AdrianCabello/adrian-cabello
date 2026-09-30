@@ -60,6 +60,7 @@ export const SITE_SPANISH_TRANSLATIONS: Readonly<Record<string, string>> = {
   'Product view': 'Vista del producto',
   'Technologies used': 'Tecnologías utilizadas',
   'Explore EventLoop': 'Explorar EventLoop',
+  'Explore producer setup': 'Explorar alta de productora',
   'Visit site': 'Visitar sitio',
   Instagram: 'Instagram',
   '} }': '} }',
@@ -115,16 +116,21 @@ export const SITE_SPANISH_TRANSLATIONS: Readonly<Record<string, string>> = {
     'Construido con Angular e ingeniería centrada en el producto.',
   EventLoop: 'EventLoop',
   'Founder & Tech Lead': 'Fundador y líder tecnológico',
-  'The operating system behind event discovery, ticketing, producer operations, artist profiles, point of sale, inventory and branded public websites.':
-    'El sistema operativo detrás del descubrimiento de eventos, venta de entradas, operaciones de productores, perfiles de artistas, puntos de venta, inventario y sitios web públicos de marca.',
+  'I founded and lead EventLoop, a platform that connects the event lifecycle: producer and venue setup, branded profiles, event discovery and ticketing, team and access management, on-site sales, inventory, and post-event reporting.':
+    'Fundé y lidero EventLoop, una plataforma que conecta todo el ciclo de un evento: alta de productoras y espacios, perfiles con identidad propia, descubrimiento y venta de entradas, gestión de equipos y accesos, ventas presenciales, inventario y resultados posteriores.',
   'Own product strategy, UX, architecture, backend systems and production releases.':
     'Estrategia propia de producto, UX, arquitectura, sistemas backend y lanzamientos de producción.',
-  'Built one platform serving attendees, producers, venues and artists.':
-    'Construyó una plataforma que atiende a asistentes, productores, lugares y artistas.',
-  'Launched productized custom-domain websites powered and managed from EventLoop.':
-    'Se lanzaron sitios web de dominio personalizado desarrollados y administrados desde EventLoop.',
-  'Event discovery': 'Descubrimiento de eventos',
-  'Event page & ticketing': 'Página del evento y venta de entradas',
+  'Built producer onboarding and branded profiles that connect events, artists, teams and custom domains.':
+    'Desarrollé el alta de productoras y perfiles con identidad propia que conectan eventos, artistas, equipos y dominios personalizados.',
+  'Connected ticketing, access control, point of sale, expenses and reporting around each event.':
+    'Conecté la venta de entradas, el control de accesos, las ventas presenciales, los gastos y los reportes de cada fecha.',
+  'Serve attendees, producers, venues and artists through one platform and its public websites.':
+    'La plataforma y sus sitios públicos sirven a asistentes, productoras, espacios y artistas.',
+  'Current EventLoop home': 'Home actual de EventLoop',
+  'Producer identity & public profile':
+    'Identidad y perfil público de productora',
+  'Producer setup form': 'Formulario de alta de productora',
+  'Operations dashboard · Demo data': 'Panel operativo · Datos de ejemplo',
   Adricted: 'adicto',
   'Artist website · Powered by EventLoop':
     'Sitio web del artista · Desarrollado por EventLoop',
