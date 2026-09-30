@@ -14,7 +14,7 @@ interface PublicPage {
 @Injectable({ providedIn: 'root' })
 export class MetaService {
   private readonly baseUrl = 'https://adriancabello.dev';
-  private readonly imageUrl = `${this.baseUrl}/assets/images/portfolio-social-card.jpg`;
+  private readonly imageUrl = `${this.baseUrl}/assets/images/adrian-profile-social.jpg`;
 
   constructor(
     private readonly meta: Meta,
@@ -128,8 +128,8 @@ export class MetaService {
       content: this.imageUrl,
     });
     this.meta.updateTag({ property: 'og:image:type', content: 'image/jpeg' });
-    this.meta.updateTag({ property: 'og:image:width', content: '1200' });
-    this.meta.updateTag({ property: 'og:image:height', content: '630' });
+    this.meta.updateTag({ property: 'og:image:width', content: '800' });
+    this.meta.updateTag({ property: 'og:image:height', content: '800' });
     this.meta.updateTag({ property: 'og:image:alt', content: title });
     this.meta.updateTag({
       property: 'og:site_name',
@@ -146,7 +146,7 @@ export class MetaService {
 
     this.meta.updateTag({
       name: 'twitter:card',
-      content: 'summary_large_image',
+      content: 'summary',
     });
     this.meta.updateTag({ name: 'twitter:url', content: canonicalUrl });
     this.meta.updateTag({ name: 'twitter:title', content: title });
