@@ -47,7 +47,7 @@
             class="project-gallery-slide group overflow-hidden rounded-[1.35rem] border border-white/10 bg-slate-950/80">
             <button
               type="button"
-              class="project-gallery-frame block aspect-[8/5] overflow-hidden focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-cyan-300"
+              class="project-gallery-frame block overflow-hidden focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-cyan-300"
               aria-haspopup="dialog"
               [attr.aria-label]="
                 (project.imageLabels?.[$index] | translate) ||
@@ -57,36 +57,26 @@
               <img
                 [src]="image"
                 [attr.srcset]="imageSrcSet(image)"
-                sizes="(max-width: 767px) calc(100vw - 64px), 600px"
-                alt=""
-                aria-hidden="true"
-                class="project-gallery-backdrop"
-                loading="lazy"
-                decoding="async" />
-              <img
-                [src]="image"
-                [attr.srcset]="imageSrcSet(image)"
-                sizes="(max-width: 767px) calc(100vw - 64px), 600px"
+                sizes="(max-width: 1199px) calc(100vw - 96px), 600px"
                 [alt]="
                   (project.imageLabels?.[$index] | translate) ||
                   project.title + ' product interface'
                 "
                 width="1200"
                 height="750"
-                class="project-gallery-image h-full w-full object-contain transition duration-500 group-hover:scale-[1.01]"
+                class="project-gallery-image h-full w-full transition duration-500 group-hover:scale-[1.015]"
                 loading="lazy"
                 decoding="async" />
             </button>
-            <figcaption
-              class="flex items-center justify-between gap-4 border-t border-white/10 px-4 py-3">
+            <figcaption class="project-gallery-caption">
               <span
-                class="font-mono text-[0.68rem] font-semibold uppercase tracking-[0.12em] text-cyan-200">
+                class="project-gallery-caption-label font-mono text-[0.68rem] font-semibold uppercase tracking-[0.12em] text-cyan-200">
                 {{
                   (project.imageLabels?.[$index] | translate) ||
                     ('Product view' | translate) + ' ' + ($index + 1)
                 }}
               </span>
-              <span class="text-xs text-slate-500"
+              <span class="project-gallery-count text-xs text-slate-500"
                 >{{ $index + 1 }} / {{ project.images.length }}</span
               >
             </figcaption>
