@@ -3964,12 +3964,12 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
       {
         question: 'Contame sobre vos',
         answer:
-          'Soy Full-Stack Product Engineer y Tech Lead, con más de nueve años construyendo productos web y mobile y una especialización fuerte en Angular desde sus primeras versiones. Lideré arquitectura, migraciones y formularios dinámicos a escala en equipos distribuidos. Busco un rol donde pueda combinar producto, entrega, calidad técnica y mentoring.',
+          'Soy ingeniero frontend senior y líder técnico de Angular, con más de nueve años construyendo productos web y mobile. Lideré arquitectura y migraciones de aplicaciones empresariales, y desarrollé experiencias con Signals. Busco un rol donde pueda combinar implementación, producto, calidad técnica y mentoring.',
       },
       {
         question: '¿Por qué querés cambiar?',
         answer:
-          'Quiero ampliar el alcance de producto y arquitectura, trabajar sobre problemas con impacto medible y seguir creciendo en liderazgo técnico. En una entrevista adapto esta base a la oportunidad concreta y explico qué puedo aportar, sin hablar mal de equipos anteriores.',
+          'Mi contrato con CLARA Analytics terminó y estoy disponible para una nueva oportunidad. Busco un rol donde pueda seguir programando, contribuir a la arquitectura frontend y acompañar las decisiones técnicas del equipo.',
       },
       {
         question:

@@ -17,6 +17,30 @@ export const SITE_SPANISH_TRANSLATION_OVERRIDES: Readonly<
   '2—22': '2—22',
   'Building products, systems and engineering teams.':
     'Construyo productos, sistemas y equipos de ingeniería.',
+  'Open to remote roles': 'Abierto a oportunidades remotas',
+  'Senior Frontend Engineer': 'Ingeniero frontend senior',
+  'Adrian Cabello, Senior Frontend Engineer and Angular Tech Lead':
+    'Adrian Cabello, ingeniero frontend senior y líder técnico de Angular',
+  'Senior Frontend Engineer · Angular Tech Lead':
+    'Ingeniero frontend senior · Líder técnico de Angular',
+  'with clear architecture and great UX.':
+    'con arquitectura clara y una gran experiencia de usuario.',
+  "I'm Adrian Cabello, an Angular Tech Lead with":
+    'Soy Adrian Cabello, líder técnico de Angular con',
+  'building enterprise applications, analytics dashboards and mobile experiences. I lead frontend architecture, modernize large Angular applications and build analytics features with Signals.':
+    'creando aplicaciones empresariales, paneles de análisis y experiencias móviles. Lidero la arquitectura frontend, modernizo grandes aplicaciones Angular y desarrollo funciones de análisis con Signals.',
+  "I've built Ionic ordering and geolocated delivery workflows for Coca-Cola and Unilever programs, migrated a large enterprise Angular application, and use LLMs, MCP and automation in day-to-day delivery.":
+    'Construí flujos de pedidos y entregas geolocalizadas con Ionic para programas de Coca-Cola y Unilever, migré una gran aplicación empresarial Angular y uso LLM, MCP y automatización en el trabajo diario.',
+  'Reactive UI': 'Interfaces reactivas',
+  'Jun 2025 - Sep 2026': 'Jun. 2025 - Sep. 2026',
+  'Built production Angular features for data-rich and AI-enabled workflows in a cross-functional product environment.':
+    'Desarrollé funcionalidades Angular en producción para flujos con grandes volúmenes de datos e inteligencia artificial dentro de un equipo multidisciplinario.',
+  'Built and maintained production frontend features with Angular and TypeScript.':
+    'Desarrollé y mantuve funcionalidades frontend en producción con Angular y TypeScript.',
+  'Integrated data-rich and AI-enabled workflows while improving maintainability, usability, and frontend architecture.':
+    'Integré flujos de datos e inteligencia artificial mientras mejoraba la mantenibilidad, la usabilidad y la arquitectura frontend.',
+  'Collaborated with product, backend, design, and QA across the full delivery lifecycle.':
+    'Colaboré con producto, backend, diseño y QA durante todo el ciclo de entrega.',
   '9+ years of experience': 'más de 9 años de experiencia',
   'Selected work': 'Proyectos seleccionados',
   'Architecture, delivery, product decisions and the systems behind the screen — not just a list of technologies.':

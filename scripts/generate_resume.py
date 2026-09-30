@@ -30,13 +30,13 @@ SLATE = colors.HexColor("#475569")
 LIGHT = colors.HexColor("#E2E8F0")
 VARIANTS = {
     "general": {
-        "title": "Full-Stack Product Engineer · Tech Lead",
+        "title": "Senior Frontend Engineer · Angular Tech Lead",
         "summary": (
-            "Full-stack product engineer and Angular tech lead with 9+ years of experience building "
+            "Senior frontend engineer and Angular tech lead with 9+ years of experience building "
             "enterprise SaaS, analytics dashboards, AI products, and operational platforms. Deep "
             "experience in Angular, Ionic, TypeScript, RxJS, Signals, frontend architecture, performance, "
-            "accessibility, and testing. Lead teams, build products from scratch, and ship across Angular, "
-            "Node.js, Go, and PostgreSQL."
+            "accessibility, and testing. Lead teams, build products from scratch, and connect "
+            "technical decisions to product outcomes."
         ),
         "skills": (
             "<b>Frontend:</b> Angular 2 through the latest version, Ionic, TypeScript, JavaScript, RxJS, "
@@ -44,7 +44,6 @@ VARIANTS = {
             "accessibility, performance optimization<br/>"
             "<b>Engineering:</b> Frontend architecture, design systems, REST APIs, real-time interfaces, "
             "Jasmine, Karma, Jest, Cypress, CI/CD, Git, Agile/Scrum, code review, mentoring<br/>"
-            "<b>Backend &amp; Data:</b> Node.js, NestJS, Express, Go, PostgreSQL, MySQL, MongoDB, AWS<br/>"
             "<b>AI &amp; Automation:</b> LLM product interfaces, document Q&amp;A, AI chat, MCP servers, "
             "agent workflows, Claude, ChatGPT, and Jira-integrated automation"
         ),
@@ -275,11 +274,11 @@ def build(variant_name):
         job(
             "Senior Frontend Engineer",
             "CLARA Analytics",
-            "Remote, Argentina | Jun 2025 - Present",
+            "Remote, Argentina | Jun 2025 - Sep 2026",
             [
-                "Build and maintain production frontend features with Angular and TypeScript in a cross-functional product environment.",
-                "Integrate data-rich and AI-enabled workflows while improving maintainability, usability, and frontend architecture.",
-                "Collaborate with product, backend, design, and QA teams across the full delivery lifecycle.",
+                "Built and maintained production frontend features with Angular and TypeScript in a cross-functional product environment.",
+                "Integrated data-rich and AI-enabled workflows while improving maintainability, usability, and frontend architecture.",
+                "Collaborated with product, backend, design, and QA teams across the full delivery lifecycle.",
             ],
         ),
         job(
@@ -288,7 +287,7 @@ def build(variant_name):
             "Built outside working hours | Dec 2023 - Present",
             [
                 "Lead product strategy, UX, frontend architecture, releases, and continuous iteration for an event operations platform.",
-                "Built Angular 20 and TypeScript workflows for POS, ticketing, inventory, product catalogs, and multi-location operations.",
+                "Built Angular 22 and TypeScript workflows for POS, ticketing, inventory, product catalogs, and multi-location operations.",
                 "Implemented role-based access, receipt OCR imports, recipe-linked stock, and real-time inventory synchronization.",
                 "Contribute to Go backend services and PostgreSQL data models while guiding technical decisions across the product.",
             ],

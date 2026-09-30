@@ -27,13 +27,13 @@ export class ExperienceComponent {
     {
       title: 'Senior Frontend Engineer',
       company: 'CLARA Analytics',
-      period: 'Jun 2025 - Present',
+      period: 'Jun 2025 - Sep 2026',
       isOpen: false,
-      description: `Building production Angular features for data-rich and AI-enabled workflows in a cross-functional product environment.`,
+      description: `Built production Angular features for data-rich and AI-enabled workflows in a cross-functional product environment.`,
       responsibilities: [
-        'Build and maintain production frontend features with Angular and TypeScript.',
-        'Integrate data-rich and AI-enabled workflows while improving maintainability, usability, and frontend architecture.',
-        'Collaborate with product, backend, design, and QA across the full delivery lifecycle.',
+        'Built and maintained production frontend features with Angular and TypeScript.',
+        'Integrated data-rich and AI-enabled workflows while improving maintainability, usability, and frontend architecture.',
+        'Collaborated with product, backend, design, and QA across the full delivery lifecycle.',
       ],
       projects: [],
     },

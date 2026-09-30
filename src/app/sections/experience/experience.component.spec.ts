@@ -26,7 +26,7 @@ describe('ExperienceComponent', () => {
     const [claraExperience, eventLoopExperience] = component.experiences();
 
     expect(claraExperience.company).toBe('CLARA Analytics');
-    expect(claraExperience.period).toBe('Jun 2025 - Present');
+    expect(claraExperience.period).toBe('Jun 2025 - Sep 2026');
     expect(eventLoopExperience.title).toBe('Founder & Tech Lead');
     expect(eventLoopExperience.company).toBe('EventLoop');
   });

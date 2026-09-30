@@ -34,12 +34,13 @@ describe('HomeComponent', () => {
     ).toContain('9+ years of experience');
   });
 
-  it('should position Adrian as a full-stack product engineer', () => {
+  it('should position Adrian as a senior Angular frontend engineer', () => {
     const element: HTMLElement = fixture.nativeElement;
 
-    expect(element.textContent).toContain('Full-Stack Product Engineer');
-    expect(element.textContent).toContain('Go + Node');
-    expect(element.textContent).toContain('interface to infrastructure');
+    expect(element.textContent).toContain('Senior Frontend Engineer');
+    expect(element.textContent).toContain('Angular 22');
+    expect(element.textContent).toContain('Signals / RxJS');
+    expect(element.textContent).not.toContain('Go + Node');
   });
 
   it('should present the current Ionic and Angular migration experience', () => {
@@ -51,13 +52,15 @@ describe('HomeComponent', () => {
     expect(element.textContent).toContain('Mobile');
     expect(element.textContent).toContain('Ionic');
     expect(summary).toContain('Coca-Cola and Unilever');
-    expect(summary).toContain('Angular 19 with Signals');
+    expect(summary).toContain(
+      'migrated a large enterprise Angular application'
+    );
   });
 
   it('should not claim an unsupported Angular version', () => {
     const element: HTMLElement = fixture.nativeElement;
 
-    expect(element.textContent).toContain('2—22');
-    expect(element.textContent).not.toContain('Angular 22');
+    expect(element.textContent).toContain('Angular 22');
+    expect(element.textContent).not.toContain('migrated to Angular 22');
   });
 });

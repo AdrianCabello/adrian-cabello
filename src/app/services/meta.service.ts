@@ -74,15 +74,15 @@ export class MetaService {
         ? 'Guía completa de entrevista Angular Senior | Adrian Cabello'
         : 'Complete Senior Angular Interview Guide | Adrian Cabello'
       : spanish
-        ? 'Adrian Cabello | Ingeniero de Producto Full-Stack'
-        : 'Adrian Cabello | Full-Stack Product Engineer';
+        ? 'Adrian Cabello | Ingeniero Frontend Senior y Angular Tech Lead'
+        : 'Adrian Cabello | Senior Frontend Engineer & Angular Tech Lead';
     const description = isGuide
       ? spanish
         ? 'Teoría, ejemplos y preguntas con respuesta sobre HTML, CSS, JavaScript, TypeScript, Angular, RxJS, arquitectura, testing, seguridad y system design frontend.'
         : 'Theory, examples and answered interview questions on HTML, CSS, JavaScript, TypeScript, Angular, RxJS, architecture, testing, security and frontend system design.'
       : spanish
-        ? 'Ingeniero de producto Full-Stack y Tech Lead con más de 9 años creando aplicaciones Angular e Ionic, liderando migraciones empresariales y entregando productos con Go, Node.js e inteligencia artificial.'
-        : 'Full-stack product engineer and Tech Lead with 9+ years building Angular and Ionic applications, leading enterprise migrations, and shipping Go, Node.js and AI-enabled products.';
+        ? 'Ingeniero frontend senior y líder técnico de Angular con más de 9 años creando aplicaciones empresariales, paneles de análisis y experiencias móviles. Especializado en arquitectura frontend, Signals y producto.'
+        : 'Senior Frontend Engineer and Angular Tech Lead with 9+ years building enterprise applications, analytics dashboards and mobile experiences. Focused on frontend architecture, Signals and product delivery.';
     const canonicalUrl = `${this.baseUrl}${page.canonicalPath}`;
 
     this.document.documentElement.lang = page.language;
@@ -98,7 +98,7 @@ export class MetaService {
         ? spanish
           ? 'Angular Senior, entrevista Angular, TypeScript, JavaScript, RxJS, Signals, arquitectura frontend, system design'
           : 'Senior Angular, Angular interview, TypeScript, JavaScript, RxJS, Signals, frontend architecture, system design'
-        : 'Full-Stack Product Engineer, Angular, Ionic, TypeScript, Go, Node.js, PostgreSQL, AI Engineering, LLM, MCP, Tech Lead, Web Development',
+        : 'Senior Frontend Engineer, Angular Tech Lead, Angular 22, TypeScript, RxJS, Signals, frontend architecture, performance, accessibility, Ionic',
     });
     this.meta.updateTag({ name: 'author', content: 'Adrian Cabello' });
     this.meta.updateTag({
@@ -200,8 +200,8 @@ export class MetaService {
       url: `${this.baseUrl}/`,
       image: `${this.baseUrl}/assets/images/adrian-profile.webp`,
       jobTitle: spanish
-        ? 'Ingeniero de Producto Full-Stack y Tech Lead'
-        : 'Full-Stack Product Engineer and Tech Lead',
+        ? 'Ingeniero Frontend Senior y Angular Tech Lead'
+        : 'Senior Frontend Engineer and Angular Tech Lead',
       sameAs: [
         'https://www.linkedin.com/in/adrian-cabello-b07290b8/',
         'https://github.com/adriancabello',
@@ -210,9 +210,9 @@ export class MetaService {
         'Angular',
         'Ionic',
         'TypeScript',
-        'Go',
-        'Node.js',
-        'PostgreSQL',
+        'RxJS',
+        'Signals',
+        'Frontend architecture',
         'AI-assisted software engineering',
         'Technical leadership',
       ],
