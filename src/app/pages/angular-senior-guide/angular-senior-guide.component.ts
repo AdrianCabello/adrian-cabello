@@ -11,6 +11,7 @@ import {
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { LanguageService } from '../../i18n/language.service';
+import { LanguageScrollService } from '../../i18n/language-scroll.service';
 import { LanguageSwitcherComponent } from '../../shared/components/language-switcher/language-switcher.component';
 import { GuideShareService } from '../../services/guide-share.service';
 import { CodeChallengePrepComponent } from './code-challenge-prep.component';
@@ -199,6 +200,7 @@ const IMPORTANT_THEORY_PATTERN = new RegExp(
   styleUrl: './angular-senior-guide.component.scss',
 })
 export class AngularSeniorGuideComponent {
+  private readonly languageScroll = inject(LanguageScrollService);
   private readonly platformId = inject(PLATFORM_ID);
   private readonly document = inject(DOCUMENT);
   private readonly destroyRef = inject(DestroyRef);
@@ -401,8 +403,11 @@ export class AngularSeniorGuideComponent {
       this.restoreTopicReviews();
       this.restoreAudioPlaybackRate();
       this.document.defaultView?.setTimeout(() => this.loadShareCount());
-      this.restoreLocationFromHash();
+      if (!this.languageScroll.hasPendingPosition) {
+        this.restoreLocationFromHash();
+      }
       this.setupScrollSpy();
+      this.languageScroll.restorePositionAfterRender();
     });
 
     this.destroyRef.onDestroy(() => {

@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, afterNextRender, inject } from '@angular/core';
+import { LanguageScrollService } from '../../i18n/language-scroll.service';
 import { AcademicComponent } from '../../sections/academic/academic.component';
 import { ExperienceComponent } from '../../sections/experience/experience.component';
 import { FooterComponent } from '../../sections/footer/footer.component';
@@ -25,4 +26,10 @@ import { RevealDirective } from '../../shared/directives/reveal.directive';
   ],
   templateUrl: './public-site.component.html',
 })
-export class PublicSiteComponent {}
+export class PublicSiteComponent {
+  private readonly languageScroll = inject(LanguageScrollService);
+
+  constructor() {
+    afterNextRender(() => this.languageScroll.restorePositionAfterRender());
+  }
+}

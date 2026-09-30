@@ -5159,6 +5159,118 @@ export const CODE_CHALLENGE_DRILLS: readonly CodeChallengeDrill[] = [
     ],
   },
   {
+    id: 'signals-state',
+    priority: 'Muy probable',
+    time: '50 min',
+    title: 'Estado derivado con Signals',
+    prompt:
+      'Implementá un carrito con cantidad editable, subtotal, descuento y total derivados. El guardado es optimista, puede fallar y una respuesta vieja nunca debe sobrescribir una edición más reciente.',
+    deliverables: [
+      'Estado fuente mínimo y valores derivados con `computed`.',
+      'Actualización optimista con rollback seguro ante concurrencia.',
+      'Tests para derivación, error y respuestas fuera de orden.',
+    ],
+    watch_for:
+      'No copies subtotal y total dentro del estado si pueden derivarse. Un rollback ciego también es una carrera: solo debe revertir la versión que falló.',
+    solution:
+      'Los ítems son la única fuente de verdad y los importes se calculan con `computed`. Cada mutación incrementa una versión por producto; el error revierte únicamente si todavía corresponde a esa versión, evitando destruir una edición posterior.',
+    solution_code_title: 'cart.store.ts',
+    solution_code:
+      'interface CartItem {\n  readonly id: string;\n  readonly price: number;\n  readonly quantity: number;\n}\n\n@Injectable()\nexport class CartStore {\n  private readonly api = inject(CartApi);\n  private readonly itemsState = signal<readonly CartItem[]>([]);\n  private readonly versions = new Map<string, number>();\n\n  readonly items = this.itemsState.asReadonly();\n  readonly subtotal = computed(() =>\n    this.items().reduce((sum, item) => sum + item.price * item.quantity, 0)\n  );\n  readonly discount = computed(() => this.subtotal() >= 100 ? 10 : 0);\n  readonly total = computed(() => this.subtotal() - this.discount());\n\n  setItems(items: readonly CartItem[]): void {\n    this.itemsState.set(items);\n  }\n\n  updateQuantity(id: string, quantity: number): void {\n    const normalized = Math.max(0, Math.trunc(quantity));\n    const previous = this.items().find(item => item.id === id);\n    if (!previous || previous.quantity === normalized) return;\n\n    const version = (this.versions.get(id) ?? 0) + 1;\n    this.versions.set(id, version);\n    this.patch(id, normalized);\n\n    this.api.updateQuantity(id, normalized).subscribe({\n      error: () => {\n        if (this.versions.get(id) === version) {\n          this.patch(id, previous.quantity);\n        }\n      }\n    });\n  }\n\n  private patch(id: string, quantity: number): void {\n    this.itemsState.update(items => items.map(item =>\n      item.id === id ? { ...item, quantity } : item\n    ));\n  }\n}',
+    test_code_title: 'cart.store.spec.ts',
+    test_code:
+      "it('derives totals from the source state', () => {\n  store.setItems([\n    { id: 'a', price: 30, quantity: 2 },\n    { id: 'b', price: 50, quantity: 1 }\n  ]);\n\n  expect(store.subtotal()).toBe(110);\n  expect(store.discount()).toBe(10);\n  expect(store.total()).toBe(100);\n});\n\nit('does not let an old failure revert a newer edit', () => {\n  const first = new Subject<void>();\n  const second = new Subject<void>();\n  api.updateQuantity.mockReturnValueOnce(first).mockReturnValueOnce(second);\n  store.setItems([{ id: 'a', price: 20, quantity: 1 }]);\n\n  store.updateQuantity('a', 2);\n  store.updateQuantity('a', 3);\n  first.error(new Error('old request failed'));\n\n  expect(store.items()[0].quantity).toBe(3);\n  second.next();\n  second.complete();\n});",
+    decisions: [
+      '`computed` modela invariantes; no hace falta sincronizar manualmente subtotal, descuento y total.',
+      'La versión por entidad permite concurrencia entre productos sin aplicar un bloqueo global.',
+      'En producción mostraría el error y reconciliaría con servidor si el contrato no ofrece versionado o idempotencia.',
+    ],
+  },
+  {
+    id: 'performance-regression',
+    priority: 'Diferenciador Senior',
+    time: '45 min',
+    title: 'Diagnosticar una regresión de performance',
+    prompt:
+      'Una pantalla con 2.000 pedidos se congela al escribir en el filtro. Encontrá las causas, aplicá el cambio de mayor impacto y demostrálas con una medición repetible.',
+    deliverables: [
+      'Hipótesis y baseline antes de optimizar.',
+      'Identidad estable, trabajo derivado fuera del template y reducción del DOM.',
+      'Comparación antes/después y explicación de límites.',
+    ],
+    watch_for:
+      '`OnPush` no arregla un filtro costoso ejecutado en cada binding ni hace barato renderizar miles de nodos. No memorices todo sin medir invalidaciones y memoria.',
+    solution:
+      'Perfilo interacción, scripting y cantidad de nodos. Normalizo la query una vez, derivo el resultado con `computed`, uso `track order.id` y pagina el conjunto visible. La prueba cuenta evaluaciones y conserva la identidad DOM de filas sin cambios.',
+    solution_code_title: 'orders.component.ts',
+    solution_code:
+      '@Component({\n  standalone: true,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  template: `\n    <input [formControl]="search" aria-label="Filtrar pedidos" />\n    <p>{{ filtered().length }} resultados</p>\n    <ul>\n      @for (order of visibleOrders(); track order.id) {\n        <li [attr.data-order-id]="order.id">\n          {{ order.customer }} — {{ order.total | currency }}\n        </li>\n      }\n    </ul>\n  `\n})\nexport class OrdersComponent {\n  readonly search = new FormControl(\'\', { nonNullable: true });\n  readonly orders = input.required<readonly Order[]>();\n  readonly page = signal(1);\n  private readonly query = toSignal(this.search.valueChanges.pipe(\n    startWith(\'\'), debounceTime(150),\n    map(value => value.trim().toLocaleLowerCase()),\n    distinctUntilChanged()\n  ), { initialValue: \'\' });\n\n  readonly filtered = computed(() => {\n    const query = this.query();\n    return query\n      ? this.orders().filter(order =>\n          order.customer.toLocaleLowerCase().includes(query)\n        )\n      : this.orders();\n  });\n  readonly visibleOrders = computed(() =>\n    this.filtered().slice((this.page() - 1) * 50, this.page() * 50)\n  );\n}',
+    test_code_title: 'orders.component.spec.ts',
+    test_code:
+      "it('reuses unchanged rows after an immutable update', () => {\n  fixture.componentRef.setInput('orders', orders);\n  fixture.detectChanges();\n  const rowBefore = fixture.nativeElement.querySelector('[data-order-id=\"o1\"]');\n\n  fixture.componentRef.setInput('orders', orders.map(order =>\n    order.id === 'o2' ? { ...order, total: 99 } : order\n  ));\n  fixture.detectChanges();\n\n  expect(fixture.nativeElement.querySelector('[data-order-id=\"o1\"]'))\n    .toBe(rowBefore);\n});\n\nit('debounces filtering and renders at most one page', fakeAsync(() => {\n  fixture.componentRef.setInput('orders', makeOrders(2_000));\n  fixture.detectChanges();\n  fixture.componentInstance.search.setValue('ada');\n  tick(149);\n  expect(fixture.nativeElement.querySelectorAll('li').length).toBe(50);\n  tick(1);\n  fixture.detectChanges();\n  expect(fixture.nativeElement.querySelectorAll('li').length).toBeLessThanOrEqual(50);\n}));",
+    decisions: [
+      'Primero comparo traces con el mismo dataset y la misma interacción; una mejora sin baseline es una intuición.',
+      'La paginación reduce el costo estructural del DOM; para scroll continuo evaluaría CDK virtual scroll y accesibilidad.',
+      'Si el volumen crece, filtro y paginación pasan al servidor y la UI cancela queries obsoletas.',
+    ],
+  },
+  {
+    id: 'legacy-refactor',
+    priority: 'Probable',
+    time: '60 min',
+    title: 'Refactor incremental de una feature legacy',
+    prompt:
+      'Recibís un componente de 700 líneas que consulta APIs, transforma datos, abre modales y guarda estado global. Extraé una frontera testeable sin reescribir la feature ni romper su contrato público.',
+    deliverables: [
+      'Caracterización del comportamiento actual antes del refactor.',
+      'Una separación con responsabilidad y ownership claros.',
+      'Commits pequeños y tests que permiten revertir con seguridad.',
+    ],
+    watch_for:
+      'Cambiar a Signals, standalone y una nueva librería de estado al mismo tiempo impide saber qué rompió la pantalla. Refactor no significa rediseñar todo.',
+    solution:
+      'Congelo el contrato visible con una prueba de caracterización. Extraigo primero la carga y el mapeo a un facade porque forman una frontera cohesionada; el componente conserva inputs, outputs y template mientras delega esa responsabilidad.',
+    solution_code_title: 'orders.facade.ts',
+    solution_code:
+      "export type OrdersViewState =\n  | { status: 'loading'; orders: readonly OrderRow[] }\n  | { status: 'ready'; orders: readonly OrderRow[] }\n  | { status: 'error'; orders: readonly OrderRow[] };\n\n@Injectable()\nexport class OrdersFacade {\n  private readonly api = inject(OrdersApi);\n  private readonly reload = new Subject<void>();\n\n  readonly state$ = this.reload.pipe(\n    startWith(undefined),\n    switchMap(() => concat(\n      of<OrdersViewState>({ status: 'loading', orders: [] }),\n      this.api.list().pipe(\n        map(orders => ({\n          status: 'ready',\n          orders: orders.map(toOrderRow)\n        }) as const),\n        catchError(() => of<OrdersViewState>({ status: 'error', orders: [] }))\n      )\n    )),\n    shareReplay({ bufferSize: 1, refCount: true })\n  );\n\n  refresh(): void {\n    this.reload.next();\n  }\n}\n\n@Component({ providers: [OrdersFacade] })\nexport class LegacyOrdersComponent {\n  readonly facade = inject(OrdersFacade);\n  readonly state = toSignal(this.facade.state$, {\n    initialValue: { status: 'loading', orders: [] }\n  });\n}",
+    test_code_title: 'orders.facade.spec.ts',
+    test_code:
+      "it('preserves the visible mapping contract after extraction', () => {\n  api.list.mockReturnValue(of([\n    { id: 'o1', customer_name: 'Ada', total_cents: 1250 }\n  ]));\n  const states: OrdersViewState[] = [];\n\n  facade.state$.subscribe(state => states.push(state));\n\n  expect(states).toEqual([\n    { status: 'loading', orders: [] },\n    { status: 'ready', orders: [{ id: 'o1', customer: 'Ada', total: 12.5 }] }\n  ]);\n});\n\nit('reloads through the extracted boundary', () => {\n  api.list.mockReturnValue(of([]));\n  facade.state$.subscribe();\n  facade.refresh();\n  expect(api.list).toHaveBeenCalledTimes(2);\n});",
+    decisions: [
+      'El facade pertenece al ciclo de vida de la feature, por eso se provee a nivel de componente.',
+      'No cambio inputs, outputs ni rutas durante la extracción; eso reduce el radio de regresión.',
+      'La siguiente extracción se decide por acoplamiento observado, no por una arquitectura objetivo abstracta.',
+    ],
+  },
+  {
+    id: 'routing-access',
+    priority: 'Probable',
+    time: '40 min',
+    title: 'Routing, autorización y deep links',
+    prompt:
+      'Protegé `/admin/:teamId`, cargá el equipo antes de renderizar y conservá la URL intentada para volver después del login. Diferenciá usuario anónimo, usuario sin permiso, 404 y fallo de red.',
+    deliverables: [
+      'Guard funcional que devuelve `UrlTree`, sin navegación imperativa.',
+      'Resolver cancelable y estados de error con destinos distintos.',
+      'Tests de deep link, autorización y navegación directa.',
+    ],
+    watch_for:
+      'Un guard del cliente mejora UX, pero no reemplaza autorización en el backend. Evitá `subscribe` dentro del guard y loops entre login y la ruta protegida.',
+    solution:
+      'El guard espera una sesión resuelta y devuelve una decisión única: permitir, login con `returnUrl` o forbidden. El resolver traduce solo el 404 a una ruta específica; los fallos operativos llegan al manejador global de navegación.',
+    solution_code_title: 'admin.routes.ts',
+    solution_code:
+      "export const adminGuard: CanActivateFn = (_route, state) => {\n  const session = inject(SessionStore);\n  const router = inject(Router);\n\n  return session.ready$.pipe(\n    take(1),\n    map(user => {\n      if (!user) {\n        return router.createUrlTree(['/login'], {\n          queryParams: { returnUrl: state.url }\n        });\n      }\n      return user.permissions.includes('teams:read')\n        ? true\n        : router.createUrlTree(['/forbidden']);\n    })\n  );\n};\n\nexport const teamResolver: ResolveFn<Team> = route => {\n  const api = inject(TeamsApi);\n  const router = inject(Router);\n  const id = route.paramMap.get('teamId')!;\n\n  return api.get(id).pipe(\n    catchError(error => error.status === 404\n      ? of(new RedirectCommand(router.createUrlTree(['/not-found'])))\n      : throwError(() => error)\n    )\n  );\n};\n\nexport const ADMIN_ROUTES: Routes = [{\n  path: 'admin/:teamId',\n  canActivate: [adminGuard],\n  resolve: { team: teamResolver },\n  loadComponent: () => import('./team-admin.component')\n    .then(module => module.TeamAdminComponent)\n}];",
+    test_code_title: 'admin.routes.spec.ts',
+    test_code:
+      "it('keeps the protected deep link when redirecting to login', async () => {\n  session.ready$ = of(null);\n\n  await router.navigateByUrl('/admin/team-42?tab=billing');\n\n  expect(router.url).toBe(\n    '/login?returnUrl=%2Fadmin%2Fteam-42%3Ftab%3Dbilling'\n  );\n});\n\nit('does not resolve data for an unauthorized user', async () => {\n  session.ready$ = of({ id: 'u1', permissions: [] });\n\n  await router.navigateByUrl('/admin/team-42');\n\n  expect(router.url).toBe('/forbidden');\n  expect(api.get).not.toHaveBeenCalled();\n});",
+    decisions: [
+      'Devuelvo `UrlTree` para que el router cancele una navegación y comience la siguiente de forma consistente.',
+      'El backend vuelve a comprobar `teams:read`; el guard nunca es una frontera de seguridad.',
+      'Para datos opcionales prefiero cargar dentro de la pantalla; uso resolver porque esta vista no tiene sentido sin el equipo.',
+    ],
+  },
+  {
     id: 'accessible-table',
     priority: 'Diferenciador Senior',
     time: '45 min',

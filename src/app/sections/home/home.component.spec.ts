@@ -22,13 +22,9 @@ describe('HomeComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should present the current AI and automation experience', () => {
+  it('should present Adrian’s experience in the hero', () => {
     const element: HTMLElement = fixture.nativeElement;
 
-    expect(
-      element.querySelector('[data-testid="home-ai-experience-summary"]')
-        ?.textContent
-    ).toContain('LLMs, MCP and automation');
     expect(
       element.querySelector('[data-testid="home-role-summary"]')?.textContent
     ).toContain('9+ years of experience');
@@ -40,24 +36,22 @@ describe('HomeComponent', () => {
     expect(element.textContent).toContain('Senior Frontend Engineer');
     expect(element.textContent).toContain('Angular 22');
     expect(element.textContent).toContain('Signals / RxJS');
+    expect(element.textContent).toContain('Ionic');
     expect(element.textContent).not.toContain('Go + Node');
+    expect(element.textContent).not.toContain('Golang/Node');
   });
 
-  it('should present the current Ionic and Angular migration experience', () => {
+  it('should present the Ionic, Angular migration and AI experience', () => {
     const element: HTMLElement = fixture.nativeElement;
     const summary = element.querySelector(
       '[data-testid="home-ai-experience-summary"]'
     )?.textContent;
 
-    expect(element.textContent).toContain('Mobile');
-    expect(element.textContent).toContain('Ionic');
     expect(summary).toContain('Coca-Cola and Unilever');
-    expect(summary).toContain(
-      'migrated a large enterprise Angular application'
-    );
+    expect(summary).toContain('migrated a large enterprise Angular application');
   });
 
-  it('should not claim an unsupported Angular version', () => {
+  it('should show the current Angular major without rewriting the historical migration', () => {
     const element: HTMLElement = fixture.nativeElement;
 
     expect(element.textContent).toContain('Angular 22');

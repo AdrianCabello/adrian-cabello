@@ -84,14 +84,13 @@
             @if (exp.isOpen) {
               <div
                 [id]="'experience-details-' + i"
-                @expandCollapse
                 class="mt-6 border-t border-white/10 pt-5">
-                @if (exp.projects?.length) {
+                @if (exp.projects.length) {
                   <div class="grid gap-6 lg:grid-cols-2">
                     @for (project of exp.projects; track project.name) {
                       <div class="rounded-2xl bg-white/[0.035] p-5">
                         <h4 class="text-lg font-semibold text-white">
-                          {{ project.name }}
+                          {{ project.name | translate }}
                         </h4>
                         <p class="mt-2 leading-6 text-slate-400">
                           {{ project.summary | translate }}
@@ -110,22 +109,6 @@
                       </div>
                     }
                   </div>
-                } @else if (exp.responsibilities?.length) {
-                  <h4
-                    class="font-mono text-xs font-semibold uppercase tracking-[0.18em] text-cyan-200">
-                    {{ 'Key contributions' | translate }}
-                  </h4>
-                  <ul
-                    class="mt-4 grid gap-2 text-sm leading-6 text-slate-300 md:grid-cols-2 md:gap-x-8">
-                    @for (item of exp.responsibilities; track item) {
-                      <li class="flex gap-3">
-                        <span
-                          class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-300"
-                          aria-hidden="true"></span>
-                        <span>{{ item | translate }}</span>
-                      </li>
-                    }
-                  </ul>
                 }
               </div>
             }

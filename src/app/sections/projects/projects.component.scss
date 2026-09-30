@@ -1,0 +1,186 @@
+.project-gallery-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.project-gallery-button {
+  display: grid;
+  width: 2.25rem;
+  height: 2.25rem;
+  place-items: center;
+  border: 1px solid rgb(255 255 255 / 15%);
+  border-radius: 9999px;
+  color: rgb(165 243 252);
+  transition:
+    background-color 150ms,
+    border-color 150ms;
+
+  &:hover,
+  &:focus-visible {
+    border-color: rgb(103 232 249 / 60%);
+    background: rgb(103 232 249 / 10%);
+  }
+}
+
+.project-gallery-track {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  scroll-snap-type: x mandatory;
+  scrollbar-color: rgb(103 232 249 / 45%) transparent;
+  scrollbar-width: thin;
+  padding-bottom: 0.5rem;
+}
+
+.project-gallery-slide {
+  flex: 0 0 calc((100% - 1rem) / 2);
+  min-width: 0;
+  scroll-snap-align: start;
+}
+
+.project-gallery-frame {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  background: #050b18;
+}
+
+.project-gallery-backdrop {
+  position: absolute;
+  inset: -1rem;
+  width: calc(100% + 2rem);
+  height: calc(100% + 2rem);
+  object-fit: cover;
+  filter: blur(24px) brightness(0.34) saturate(0.8);
+  pointer-events: none;
+}
+
+.project-gallery-image {
+  position: relative;
+  z-index: 1;
+  display: block;
+}
+
+@media (min-width: 768px) {
+  .project-gallery-controls--short {
+    display: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .project-gallery-track {
+    gap: 0.75rem;
+  }
+
+  .project-gallery-slide {
+    flex-basis: 100%;
+  }
+}
+.project-card--featured {
+  border-color: rgb(103 232 249 / 25%);
+  background: rgb(15 23 42 / 75%);
+}
+
+.project-lightbox {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100dvh;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: rgb(2 6 23 / 98%);
+  color: white;
+}
+
+.project-lightbox::backdrop {
+  background: rgb(2 6 23 / 90%);
+}
+
+.project-lightbox-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.project-lightbox-header,
+.project-lightbox-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+}
+
+.project-lightbox-header {
+  border-bottom: 1px solid rgb(255 255 255 / 10%);
+}
+
+.project-lightbox-footer {
+  border-top: 1px solid rgb(255 255 255 / 10%);
+}
+
+.project-lightbox-close,
+.project-lightbox-arrow {
+  flex-shrink: 0;
+  width: 2.75rem;
+  height: 2.75rem;
+  font-size: 1rem;
+}
+
+.project-lightbox-stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  min-height: 0;
+  gap: 0.75rem;
+  padding: 0.75rem;
+}
+
+.project-lightbox-image {
+  display: block;
+  width: auto;
+  max-width: calc(100% - 7rem);
+  height: auto;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+@media (max-width: 767px) {
+  .project-lightbox-header,
+  .project-lightbox-footer {
+    padding: 0.75rem 1rem;
+  }
+
+  .project-lightbox-stage {
+    position: relative;
+    padding: 0.5rem;
+  }
+
+  .project-lightbox-image {
+    max-width: 100%;
+  }
+
+  .project-lightbox-arrow {
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgb(2 6 23 / 80%);
+  }
+
+  .project-lightbox-arrow:first-child {
+    left: 0.5rem;
+  }
+
+  .project-lightbox-arrow:last-child {
+    right: 0.5rem;
+  }
+}

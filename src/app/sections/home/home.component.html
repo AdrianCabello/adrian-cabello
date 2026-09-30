@@ -1,9 +1,9 @@
 <section
   id="home"
-  class="scroll-mt-24 px-4 pb-12 pt-8 sm:px-6 lg:pb-20 lg:pt-14"
+  class="flex min-h-[calc(100svh-5rem)] scroll-mt-24 items-center px-4 py-8 sm:px-6 lg:py-10"
   data-testid="home-section">
   <div
-    class="mx-auto grid max-w-7xl items-center gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:gap-16">
+    class="mx-auto grid w-full max-w-7xl items-center gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:gap-16">
     <div class="relative mx-auto w-full max-w-sm lg:mx-0">
       <div
         class="absolute -inset-5 -z-10 rounded-[2.5rem] bg-cyan-400/10 blur-3xl"
@@ -44,20 +44,20 @@
       </div>
     </div>
 
-    <div class="text-center lg:text-left">
+    <div class="min-w-0 text-center lg:text-left">
       <p
         class="font-mono text-xs font-semibold uppercase tracking-[0.24em] text-cyan-300 sm:text-sm">
         {{ 'Senior Frontend Engineer · Angular Tech Lead' | translate }}
       </p>
       <h1
-        class="mt-5 text-balance text-4xl font-bold leading-[1.08] tracking-[-0.04em] text-white sm:text-5xl lg:text-7xl">
+        class="mt-4 text-balance text-4xl font-bold leading-[1.08] tracking-[-0.04em] text-white sm:text-5xl xl:text-6xl">
         {{ 'I build complex products' | translate }}
         <span class="portfolio-gradient-text">{{
           'with clear architecture and great UX.' | translate
         }}</span>
       </h1>
       <p
-        class="mx-auto mt-6 max-w-3xl text-pretty text-lg leading-8 text-slate-300 lg:mx-0"
+        class="mx-auto mt-4 max-w-3xl text-pretty text-base leading-7 text-slate-300 lg:mx-0"
         data-testid="home-role-summary">
         {{ "I'm Adrian Cabello, an Angular Tech Lead with" | translate }}
         <strong class="font-semibold text-white">{{
@@ -76,9 +76,8 @@
             | translate
         }}
       </p>
-
       <div
-        class="mt-8 flex flex-col justify-center gap-3 sm:flex-row lg:justify-start">
+        class="mt-6 flex flex-col justify-center gap-3 sm:flex-row lg:justify-start">
         <a
           href="#experience"
           class="portfolio-primary-button"
@@ -103,7 +102,7 @@
       </div>
 
       <dl
-        class="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-4"
+        class="mt-7 grid grid-cols-2 gap-3 sm:grid-cols-4"
         data-testid="home-proof-points">
         <div class="portfolio-stat-card">
           <dt>{{ 'Experience' | translate }}</dt>
@@ -114,17 +113,17 @@
           <dd>Angular 22</dd>
         </div>
         <div class="portfolio-stat-card">
-          <dt>{{ 'Mobile' | translate }}</dt>
-          <dd>Ionic</dd>
-        </div>
-        <div class="portfolio-stat-card">
           <dt>{{ 'Reactive UI' | translate }}</dt>
           <dd>Signals / RxJS</dd>
+        </div>
+        <div class="portfolio-stat-card">
+          <dt>{{ 'Mobile' | translate }}</dt>
+          <dd>Ionic</dd>
         </div>
       </dl>
 
       <div
-        class="mt-7 flex items-center justify-center gap-5 text-sm text-slate-400 lg:justify-start">
+        class="mt-5 flex items-center justify-center gap-5 text-sm text-slate-400 lg:justify-start">
         <a
           href="https://www.linkedin.com/in/adrian-cabello-b07290b8/"
           target="_blank"

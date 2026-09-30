@@ -615,6 +615,337 @@ export class TeamListComponent {
         ],
     },
     {
+        "id": "signals-state",
+        "priority": "Muy probable",
+        "time": "50 min",
+        "title": "Estado derivado con Signals",
+        "prompt": "Implementá un carrito con cantidad editable, subtotal, descuento y total derivados. El guardado es optimista, puede fallar y una respuesta vieja nunca debe sobrescribir una edición más reciente.",
+        "deliverables": [
+            "Estado fuente mínimo y valores derivados con `computed`.",
+            "Actualización optimista con rollback seguro ante concurrencia.",
+            "Tests para derivación, error y respuestas fuera de orden.",
+        ],
+        "watch_for": "No copies subtotal y total dentro del estado si pueden derivarse. Un rollback ciego también es una carrera: solo debe revertir la versión que falló.",
+        "solution": "Los ítems son la única fuente de verdad y los importes se calculan con `computed`. Cada mutación incrementa una versión por producto; el error revierte únicamente si todavía corresponde a esa versión, evitando destruir una edición posterior.",
+        "solution_code_title": "cart.store.ts",
+        "solution_code": """interface CartItem {
+  readonly id: string;
+  readonly price: number;
+  readonly quantity: number;
+}
+
+@Injectable()
+export class CartStore {
+  private readonly api = inject(CartApi);
+  private readonly itemsState = signal<readonly CartItem[]>([]);
+  private readonly versions = new Map<string, number>();
+
+  readonly items = this.itemsState.asReadonly();
+  readonly subtotal = computed(() =>
+    this.items().reduce((sum, item) => sum + item.price * item.quantity, 0)
+  );
+  readonly discount = computed(() => this.subtotal() >= 100 ? 10 : 0);
+  readonly total = computed(() => this.subtotal() - this.discount());
+
+  setItems(items: readonly CartItem[]): void {
+    this.itemsState.set(items);
+  }
+
+  updateQuantity(id: string, quantity: number): void {
+    const normalized = Math.max(0, Math.trunc(quantity));
+    const previous = this.items().find(item => item.id === id);
+    if (!previous || previous.quantity === normalized) return;
+
+    const version = (this.versions.get(id) ?? 0) + 1;
+    this.versions.set(id, version);
+    this.patch(id, normalized);
+
+    this.api.updateQuantity(id, normalized).subscribe({
+      error: () => {
+        if (this.versions.get(id) === version) {
+          this.patch(id, previous.quantity);
+        }
+      }
+    });
+  }
+
+  private patch(id: string, quantity: number): void {
+    this.itemsState.update(items => items.map(item =>
+      item.id === id ? { ...item, quantity } : item
+    ));
+  }
+}""",
+        "test_code_title": "cart.store.spec.ts",
+        "test_code": """it('derives totals from the source state', () => {
+  store.setItems([
+    { id: 'a', price: 30, quantity: 2 },
+    { id: 'b', price: 50, quantity: 1 }
+  ]);
+
+  expect(store.subtotal()).toBe(110);
+  expect(store.discount()).toBe(10);
+  expect(store.total()).toBe(100);
+});
+
+it('does not let an old failure revert a newer edit', () => {
+  const first = new Subject<void>();
+  const second = new Subject<void>();
+  api.updateQuantity.mockReturnValueOnce(first).mockReturnValueOnce(second);
+  store.setItems([{ id: 'a', price: 20, quantity: 1 }]);
+
+  store.updateQuantity('a', 2);
+  store.updateQuantity('a', 3);
+  first.error(new Error('old request failed'));
+
+  expect(store.items()[0].quantity).toBe(3);
+  second.next();
+  second.complete();
+});""",
+        "decisions": [
+            "`computed` modela invariantes; no hace falta sincronizar manualmente subtotal, descuento y total.",
+            "La versión por entidad permite concurrencia entre productos sin aplicar un bloqueo global.",
+            "En producción mostraría el error y reconciliaría con servidor si el contrato no ofrece versionado o idempotencia.",
+        ],
+    },
+    {
+        "id": "performance-regression",
+        "priority": "Diferenciador Senior",
+        "time": "45 min",
+        "title": "Diagnosticar una regresión de performance",
+        "prompt": "Una pantalla con 2.000 pedidos se congela al escribir en el filtro. Encontrá las causas, aplicá el cambio de mayor impacto y demostrálas con una medición repetible.",
+        "deliverables": [
+            "Hipótesis y baseline antes de optimizar.",
+            "Identidad estable, trabajo derivado fuera del template y reducción del DOM.",
+            "Comparación antes/después y explicación de límites.",
+        ],
+        "watch_for": "`OnPush` no arregla un filtro costoso ejecutado en cada binding ni hace barato renderizar miles de nodos. No memorices todo sin medir invalidaciones y memoria.",
+        "solution": "Perfilo interacción, scripting y cantidad de nodos. Normalizo la query una vez, derivo el resultado con `computed`, uso `track order.id` y pagina el conjunto visible. La prueba cuenta evaluaciones y conserva la identidad DOM de filas sin cambios.",
+        "solution_code_title": "orders.component.ts",
+        "solution_code": """@Component({
+  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: `
+    <input [formControl]="search" aria-label="Filtrar pedidos" />
+    <p>{{ filtered().length }} resultados</p>
+    <ul>
+      @for (order of visibleOrders(); track order.id) {
+        <li [attr.data-order-id]="order.id">
+          {{ order.customer }} — {{ order.total | currency }}
+        </li>
+      }
+    </ul>
+  `
+})
+export class OrdersComponent {
+  readonly search = new FormControl('', { nonNullable: true });
+  readonly orders = input.required<readonly Order[]>();
+  readonly page = signal(1);
+  private readonly query = toSignal(this.search.valueChanges.pipe(
+    startWith(''), debounceTime(150),
+    map(value => value.trim().toLocaleLowerCase()),
+    distinctUntilChanged()
+  ), { initialValue: '' });
+
+  readonly filtered = computed(() => {
+    const query = this.query();
+    return query
+      ? this.orders().filter(order =>
+          order.customer.toLocaleLowerCase().includes(query)
+        )
+      : this.orders();
+  });
+  readonly visibleOrders = computed(() =>
+    this.filtered().slice((this.page() - 1) * 50, this.page() * 50)
+  );
+}""",
+        "test_code_title": "orders.component.spec.ts",
+        "test_code": """it('reuses unchanged rows after an immutable update', () => {
+  fixture.componentRef.setInput('orders', orders);
+  fixture.detectChanges();
+  const rowBefore = fixture.nativeElement.querySelector('[data-order-id="o1"]');
+
+  fixture.componentRef.setInput('orders', orders.map(order =>
+    order.id === 'o2' ? { ...order, total: 99 } : order
+  ));
+  fixture.detectChanges();
+
+  expect(fixture.nativeElement.querySelector('[data-order-id="o1"]'))
+    .toBe(rowBefore);
+});
+
+it('debounces filtering and renders at most one page', fakeAsync(() => {
+  fixture.componentRef.setInput('orders', makeOrders(2_000));
+  fixture.detectChanges();
+  fixture.componentInstance.search.setValue('ada');
+  tick(149);
+  expect(fixture.nativeElement.querySelectorAll('li').length).toBe(50);
+  tick(1);
+  fixture.detectChanges();
+  expect(fixture.nativeElement.querySelectorAll('li').length).toBeLessThanOrEqual(50);
+}));""",
+        "decisions": [
+            "Primero comparo traces con el mismo dataset y la misma interacción; una mejora sin baseline es una intuición.",
+            "La paginación reduce el costo estructural del DOM; para scroll continuo evaluaría CDK virtual scroll y accesibilidad.",
+            "Si el volumen crece, filtro y paginación pasan al servidor y la UI cancela queries obsoletas.",
+        ],
+    },
+    {
+        "id": "legacy-refactor",
+        "priority": "Probable",
+        "time": "60 min",
+        "title": "Refactor incremental de una feature legacy",
+        "prompt": "Recibís un componente de 700 líneas que consulta APIs, transforma datos, abre modales y guarda estado global. Extraé una frontera testeable sin reescribir la feature ni romper su contrato público.",
+        "deliverables": [
+            "Caracterización del comportamiento actual antes del refactor.",
+            "Una separación con responsabilidad y ownership claros.",
+            "Commits pequeños y tests que permiten revertir con seguridad.",
+        ],
+        "watch_for": "Cambiar a Signals, standalone y una nueva librería de estado al mismo tiempo impide saber qué rompió la pantalla. Refactor no significa rediseñar todo.",
+        "solution": "Congelo el contrato visible con una prueba de caracterización. Extraigo primero la carga y el mapeo a un facade porque forman una frontera cohesionada; el componente conserva inputs, outputs y template mientras delega esa responsabilidad.",
+        "solution_code_title": "orders.facade.ts",
+        "solution_code": """export type OrdersViewState =
+  | { status: 'loading'; orders: readonly OrderRow[] }
+  | { status: 'ready'; orders: readonly OrderRow[] }
+  | { status: 'error'; orders: readonly OrderRow[] };
+
+@Injectable()
+export class OrdersFacade {
+  private readonly api = inject(OrdersApi);
+  private readonly reload = new Subject<void>();
+
+  readonly state$ = this.reload.pipe(
+    startWith(undefined),
+    switchMap(() => concat(
+      of<OrdersViewState>({ status: 'loading', orders: [] }),
+      this.api.list().pipe(
+        map(orders => ({
+          status: 'ready',
+          orders: orders.map(toOrderRow)
+        }) as const),
+        catchError(() => of<OrdersViewState>({ status: 'error', orders: [] }))
+      )
+    )),
+    shareReplay({ bufferSize: 1, refCount: true })
+  );
+
+  refresh(): void {
+    this.reload.next();
+  }
+}
+
+@Component({ providers: [OrdersFacade] })
+export class LegacyOrdersComponent {
+  readonly facade = inject(OrdersFacade);
+  readonly state = toSignal(this.facade.state$, {
+    initialValue: { status: 'loading', orders: [] }
+  });
+}""",
+        "test_code_title": "orders.facade.spec.ts",
+        "test_code": """it('preserves the visible mapping contract after extraction', () => {
+  api.list.mockReturnValue(of([
+    { id: 'o1', customer_name: 'Ada', total_cents: 1250 }
+  ]));
+  const states: OrdersViewState[] = [];
+
+  facade.state$.subscribe(state => states.push(state));
+
+  expect(states).toEqual([
+    { status: 'loading', orders: [] },
+    { status: 'ready', orders: [{ id: 'o1', customer: 'Ada', total: 12.5 }] }
+  ]);
+});
+
+it('reloads through the extracted boundary', () => {
+  api.list.mockReturnValue(of([]));
+  facade.state$.subscribe();
+  facade.refresh();
+  expect(api.list).toHaveBeenCalledTimes(2);
+});""",
+        "decisions": [
+            "El facade pertenece al ciclo de vida de la feature, por eso se provee a nivel de componente.",
+            "No cambio inputs, outputs ni rutas durante la extracción; eso reduce el radio de regresión.",
+            "La siguiente extracción se decide por acoplamiento observado, no por una arquitectura objetivo abstracta.",
+        ],
+    },
+    {
+        "id": "routing-access",
+        "priority": "Probable",
+        "time": "40 min",
+        "title": "Routing, autorización y deep links",
+        "prompt": "Protegé `/admin/:teamId`, cargá el equipo antes de renderizar y conservá la URL intentada para volver después del login. Diferenciá usuario anónimo, usuario sin permiso, 404 y fallo de red.",
+        "deliverables": [
+            "Guard funcional que devuelve `UrlTree`, sin navegación imperativa.",
+            "Resolver cancelable y estados de error con destinos distintos.",
+            "Tests de deep link, autorización y navegación directa.",
+        ],
+        "watch_for": "Un guard del cliente mejora UX, pero no reemplaza autorización en el backend. Evitá `subscribe` dentro del guard y loops entre login y la ruta protegida.",
+        "solution": "El guard espera una sesión resuelta y devuelve una decisión única: permitir, login con `returnUrl` o forbidden. El resolver traduce solo el 404 a una ruta específica; los fallos operativos llegan al manejador global de navegación.",
+        "solution_code_title": "admin.routes.ts",
+        "solution_code": """export const adminGuard: CanActivateFn = (_route, state) => {
+  const session = inject(SessionStore);
+  const router = inject(Router);
+
+  return session.ready$.pipe(
+    take(1),
+    map(user => {
+      if (!user) {
+        return router.createUrlTree(['/login'], {
+          queryParams: { returnUrl: state.url }
+        });
+      }
+      return user.permissions.includes('teams:read')
+        ? true
+        : router.createUrlTree(['/forbidden']);
+    })
+  );
+};
+
+export const teamResolver: ResolveFn<Team> = route => {
+  const api = inject(TeamsApi);
+  const router = inject(Router);
+  const id = route.paramMap.get('teamId')!;
+
+  return api.get(id).pipe(
+    catchError(error => error.status === 404
+      ? of(new RedirectCommand(router.createUrlTree(['/not-found'])))
+      : throwError(() => error)
+    )
+  );
+};
+
+export const ADMIN_ROUTES: Routes = [{
+  path: 'admin/:teamId',
+  canActivate: [adminGuard],
+  resolve: { team: teamResolver },
+  loadComponent: () => import('./team-admin.component')
+    .then(module => module.TeamAdminComponent)
+}];""",
+        "test_code_title": "admin.routes.spec.ts",
+        "test_code": """it('keeps the protected deep link when redirecting to login', async () => {
+  session.ready$ = of(null);
+
+  await router.navigateByUrl('/admin/team-42?tab=billing');
+
+  expect(router.url).toBe(
+    '/login?returnUrl=%2Fadmin%2Fteam-42%3Ftab%3Dbilling'
+  );
+});
+
+it('does not resolve data for an unauthorized user', async () => {
+  session.ready$ = of({ id: 'u1', permissions: [] });
+
+  await router.navigateByUrl('/admin/team-42');
+
+  expect(router.url).toBe('/forbidden');
+  expect(api.get).not.toHaveBeenCalled();
+});""",
+        "decisions": [
+            "Devuelvo `UrlTree` para que el router cancele una navegación y comience la siguiente de forma consistente.",
+            "El backend vuelve a comprobar `teams:read`; el guard nunca es una frontera de seguridad.",
+            "Para datos opcionales prefiero cargar dentro de la pantalla; uso resolver porque esta vista no tiene sentido sin el equipo.",
+        ],
+    },
+    {
         "id": "accessible-table",
         "priority": "Diferenciador Senior",
         "time": "45 min",

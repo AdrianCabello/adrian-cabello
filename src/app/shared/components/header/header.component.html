@@ -23,7 +23,7 @@
       </a>
 
       <nav
-        class="hidden items-center gap-7 md:flex"
+        class="hidden items-center gap-7 lg:flex"
         [attr.aria-label]="'Primary navigation' | translate">
         <a href="#projects" class="portfolio-nav-link">{{
           'Work' | translate
@@ -46,7 +46,7 @@
         <app-language-switcher />
         <button
           type="button"
-          class="grid h-11 w-11 place-items-center rounded-xl border border-white/10 bg-white/5 text-white transition hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan-300 md:hidden"
+          class="grid h-11 w-11 place-items-center rounded-xl border border-white/10 bg-white/5 text-white transition hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan-300 lg:hidden"
           [attr.aria-label]="'Toggle navigation' | translate"
           [attr.aria-expanded]="menuOpen()"
           aria-controls="mobile-navigation"
@@ -64,7 +64,7 @@
     @if (menuOpen()) {
       <nav
         id="mobile-navigation"
-        class="portfolio-mobile-menu grid gap-2 border-t border-white/10 py-4 md:hidden"
+        class="portfolio-mobile-menu grid gap-2 border-t border-white/10 py-4 lg:hidden"
         [attr.aria-label]="'Mobile navigation' | translate"
         data-testid="header-mobile-navigation">
         <a

@@ -31,8 +31,8 @@ export const SITE_SPANISH_TRANSLATIONS: Readonly<Record<string, string>> = {
   'from interface to infrastructure.':
     'desde la interfaz hasta la infraestructura.',
   '9+ years of experience': 'Más de 9 años de experiencia',
-  'building scalable web and mobile products, leading Angular architecture and migrations, and shipping end-to-end systems with Ionic, Go, Node.js and PostgreSQL.':
-    'creando productos web y móviles escalables, liderando la arquitectura y las migraciones de Angular y enviando sistemas de extremo a extremo con Ionic, Go, Node.js y PostgreSQL.',
+  'building scalable web and mobile products, leading Angular architecture and migrations, and shipping end-to-end systems with Ionic, React Native, Go, Node.js and PostgreSQL.':
+    'creando productos web y móviles escalables, liderando la arquitectura y las migraciones de Angular y enviando sistemas de extremo a extremo con Ionic, React Native, Go, Node.js y PostgreSQL.',
   'View experience': 'Ver experiencia',
   'Download résumé': 'Descargar currículum',
   'Contact me': 'Contáctame',
@@ -43,8 +43,6 @@ export const SITE_SPANISH_TRANSLATIONS: Readonly<Record<string, string>> = {
   'Visit Adrian Cabello on GitHub': 'Visita Adrián Cabello en GitHub',
   "I'm Adrian Cabello, a product engineer with":
     'Soy Adrián Cabello, ingeniero de producto con',
-  "I've built Ionic ordering and geolocated delivery workflows for Coca-Cola and Unilever programs, migrated a large enterprise application to Angular 19 with Signals, and use LLMs, MCP and automation in day-to-day delivery.":
-    'Creé pedidos Ionic y flujos de trabajo de entrega geolocalizados para programas de Coca-Cola y Unilever, migré una aplicación empresarial grande a Angular 19 con Signals y utilicé LLMs, MCP y automatización en las entregas del día a día.',
   Angular: 'Angular',
   '2—22': '2—22',
   Ionic: 'Ionic',
@@ -58,6 +56,10 @@ export const SITE_SPANISH_TRANSLATIONS: Readonly<Record<string, string>> = {
     'Arquitectura, entrega, decisiones de productos y los sistemas detrás de la pantalla: no solo una lista de tecnologías.',
   'Flagship product': 'Producto estrella',
   'Product view': 'Vista del producto',
+  Screenshots: 'Capturas',
+  'Previous images': 'Imágenes anteriores',
+  'Next images': 'Imágenes siguientes',
+  'Close gallery': 'Cerrar galería',
   'Technologies used': 'Tecnologías utilizadas',
   'Explore EventLoop': 'Explorar EventLoop',
   'Explore producer setup': 'Explorar alta de productora',
@@ -131,6 +133,9 @@ export const SITE_SPANISH_TRANSLATIONS: Readonly<Record<string, string>> = {
     'Identidad y perfil público de productora',
   'Producer setup form': 'Formulario de alta de productora',
   'Operations dashboard · Demo data': 'Panel operativo · Datos de ejemplo',
+  'Event discovery': 'Exploración de eventos',
+  'Event detail and ticketing': 'Detalle del evento y entradas',
+  'Producer directory': 'Directorio de productoras',
   Adricted: 'adicto',
   'Artist website · Powered by EventLoop':
     'Sitio web del artista · Desarrollado por EventLoop',
@@ -142,6 +147,8 @@ export const SITE_SPANISH_TRANSLATIONS: Readonly<Record<string, string>> = {
     'Utiliza EventLoop como plataforma de contenido mientras que el artista es propietario del dominio público.',
   'Live artist profile on adricted.com':
     'Perfil de artista en vivo en adicted.com',
+  'Artist events': 'Eventos del artista',
+  'Artist media gallery': 'Galería del artista',
   'Custom domain · Content managed inside EventLoop':
     'Dominio personalizado · Contenido gestionado dentro de EventLoop',
   Markama: 'marcama',
@@ -155,6 +162,8 @@ export const SITE_SPANISH_TRANSLATIONS: Readonly<Record<string, string>> = {
     'Demuestra la oferta de dominio personalizado productizado disponible para los productores de EventLoop.',
   'Live producer profile on markama.ar':
     'Perfil del productor en vivo en markama.ar',
+  'Producer event archive': 'Archivo de eventos de la productora',
+  'Linked artists and event gallery': 'Artistas y galería de eventos',
   'Haircut & Chill': 'Corte de pelo y relajación',
   'Client website': 'Sitio web del cliente',
   'A conversion-focused website for JuanSe Favoretti’s hair studio in Tandil, combining a strong editorial identity with clear services, haircut inspiration and direct booking paths.':
@@ -166,6 +175,8 @@ export const SITE_SPANISH_TRANSLATIONS: Readonly<Record<string, string>> = {
   'Built a filterable haircut catalogue that turns visual inspiration into a useful consultation tool.':
     'Creó un catálogo de cortes de cabello filtrable que convierte la inspiración visual en una útil herramienta de consulta.',
   'Haircut & Chill website': 'Sitio web de Haircut & Chill',
+  'Haircut & Chill services': 'Servicios de Haircut & Chill',
+  'Filterable haircut catalogue': 'Catálogo de cortes con filtros',
   'Leonela Cabello': 'Leonela Cabello',
   'A professional website for an independent lawyer, translating complex legal services into a clear, approachable experience built around trust and easy first contact.':
     'Un sitio web profesional para un abogado independiente, que traduce servicios legales complejos en una experiencia clara y accesible basada en la confianza y un primer contacto sencillo.',
@@ -176,7 +187,14 @@ export const SITE_SPANISH_TRANSLATIONS: Readonly<Record<string, string>> = {
   'Integrated WhatsApp and Calendly as direct conversion paths for prospective clients.':
     'WhatsApp y Calendly integrados como rutas de conversión directa para clientes potenciales.',
   'Leonela Cabello legal website': 'Sitio legal de Leonela Cabello',
+  'Legal practice areas': 'Áreas de práctica legal',
+  'Client process': 'Proceso de atención',
   'Lautaro Vulcano': 'Volcán Lautaro',
+  'Lautaro Vulcano home': 'Inicio de Lautaro Vulcano',
+  'Selected design work': 'Trabajos de diseño seleccionados',
+  'Visual identity projects': 'Proyectos de identidad visual',
+  'Monthly content service': 'Servicio mensual de contenido',
+  'Web design projects': 'Proyectos de diseño web',
   'Selected client work': 'Trabajo de cliente seleccionado',
   'A focused portfolio for a visual designer, shaped around clear communication, responsive presentation and an easy path from work samples to contact.':
     'Un portafolio enfocado para un diseñador visual, basado en una comunicación clara, una presentación responsiva y un camino sencillo desde las muestras de trabajo hasta el contacto.',
@@ -184,6 +202,10 @@ export const SITE_SPANISH_TRANSLATIONS: Readonly<Record<string, string>> = {
     'Diseñó y entregó la experiencia responsiva Angular.',
   'Created a visual system tailored to the client’s identity.':
     'Creé un sistema visual adaptado a la identidad del cliente.',
+  'Lautaro Vulcano homepage': 'Inicio de Lautaro Vulcano',
+  'Selected web projects': 'Proyectos web seleccionados',
+  'Visual identity work archive': 'Archivo de identidad visual',
+  'Design services': 'Servicios de diseño',
   'Senior Frontend Engineer': 'Ingeniero Frontend Senior',
   'Jun 2025 - Present': 'Junio de 2025 - Presente',
   'Building production Angular features for data-rich and AI-enabled workflows in a cross-functional product environment.':
