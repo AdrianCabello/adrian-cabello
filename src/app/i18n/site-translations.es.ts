@@ -235,8 +235,8 @@ export const SITE_SPANISH_TRANSLATIONS: Readonly<Record<string, string>> = {
     'Creé una aplicación de pedidos móviles Ionic y Angular para los equipos de ventas y distribución de campo que respaldan los programas de Coca-Cola y Unilever.',
   'Delivered visit planning, customer-specific catalogs, order and return capture, offline sync, delivery tracking, and geolocated seller routes.':
     'Planificación de visitas entregadas, catálogos específicos de clientes, captura de pedidos y devoluciones, sincronización fuera de línea, seguimiento de entregas y rutas de vendedores geolocalizadas.',
-  'Migrated a large enterprise application to Angular 19 and developed new analytics features with Signals.':
-    'Migré una aplicación empresarial grande a Angular 19 y desarrollé nuevas funciones de análisis con Signals.',
+  'Migrated a large enterprise application from AngularJS to Angular 19 and developed new analytics features with Signals.':
+    'Migré una aplicación empresarial grande de AngularJS a Angular 19 y desarrollé nuevas funciones de análisis con Signals.',
   'Used deferred loading, hydration, reusable components, and REST integrations to improve performance and scalability.':
     'Se utilizaron carga diferida, hidratación, componentes reutilizables e integraciones REST para mejorar el rendimiento y la escalabilidad.',
   'Tech stack: Angular 19, Ionic, TypeScript, RxJS, Signals, HTML5, CSS3, SASS.':

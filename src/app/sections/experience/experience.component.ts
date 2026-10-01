@@ -129,7 +129,7 @@ export class ExperienceComponent {
           name: 'Enterprise platform modernization',
           summary: 'Updated the web platform while adding analytics workflows that made operational information easier to use.',
           responsibilities: [
-            'Migrated a large enterprise application to Angular 19 and developed new analytics features with Signals.',
+            'Migrated a large enterprise application from AngularJS to Angular 19 and developed new analytics features with Signals.',
             'Used deferred loading, hydration, reusable components, and REST integrations to improve performance and scalability.',
           ],
         },

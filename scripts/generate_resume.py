@@ -299,7 +299,7 @@ def build(variant_name):
             [
                 "Built an Ionic and Angular mobile ordering app for field sales and distribution teams supporting Coca-Cola and Unilever programs.",
                 "Shipped visit planning, customer-specific catalogs, order and return capture, offline sync, delivery tracking, and geolocated seller routes with completion and exception monitoring.",
-                "Migrated a large enterprise application to Angular 19 and delivered new analytics features using Signals, deferred loading, hydration, reusable components, and REST integrations.",
+                "Migrated a large enterprise application from AngularJS to Angular 19 and delivered new analytics features using Signals, deferred loading, hydration, reusable components, and REST integrations.",
             ],
         ),
         PageBreak(),
