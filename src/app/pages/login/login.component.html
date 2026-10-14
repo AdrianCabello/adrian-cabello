@@ -13,9 +13,9 @@
       data-testid="login-back-link" />
 
     <p-card
-      styleClass="!rounded-lg !border !border-blue-300/15 !bg-blue-900/70 !text-white !shadow-2xl"
+      class="!rounded-lg !border !border-blue-300/15 !bg-blue-900/70 !text-white !shadow-2xl"
       data-testid="login-card">
-      <ng-template pTemplate="header">
+      <ng-template #header>
         <div class="flex items-center gap-3 px-6 pt-6">
           <div
             class="flex h-11 w-11 items-center justify-center rounded-lg bg-blue-400 text-blue-950">
@@ -56,14 +56,14 @@
             [feedback]="false"
             [toggleMask]="true"
             inputStyleClass="h-11 w-full"
-            styleClass="w-full"
+            class="w-full"
             data-testid="login-password-input" />
         </label>
 
         @if (error()) {
           <p-message
             severity="error"
-            styleClass="w-full"
+            class="w-full"
             data-testid="login-error">
             {{ error() }}
           </p-message>

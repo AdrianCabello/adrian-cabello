@@ -1,7 +1,8 @@
+import { inject, provideEnvironmentInitializer } from '@angular/core';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { definePreset } from '@primeuix/themes';
 import Aura from '@primeuix/themes/aura';
-import { providePrimeNG } from 'primeng/config';
+import { PrimeNG } from 'primeng/config';
 
 const BlueAura = definePreset(Aura, {
   semantic: {
@@ -23,13 +24,17 @@ const BlueAura = definePreset(Aura, {
 
 export const privateUiProviders = [
   provideAnimations(),
-  providePrimeNG({
-    theme: {
-      preset: BlueAura,
-      options: {
-        darkModeSelector: '.app-dark',
+  // providePrimeNG() applies its config through an app initializer, which
+  // never runs when provided on a lazy route, so set it on route activation.
+  provideEnvironmentInitializer(() =>
+    inject(PrimeNG).setConfig({
+      theme: {
+        preset: BlueAura,
+        options: {
+          darkModeSelector: '.app-dark',
+        },
       },
-    },
-    ripple: true,
-  }),
+      ripple: true,
+    })
+  ),
 ];
