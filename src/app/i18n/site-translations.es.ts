@@ -10,7 +10,7 @@ export const SITE_SPANISH_TRANSLATIONS: Readonly<Record<string, string>> = {
   'View credential': 'Ver credencial',
   Present: 'presente',
   total: 'total',
-  'Full-Stack Product Engineer': 'Ingeniero de Producto Full-Stack',
+  'Full-Stack Product Developer': 'Desarrollador de Producto Full-Stack',
   'Primary navigation': 'Navegación primaria',
   Work: 'trabajo',
   Experience: 'Experiencia',
@@ -20,13 +20,13 @@ export const SITE_SPANISH_TRANSLATIONS: Readonly<Record<string, string>> = {
   "Let's talk": 'hablemos',
   AC: 'aire acondicionado',
   'Adrian Cabello': 'Adrián Cabello',
-  'Adrian Cabello, Full-Stack Product Engineer and Tech Lead':
-    'Adrian Cabello, ingeniero de producto Full-Stack y líder tecnológico',
+  'Adrian Cabello, Full-Stack Product Developer and Tech Lead':
+    'Adrian Cabello, desarrollador de producto Full-Stack y líder tecnológico',
   'Argentina · Remote': 'Argentina · Remoto',
   'Building products, systems and engineering teams.':
     'Construcción de productos, sistemas y equipos de ingeniería.',
-  'Full-Stack Product Engineer · Tech Lead':
-    'Ingeniero de Producto Full-Stack · Líder Técnico',
+  'Full-Stack Product Developer · Tech Lead':
+    'Desarrollador de Producto Full-Stack · Líder Técnico',
   'I build complex products': 'Construyo productos complejos',
   'from interface to infrastructure.':
     'desde la interfaz hasta la infraestructura.',
@@ -41,8 +41,8 @@ export const SITE_SPANISH_TRANSLATIONS: Readonly<Record<string, string>> = {
   Backend: 'backend',
   'Visit Adrian Cabello on LinkedIn': 'Visita Adrián Cabello en LinkedIn',
   'Visit Adrian Cabello on GitHub': 'Visita Adrián Cabello en GitHub',
-  "I'm Adrian Cabello, a product engineer with":
-    'Soy Adrián Cabello, ingeniero de producto con',
+  "I'm Adrian Cabello, a product developer with":
+    'Soy Adrián Cabello, desarrollador de producto con',
   Angular: 'Angular',
   '2—22': '2—22',
   Ionic: 'Ionic',
@@ -206,7 +206,6 @@ export const SITE_SPANISH_TRANSLATIONS: Readonly<Record<string, string>> = {
   'Selected web projects': 'Proyectos web seleccionados',
   'Visual identity work archive': 'Archivo de identidad visual',
   'Design services': 'Servicios de diseño',
-  'Senior Frontend Engineer': 'Ingeniero Frontend Senior',
   'Jun 2025 - Present': 'Junio de 2025 - Presente',
   'Building production Angular features for data-rich and AI-enabled workflows in a cross-functional product environment.':
     'Cree funciones de producción Angular para flujos de trabajo ricos en datos y habilitados para AI en un entorno de producto multifuncional.',

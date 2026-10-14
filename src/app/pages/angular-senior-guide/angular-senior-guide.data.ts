@@ -3964,7 +3964,7 @@ export const STUDY_TOPICS: readonly StudyTopic[] = [
       {
         question: 'Contame sobre vos',
         answer:
-          'Soy ingeniero frontend senior y líder técnico de Angular, con más de nueve años construyendo productos web y mobile. Lideré arquitectura y migraciones de aplicaciones empresariales, y desarrollé experiencias con Signals. Busco un rol donde pueda combinar implementación, producto, calidad técnica y mentoring.',
+          'Soy desarrollador frontend senior y líder técnico de Angular, con más de nueve años construyendo productos web y mobile. Lideré arquitectura y migraciones de aplicaciones empresariales, y desarrollé experiencias con Signals. Busco un rol donde pueda combinar implementación, producto, calidad técnica y mentoring.',
       },
       {
         question: '¿Por qué querés cambiar?',

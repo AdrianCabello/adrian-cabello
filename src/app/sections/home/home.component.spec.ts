@@ -30,10 +30,10 @@ describe('HomeComponent', () => {
     ).toContain('9+ years of experience');
   });
 
-  it('should position Adrian as a senior Angular frontend engineer', () => {
+  it('should position Adrian as a senior Angular frontend developer', () => {
     const element: HTMLElement = fixture.nativeElement;
 
-    expect(element.textContent).toContain('Senior Frontend Engineer');
+    expect(element.textContent).toContain('Senior Frontend Developer');
     expect(element.textContent).toContain('Angular 22');
     expect(element.textContent).toContain('Signals / RxJS');
     expect(element.textContent).toContain('Ionic');

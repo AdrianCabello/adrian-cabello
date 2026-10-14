@@ -74,15 +74,15 @@ export class MetaService {
         ? 'Guía completa de entrevista Angular Senior | Adrian Cabello'
         : 'Complete Senior Angular Interview Guide | Adrian Cabello'
       : spanish
-        ? 'Adrian Cabello | Ingeniero Frontend Senior y Angular Tech Lead'
-        : 'Adrian Cabello | Senior Frontend Engineer & Angular Tech Lead';
+        ? 'Adrian Cabello | Desarrollador Frontend Senior y Angular Tech Lead'
+        : 'Adrian Cabello | Senior Frontend Developer & Angular Tech Lead';
     const description = isGuide
       ? spanish
         ? 'Teoría, ejemplos y preguntas con respuesta sobre HTML, CSS, JavaScript, TypeScript, Angular, RxJS, arquitectura, testing, seguridad y system design frontend.'
         : 'Theory, examples and answered interview questions on HTML, CSS, JavaScript, TypeScript, Angular, RxJS, architecture, testing, security and frontend system design.'
       : spanish
-        ? 'Ingeniero frontend senior y líder técnico de Angular con más de 9 años creando aplicaciones empresariales, paneles de análisis y experiencias móviles. Especializado en arquitectura frontend, Signals y producto.'
-        : 'Senior Frontend Engineer and Angular Tech Lead with 9+ years building enterprise applications, analytics dashboards and mobile experiences. Focused on frontend architecture, Signals and product delivery.';
+        ? 'Desarrollador frontend senior y líder técnico de Angular con más de 9 años creando aplicaciones empresariales, paneles de análisis y experiencias móviles. Especializado en arquitectura frontend, Signals y producto.'
+        : 'Senior Frontend Developer and Angular Tech Lead with 9+ years building enterprise applications, analytics dashboards and mobile experiences. Focused on frontend architecture, Signals and product delivery.';
     const canonicalUrl = `${this.baseUrl}${page.canonicalPath}`;
 
     this.document.documentElement.lang = page.language;
@@ -98,7 +98,7 @@ export class MetaService {
         ? spanish
           ? 'Angular Senior, entrevista Angular, TypeScript, JavaScript, RxJS, Signals, arquitectura frontend, system design'
           : 'Senior Angular, Angular interview, TypeScript, JavaScript, RxJS, Signals, frontend architecture, system design'
-        : 'Senior Frontend Engineer, Angular Tech Lead, Angular 22, TypeScript, RxJS, Signals, frontend architecture, performance, accessibility, Ionic',
+        : 'Senior Frontend Developer, Angular Tech Lead, Angular 22, TypeScript, RxJS, Signals, frontend architecture, performance, accessibility, Ionic',
     });
     this.meta.updateTag({ name: 'author', content: 'Adrian Cabello' });
     this.meta.updateTag({
@@ -200,8 +200,8 @@ export class MetaService {
       url: `${this.baseUrl}/`,
       image: `${this.baseUrl}/assets/images/adrian-profile.webp`,
       jobTitle: spanish
-        ? 'Ingeniero Frontend Senior y Angular Tech Lead'
-        : 'Senior Frontend Engineer and Angular Tech Lead',
+        ? 'Desarrollador Frontend Senior y Angular Tech Lead'
+        : 'Senior Frontend Developer and Angular Tech Lead',
       sameAs: [
         'https://www.linkedin.com/in/adrian-cabello-b07290b8/',
         'https://github.com/adriancabello',

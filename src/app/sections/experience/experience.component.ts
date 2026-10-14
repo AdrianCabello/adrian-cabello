@@ -11,7 +11,7 @@ import { TranslatePipe } from '../../i18n/translate.pipe';
 export class ExperienceComponent {
   readonly experiences = signal([
     {
-      title: 'Senior Frontend Engineer',
+      title: 'Senior Frontend Developer',
       company: 'CLARA Analytics',
       period: 'Jun 2025 - Sep 2026',
       isOpen: false,

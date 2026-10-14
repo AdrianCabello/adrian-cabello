@@ -2,7 +2,7 @@
 
 ## 🚀 Overview
 
-Personal portfolio and private Personal OS dashboard built with Angular 22. The public site presents my work as a Full-Stack Product Engineer and Tech Lead, while the authenticated dashboard connects to the Rakium backend for tasks, notes, finances, and portfolio project management.
+Personal portfolio and private Personal OS dashboard built with Angular 22. The public site presents my work as a Full-Stack Product Developer and Tech Lead, while the authenticated dashboard connects to the Rakium backend for tasks, notes, finances, and portfolio project management.
 
 ## ✨ Features
 

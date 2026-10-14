@@ -53,8 +53,8 @@ export const GUIDE_ENGLISH_TRANSLATION_OVERRIDES: Readonly<
   'vez compartida': 'share',
   'veces compartida': 'shares',
   'Ir al contenido': 'Skip to content',
-  'Adrian Cabello, Full-Stack Product Engineer y Tech Lead':
-    'Adrian Cabello, Full-Stack Product Engineer and Tech Lead',
+  'Adrian Cabello, Full-Stack Product Developer y Tech Lead':
+    'Adrian Cabello, Full-Stack Product Developer and Tech Lead',
   'HTML, CSS, JavaScript, TypeScript, Angular moderno, RxJS, browser, arquitectura, performance, testing, seguridad, system design y liderazgo técnico.':
     'HTML, CSS, JavaScript, TypeScript, modern Angular, RxJS, browser internals, architecture, performance, testing, security, system design and technical leadership.',
   'Fundamentos web': 'Web fundamentals',

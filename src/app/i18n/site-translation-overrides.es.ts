@@ -26,11 +26,11 @@ export const SITE_SPANISH_TRANSLATION_OVERRIDES: Readonly<
   'Building products, systems and engineering teams.':
     'Construyo productos, sistemas y equipos de ingeniería.',
   'Open to remote roles': 'Abierto a oportunidades remotas',
-  'Senior Frontend Engineer': 'Ingeniero frontend senior',
-  'Adrian Cabello, Senior Frontend Engineer and Angular Tech Lead':
-    'Adrian Cabello, ingeniero frontend senior y líder técnico de Angular',
-  'Senior Frontend Engineer · Angular Tech Lead':
-    'Ingeniero frontend senior · Líder técnico de Angular',
+  'Senior Frontend Developer': 'Desarrollador frontend senior',
+  'Adrian Cabello, Senior Frontend Developer and Angular Tech Lead':
+    'Adrian Cabello, desarrollador frontend senior y líder técnico de Angular',
+  'Senior Frontend Developer · Angular Tech Lead':
+    'Desarrollador frontend senior · Líder técnico de Angular',
   'with clear architecture and great UX.':
     'con arquitectura clara y una gran experiencia de usuario.',
   "I'm Adrian Cabello, an Angular Tech Lead with":
@@ -191,8 +191,8 @@ export const SITE_SPANISH_TRANSLATION_OVERRIDES: Readonly<
   Work: 'Proyectos',
   Background: 'Formación',
   "Let's talk": 'Hablemos',
-  "I'm Adrian Cabello, a product engineer with":
-    'Soy Adrian Cabello, ingeniero de producto con',
+  "I'm Adrian Cabello, a product developer with":
+    'Soy Adrian Cabello, desarrollador de producto con',
   'building scalable web and mobile products, leading Angular architecture and migrations, and shipping end-to-end systems with Ionic, React Native, Go, Node.js and PostgreSQL.':
     'creando productos web y mobile escalables, liderando arquitectura y migraciones Angular, y entregando sistemas de punta a punta con Ionic, React Native, Go, Node.js y PostgreSQL.',
   'Products where I owned more than the interface.':

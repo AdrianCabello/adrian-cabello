@@ -75,12 +75,13 @@ app-root {
     linear-gradient(145deg, #050b16 0%, #07101f 48%, #081426 100%);
 }
 
-.portfolio-grid {
-  background-image:
-    linear-gradient(rgba(148, 163, 184, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(148, 163, 184, 0.035) 1px, transparent 1px);
-  background-size: 64px 64px;
-  mask-image: linear-gradient(to bottom, black, transparent 82%);
+.portfolio-glyphs {
+  mask-image: radial-gradient(
+    ellipse 90% 75% at 50% 30%,
+    black 20%,
+    rgba(0, 0, 0, 0.45) 60%,
+    transparent 100%
+  );
 }
 
 .portfolio-orb {

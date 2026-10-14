@@ -9,11 +9,11 @@
 
 ## 👨‍💻 About Me
 
-Full-Stack Product Engineer and Tech Lead with 9+ years of experience building Angular frontends, Go and Node.js backends, AI-enabled products, and founder-led operational software.
+Full-Stack Product Developer and Tech Lead with 9+ years of experience building Angular frontends, Go and Node.js backends, AI-enabled products, and founder-led operational software.
 
 ### 🚀 What I Do
 
-- 💼 Full-Stack Product Engineer with deep Angular expertise
+- 💼 Full-Stack Product Developer with deep Angular expertise
 - 🌟 Specializing in Angular development
 - 🎯 Focused on clean code and best practices
 - 📚 Continuous learner and tech enthusiast

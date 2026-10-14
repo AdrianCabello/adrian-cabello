@@ -7,6 +7,7 @@ import { FooterComponent } from '../../sections/footer/footer.component';
 import { HomeComponent } from '../../sections/home/home.component';
 import { ProjectsComponent } from '../../sections/projects/projects.component';
 import { ResourcesComponent } from '../../sections/resources/resources.component';
+import { GlyphFieldComponent } from '../../shared/components/glyph-field/glyph-field.component';
 import { HeaderComponent } from '../../shared/components/header/header.component';
 import { RevealDirective } from '../../shared/directives/reveal.directive';
 
@@ -22,6 +23,7 @@ import { RevealDirective } from '../../shared/directives/reveal.directive';
     AcademicComponent,
     ResourcesComponent,
     FooterComponent,
+    GlyphFieldComponent,
     RevealDirective,
   ],
   templateUrl: './public-site.component.html',

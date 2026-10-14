@@ -169,7 +169,7 @@ def apply_final_review(chapters: Iterable[dict]) -> None:
     build["qa"].append(("¿Qué aporta el builder `application`?", "Unifica build de navegador y servidor, usa esbuild y se integra con SSR y prerender; el dev server usa Vite. Antes de migrar reviso builders personalizados, dependencias de webpack, polyfills, assets y presupuestos de bundle."))
 
     personal = by_title["Preparación personal y respuestas conductuales"]
-    _replace_question(personal, "Contame sobre vos", "Soy Full-Stack Product Engineer y Tech Lead, con más de nueve años construyendo productos web y mobile y una especialización fuerte en Angular desde sus primeras versiones. Lideré arquitectura, migraciones y formularios dinámicos a escala en equipos distribuidos. Busco un rol donde pueda combinar producto, entrega, calidad técnica y mentoring.")
+    _replace_question(personal, "Contame sobre vos", "Soy Full-Stack Product Developer y Tech Lead, con más de nueve años construyendo productos web y mobile y una especialización fuerte en Angular desde sus primeras versiones. Lideré arquitectura, migraciones y formularios dinámicos a escala en equipos distribuidos. Busco un rol donde pueda combinar producto, entrega, calidad técnica y mentoring.")
     _replace_question(personal, "¿Por qué querés cambiar?", "Quiero ampliar el alcance de producto y arquitectura, trabajar sobre problemas con impacto medible y seguir creciendo en liderazgo técnico. En una entrevista adapto esta base a la oportunidad concreta y explico qué puedo aportar, sin hablar mal de equipos anteriores.")
 
     leadership = by_title["Liderazgo técnico y trabajo en equipo"]

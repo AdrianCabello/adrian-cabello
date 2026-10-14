@@ -30,9 +30,9 @@ SLATE = colors.HexColor("#475569")
 LIGHT = colors.HexColor("#E2E8F0")
 VARIANTS = {
     "general": {
-        "title": "Senior Frontend Engineer · Angular Tech Lead",
+        "title": "Senior Frontend Developer · Angular Tech Lead",
         "summary": (
-            "Senior frontend engineer and Angular tech lead with 9+ years of experience building "
+            "Senior frontend developer and Angular tech lead with 9+ years of experience building "
             "enterprise SaaS, analytics dashboards, AI products, and operational platforms. Deep "
             "experience in Angular, Ionic, TypeScript, RxJS, Signals, frontend architecture, performance, "
             "accessibility, and testing. Lead teams, build products from scratch, and connect "
@@ -49,9 +49,9 @@ VARIANTS = {
         ),
     },
     "angular": {
-        "title": "Senior Angular Engineer · Frontend Lead",
+        "title": "Senior Angular Developer · Frontend Lead",
         "summary": (
-            "Senior Angular engineer and frontend lead with 9+ years of experience building enterprise SaaS, "
+            "Senior Angular developer and frontend lead with 9+ years of experience building enterprise SaaS, "
             "analytics dashboards, mobile workflows, and AI products. Lead Angular architecture and migrations, "
             "build scalable component systems, and improve performance, accessibility, and test coverage. "
             "Work across product, design, backend, and QA in remote international teams."
@@ -66,9 +66,9 @@ VARIANTS = {
         ),
     },
     "fullstack": {
-        "title": "Senior Full-Stack Product Engineer · Angular & Node.js",
+        "title": "Senior Full-Stack Product Developer · Angular & Node.js",
         "summary": (
-            "Senior full-stack product engineer with 9+ years of experience owning web and mobile products "
+            "Senior full-stack product developer with 9+ years of experience owning web and mobile products "
             "from interface through backend services and production delivery. Build with Angular, TypeScript, "
             "Node.js, NestJS, Go, PostgreSQL, and AWS. Lead architecture, product decisions, releases, and "
             "AI-assisted engineering across remote international teams."
@@ -272,7 +272,7 @@ def build(variant_name):
         Paragraph(variant["skills"], styles["BodyCompact"]),
         *section("Professional Experience"),
         job(
-            "Senior Frontend Engineer",
+            "Senior Frontend Developer",
             "CLARA Analytics",
             "Remote, Argentina | Jun 2025 - Sep 2026",
             [
