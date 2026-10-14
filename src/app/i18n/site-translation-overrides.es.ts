@@ -27,10 +27,10 @@ export const SITE_SPANISH_TRANSLATION_OVERRIDES: Readonly<
     'Construyo productos, sistemas y equipos de ingeniería.',
   'Open to remote roles': 'Abierto a oportunidades remotas',
   'Senior Frontend Developer': 'Desarrollador frontend senior',
+  'Senior Frontend': 'Frontend senior',
+  'Angular Tech Lead': 'Líder técnico de Angular',
   'Adrian Cabello, Senior Frontend Developer and Angular Tech Lead':
     'Adrian Cabello, desarrollador frontend senior y líder técnico de Angular',
-  'Senior Frontend Developer · Angular Tech Lead':
-    'Desarrollador frontend senior · Líder técnico de Angular',
   'with clear architecture and great UX.':
     'con arquitectura clara y una gran experiencia de usuario.',
   "I'm Adrian Cabello, an Angular Tech Lead with":
