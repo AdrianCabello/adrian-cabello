@@ -43,7 +43,7 @@ VARIANTS = {
             "Signals, NgRx/Redux, HTML5, CSS3, Sass, Tailwind CSS, Angular Material, responsive UI, "
             "accessibility, performance optimization<br/>"
             "<b>Engineering:</b> Frontend architecture, design systems, REST APIs, real-time interfaces, "
-            "Jasmine, Karma, Jest, Cypress, CI/CD, Git, Agile/Scrum, code review, mentoring<br/>"
+            "Jasmine, Karma, Jest, Cypress, CI/CD (Azure DevOps), Git, Agile/Scrum, code review, mentoring<br/>"
             "<b>AI &amp; Automation:</b> LLM product interfaces, document Q&amp;A, AI chat, MCP servers, "
             "agent workflows, Claude, ChatGPT, and Jira-integrated automation"
         ),
@@ -61,7 +61,7 @@ VARIANTS = {
             "standalone components, deferred loading, hydration, reactive forms, routing, guards, interceptors<br/>"
             "<b>Frontend:</b> Ionic, JavaScript, HTML5, CSS3, Sass, Tailwind CSS, Angular Material, "
             "responsive UI, accessibility, performance optimization, design systems<br/>"
-            "<b>Quality &amp; Delivery:</b> Jasmine, Karma, Jest, Cypress, CI/CD, Git, code review, mentoring, Agile/Scrum<br/>"
+            "<b>Quality &amp; Delivery:</b> Jasmine, Karma, Jest, Cypress, CI/CD (Azure DevOps), Git, code review, mentoring, Agile/Scrum<br/>"
             "<b>Integration:</b> REST APIs, real-time interfaces, Node.js, NestJS, PostgreSQL, AI product interfaces"
         ),
     },
@@ -79,7 +79,7 @@ VARIANTS = {
             "<b>Frontend:</b> Angular 2 through the latest version, TypeScript, RxJS, Signals, NgRx/Redux, "
             "Ionic, responsive UI, accessibility, performance optimization<br/>"
             "<b>Backend &amp; Cloud:</b> Node.js, NestJS, Express, Go, REST APIs, PostgreSQL, MySQL, MongoDB, "
-            "AWS, Docker, CI/CD<br/>"
+            "AWS, Azure DevOps, Docker, CI/CD<br/>"
             "<b>AI &amp; Automation:</b> LLM product interfaces, document Q&amp;A, AI chat, MCP servers, "
             "agent workflows, Claude, ChatGPT"
         ),
@@ -314,6 +314,7 @@ def build(variant_name):
                 "Led frontend development for Mercer RFP, an Angular 17 document Q&amp;A product with AI-generated responses and file processing.",
                 "Built Mercer Mind, a real-time AI chat experience using Angular, TypeScript, RxJS, secure authentication, and contextual responses.",
                 "Created investment and corporate web products from scratch and maintained 80%+ unit test coverage across complex applications.",
+                "Maintained Azure DevOps CI/CD pipelines for building, testing, and deploying the Angular applications.",
             ],
         ),
         *section("Earlier Experience"),
