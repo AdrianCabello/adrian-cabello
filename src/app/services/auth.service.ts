@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, computed, signal } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, tap } from 'rxjs';
 import { getApiBaseUrl } from './api-url';
@@ -19,6 +19,19 @@ export interface LoginResponse {
 const TOKEN_KEY = 'adrian-dashboard-token';
 const USER_KEY = 'adrian-dashboard-user';
 
+function isTokenExpired(token: string): boolean {
+  try {
+    const payload = token.split('.')[1];
+    if (!payload) {
+      return false;
+    }
+    const { exp } = JSON.parse(atob(payload.replace(/-/g, '+').replace(/_/g, '/'))) as { exp?: number };
+    return typeof exp === 'number' && exp * 1000 <= Date.now();
+  } catch {
+    return false;
+  }
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -27,7 +40,10 @@ export class AuthService {
   private readonly userSignal = signal<AuthUser | null>(this.readStoredUser());
 
   readonly user = this.userSignal.asReadonly();
-  readonly isAuthenticated = computed(() => Boolean(this.getToken()));
+
+  isAuthenticated(): boolean {
+    return Boolean(this.getToken());
+  }
 
   constructor(
     private readonly http: HttpClient,
@@ -57,12 +73,19 @@ export class AuthService {
     }
 
     const token = window.localStorage.getItem(TOKEN_KEY);
-    if (!token || token === 'undefined' || token === 'null') {
-      window.localStorage.removeItem(TOKEN_KEY);
+    if (!token || token === 'undefined' || token === 'null' || isTokenExpired(token)) {
+      this.clearSession();
       return null;
     }
 
     return token;
+  }
+
+  handleUnauthorized(): void {
+    this.clearSession();
+    if (!this.router.url.startsWith('/login')) {
+      void this.router.navigateByUrl('/login');
+    }
   }
 
   private setSession(response: LoginResponse): void {
