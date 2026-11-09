@@ -43,9 +43,9 @@ VARIANTS = {
             "Signals, NgRx/Redux, HTML5, CSS3, Sass, Tailwind CSS, Angular Material, responsive UI, "
             "accessibility, performance optimization<br/>"
             "<b>Engineering:</b> Frontend architecture, design systems, REST APIs, real-time interfaces, "
-            "Jasmine, Karma, Jest, Cypress, CI/CD (Azure DevOps), Git, Agile/Scrum, code review, mentoring<br/>"
+            "Jasmine, Karma, Jest, Cypress, CI/CD (Azure DevOps), AWS, Git, Agile/Scrum, code review, mentoring<br/>"
             "<b>AI &amp; Automation:</b> LLM product interfaces, document Q&amp;A, AI chat, MCP servers, "
-            "agent workflows, Claude, ChatGPT, and Jira-integrated automation"
+            "agent workflows, Claude Code, Codex, Cursor, ChatGPT, and Jira-integrated automation"
         ),
     },
     "angular": {
@@ -62,26 +62,28 @@ VARIANTS = {
             "<b>Frontend:</b> Ionic, JavaScript, HTML5, CSS3, Sass, Tailwind CSS, Angular Material, "
             "responsive UI, accessibility, performance optimization, design systems<br/>"
             "<b>Quality &amp; Delivery:</b> Jasmine, Karma, Jest, Cypress, CI/CD (Azure DevOps), Git, code review, mentoring, Agile/Scrum<br/>"
-            "<b>Integration:</b> REST APIs, real-time interfaces, Node.js, NestJS, PostgreSQL, AI product interfaces"
+            "<b>Integration &amp; Cloud:</b> REST APIs, real-time interfaces, Node.js, NestJS, PostgreSQL, AWS<br/>"
+            "<b>AI-assisted Engineering:</b> Claude Code, Codex, Cursor, MCP servers, agent workflows, and Jira automation"
         ),
     },
     "fullstack": {
         "title": "Senior Full-Stack Product Developer · Angular & Node.js",
         "summary": (
-            "Senior full-stack product developer with 9+ years of experience owning web and mobile products "
-            "from interface through backend services and production delivery. Build with Angular, TypeScript, "
-            "Node.js, NestJS, Go, PostgreSQL, and AWS. Lead architecture, product decisions, releases, and "
-            "AI-assisted engineering across remote international teams."
+            "Developer with 9+ years in frontend engineering and additional backend experience delivering web and mobile products. "
+            "Build Angular interfaces, RESTful services, and production workflows with Angular, "
+            "TypeScript, Node.js/Express, NestJS, Prisma, Spring Boot, Go, and PostgreSQL, and run my own NestJS API "
+            "in production for client websites. Work across frontend and backend teams in remote international teams."
         ),
         "skills": (
-            "<b>Product Engineering:</b> End-to-end feature ownership, product discovery, technical design, "
-            "production delivery, incident resolution, code review, mentoring<br/>"
-            "<b>Frontend:</b> Angular 2 through the latest version, TypeScript, RxJS, Signals, NgRx/Redux, "
-            "Ionic, responsive UI, accessibility, performance optimization<br/>"
-            "<b>Backend &amp; Cloud:</b> Node.js, NestJS, Express, Go, REST APIs, PostgreSQL, MySQL, MongoDB, "
-            "AWS, Azure DevOps, Docker, CI/CD<br/>"
+            "<b>Full-Stack Engineering:</b> End-to-end feature ownership, technical design, RESTful API design, "
+            "API integration, production delivery, incident resolution, code review, mentoring<br/>"
+            "<b>Frontend:</b> Angular 2 through the latest version, TypeScript, JavaScript, HTML5, CSS3, RxJS, "
+            "Signals, NgRx/Redux, Ionic, responsive UI, accessibility, performance optimization<br/>"
+            "<b>Backend &amp; Cloud:</b> Node.js, Express, NestJS, Prisma, Spring Boot (Java), Go, REST APIs, JWT auth, "
+            "webhooks, PostgreSQL, MySQL, MongoDB, AWS, Google Cloud Storage, Azure DevOps, Docker, CI/CD<br/>"
+            "<b>Testing:</b> Jasmine, Karma, Jest, Cypress<br/>"
             "<b>AI &amp; Automation:</b> LLM product interfaces, document Q&amp;A, AI chat, MCP servers, "
-            "agent workflows, Claude, ChatGPT"
+            "agent workflows, Claude Code, Codex, Cursor, ChatGPT"
         ),
     },
 }
@@ -227,6 +229,7 @@ def build(variant_name):
     output = OUTPUTS[variant_name]
     variant = VARIANTS[variant_name]
     professional_title = variant["title"]
+    fullstack = variant_name == "fullstack"
     output.parent.mkdir(parents=True, exist_ok=True)
     doc = BaseDocTemplate(
         str(output),
@@ -276,23 +279,33 @@ def build(variant_name):
             "CLARA Analytics",
             "Remote, Argentina | Jun 2025 - Sep 2026",
             [
-                "Built and maintained production frontend features with Angular and TypeScript in a cross-functional product environment.",
-                "Integrated data-rich and AI-enabled workflows while improving maintainability, usability, and frontend architecture.",
-                "Collaborated with product, backend, design, and QA teams across the full delivery lifecycle.",
+                "Built and maintained production features with Angular and TypeScript for a data-intensive analytics platform.",
+                "Worked with the backend team on Spring Boot services, developing new functionality and creating new REST endpoints.",
+                "Integrated data-rich and AI-enabled workflows with product, design, and QA across the full delivery lifecycle.",
             ],
-        ),
-        job(
-            "Founder & Tech Lead",
-            "EventLoop - Independent Side Project",
-            "Built outside working hours | Dec 2023 - Present",
+        )
+        if fullstack
+        else job(
+            "Senior Frontend Developer",
+            "CLARA Analytics",
+            "Remote, Argentina | Jun 2025 - Sep 2026",
             [
-                "Lead product strategy, UX, frontend architecture, releases, and continuous iteration for an event operations platform.",
-                "Built Angular 22 and TypeScript workflows for POS, ticketing, inventory, product catalogs, and multi-location operations.",
-                "Implemented role-based access, receipt OCR imports, recipe-linked stock, and real-time inventory synchronization.",
-                "Contribute to Go backend services and PostgreSQL data models while guiding technical decisions across the product.",
+                "Delivered Angular and TypeScript interfaces for a data-intensive analytics platform, integrating backend APIs into production workflows.",
+                "Worked with product, design, backend, and QA to deliver AI-enabled features and improve frontend maintainability and usability.",
             ],
         ),
         job(
+            "Senior Frontend Developer",
+            "Scanntech",
+            "Remote, Argentina | May 2024 - Jan 2025",
+            [
+                "Built an Ionic and Angular ordering app for Coca-Cola and Unilever field sales teams: visit planning, customer catalogs, orders and returns, offline sync, delivery tracking, and geolocated routes.",
+                "Developed and integrated Spring Boot REST services supporting the ordering and analytics features.",
+                "Migrated a large enterprise application from AngularJS to Angular 19 and delivered new analytics features using Signals, deferred loading, hydration, and reusable components.",
+            ],
+        )
+        if fullstack
+        else job(
             "Senior Frontend Developer",
             "Scanntech",
             "Remote, Argentina | May 2024 - Jan 2025",
@@ -302,21 +315,31 @@ def build(variant_name):
                 "Migrated a large enterprise application from AngularJS to Angular 19 and delivered new analytics features using Signals, deferred loading, hydration, reusable components, and REST integrations.",
             ],
         ),
-        PageBreak(),
-        Spacer(1, 2),
-        Paragraph("Adrian Cabello", styles["Name"]),
-        Paragraph("Professional Experience - Continued", styles["Role"]),
         job(
             "Senior Frontend Developer / Frontend Lead",
             "Halo Media - Mercer",
             "Remote, Argentina | Jun 2022 - Apr 2024",
             [
-                "Led frontend development for Mercer RFP, an Angular 17 document Q&amp;A product with AI-generated responses and file processing.",
+                "Led frontend architecture and implementation for Mercer RFP, an Angular 17 document Q&amp;A product, from initial setup through file uploads and AI-response review workflows.",
+                "Developed NestJS backend services for two years, building new features and REST endpoints alongside the Angular applications.",
+                "Built Mercer Mind, a real-time AI chat experience using Angular, TypeScript, RxJS, NestJS, secure authentication, and contextual responses.",
+                "Created investment and corporate web products from scratch and maintained 80%+ unit test coverage across complex applications.",
+                "Maintained Azure DevOps CI/CD pipelines for building, testing, and deploying the Angular applications.",
+            ],
+        )
+        if fullstack
+        else job(
+            "Senior Frontend Developer / Frontend Lead",
+            "Halo Media - Mercer",
+            "Remote, Argentina | Jun 2022 - Apr 2024",
+            [
+                "Led frontend architecture and implementation for Mercer RFP, an Angular 17 document Q&amp;A product, from initial setup through file uploads and AI-response review workflows.",
                 "Built Mercer Mind, a real-time AI chat experience using Angular, TypeScript, RxJS, secure authentication, and contextual responses.",
                 "Created investment and corporate web products from scratch and maintained 80%+ unit test coverage across complex applications.",
                 "Maintained Azure DevOps CI/CD pipelines for building, testing, and deploying the Angular applications.",
             ],
         ),
+        PageBreak(),
         *section("Earlier Experience"),
         job(
             "Senior Frontend Developer",
@@ -324,8 +347,7 @@ def build(variant_name):
             "Remote | Mar 2021 - Jun 2022",
             [
                 "Developed and optimized Angular 11 features for the EY Global Tax Platform, a large-scale enterprise tax operations product.",
-                "Built reusable components, Redux state flows, REST integrations, and interactive workflows with 80%+ unit test coverage.",
-                "Resolved performance and maintainability issues across a complex distributed application.",
+                "Built reusable components, Redux state flows, and REST integrations with 80%+ unit test coverage, resolving performance issues across a complex distributed application.",
             ],
         ),
         job(
@@ -334,11 +356,20 @@ def build(variant_name):
             "Remote | Jun 2019 - Mar 2021",
             [
                 "Delivered Angular 9 features for a healthcare governance, risk, and compliance platform.",
-                "Built administrative forms, reusable UI components, Redux state flows, and responsive experiences.",
-                "Collaborated in a cross-functional organization of 100+ engineers, designers, and product managers.",
+                "Built administrative forms, reusable UI components, and Redux state flows in an organization of 100+ engineers, designers, and product managers.",
             ],
         ),
         job(
+            "Frontend Developer",
+            "Grupo Assa",
+            "Tandil, Argentina | Dec 2016 - Jun 2019",
+            [
+                "Built finance and retail web platforms using Angular 4-7, TypeScript, Angular Material, Redux, and REST APIs.",
+                "Worked as part of the backend team on a Node.js and Express backend, connecting multiple external APIs and creating new endpoints for authentication, role-based access, real-time chat, and pagination.",
+            ],
+        )
+        if fullstack
+        else job(
             "Frontend Developer",
             "Grupo Assa",
             "Tandil, Argentina | Dec 2016 - Jun 2019",
@@ -348,14 +379,31 @@ def build(variant_name):
                 "Maintained strong unit test coverage while delivering responsive, production-ready interfaces.",
             ],
         ),
-        *section("Selected Impact"),
-        Paragraph(
-            "- 9+ years delivering Angular applications across enterprise, analytics, fintech, healthcare, AI, and event operations.<br/>"
-            "- Led frontend products from architecture through production release and ongoing iteration.<br/>"
-            "- Maintained 80%+ unit test coverage on multiple global products.<br/>"
-            "- Built AI-powered document Q&amp;A, real-time chat, and AI-assisted engineering workflows.<br/>"
-            "- Comfortable working independently in remote, international, English-speaking teams.",
-            styles["BodyCompact"],
+        *section("Independent Projects"),
+        job(
+            "Founder & Full-Stack Developer",
+            "Rakium - Independent Studio",
+            "Built outside working hours | May 2025 - Present",
+            [
+                "Built and run in production a NestJS, Prisma, and PostgreSQL API that powers the Rakium portfolio, several client websites, and a leads and sales CRM.",
+                "Implemented JWT auth with role-based guards, global validation, centralized database error handling, and Swagger docs.",
+                "Built image uploads with Sharp optimization behind a pluggable storage layer, and migrated media from Backblaze to Google Cloud Storage with a dry-run, flag-gated cutover.",
+                "Integrated Instagram messaging webhooks with HMAC signature verification; shipped with multi-stage Docker builds on Dokploy.",
+            ]
+            if fullstack
+            else [
+                "Build client websites with Angular, SSR, and Tailwind CSS, backed by my own NestJS, Prisma, and PostgreSQL API in production.",
+                "Run the content, media, and CRM back office end to end, from data models and uploads to deployment.",
+            ],
+        ),
+        job(
+            "Founder & Tech Lead",
+            "EventLoop - Independent Side Project",
+            "Built outside working hours | Dec 2023 - Present",
+            [
+                "Lead product, architecture, and releases for an event operations platform, building Angular 22 workflows for POS, ticketing, inventory, catalogs, and multi-location operations.",
+                "Implemented role-based access, receipt OCR imports, and real-time inventory sync, contributing Go backend services and PostgreSQL data models.",
+            ],
         ),
         *section("Education"),
         Paragraph(
@@ -364,21 +412,64 @@ def build(variant_name):
             "<b>Professional and Personal Computer Technician</b> - Technical School No. 3, Necochea | 2011",
             styles["BodyCompact"],
         ),
-        *section("Certifications & Training"),
+        *section("Certifications, Training & Languages"),
         Paragraph(
             "Angular Intermediate and Angular Basic - HackerRank | JavaScript Intermediate and Basic - HackerRank | "
             "Unit Testing in Angular - Pluralsight | Scrum Fundamentals - SCRUMstudy | "
-            "NgRx/Redux, Node.js, MEAN Stack, and Advanced Angular - Udemy",
+            "NgRx/Redux, Node.js, MEAN Stack, and Advanced Angular - Udemy<br/>"
+            "<b>Languages:</b> Spanish: Native | English: Advanced professional proficiency (C1)",
             styles["BodyCompact"],
         ),
-        *section("Languages"),
-        Paragraph("Spanish: Native | English: Advanced professional proficiency (C1)", styles["BodyCompact"]),
     ]
 
     doc.build(story)
     print(output)
 
 
+def sync_outputs():
+    """Keep the public download and local application copies on the Angular CV."""
+    import hashlib
+    import json
+    import shutil
+
+    primary = OUTPUTS["angular"]
+    assets = ROOT / "src" / "assets" / "cv"
+    downloads = Path.home() / "Downloads"
+    aliases = {
+        assets / "adrian-cabello-resume-2026.pdf": primary,
+        assets / "adrian-cabello-cv.pdf": primary,
+        assets / primary.name: primary,
+        assets / OUTPUTS["fullstack"].name: OUTPUTS["fullstack"],
+    }
+    if downloads.is_dir():
+        aliases.update({
+            downloads / primary.name: primary,
+            downloads / "adrian-cabello-resume-2026.pdf": primary,
+            downloads / OUTPUTS["fullstack"].name: OUTPUTS["fullstack"],
+        })
+    for target, source in aliases.items():
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(source, target)
+    manifest = {
+        "primary": str(primary),
+        "copies": {
+            str(path): hashlib.sha256(path.read_bytes()).hexdigest()
+            for path in [*OUTPUTS.values(), *aliases]
+        },
+    }
+    manifest_path = ROOT / "output" / "profile" / "cv-manifest.json"
+    manifest_path.parent.mkdir(parents=True, exist_ok=True)
+    manifest_path.write_text(json.dumps(manifest, indent=2) + "\n")
+    print(f"Synchronized {len(aliases)} copies; manifest: {manifest_path}")
+
+
 if __name__ == "__main__":
+    import argparse
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--sync", action="store_true", help="Sync public and Downloads copies")
+    args = parser.parse_args()
     for name in OUTPUTS:
         build(name)
+    if args.sync:
+        sync_outputs()
